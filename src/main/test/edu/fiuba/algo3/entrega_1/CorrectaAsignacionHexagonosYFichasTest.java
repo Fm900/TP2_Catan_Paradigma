@@ -43,7 +43,7 @@ public class CorrectaAsignacionHexagonosYFichasTest {
 
         //le asigno este vertice a todos los terrenos
         for (Terreno terreno : tablero.terrenos()) {
-            terreno.asignar_vertices_adyacentes(List.of(verticePrueba));
+            terreno.asignarVerticesAdyacentes(List.of(verticePrueba));
         }
 
         //simulo todas las tiradas posibles
@@ -62,7 +62,7 @@ public class CorrectaAsignacionHexagonosYFichasTest {
 
         VerticeStub verticePrueba = new VerticeStub();
         for (Terreno terreno : tablero.terrenos()) {
-            terreno.asignar_vertices_adyacentes(List.of(verticePrueba));
+            terreno.asignarVerticesAdyacentes(List.of(verticePrueba));
         }
 
         for (int tirada : List.of(2,3,4,5,6,8,9,10,11,12)) {
@@ -80,7 +80,7 @@ public class CorrectaAsignacionHexagonosYFichasTest {
 
         VerticeStub verticePrueba = new VerticeStub();
         for (Terreno terreno : tablero.terrenos()) {
-            terreno.asignar_vertices_adyacentes(List.of(verticePrueba));
+            terreno.asignarVerticesAdyacentes(List.of(verticePrueba));
         }
 
         for (int tirada : List.of(2,3,4,5,6,8,9,10,11,12)) {
@@ -98,7 +98,7 @@ public class CorrectaAsignacionHexagonosYFichasTest {
 
         VerticeStub verticePrueba = new VerticeStub();
         for (Terreno terreno : tablero.terrenos()) {
-            terreno.asignar_vertices_adyacentes(List.of(verticePrueba));
+            terreno.asignarVerticesAdyacentes(List.of(verticePrueba));
         }
 
         for (int tirada : List.of(2,3,4,5,6,8,9,10,11,12)) {
@@ -116,7 +116,7 @@ public class CorrectaAsignacionHexagonosYFichasTest {
 
         VerticeStub verticePrueba = new VerticeStub();
         for (Terreno terreno : tablero.terrenos()) {
-            terreno.asignar_vertices_adyacentes(List.of(verticePrueba));
+            terreno.asignarVerticesAdyacentes(List.of(verticePrueba));
         }
 
         for (int tirada : List.of(2,3,4,5,6,8,9,10,11,12)) {
@@ -134,7 +134,7 @@ public class CorrectaAsignacionHexagonosYFichasTest {
 
         VerticeStub verticePrueba = new VerticeStub();
         for (Terreno terreno : tablero.terrenos()) {
-            terreno.asignar_vertices_adyacentes(List.of(verticePrueba));
+            terreno.asignarVerticesAdyacentes(List.of(verticePrueba));
         }
 
         for (int tirada : List.of(2,3,4,5,6,8,9,10,11,12)) {
@@ -150,7 +150,7 @@ public class CorrectaAsignacionHexagonosYFichasTest {
     void NoHayNingunHexagonoConFicha7SiSale7NoProduceNadie() {
         Tablero tablero = new Tablero();
         VerticeStub verticePrueba = new VerticeStub();
-        for (Terreno t : tablero.terrenos()) t.asignar_vertices_adyacentes(List.of(verticePrueba));
+        for (Terreno t : tablero.terrenos()) t.asignarVerticesAdyacentes(List.of(verticePrueba));
 
         // si sale 7: no debe producir nadie
         for (Terreno t : tablero.terrenos()) t.producirSiCorresponde(7);
