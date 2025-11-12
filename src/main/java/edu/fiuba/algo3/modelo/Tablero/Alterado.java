@@ -1,6 +1,4 @@
-package edu.fiuba.algo3.modelo;
-
-import edu.fiuba.algo3.modelo.Tablero.EstadoProductivo;
+package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.List;
 

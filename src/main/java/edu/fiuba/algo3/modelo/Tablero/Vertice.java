@@ -1,7 +1,6 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
-import edu.fiuba.algo3.modelo.Tablero.Arista;
-import edu.fiuba.algo3.modelo.Tablero.EstadoVertice;
+import edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.ArrayList;
 import java.util.List;
