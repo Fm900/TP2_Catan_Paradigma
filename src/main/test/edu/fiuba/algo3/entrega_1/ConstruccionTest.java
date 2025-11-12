@@ -5,40 +5,36 @@ import edu.fiuba.algo3.modelo.Jugador;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.mockito.Mockito.*;
+
 public class ConstruccionTest{
     @Test
     public void test01ElPobladoGeneraUnSoloRecurso() {
-        Jugador jugador = new Jugador();
+        Jugador jugador = mock(Jugador.class);
         Producir producir = new ProducirX1();
-        Poblado pobladotest = new Poblado(1, producir, jugador);
-        String recurso = "madera";
-        pobladotest.producirRecurso(recurso);
-        int valorObtenido = jugador.getCantidadRecurso(recurso);
+        Poblado poblado = new Poblado(1, producir, jugador);
 
-        Assertions.assertEquals(1, valorObtenido);
+        poblado.producirRecurso("madera");
+        verify(jugador).agregarRecursos("madera", 1);
     }
 
     @Test
     public void test02LaCiudadGeneraDosRecursos() {
-        Jugador jugador = new Jugador();
+        Jugador jugador = mock(Jugador.class);
         Producir producir = new ProducirX2();
-        Poblado pobladotest = new Poblado(2, producir, jugador);
-        String recurso = "madera";
-        pobladotest.producirRecurso(recurso);
-        int valorObtenido = jugador.getCantidadRecurso(recurso);
+        Ciudad ciudad = new Ciudad(2, producir, jugador);
 
-        Assertions.assertEquals(2, valorObtenido);
+        ciudad.producirRecurso("madera");
+        verify(jugador).agregarRecursos("madera", 2);
     }
 
     @Test
     public void test03LaCarreteraNoGeneraRecursos() {
-        Jugador jugador = new Jugador();
+        Jugador jugador = mock(Jugador.class);
         Producir producir = new NoProducir();
-        Poblado pobladotest = new Poblado(0, producir, jugador);
-        String recurso = "madera";
-        pobladotest.producirRecurso(recurso);
-        int valorObtenido = jugador.getCantidadRecurso(recurso);
+        Carretera carretera = new Carretera(0, producir, jugador);
 
-        Assertions.assertEquals(0, valorObtenido);
+        carretera.producirRecurso("madera");
+        verify(jugador, never()).agregarRecursos(anyString(), anyInt());
     }
 }

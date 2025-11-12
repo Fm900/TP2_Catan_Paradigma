@@ -18,8 +18,4 @@ public class Jugador {
     public void agregarRecursos(String recurso, Integer cantidad) {
         recursos.put(recurso, recursos.get(recurso) + cantidad);
     }
-
-    public Integer getCantidadRecurso(String recurso) {
-        return recursos.get(recurso);
-    }
 }
