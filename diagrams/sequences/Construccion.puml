@@ -1,0 +1,17 @@
+@startuml
+
+actor Vertice
+participant Construccion
+participant Producir
+participant ":Jugador" as Jugador
+Vertice -> Construccion: producirRecurso(String recurso)
+
+activate Construccion
+Construccion -> Producir: producir(String recurso, Jugador dueño)
+activate Producir
+deactivate Construccion
+
+Producir -> Jugador: agregarRecursos(String recurso, int cantidad)
+activate Jugador
+
+@enduml
