@@ -3,7 +3,6 @@ package edu.fiuba.algo3.modelo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class Tablero {
     private List<Terreno> terrenos = new ArrayList<>();
@@ -38,5 +37,9 @@ public class Tablero {
 
     public List<Terreno> terrenos() {
         return terrenos;
+    }
+
+    public void colocarPoblado(Jugador jugador, Vertice vertice) throws Exception {
+        vertice.construirPoblado(jugador);
     }
 }

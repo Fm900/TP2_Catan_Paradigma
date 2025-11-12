@@ -1,8 +1,10 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Tablero.EstadoProductivo;
+
 import java.util.List;
 
-public class Normal implements EstadoProductivo{
+public class Normal implements EstadoProductivo {
     @Override
     public void producir(String recurso, List<Vertice> verticesAdyacentes) {
         for (Vertice verticeAdyacente : verticesAdyacentes) {
