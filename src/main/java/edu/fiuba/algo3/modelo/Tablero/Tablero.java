@@ -1,8 +1,5 @@
 package edu.fiuba.algo3.modelo.Tablero;
-
 import edu.fiuba.algo3.modelo.*;
-import javafx.scene.control.Tab;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
