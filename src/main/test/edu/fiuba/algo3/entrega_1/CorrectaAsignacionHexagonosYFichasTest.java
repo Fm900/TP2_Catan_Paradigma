@@ -4,23 +4,10 @@ import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 import java.util.*;
 
 
-class VerticeStub extends Vertice {
-    int entregas = 0;
-    Dictionary<String, Integer> entregas_por_recurso = new Hashtable<>();
-
-    public void entregarRecursosPorConstruccion(String recurso){
-        entregas++;
-        Integer actual = entregas_por_recurso.get(recurso);
-        if (actual == null) actual = 0;
-        entregas_por_recurso.put(recurso, actual + 1); //si se llama a esta funcion el terreno deberia entregar ese recurso
-    }
-    public int totalDe(String recurso) {
-        return entregas_por_recurso.get(recurso);
-    }
-}
 
 public class CorrectaAsignacionHexagonosYFichasTest {
 
@@ -32,128 +19,131 @@ public class CorrectaAsignacionHexagonosYFichasTest {
     @Test
     void AlCrearTableroHay19TerrenosTest(){} {
         Tablero tablero = new Tablero();
-        Integer tamaño = tablero.terrenos().size();
+        List<Terreno> terrenos = tablero.crearTerrenos();
+
+        Integer tamaño = terrenos.size();
+
         assertEquals(19, tamaño);
     }
 
     @Test
     void AlCrearTableroHaySolo1DesiertoPorLoQueNoEntregaRecursosTest(){
         Tablero tablero = new Tablero();
-        VerticeStub verticePrueba = new VerticeStub();
+        List<Terreno> terrenos = tablero.crearTerrenos();
+        Vertice verticeMock = mock(Vertice.class);
 
-        //le asigno este vertice a todos los terrenos
-        for (Terreno terreno : tablero.terrenos()) {
-            terreno.asignarVerticesAdyacentes(List.of(verticePrueba));
+        //le asigno este vertice mock a todos los terrenos
+        for (Terreno terreno : terrenos) {
+            terreno.asignarVerticesAdyacentes(List.of(verticeMock));
         }
 
         //simulo todas las tiradas posibles
-        for (int tirada : List.of(2,3,4,5,6,8,9,10,11,12)){
-            for (Terreno terreno : tablero.terrenos()) {
-                terreno.producirSiCorresponde(tirada);
-            }
+        for (int tirada : List.of(2,3,4,5,6,8,9,10,11,12)) {
+            tablero.producirPara(tirada);
         }
         //Deben haber ocurrido 18 entregas ya que solo hay un terreno que no produce nunca y es el desierto
-        assertEquals(18,verticePrueba.entregas,"Debe haber solo un terreno de los 19 que no entrega");
+        verify(verticeMock, times(18)).entregarRecursosPorConstruccion(anyString());
     }
 
     @Test
     void AlCrearTableroHayAlMenosUnBosqueQueDaMaderaTest(){
         Tablero tablero = new Tablero();
+        List<Terreno> terrenos = tablero.crearTerrenos();
+        Vertice verticeMock = mock(Vertice.class);
 
-        VerticeStub verticePrueba = new VerticeStub();
-        for (Terreno terreno : tablero.terrenos()) {
-            terreno.asignarVerticesAdyacentes(List.of(verticePrueba));
+        for (Terreno terreno : terrenos) {
+            terreno.asignarVerticesAdyacentes(List.of(verticeMock));
         }
 
         for (int tirada : List.of(2,3,4,5,6,8,9,10,11,12)) {
-            for (Terreno t : tablero.terrenos()) {
-                t.producirSiCorresponde(tirada);
-            }
+            tablero.producirPara(tirada);
         }
 
-        assertTrue(verticePrueba.totalDe("Madera") > 0, "Debe haber al menos un Bosque (Madera).");
+        // Al menos un terreno debio producir Madera
+        verify(verticeMock, atLeastOnce()).entregarRecursosPorConstruccion("Madera");
     }
 
     @Test
     void AlCrearTableroHayAlMenosUnaMontañaQueDaMineralTest(){
         Tablero tablero = new Tablero();
+        List<Terreno> terrenos = tablero.crearTerrenos();
+        Vertice verticeMock = mock(Vertice.class);
 
-        VerticeStub verticePrueba = new VerticeStub();
-        for (Terreno terreno : tablero.terrenos()) {
-            terreno.asignarVerticesAdyacentes(List.of(verticePrueba));
+        for (Terreno terreno : terrenos) {
+            terreno.asignarVerticesAdyacentes(List.of(verticeMock));
         }
 
         for (int tirada : List.of(2,3,4,5,6,8,9,10,11,12)) {
-            for (Terreno t : tablero.terrenos()) {
-                t.producirSiCorresponde(tirada);
-            }
+            tablero.producirPara(tirada);
         }
 
-        assertTrue(verticePrueba.totalDe("Mineral") > 0, "Debe haber al menos una Montaña (Mineral).");
+        verify(verticeMock, atLeastOnce()).entregarRecursosPorConstruccion("Mineral");
     }
 
     @Test
     void AlCrearTableroHayAlMenosUnaColinaQueDaLadrilloTest(){
         Tablero tablero = new Tablero();
+        List<Terreno> terrenos = tablero.crearTerrenos();
+        Vertice verticeMock = mock(Vertice.class);
 
-        VerticeStub verticePrueba = new VerticeStub();
-        for (Terreno terreno : tablero.terrenos()) {
-            terreno.asignarVerticesAdyacentes(List.of(verticePrueba));
+        for (Terreno terreno : terrenos) {
+            terreno.asignarVerticesAdyacentes(List.of(verticeMock));
         }
 
         for (int tirada : List.of(2,3,4,5,6,8,9,10,11,12)) {
-            for (Terreno t : tablero.terrenos()) {
-                t.producirSiCorresponde(tirada);
-            }
+            tablero.producirPara(tirada);
         }
 
-        assertTrue(verticePrueba.totalDe("Ladrillo") > 0, "Debe haber al menos una Colina (Ladrillo).");
+        verify(verticeMock, atLeastOnce()).entregarRecursosPorConstruccion("Ladrillo");
     }
 
     @Test
     void AlCrearTableroHayAlMenosUnPastizalQueDaLanaTest(){
         Tablero tablero = new Tablero();
+        List<Terreno> terrenos = tablero.crearTerrenos();
 
-        VerticeStub verticePrueba = new VerticeStub();
-        for (Terreno terreno : tablero.terrenos()) {
-            terreno.asignarVerticesAdyacentes(List.of(verticePrueba));
+        Vertice verticeMock = mock(Vertice.class);
+        for (Terreno terreno : terrenos) {
+            terreno.asignarVerticesAdyacentes(List.of(verticeMock));
         }
 
         for (int tirada : List.of(2,3,4,5,6,8,9,10,11,12)) {
-            for (Terreno t : tablero.terrenos()) {
-                t.producirSiCorresponde(tirada);
-            }
+            tablero.producirPara(tirada);
         }
 
-        assertTrue(verticePrueba.totalDe("Lana") > 0, "Debe haber al menos un Pastizal (Lana).");
+        verify(verticeMock, atLeastOnce()).entregarRecursosPorConstruccion("Lana");
     }
 
     @Test
     void AlCrearTableroHayAlMenosUnCampoQueDaGranoTest(){
         Tablero tablero = new Tablero();
+        List<Terreno> terrenos = tablero.crearTerrenos();
 
-        VerticeStub verticePrueba = new VerticeStub();
-        for (Terreno terreno : tablero.terrenos()) {
-            terreno.asignarVerticesAdyacentes(List.of(verticePrueba));
+        Vertice verticeMock = mock(Vertice.class);
+        for (Terreno terreno : terrenos) {
+            terreno.asignarVerticesAdyacentes(List.of(verticeMock));
         }
 
         for (int tirada : List.of(2,3,4,5,6,8,9,10,11,12)) {
-            for (Terreno t : tablero.terrenos()) {
-                t.producirSiCorresponde(tirada);
-            }
+            tablero.producirPara(tirada);
         }
 
-        assertTrue(verticePrueba.totalDe("Grano") > 0, "Debe haber al menos un Campo (Grano).");
+        verify(verticeMock, atLeastOnce()).entregarRecursosPorConstruccion("Grano");
     }
 
     @Test
-    void NoHayNingunHexagonoConFicha7SiSale7NoProduceNadie() {
+    void NoHayNingunHexagonoConFicha7SiSale7Test() {
         Tablero tablero = new Tablero();
-        VerticeStub verticePrueba = new VerticeStub();
-        for (Terreno t : tablero.terrenos()) t.asignarVerticesAdyacentes(List.of(verticePrueba));
+        List<Terreno> terrenos = tablero.crearTerrenos();
+        Vertice verticeMock = mock(Vertice.class);
 
-        // si sale 7: no debe producir nadie
-        for (Terreno t : tablero.terrenos()) t.producirSiCorresponde(7);
-        assertEquals(0, verticePrueba.entregas, "Con tirada 7 no debe producir ningún terreno.");
+        for (Terreno t : terrenos) {
+            t.asignarVerticesAdyacentes(List.of(verticeMock));
+        }
+
+        // si sale 7 no debe producir nadie
+        tablero.producirPara(7);
+
+        verify(verticeMock, never()).entregarRecursosPorConstruccion(anyString());
     }
 }
