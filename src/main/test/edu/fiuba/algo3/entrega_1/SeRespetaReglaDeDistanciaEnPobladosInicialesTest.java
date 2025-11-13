@@ -22,7 +22,7 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
     }
 
     @Test
-    void NoSePuedeConstruirPobladoEnVerticeOcupado() throws Exception {
+    void NoSePuedeConstruirPobladoEnVerticeOcupado() {
         Jugador jugador = mock(Jugador.class);
 
         v0.construirPoblado(jugador);
@@ -32,7 +32,7 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
     }
 
     @Test
-    void NoSePuedeConstruirPobladoEnVerticeAdyacenteAOtroPoblado() throws Exception {
+    void NoSePuedeConstruirPobladoEnVerticeAdyacenteAOtroPoblado() {
         Jugador jugador = mock(Jugador.class);
 
         // v0--v1
@@ -44,7 +44,7 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
     }
 
     @Test
-    void SePuedeConstruirSiElVerticeEstaADosDeDistancia() throws Exception {
+    void SePuedeConstruirSiElVerticeEstaADosDeDistancia() {
         Jugador jugador = mock(Jugador.class);
 
         // v1--v0--v2

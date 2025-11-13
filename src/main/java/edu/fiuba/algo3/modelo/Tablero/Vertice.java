@@ -25,7 +25,7 @@ public class Vertice {
         return List.copyOf(aristas);
     }
 
-    public void construirPoblado(Jugador jugador) throws Exception {
+    public void construirPoblado(Jugador jugador)  {
         estado.construirPoblado(this, jugador);
     }
 
