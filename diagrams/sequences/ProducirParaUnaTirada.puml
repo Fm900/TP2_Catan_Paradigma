@@ -1,6 +1,6 @@
 @startuml
 
-actor Vertice
+actor Juego
 participant Construccion
 participant Producir
 participant ":Jugador" as Jugador

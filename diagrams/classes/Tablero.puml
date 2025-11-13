@@ -1,0 +1,76 @@
+@startuml
+
+class Tablero {
+    +crearTerrenos()
+    +colocarPoblado(jugador : Jugador,vertice : Vertice )
+    +ProductiPara(numero:Int)
+}
+
+class Terreno{
+    - recurso : String
+    - fichaNumero : Int
+    + producirSiCorresponde(numero : Int)
+    + asignarVerticesAdyacentes(vertices : List<Vertices>)
+    + correspondeA(numero : int) : bool
+}
+
+class Vertice{
+    - cambiarAOcupado(construccion : Construccion)
+    + conectarConVertice(vertice : Vertice)
+    + aristas() : List<Arista>
+    + construirPoblado(jugador : Jugador)
+    + entregarRecursosPorConstruccion(recurso : String)
+}
+
+class Arista{
+    - extremo1 : Vertice
+    - extremo2 : Vertice
+    + otroExtremo() : Vertice
+}
+
+interface EstadoProductivo{
+    + producir (recurso : String, verticesAdyacentes : List<Vertice>)
+}
+
+class Normal{
+    + producir (recurso : String, verticesAdyacentes : List<Vertice>)
+}
+
+class Alterado{
+    + producir (recurso : String, verticesAdyacentes : List<Vertice>)
+}
+
+interface EstadoVertice{
+    + construirPoblado (self : Vertice, jugador : Jugador)
+    + entregarRecursosPorConstruccion (recurso : String)
+    + validarConstruccionEnVecino () : bool
+}
+
+class Libre{
+        + construirPoblado (self : Vertice, jugador : Jugador)
+        + entregarRecursosPorConstruccion (recurso : String)
+        + validarConstruccionEnVecino () : bool
+}
+
+class Ocupado{
+        - construccion : Construccion
+        + construirPoblado (self : Vertice, jugador : Jugador)
+        + entregarRecursosPorConstruccion (recurso : String)
+        + validarConstruccionEnVecino () : bool
+}
+
+
+EstadoProductivo <|.. Normal
+EstadoProductivo <|.. Alterado
+
+Terreno o-- EstadoProductivo : estado
+Terreno "1"*-- "*"Vertice
+
+Tablero "1"*-- "*"Terreno : hexagonos
+
+Vertice o-- EstadoVertice : estado
+EstadoVertice <|.. Libre
+EstadoVertice <|.. Ocupado
+
+Arista "1" o-- "2" Vertice : extremos
+@enduml
