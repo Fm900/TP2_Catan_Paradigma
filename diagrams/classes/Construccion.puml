@@ -14,15 +14,15 @@ abstract class Construccion{
 }
 
 class Poblado{
-
+    + construir(jugador : Jugador) : Construccion
 }
 
 class Ciudad{
-
+    + construir(jugador : Jugador) : Construccion
 }
 
 class Carretera{
-
+    + construir(jugador : Jugador) : Construccion
 }
 
 interface Producir{
