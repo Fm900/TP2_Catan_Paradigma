@@ -1,5 +1,5 @@
 package edu.fiuba.algo3.modelo.Tablero;
-import edu.fiuba.algo3.modelo.Construccion.Construccion;
+import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.ArrayList;
@@ -31,5 +31,9 @@ public class Vertice {
 
     public void entregarRecursosPorConstruccion(String recurso) {
         estado.entregarRecursosPorConstruccion(recurso);
+    }
+
+    public List<Jugador> agregarPropietario(List<Jugador> propietarios) {
+        return ((this.estado).agregarPropietario(propietarios));
     }
 }

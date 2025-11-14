@@ -52,4 +52,31 @@ public class JuegoTest {
         verify(fasePrincipal1, times(2)).iniciarFase(any(Jugador.class));
         verify(fasePrincipal2, times(2)).iniciarFase(any(Jugador.class));
     }
+    
+    @Test
+    public void test03SeVerificaElNoDescarteDeJugadores(){
+        int recursosJugador1DespuesDescarte = 5;
+        int recursosJugador2DespuesDescarte = 7;
+
+        jugador1.agregarRecursos("madera", 5);
+        jugador2.agregarRecursos("madera", 7);
+        juego.descarteJugadores();
+
+        assert(recursosJugador1DespuesDescarte == jugador1.getCantidadRecursosTotales());
+        assert(recursosJugador2DespuesDescarte == jugador2.getCantidadRecursosTotales());
+    }
+
+    @Test
+    public void test04SeVerificaElDescarteDeJugadores(){
+        int recursosJugador1DespuesDescarte = 4;
+        int recursosJugador2DespuesDescarte = 5;
+
+        jugador1.agregarRecursos("madera", 8);
+        jugador2.agregarRecursos("madera", 9);
+
+        juego.descarteJugadores();
+
+        assert(recursosJugador1DespuesDescarte == jugador1.getCantidadRecursosTotales());
+        assert(recursosJugador2DespuesDescarte == jugador2.getCantidadRecursosTotales());
+    }
 }

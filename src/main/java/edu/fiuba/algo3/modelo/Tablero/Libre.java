@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Tablero;
 
+import java.util.List;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
 import edu.fiuba.algo3.modelo.Jugador;
@@ -30,5 +31,9 @@ public class Libre implements EstadoVertice {
     @Override
     public boolean validarConstruccionEnVecino() {
         return true;
+    }
+
+    public List<Jugador> agregarPropietario(List<Jugador> propietarios) {
+        return propietarios;
     }
 }

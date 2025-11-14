@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.List;
+import java.util.ArrayList;
+import edu.fiuba.algo3.modelo.Jugador;
 
 public class Terreno {
     private String recurso;
@@ -29,8 +31,19 @@ public class Terreno {
     }
 
     public void cambiarEstado() {
-    EstadoProductivo nuevoEstadoProductino = this.estadoProductivo.alterarEstado();
-    this.estadoProductivo = nuevoEstadoProductino;
+        EstadoProductivo nuevoEstadoProductino = this.estadoProductivo.alterarEstado();
+        this.estadoProductivo = nuevoEstadoProductino;
+
+    }
+    public List<Jugador> obtenerHabitantes(){
+        List<Jugador> propietarios = new ArrayList<>();
+        if (this.verticesAdyacentes == null) { return propietarios; }
+
+        for (Vertice v : this.verticesAdyacentes) {
+            propietarios = v.agregarPropietario(propietarios);
+        }
+
+        return propietarios;
     }
 }
 

@@ -37,4 +37,9 @@ public class Juego {
         }
     }
 
+    public void descarteJugadores() {
+        for (Jugador jugador : jugadores) {
+            jugador.descarteMayoria();
+        }
+    }
 }
