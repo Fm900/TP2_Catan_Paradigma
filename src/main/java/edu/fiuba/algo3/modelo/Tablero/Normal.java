@@ -9,4 +9,10 @@ public class Normal implements EstadoProductivo {
             verticeAdyacente.entregarRecursosPorConstruccion(recurso);
         }
     }
+
+    @Override
+    public EstadoProductivo alterarEstado() {
+        EstadoProductivo nuevoestado = new Alterado();
+        return nuevoestado;
+    }
 }

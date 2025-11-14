@@ -25,7 +25,12 @@ public class Terreno {
     }
 
     public boolean correspondeA(int valor) {
-         return fichaNumero == valor;
+        return fichaNumero == valor;
     }
 
+    public void cambiarEstado() {
+    EstadoProductivo nuevoEstadoProductino = this.estadoProductivo.alterarEstado();
+    this.estadoProductivo = nuevoEstadoProductino;
+    }
 }
+

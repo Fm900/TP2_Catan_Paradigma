@@ -39,7 +39,7 @@ public class Tablero {
         return terrenos_creados;
     }
 
-    public void colocarPoblado(Jugador jugador, Vertice vertice) throws Exception {
+    public void colocarPoblado(Jugador jugador, Vertice vertice){
         vertice.construirPoblado(jugador);
     }
 

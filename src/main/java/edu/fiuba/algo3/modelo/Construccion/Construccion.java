@@ -8,6 +8,7 @@ public abstract class Construccion {
     protected Producir producir;
     protected Jugador dueño;
 
+
     public Construccion(Integer puntosDeVictoria, Producir producir, Jugador dueño){
         this.puntosDeVictoria = puntosDeVictoria;
         this.producir = producir;

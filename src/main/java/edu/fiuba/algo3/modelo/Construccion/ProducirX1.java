@@ -10,5 +10,4 @@ public class ProducirX1 implements Producir {
     public void producir(String recurso, Jugador dueño){
         dueño.agregarRecursos(recurso,coeficienteDeConstruccion);
     }
-
 }

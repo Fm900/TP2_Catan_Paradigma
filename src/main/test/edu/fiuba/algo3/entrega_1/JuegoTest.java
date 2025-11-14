@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Fase.FaseInicial;
 import edu.fiuba.algo3.modelo.Fase.FasePrincipal;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
@@ -21,6 +22,7 @@ public class JuegoTest {
     private FasePrincipal fasePrincipal1;
     private FasePrincipal fasePrincipal2;
     private Juego juego;
+    private Tablero tablero;
 
 
     @BeforeEach
@@ -30,7 +32,8 @@ public class JuegoTest {
         faseInicial = mock(FaseInicial.class);
         fasePrincipal1 = mock(FasePrincipal.class);
         fasePrincipal2 = mock(FasePrincipal.class);
-        juego = spy(new Juego(List.of(jugador1,jugador2), List.of(fasePrincipal1, fasePrincipal2), List.of(faseInicial)));
+        tablero = mock(Tablero.class);
+        juego = spy(new Juego(List.of(jugador1,jugador2), List.of(fasePrincipal1, fasePrincipal2), List.of(faseInicial), tablero));
     }
 
     @Test
