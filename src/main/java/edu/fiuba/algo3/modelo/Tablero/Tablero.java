@@ -48,4 +48,13 @@ public class Tablero {
             t.producirSiCorresponde(tirada);
         }
     }
+    public List<Terreno> obtenerTerrenosAdy(Vertice vertice){
+        List<Terreno> terrenosAdy = new ArrayList<>();
+        for (Terreno terreno : terrenos){
+            if(terreno.tieneVertice(vertice)){
+                terrenosAdy.add(terreno);
+            }
+        }
+        return terrenosAdy;
+    }
 }
