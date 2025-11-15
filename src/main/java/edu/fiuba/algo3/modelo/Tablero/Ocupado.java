@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.List;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
+import edu.fiuba.algo3.modelo.Excepciones.VerticeOcupadoNoPuedeConstruir;
 import edu.fiuba.algo3.modelo.Jugador;
 
 public class Ocupado implements EstadoVertice {
@@ -13,6 +14,7 @@ public class Ocupado implements EstadoVertice {
 
     @Override
     public void construirPoblado(Vertice self, Jugador jugador) {
+        throw new VerticeOcupadoNoPuedeConstruir("No puedes construir, el vertice ya esta ocupado");
     }
 
     @Override
