@@ -4,24 +4,30 @@ import edu.fiuba.algo3.modelo.Excepciones.*;
 import edu.fiuba.algo3.modelo.Tablero.*;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Collection;
-import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class Jugador {
+    private static final String MADERA = "madera";
+    private static final String LADRILLO = "ladrillo";
+    private static final String LANA = "lana";
+    private static final String GRANO = "grano";
+    private static final String MINERAL = "mineral";
+
     private Map<String, Integer> recursos;
     private Collection<Carta> cartas;
 
     public Jugador() {
         recursos = new Hashtable<>();
-        recursos.put("madera", 0);
-        recursos.put("ladrillo", 0);
-        recursos.put("lana", 0);
-        recursos.put("grano", 0);
-        recursos.put("mineral", 0);
+        recursos.put(MADERA, 0);
+        recursos.put(LADRILLO, 0);
+        recursos.put(LANA, 0);
+        recursos.put(GRANO, 0);
+        recursos.put(MINERAL, 0);
+
+        cartas =  new ArrayList<>();
     }
 
     public void agregarRecursos(String recurso, Integer cantidad) {
@@ -53,7 +59,25 @@ public class Jugador {
         return !cartas.isEmpty();
     }
 
+    private boolean tieneAlMenos(String recurso, int cantidad) {
+        return recursos.get(recurso) >= cantidad;
+    }
+
     public void consumirRecursosParaPoblado() {
+        // primero verifico que haya recursos suficientes
+        if (!tieneAlMenos(MADERA, 1) ||
+                !tieneAlMenos(LADRILLO, 1) ||
+                !tieneAlMenos(LANA, 1) ||
+                !tieneAlMenos(GRANO, 1)) {
+
+            throw new NoTieneRecursos("El jugador no posee recursos suficientes para construir un poblado");
+        }
+
+        //si los tiene, se los saco
+        this.descartarRecursos(MADERA, 1);
+        this.descartarRecursos(LADRILLO, 1);
+        this.descartarRecursos(LANA, 1);
+        this.descartarRecursos(GRANO, 1);
     }
 
     public void descarteMayoria() {
@@ -88,7 +112,7 @@ public class Jugador {
     }
 
 
-    public String obtenerRecursoAleatorio() {        
+    public String obtenerRecursoAleatorio() {
         String recursoAleatorio;
         List<String> listaRecursos = new ArrayList<>();
         listaRecursos = this.obtenerListadoRecursos();

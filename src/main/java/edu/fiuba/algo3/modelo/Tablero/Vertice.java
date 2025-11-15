@@ -36,4 +36,8 @@ public class Vertice {
     public List<Jugador> agregarPropietario(List<Jugador> propietarios) {
         return ((this.estado).agregarPropietario(propietarios));
     }
+
+    public boolean validarConstruccionEnVecino() {
+        return estado.validarConstruccionEnVecino();
+    }
 }

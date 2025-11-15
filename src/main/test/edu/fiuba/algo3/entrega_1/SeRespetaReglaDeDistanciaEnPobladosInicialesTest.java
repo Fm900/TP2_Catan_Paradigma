@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 
 
-public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
+public class PobladoTest {
 
     private Vertice v0, v1, v2;
 
@@ -22,7 +22,7 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
     }
 
     @Test
-    void NoSePuedeConstruirPobladoEnVerticeOcupado() {
+    void Test01NoSePuedeConstruirPobladoEnVerticeOcupado() {
         Jugador jugador = mock(Jugador.class);
 
         v0.construirPoblado(jugador);
@@ -32,7 +32,7 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
     }
 
     @Test
-    void NoSePuedeConstruirPobladoEnVerticeAdyacenteAOtroPoblado() {
+    void Test02NoSePuedeConstruirPobladoEnVerticeAdyacenteAOtroPoblado() {
         Jugador jugador = mock(Jugador.class);
 
         // v0--v1
@@ -44,7 +44,7 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
     }
 
     @Test
-    void SePuedeConstruirSiElVerticeEstaADosDeDistancia() {
+    void Test03SePuedeConstruirSiElVerticeEstaADosDeDistancia() {
         Jugador jugador = mock(Jugador.class);
 
         // v1--v0--v2

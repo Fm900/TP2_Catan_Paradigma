@@ -9,7 +9,7 @@ import java.util.*;
 
 
 
-public class CorrectaAsignacionHexagonosYFichasTest {
+public class TableroTest {
 
     /*Para verificar la Correcta Asignacion aleatoria de hexagonos y fichas testeo que se creen 19 hexagonos,
     * de los cuales uno debe ser desierto(por lo que no produce) y que haya al menos un terreno que produzca
