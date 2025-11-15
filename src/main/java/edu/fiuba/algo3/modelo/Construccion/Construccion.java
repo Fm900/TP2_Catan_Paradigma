@@ -28,4 +28,8 @@ public abstract class Construccion {
         propietarios.add(this.dueño);
         return propietarios;
     }
+
+    public Jugador getDueño() {
+        return dueño;
+    }
 }
