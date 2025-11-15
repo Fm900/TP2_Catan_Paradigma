@@ -1,4 +1,5 @@
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3;
+import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
@@ -11,13 +12,8 @@ import java.util.*;
 
 public class TableroTest {
 
-    /*Para verificar la Correcta Asignacion aleatoria de hexagonos y fichas testeo que se creen 19 hexagonos,
-    * de los cuales uno debe ser desierto(por lo que no produce) y que haya al menos un terreno que produzca
-    * cada tipo de recurso (Montañan, Pastizal, Campo, Colina y Bosque), para cada test se simulan todas las tiradas
-    * posibles, por lo que si hubiese Hexagonos con fichas mal asignadas, este no produciria y habria test que romperian*/
-
     @Test
-    void AlCrearTableroHay19TerrenosTest(){} {
+    void Test01AlCrearTableroHay19TerrenosTest(){} {
         Tablero tablero = new Tablero();
         List<Terreno> terrenos = tablero.crearTerrenos();
 
@@ -27,7 +23,7 @@ public class TableroTest {
     }
 
     @Test
-    void AlCrearTableroHaySolo1DesiertoPorLoQueNoEntregaRecursosTest(){
+    void Test02AlCrearTableroHaySolo1DesiertoPorLoQueNoEntregaRecursosTest(){
         Tablero tablero = new Tablero();
         List<Terreno> terrenos = tablero.crearTerrenos();
         Vertice verticeMock = mock(Vertice.class);
@@ -46,7 +42,7 @@ public class TableroTest {
     }
 
     @Test
-    void AlCrearTableroHayAlMenosUnBosqueQueDaMaderaTest(){
+    void Test03AlCrearTableroHayAlMenosUnBosqueQueDaMaderaTest(){
         Tablero tablero = new Tablero();
         List<Terreno> terrenos = tablero.crearTerrenos();
         Vertice verticeMock = mock(Vertice.class);
@@ -64,7 +60,7 @@ public class TableroTest {
     }
 
     @Test
-    void AlCrearTableroHayAlMenosUnaMontañaQueDaMineralTest(){
+    void Test04AlCrearTableroHayAlMenosUnaMontañaQueDaMineralTest(){
         Tablero tablero = new Tablero();
         List<Terreno> terrenos = tablero.crearTerrenos();
         Vertice verticeMock = mock(Vertice.class);
@@ -81,7 +77,7 @@ public class TableroTest {
     }
 
     @Test
-    void AlCrearTableroHayAlMenosUnaColinaQueDaLadrilloTest(){
+    void Test05AlCrearTableroHayAlMenosUnaColinaQueDaLadrilloTest(){
         Tablero tablero = new Tablero();
         List<Terreno> terrenos = tablero.crearTerrenos();
         Vertice verticeMock = mock(Vertice.class);
@@ -98,7 +94,7 @@ public class TableroTest {
     }
 
     @Test
-    void AlCrearTableroHayAlMenosUnPastizalQueDaLanaTest(){
+    void Test06AlCrearTableroHayAlMenosUnPastizalQueDaLanaTest(){
         Tablero tablero = new Tablero();
         List<Terreno> terrenos = tablero.crearTerrenos();
 
@@ -115,7 +111,7 @@ public class TableroTest {
     }
 
     @Test
-    void AlCrearTableroHayAlMenosUnCampoQueDaGranoTest(){
+    void Test07AlCrearTableroHayAlMenosUnCampoQueDaGranoTest(){
         Tablero tablero = new Tablero();
         List<Terreno> terrenos = tablero.crearTerrenos();
 
@@ -132,7 +128,7 @@ public class TableroTest {
     }
 
     @Test
-    void NoHayNingunHexagonoConFicha7SiSale7Test() {
+    void Test08NoHayNingunHexagonoConFicha7SiSale7Test() {
         Tablero tablero = new Tablero();
         List<Terreno> terrenos = tablero.crearTerrenos();
         Vertice verticeMock = mock(Vertice.class);
@@ -146,4 +142,70 @@ public class TableroTest {
 
         verify(verticeMock, never()).entregarRecursosPorConstruccion(anyString());
     }
+
+    @Test
+    void Test09ColocarPobladoLlamaAConstruirPobladoEnElVertice() {
+        Tablero tablero = new Tablero();
+        Jugador jugadorMock = mock(Jugador.class);
+        Vertice verticeMock = mock(Vertice.class);
+
+        tablero.colocarPoblado(jugadorMock, verticeMock);
+
+        verify(verticeMock, times(1)).construirPoblado(jugadorMock);
+    }
+
+    @Test
+    void Test10ObtenerTerrenosAdyacentesDevuelveLosTerrenosQueContienenElVertice() {
+        Tablero tablero = new Tablero();
+
+        List<Terreno> terrenos = tablero.crearTerrenos();
+        Vertice vertice = mock(Vertice.class);
+        terrenos.get(0).asignarVerticesAdyacentes(List.of(vertice));
+        List<Terreno> adyacentes = tablero.obtenerTerrenosAdy(vertice);
+
+        assertTrue(adyacentes.contains(terrenos.get(0)));
+    }
+
+    @Test
+    void Test11ObtenerTerrenosAdyacentesDevuelveNoDevuelveUnVerticeQueNoEsAdyacente() {
+        Tablero tablero = new Tablero();
+        List<Terreno> terrenos = tablero.crearTerrenos();
+        Vertice verticeObjetivo = mock(Vertice.class);
+        Vertice otroVertice = mock(Vertice.class);
+
+        terrenos.get(0).asignarVerticesAdyacentes(List.of(verticeObjetivo));// el primer terreno tienne al vertice objetivo
+        terrenos.get(1).asignarVerticesAdyacentes(List.of(otroVertice)); // el segundo terreno tiene otro vertice
+        List<Terreno> adyacentes = tablero.obtenerTerrenosAdy(verticeObjetivo);
+
+        assertFalse(adyacentes.contains(terrenos.get(1))); //el vertice objetivo no tiene al segundo terreno como adyacente
+    }
+
+    @Test
+    void Test12ObtenerTerrenosAdyacentesDevuelveListaVaciaSiNingunTerrenoTieneElVertice() {
+        Tablero tablero = new Tablero();
+        tablero.crearTerrenos();
+
+        Vertice verticeObjetivo = mock(Vertice.class);
+        List<Terreno> adyacentes = tablero.obtenerTerrenosAdy(verticeObjetivo);
+
+        assertTrue(adyacentes.isEmpty());
+    }
+
+    @Test
+    void Test13ObtenerTerrenosAdyacentesDevuelveUnaListaConTodosLosVertices() {
+        Tablero tablero = new Tablero();
+        List<Terreno> terrenos = tablero.crearTerrenos();
+
+        Vertice verticeCompartido = mock(Vertice.class);
+
+        // 3 terrenos comparten el mismo vertice
+        terrenos.get(0).asignarVerticesAdyacentes(List.of(verticeCompartido));
+        terrenos.get(1).asignarVerticesAdyacentes(List.of(verticeCompartido));
+        terrenos.get(2).asignarVerticesAdyacentes(List.of(verticeCompartido));
+
+        List<Terreno> adyacentes = tablero.obtenerTerrenosAdy(verticeCompartido);
+
+        assertEquals(3, adyacentes.size()); //contiene a los 3 vertices
+    }
+
 }
