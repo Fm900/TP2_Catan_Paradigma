@@ -1,12 +1,16 @@
-package edu.fiuba.algo3;
+package edu.fiuba.algo3.entrega_1;
+import edu.fiuba.algo3.modelo.Excepciones.ReglaDeDistanciaNoValida;
+import edu.fiuba.algo3.modelo.Excepciones.VerticeOcupadoNoPuedeConstruir;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 
-public class PobladoTest {
+public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
 
     private Vertice v0, v1, v2;
 
@@ -26,21 +30,17 @@ public class PobladoTest {
         Jugador jugador = mock(Jugador.class);
 
         v0.construirPoblado(jugador);
-        v0.construirPoblado(jugador);
 
-        verify(jugador,times(1)).consumirRecursosParaPoblado(); //solo se cobra un poblado
+        assertThrows(VerticeOcupadoNoPuedeConstruir.class, () -> v0.construirPoblado(jugador));
     }
 
     @Test
     void Test02NoSePuedeConstruirPobladoEnVerticeAdyacenteAOtroPoblado() {
         Jugador jugador = mock(Jugador.class);
 
-        // v0--v1
         v0.construirPoblado(jugador); // construyo en v0
-        v1.construirPoblado(jugador); // v1 vecino ocupado -> NO deberia construir
 
-
-        verify(jugador, times(1)).consumirRecursosParaPoblado(); //solo se cobra un poblado
+        assertThrows(ReglaDeDistanciaNoValida.class, () -> v1.construirPoblado(jugador));
     }
 
     @Test
