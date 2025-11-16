@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
+import edu.fiuba.algo3.modelo.Excepciones.NoSePuedeMejorarACiudad;
 import edu.fiuba.algo3.modelo.Jugador;
 import java.util.List;
 
@@ -31,5 +32,9 @@ public abstract class Construccion {
 
     public Jugador getDueño() {
         return dueño;
+    }
+
+    public Construccion mejorarACiudad(){
+        throw new NoSePuedeMejorarACiudad("Esta construccion no puede mejorarse a ciudad");
     }
 }
