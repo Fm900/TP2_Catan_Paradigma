@@ -40,4 +40,8 @@ public class Vertice {
     public boolean validarConstruccionEnVecino() {
         return estado.validarConstruccionEnVecino();
     }
+
+    public void mejorarPobladoACiudad(Jugador jugador){
+        estado.mejorarPobladoACiudad(this, jugador);
+    }
 }
