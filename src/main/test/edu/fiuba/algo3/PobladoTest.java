@@ -1,5 +1,6 @@
 package edu.fiuba.algo3;
 
+import edu.fiuba.algo3.modelo.Construccion.Ciudad;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
 import edu.fiuba.algo3.modelo.Jugador;
@@ -28,5 +29,14 @@ public class PobladoTest {
         assertEquals(jugador, construccion.getDueño());
     }
 
+    @Test
+    void mejorarPobladoACiudadCobraRecursosDeCiudad(){
+        Jugador jugador = mock(Jugador.class);
+        Construccion poblado = Poblado.construir(jugador);
+        Construccion ciudad = poblado.mejorarACiudad();
+
+        //se cobra ciudad
+        verify(jugador, times(1)).consumirRecursosParaCiudad();
+    }
 
 }
