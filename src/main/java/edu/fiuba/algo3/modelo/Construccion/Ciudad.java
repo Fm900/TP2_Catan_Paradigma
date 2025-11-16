@@ -8,7 +8,9 @@ public class Ciudad extends Construccion{
         super(puntosDeVictoria, producir, dueño);
     }
 
-    public void construir() {
-
+    public static Construccion construir(Jugador jugador) {
+        jugador.consumirRecursosParaCiudad();
+        ProducirX2 producirX2 = new ProducirX2();
+        return new Ciudad(2, producirX2, jugador);
     }
 }
