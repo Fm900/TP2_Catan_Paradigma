@@ -72,12 +72,20 @@ public class Jugador {
 
             throw new NoTieneRecursos("El jugador no posee recursos suficientes para construir un poblado");
         }
-
         //si los tiene, se los saco
         this.descartarRecursos(MADERA, 1);
         this.descartarRecursos(LADRILLO, 1);
         this.descartarRecursos(LANA, 1);
         this.descartarRecursos(GRANO, 1);
+    }
+
+    public void consumirRecursosParaCiudad() {
+        if (!tieneAlMenos(GRANO,2) ||
+            !tieneAlMenos(MINERAL,3)) {
+                throw new NoTieneRecursos("El jugador no posee recursos suficientes para mejorar a Ciudad");
+        }
+        this.descartarRecursos(GRANO,2);
+        this.descartarRecursos(MINERAL,3);
     }
 
     public void descarteMayoria() {
