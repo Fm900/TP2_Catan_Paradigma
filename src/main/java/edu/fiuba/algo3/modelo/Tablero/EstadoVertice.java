@@ -8,5 +8,6 @@ public interface EstadoVertice  {
     void entregarRecursosPorConstruccion(String recurso);
     boolean validarConstruccionEnVecino();
     List<Jugador> agregarPropietario(List<Jugador> propietarios);
+    void mejorarPobladoACiudad(Vertice self, Jugador jugador);
 }
 
