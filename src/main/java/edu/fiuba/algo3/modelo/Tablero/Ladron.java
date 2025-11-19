@@ -1,11 +1,11 @@
 package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.List;
-import java.util.ArrayList;
+
+import edu.fiuba.algo3.modelo.Exception.Excepciones.MovimientoInvalido;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Intercambiar;
 import edu.fiuba.algo3.modelo.Obligado;
-import edu.fiuba.algo3.modelo.Excepciones.*;
 
 public class Ladron {
     Terreno terrenoActual;

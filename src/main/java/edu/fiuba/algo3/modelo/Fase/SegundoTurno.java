@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.Fase;
 
+import edu.fiuba.algo3.modelo.Construccion.Poblado;
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
@@ -20,24 +22,11 @@ public class SegundoTurno implements FaseInicial{
     public void construirCarretera(Jugador jugador, Tablero tablero) {
 
     }
-    public void construirPoblado(Jugador jugador, Tablero tablero){
-        Vertice vertice = elegirVertice();
+    public void construirPoblado(Jugador jugador, Tablero tablero, Vertice vertice){
         tablero.colocarPoblado(jugador, vertice);
-
         agregarRecursosPorTerrenosAdyacentes(jugador, tablero, vertice);
     }
     public void agregarRecursosPorTerrenosAdyacentes(Jugador jugador, Tablero tablero, Vertice vertice) {
-        List<Terreno> terrenosAdy = tablero.obtenerTerrenosAdy(vertice);
-        for(Terreno terreno: terrenosAdy){
-            String recurso = terreno.obtenerRecurso();
-            if (!recurso.equals("Desierto")){
-                jugador.agregarRecursos(recurso,1);
-            }
-        }
-    }
-    public Vertice elegirVertice(){
-        // Se elige el vertice
-        Vertice vertice = new Vertice();
-        return vertice;
+        vertice.encontrarTerrenos(new Poblado());
     }
 }

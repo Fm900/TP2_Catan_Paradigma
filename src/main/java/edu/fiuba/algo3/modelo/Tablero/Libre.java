@@ -3,9 +3,10 @@ package edu.fiuba.algo3.modelo.Tablero;
 import java.util.List;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
-import edu.fiuba.algo3.modelo.Excepciones.NoSePuedeMejorarACiudad;
-import edu.fiuba.algo3.modelo.Excepciones.ReglaDeDistanciaNoValida;
+import edu.fiuba.algo3.modelo.Exception.Excepciones.NoSePuedeMejorarACiudad;
+import edu.fiuba.algo3.modelo.Exception.Excepciones.ReglaDeDistanciaNoValida;
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 public class Libre implements EstadoVertice {
 
@@ -25,7 +26,7 @@ public class Libre implements EstadoVertice {
     }
 
     @Override
-    public void entregarRecursosPorConstruccion(String recurso) {
+    public void entregarRecursosPorConstruccion(Recurso recurso) {
         // no tiene construccion asi que no hace nada
     }
 

@@ -1,6 +1,6 @@
 package edu.fiuba.algo3;
 
-import edu.fiuba.algo3.modelo.Excepciones.NoTieneRecursos;
+import edu.fiuba.algo3.modelo.Exception.Excepciones.NoTieneRecursos;
 import edu.fiuba.algo3.modelo.Jugador;
 import org.junit.jupiter.api.Test;
 

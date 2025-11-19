@@ -14,7 +14,6 @@ public class Obligado implements Intercambiar {
 
     @Override
     public void intercambio() {
-
         String recursoAleatorio = ((this.victima).obtenerRecursoAleatorio());
         victimario.agregarRecursos(recursoAleatorio, 1);
         victima.descartarRecursos(recursoAleatorio, 1);

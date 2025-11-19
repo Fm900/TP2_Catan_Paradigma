@@ -1,13 +1,16 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Recurso.Visitator.AgregarRecursoVisitor;
 
 public class ProducirX1 implements Producir {
     private Integer coeficienteDeConstruccion;
     public ProducirX1() {
         coeficienteDeConstruccion = 1;
     }
-    public void producir(String recurso, Jugador dueño){
-        dueño.agregarRecursos(recurso,coeficienteDeConstruccion);
+    public void producir(Recurso recurso, Jugador dueño){
+        AgregarRecursoVisitor agregar = new AgregarRecursoVisitor(dueño,this.coeficienteDeConstruccion);
+        recurso.aceptar(agregar);
     }
 }

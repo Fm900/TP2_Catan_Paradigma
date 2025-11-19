@@ -1,7 +1,8 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 public class NoProducir implements Producir {
-    public void producir(String recurso, Jugador dueño){}
+    public void producir(Recurso recurso, Jugador dueño){}
 }

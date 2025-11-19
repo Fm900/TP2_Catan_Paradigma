@@ -1,7 +1,9 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
-import edu.fiuba.algo3.modelo.Excepciones.NoSePuedeMejorarACiudad;
+import edu.fiuba.algo3.modelo.Exception.Excepciones.NoSePuedeMejorarACiudad;
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
+
 import java.util.List;
 
 public abstract class Construccion {
@@ -18,7 +20,7 @@ public abstract class Construccion {
 
     //public abstract void construir();
 
-    public void producirRecurso(String recurso){
+    public void producirRecurso(Recurso recurso){
         producir.producir(recurso, dueño);
     }
 

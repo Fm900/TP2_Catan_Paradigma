@@ -2,15 +2,18 @@ package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 public class Terreno {
-    private String recurso;
+    private Recurso recurso;
     private Integer fichaNumero;
     private EstadoProductivo estadoProductivo;
     private List<Vertice> verticesAdyacentes;
 
-    public Terreno(String recurso, Integer fichaNumero, EstadoProductivo estadoProductivo){
+    public Terreno(Recurso recurso, Integer fichaNumero, EstadoProductivo estadoProductivo){
         this.recurso = recurso;
         this.fichaNumero = fichaNumero;
         this.estadoProductivo = estadoProductivo;
@@ -21,7 +24,6 @@ public class Terreno {
             this.estadoProductivo.producir(this.recurso,this.verticesAdyacentes);
         }
     }
-
     public void asignarVerticesAdyacentes(List<Vertice> verticesAdyacentes) {
         this.verticesAdyacentes = verticesAdyacentes;
     }

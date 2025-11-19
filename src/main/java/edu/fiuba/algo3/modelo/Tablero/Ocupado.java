@@ -2,9 +2,10 @@ package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.List;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
-import edu.fiuba.algo3.modelo.Excepciones.NoSePuedeMejorarACiudad;
-import edu.fiuba.algo3.modelo.Excepciones.VerticeOcupadoNoPuedeConstruir;
+import edu.fiuba.algo3.modelo.Exception.Excepciones.NoSePuedeMejorarACiudad;
+import edu.fiuba.algo3.modelo.Exception.Excepciones.VerticeOcupadoNoPuedeConstruir;
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 public class Ocupado implements EstadoVertice {
     private Construccion construccion;
@@ -19,7 +20,7 @@ public class Ocupado implements EstadoVertice {
     }
 
     @Override
-    public void entregarRecursosPorConstruccion(String recurso) {
+    public void entregarRecursosPorConstruccion(Recurso recurso) {
         // delega en la construcción
         construccion.producirRecurso(recurso);
     }
