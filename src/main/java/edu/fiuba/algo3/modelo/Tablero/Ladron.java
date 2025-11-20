@@ -15,19 +15,13 @@ public class Ladron {
         this.terrenoActual = terreno;
     }
 
-    public void moverADestino(Jugador jugadorTurno, Terreno terreno){
+    public void moverADestino(Jugador jugadorTurno, Terreno terreno, Jugador victima){
         if (terrenoActual == terreno) { throw new MovimientoInvalido("El ladron ya esta en ese terreno"); }
 
         terrenoActual.cambiarEstado();
         this.terrenoActual = terreno;
         this.terrenoActual.cambiarEstado();
 
-        List<Jugador> posiblesVictimas = terrenoActual.obtenerHabitantes();
-
-        if ( posiblesVictimas == null || posiblesVictimas.isEmpty()) { return; }
-
-        posiblesVictimas.remove(jugadorTurno);
-        Jugador victima = jugadorTurno.elegirVictima(posiblesVictimas);
         this.robar(jugadorTurno, victima);
     }
 

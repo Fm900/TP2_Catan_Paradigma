@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.modelo.Fase.FaseInicial;
 import edu.fiuba.algo3.modelo.Fase.FasePrincipal;

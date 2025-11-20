@@ -3,7 +3,6 @@ open module edu.fiuba.algo3 {
     requires json.simple;
     requires org.jetbrains.annotations;
     requires java.desktop;
-    requires edu.fiuba.algo3;
     exports edu.fiuba.algo3;
     exports edu.fiuba.algo3.vistas;
 }

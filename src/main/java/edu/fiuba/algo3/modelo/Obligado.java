@@ -1,7 +1,9 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Obligado implements Intercambiar {
@@ -16,9 +18,11 @@ public class Obligado implements Intercambiar {
 
     @Override
     public void intercambio() {
-        String recursoAleatorio = ((this.victima).obtenerRecursoAleatorio());
-        victimario.agregarRecursos(recursoAleatorio, 1);
-        victima.descartarRecursos(recursoAleatorio, 1);
+        Recurso recursoADescartar = victima.obtenerRecursoAleatorio();
+        List<Recurso> recursosADescartar = new ArrayList<Recurso>();
+        recursosADescartar.add(recursoADescartar);
+        victima.consumirRecursos(recursosADescartar);
 
+        victimario.agregarRecurso(recursoADescartar, 1);
     }
 }
