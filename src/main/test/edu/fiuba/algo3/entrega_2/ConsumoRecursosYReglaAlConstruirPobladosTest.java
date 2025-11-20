@@ -1,83 +1,73 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Exception.ReglaDeDistanciaNoValida;
-import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import org.junit.jupiter.api.BeforeEach;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Mano;
+import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ConsumoRecursosYReglaAlConstruirPobladosTest {
-    private Jugador jugador;
-    private Vertice v0;
-    private Vertice v1;
-    private Vertice v2;
-    private Tablero tablero;
 
-    @BeforeEach
-    public void SetUP() {
-        tablero = new Tablero();
-        jugador = new Jugador();
-        v0 = new Vertice();
-        v1 = new Vertice();
-        v2 = new Vertice();
-        v0.conectarConVertice(v1); //v1---v0
-        v0.conectarConVertice(v2); //v1--v0--v2
+    private Jugador nuevoJugador() {
+        GestorDeRecursos gestor = new GestorDeRecursos(new ArrayList<>());
+        Mano mano = new Mano();
+        return new Jugador(gestor, mano);
+    }
 
-        // Le damos exactamente los recursos para 1 poblado
-        jugador.agregarRecursos("madera", 1);
-        jugador.agregarRecursos("ladrillo", 1);
-        jugador.agregarRecursos("lana", 1);
-        jugador.agregarRecursos("grano", 1);
+    private void darRecursosParaPoblados(Jugador jugador, int cantidadPoblados) {
+        for (int i = 0; i < cantidadPoblados; i++) {
+            jugador.agregarRecurso(new Madera(), 1);
+            jugador.agregarRecurso(new Ladrillo(), 1);
+            jugador.agregarRecurso(new Grano(), 1);
+            jugador.agregarRecurso(new Lana(), 1);
+        }
     }
 
     @Test
-    void Test01ConstruirPobladoValidoConsumeRecursosYVerticeQuedaOcupado() {
+    void Test01construirVariosPobladosConsumeRecursosHastaQueNoAlcanzaMas() {
+        Jugador jugador = nuevoJugador();
 
-        int recursosAntes = jugador.getCantidadRecursosTotales();
-        tablero.colocarPoblado(jugador,v0);
-        int recursosDespues = jugador.getCantidadRecursosTotales();
+        // Le doy recursos para 2 poblados
+        darRecursosParaPoblados(jugador, 2);
 
-        assertEquals(recursosAntes -4,recursosDespues); //se consumieron todos sus recursos
-        assertFalse(v0.validarConstruccionEnVecino()); //si sus vecinos no pueden construir es porque esta ocupado
+        Vertice v1 = new Vertice();
+        Vertice v2 = new Vertice();
+        Vertice v3 = new Vertice();
 
+        // No conecto los vértices -> regla de distancia no me bloquea
+        assertDoesNotThrow(() -> v1.construirPoblado(jugador));
+        assertDoesNotThrow(() -> v2.construirPoblado(jugador));
+
+        // ahora deberian faltar recursos
+        assertThrows(RuntimeException.class, () -> v3.construirPoblado(jugador));
     }
 
+
     @Test
-    void Test02ConstruirConstruirPobladoInvalidoNoConstruyeNiConsumeRecursos() {
-        tablero.colocarPoblado(jugador,v0); //construyo en v0
+    void Test02NoConsumeRecursosCuandoLaConstruccionEsInvalida() {
+        Jugador jugador = nuevoJugador();
+        darRecursosParaPoblados(jugador, 2);
 
-        //le doy recursos de nuevo
-        jugador.agregarRecursos("madera", 1);
-        jugador.agregarRecursos("ladrillo", 1);
-        jugador.agregarRecursos("lana", 1);
-        jugador.agregarRecursos("grano", 1);
+        Vertice v1 = new Vertice();
+        Vertice v2 = new Vertice();
+        Vertice v3 = new Vertice();
 
-        int recursosAntes = jugador.getCantidadRecursosTotales();
+        // v1---v2, v3 aislado
+        v1.conectarConVertice(v2);
 
-        assertThrows(ReglaDeDistanciaNoValida.class, () -> {
-            tablero.colocarPoblado(jugador, v1); //si trato de construir en v1 no deberia poder ya que es vecino a v0
-        });
+        //Construyo en v1
+        assertDoesNotThrow(() -> v1.construirPoblado(jugador));
 
-        int recursoDespues = jugador.getCantidadRecursosTotales();
+        //Intento construir en v2 y debe romper por ReglaDeDistancia,
+        assertThrows(ReglaDeDistanciaNoValida.class, () -> v2.construirPoblado(jugador));
 
-        assertEquals(recursosAntes,recursoDespues); //si no pude construir no se deben consurmir recursos
-    }
-    @Test
-    void construirDosPobladosValidosRespetaReglaDistanciaYConsumeRecursosDosVeces(){
-        // Recursos para 2 poblados
-        jugador.agregarRecursos("madera", 1);
-        jugador.agregarRecursos("ladrillo", 1);
-        jugador.agregarRecursos("lana", 1);
-        jugador.agregarRecursos("grano", 1);
-
-        int recursos_antes = jugador.getCantidadRecursosTotales();
-        tablero.colocarPoblado(jugador,v1);
-        tablero.colocarPoblado(jugador,v2);
-        int recursos_despues = jugador.getCantidadRecursosTotales();
-
-        assertFalse(v1.validarConstruccionEnVecino()); //v1 queda ocupado
-        assertFalse(v2.validarConstruccionEnVecino()); //v2 queda ocupado
-        assertEquals(recursos_antes-8,recursos_despues);
+        //Como no se consumieron recursos deberia poder construir en v3.
+        assertDoesNotThrow(() -> v3.construirPoblado(jugador));
     }
 }
