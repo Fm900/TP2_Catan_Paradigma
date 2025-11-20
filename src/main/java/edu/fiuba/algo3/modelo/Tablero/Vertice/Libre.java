@@ -25,6 +25,7 @@ public class Libre implements EstadoVertice {
         Construccion poblado = new Poblado(1, 1, jugador);
         poblado.construir();
         self.cambiarAOcupado(poblado);
+        self.setDueño(jugador);
     }
 
     @Override

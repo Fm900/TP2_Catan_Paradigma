@@ -3,6 +3,7 @@ import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Vacia;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,14 @@ import java.util.List;
 public class Vertice {
     EstadoVertice estado = new Libre();
     private final List<Arista> aristas = new ArrayList<>();
+    private Jugador dueño;
 
     protected void cambiarAOcupado(Construccion construccion) {
         this.estado = new Ocupado(construccion);
     }
 
     public void conectarConVertice(Vertice otro){
-        Arista arista = new Arista(this, otro);
+        Arista arista = new Arista(this, otro, new Vacia());
         this.aristas.add(arista);
         otro.aristas.add(arista);
     }
@@ -44,5 +46,22 @@ public class Vertice {
 
     public void mejorarPobladoACiudad(Jugador jugador){
         estado.mejorarPobladoACiudad(this, jugador);
+    }
+
+    public void setDueño(Jugador jugador) {
+        this.dueño = jugador;
+    }
+
+    public void elMismoDueño(Jugador jugador, Arista arista) {
+        if(this.dueño == jugador){
+            arista.construirCarretera(jugador);
+        }
+
+        for (Arista aristaAdyacente: aristas) {
+            if(aristaAdyacente.elMismoDueño(jugador)){
+                arista.construirCarretera(jugador);
+                break;
+            }
+        }
     }
 }
