@@ -1,5 +1,6 @@
 package edu.fiuba.algo3;
 
+import edu.fiuba.algo3.modelo.Banca;
 import edu.fiuba.algo3.modelo.Fase.FaseInicial;
 import edu.fiuba.algo3.modelo.Fase.FasePrincipal;
 import edu.fiuba.algo3.modelo.Juego;
@@ -23,6 +24,7 @@ public class JuegoTest {
     private FasePrincipal fasePrincipal2;
     private Juego juego;
     private Tablero tablero;
+    private Banca banca;
 
 
     @BeforeEach
@@ -33,7 +35,8 @@ public class JuegoTest {
         fasePrincipal1 = mock(FasePrincipal.class);
         fasePrincipal2 = mock(FasePrincipal.class);
         tablero = mock(Tablero.class);
-        juego = spy(new Juego(List.of(jugador1,jugador2), List.of(fasePrincipal1, fasePrincipal2), List.of(faseInicial), tablero));
+        banca = new Banca();
+        juego = spy(new Juego(List.of(jugador1,jugador2), List.of(fasePrincipal1, fasePrincipal2), List.of(faseInicial), tablero, banca));
     }
 
     @Test
