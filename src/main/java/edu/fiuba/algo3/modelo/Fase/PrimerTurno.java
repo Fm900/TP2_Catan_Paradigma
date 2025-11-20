@@ -15,11 +15,11 @@ public class PrimerTurno implements FaseInicial {
         this.tablero = tablero;
     }
 
-    public void construirPoblado(vertice, arista, jugadorActual){
-        /// construir el problado / carretera principales debe ser con recursos precargados o iniciales por el super constructor X2
-        this.tablero.colocarPoblado(jugadorActual, vertice);
-    }
-    private void construirCarretera(Jugador jugador, Tablero tablero) {
-        /// se colocal una carretera conectada al poblado puesto anteriormente
-    }
+//    public void construirPoblado(vertice, arista, jugadorActual){
+//        /// construir el problado / carretera principales debe ser con recursos precargados o iniciales por el super constructor X2
+//        this.tablero.colocarPoblado(jugadorActual, vertice);
+//    }
+//    private void construirCarretera(Jugador jugador, Tablero tablero) {
+//        /// se colocal una carretera conectada al poblado puesto anteriormente
+//    }
 }

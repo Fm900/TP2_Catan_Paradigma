@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ConstruccionTest{
     @Test
     public void test01ElPobladoGeneraUnSoloRecurso() {
-        Madera recurso = new Madera();
+        Madera recurso = new Madera("Madera");
         Jugador jugador = new Jugador();
         Producir producir = new ProducirX1();
         Poblado poblado = new Poblado(1, producir, jugador);
@@ -21,7 +21,7 @@ public class ConstruccionTest{
 
     @Test
     public void test02LaCiudadGeneraDosRecursos() {
-        Madera recurso = new Madera();
+        Madera recurso = new Madera("Madera");
         Jugador jugador = new Jugador();
         Producir producir = new ProducirX2();
         Ciudad ciudad = new Ciudad(2, producir, jugador);
@@ -33,7 +33,7 @@ public class ConstruccionTest{
 
     @Test
     public void test03LaCarreteraNoGeneraRecursos() {
-        Madera recurso = new Madera();
+        Madera recurso = new Madera("Madera");
         Jugador jugador = new Jugador();
         Producir producir = new NoProducir();
         Carretera carretera = new Carretera(0, producir, jugador);

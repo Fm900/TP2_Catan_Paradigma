@@ -1,7 +1,14 @@
 package edu.fiuba.algo3.modelo.Recurso;
 
-import edu.fiuba.algo3.modelo.Recurso.Visitator.RecursoVisitor;
-
 public abstract class Recurso {
-    public abstract void aceptar(RecursoVisitor visitor);
+    protected String tipo;
+    public Recurso(String tipo) {
+        this.tipo = tipo;
+    }
+    public String getTipo() {
+        return tipo;
+    }
+    public boolean esMismoTipo(Recurso otraRecurso) {
+        return this.tipo.equals(otraRecurso.getTipo());
+    }
 }

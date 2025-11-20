@@ -1,10 +1,13 @@
 package edu.fiuba.algo3.modelo.Recurso;
 
-import edu.fiuba.algo3.modelo.Recurso.Visitator.RecursoVisitor;
 
 public class Ladrillo extends Recurso {
+    public Ladrillo(String tipo){
+        super(tipo);
+    }
+
     @Override
-    public void aceptar(RecursoVisitor visitor) {
-        visitor.visitar(this);
+    public boolean esMismoTipo(Recurso otraRecurso) {
+        return super.esMismoTipo(otraRecurso);
     }
 }

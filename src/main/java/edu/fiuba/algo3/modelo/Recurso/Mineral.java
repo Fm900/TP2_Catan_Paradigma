@@ -1,10 +1,13 @@
 package edu.fiuba.algo3.modelo.Recurso;
 
-import edu.fiuba.algo3.modelo.Recurso.Visitator.RecursoVisitor;
 
 public class Mineral extends Recurso {
+    public Mineral(String tipo) {
+        super(tipo);
+    }
+
     @Override
-    public void aceptar(RecursoVisitor visitor) {
-        visitor.visitar(this);
+    public boolean esMismoTipo(Recurso otraRecurso) {
+        return super.esMismoTipo(otraRecurso);
     }
 }

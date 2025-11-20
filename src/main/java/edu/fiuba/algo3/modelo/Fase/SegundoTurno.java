@@ -15,18 +15,16 @@ public class SegundoTurno implements FaseInicial{
     public void iniciarFase(List<Jugador> jugadores, Tablero tablero) {
         for (int i = jugadores.size() - 1; i >= 0; i--) {
             Jugador jugador = jugadores.get(i);
-            construirPoblado(jugador,  tablero);
-            construirCarretera(jugador,tablero);
         }
     }
-    public void construirCarretera(Jugador jugador, Tablero tablero) {
-
-    }
-    public void construirPoblado(Jugador jugador, Tablero tablero, Vertice vertice){
-        tablero.colocarPoblado(jugador, vertice);
-        agregarRecursosPorTerrenosAdyacentes(jugador, tablero, vertice);
-    }
-    public void agregarRecursosPorTerrenosAdyacentes(Jugador jugador, Tablero tablero, Vertice vertice) {
-        vertice.encontrarTerrenos(new Poblado());
-    }
+//    public void construirCarretera(Jugador jugador, Tablero tablero) {
+//
+//    }
+//    public void construirPoblado(Jugador jugador, Tablero tablero, Vertice vertice){
+//        tablero.colocarPoblado(jugador, vertice);
+//        agregarRecursosPorTerrenosAdyacentes(jugador, tablero, vertice);
+//    }
+//    public void agregarRecursosPorTerrenosAdyacentes(Jugador jugador, Tablero tablero, Vertice vertice) {
+//        vertice.encontrarTerrenos(new Poblado());
+//    }
 }
