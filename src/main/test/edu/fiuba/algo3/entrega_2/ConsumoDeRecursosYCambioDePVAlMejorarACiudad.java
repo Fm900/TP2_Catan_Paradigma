@@ -1,7 +1,4 @@
 package edu.fiuba.algo3.entrega_2;
-
-import edu.fiuba.algo3.modelo.Exception.NoSePuedeMejorarACiudad;
-import edu.fiuba.algo3.modelo.Exception.NoTieneRecursos;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
