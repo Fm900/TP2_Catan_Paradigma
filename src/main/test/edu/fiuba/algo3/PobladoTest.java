@@ -1,9 +1,7 @@
 package edu.fiuba.algo3;
 
-import edu.fiuba.algo3.modelo.Construccion.Ciudad;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
-import edu.fiuba.algo3.modelo.Jugador;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Fase.Dados;
-import edu.fiuba.algo3.modelo.Jugador;
 import org.junit.jupiter.api.Test;
 
 public class TiradadDeDadosTest {

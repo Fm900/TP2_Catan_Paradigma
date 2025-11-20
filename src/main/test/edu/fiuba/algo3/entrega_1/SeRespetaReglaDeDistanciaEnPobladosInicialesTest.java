@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
-import edu.fiuba.algo3.modelo.Exception.Excepciones.ReglaDeDistanciaNoValida;
-import edu.fiuba.algo3.modelo.Exception.Excepciones.VerticeOcupadoNoPuedeConstruir;
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Tablero.Vertice;
+import edu.fiuba.algo3.modelo.Exception.ReglaDeDistanciaNoValida;
+import edu.fiuba.algo3.modelo.Exception.VerticeOcupadoNoPuedeConstruir;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

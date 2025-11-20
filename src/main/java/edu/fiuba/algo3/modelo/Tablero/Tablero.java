@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

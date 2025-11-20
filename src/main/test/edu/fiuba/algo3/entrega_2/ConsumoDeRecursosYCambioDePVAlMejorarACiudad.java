@@ -1,12 +1,7 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.Exception.Excepciones.NoSePuedeMejorarACiudad;
-import edu.fiuba.algo3.modelo.Exception.Excepciones.NoTieneRecursos;
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Tablero.EstadoProductivo;
-import edu.fiuba.algo3.modelo.Tablero.Normal;
-import edu.fiuba.algo3.modelo.Tablero.Terreno;
-import edu.fiuba.algo3.modelo.Tablero.Vertice;
+import edu.fiuba.algo3.modelo.Exception.NoSePuedeMejorarACiudad;
+import edu.fiuba.algo3.modelo.Exception.NoTieneRecursos;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

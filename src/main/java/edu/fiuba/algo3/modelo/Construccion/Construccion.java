@@ -1,27 +1,26 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
-import edu.fiuba.algo3.modelo.Exception.Excepciones.NoSePuedeMejorarACiudad;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Exception.NoSePuedeMejorarACiudad;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 import java.util.List;
 
 public abstract class Construccion {
     protected Integer puntosDeVictoria;
-    protected Producir producir;
     protected Jugador dueño;
+    protected List<Recurso> precio;
+    protected final int coeficienteDeProduccion;
 
-
-    public Construccion(Integer puntosDeVictoria, Producir producir, Jugador dueño){
+    public Construccion(Integer puntosDeVictoria, int coeficienteDeProduccion, Jugador dueño,  List<Recurso> precio) {
         this.puntosDeVictoria = puntosDeVictoria;
-        this.producir = producir;
+        this.coeficienteDeProduccion = coeficienteDeProduccion;
         this.dueño =  dueño;
+        this.precio = precio;
     }
 
-    //public abstract void construir();
-
     public void producirRecurso(Recurso recurso){
-        producir.producir(recurso, dueño);
+        dueño.agregarRecurso(recurso, this.coeficienteDeProduccion);
     }
 
     public List<Jugador> agregarPropietario(List<Jugador> propietarios) {
@@ -39,4 +38,6 @@ public abstract class Construccion {
     public Construccion mejorarACiudad(){
         throw new NoSePuedeMejorarACiudad("Esta construccion no puede mejorarse a ciudad");
     }
+
+    public abstract void construir();
 }

@@ -1,10 +1,11 @@
-package edu.fiuba.algo3.modelo.Tablero;
+package edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 import java.util.List;
-import edu.fiuba.algo3.modelo.Construccion.Construccion;
-import edu.fiuba.algo3.modelo.Exception.Excepciones.NoSePuedeMejorarACiudad;
-import edu.fiuba.algo3.modelo.Exception.Excepciones.VerticeOcupadoNoPuedeConstruir;
-import edu.fiuba.algo3.modelo.Jugador;
+
+import edu.fiuba.algo3.modelo.Construccion.*;
+import edu.fiuba.algo3.modelo.Exception.NoSePuedeMejorarACiudad;
+import edu.fiuba.algo3.modelo.Exception.VerticeOcupadoNoPuedeConstruir;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 public class Ocupado implements EstadoVertice {
@@ -41,7 +42,9 @@ public class Ocupado implements EstadoVertice {
         if (construccion.getDueño() != jugador){
             throw new NoSePuedeMejorarACiudad("No sos dueño de este poblado, no lo podes mejorar.");
         }
-        this.construccion = this.construccion.mejorarACiudad();
+        Construccion ciudad = new Ciudad(1, 2, jugador);
+        ciudad.construir();
+        this.construccion = ciudad;
     }
 
 

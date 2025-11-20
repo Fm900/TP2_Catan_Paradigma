@@ -1,12 +1,13 @@
-package edu.fiuba.algo3.modelo.Tablero;
+package edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 import java.util.List;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
-import edu.fiuba.algo3.modelo.Exception.Excepciones.NoSePuedeMejorarACiudad;
-import edu.fiuba.algo3.modelo.Exception.Excepciones.ReglaDeDistanciaNoValida;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Exception.NoSePuedeMejorarACiudad;
+import edu.fiuba.algo3.modelo.Exception.ReglaDeDistanciaNoValida;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 
 public class Libre implements EstadoVertice {
 
@@ -20,9 +21,10 @@ public class Libre implements EstadoVertice {
             }
         }
         // si nadie bloquea, crear construcción y cambiar de estado
-        Construccion poblado = Poblado.construir(jugador);
-        self.cambiarAOcupado(poblado);
 
+        Construccion poblado = new Poblado(1, 1, jugador);
+        poblado.construir();
+        self.cambiarAOcupado(poblado);
     }
 
     @Override

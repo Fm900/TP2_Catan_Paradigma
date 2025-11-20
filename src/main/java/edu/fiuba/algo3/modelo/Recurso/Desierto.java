@@ -1,14 +1,13 @@
 package edu.fiuba.algo3.modelo.Recurso;
 
-
-public class Madera extends Recurso{
+public class Desierto extends Recurso{
     @Override
     public void agregar(int cantidad, MazoDeRecursos mazo) {
-        mazo.agregarMadera(cantidad, this);
+        //No hace nada
     }
 
     @Override
     public void eliminar(MazoDeRecursos mazo) {
-        mazo.removerMadera(this);
+        //No hace nada
     }
 }

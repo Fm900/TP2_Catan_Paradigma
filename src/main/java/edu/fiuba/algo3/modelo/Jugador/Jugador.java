@@ -1,8 +1,9 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Jugador;
 
 import edu.fiuba.algo3.modelo.Recurso.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -16,12 +17,13 @@ public class Jugador {
     }
 
     public void agregarRecurso(Recurso recurso, int cantidad) {
-        recursos.agregar(recurso, cantidad);
+        recurso.agregar(cantidad, recursos);
     }
-    public void remover(Recurso recurso, int cantidad) {
-        recursos.remover(recurso, cantidad);
-    }
-    public int cantidadRecurso(Recurso recurso) {
-        return recursos.cantidadRecurso(recurso);
+
+    public void consumirRecursos(List<Recurso> precio) {
+        recursos.verificarCumplimiento(precio);
+        for(Recurso recurso: precio){
+            recurso.eliminar(recursos);
+        }
     }
 }

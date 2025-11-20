@@ -1,7 +1,5 @@
 package edu.fiuba.algo3;
 
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Tablero.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

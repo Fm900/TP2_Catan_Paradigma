@@ -1,11 +1,11 @@
-package edu.fiuba.algo3.modelo.Tablero;
+package edu.fiuba.algo3.modelo.Tablero.Terreno;
 
 import java.util.List;
 import java.util.ArrayList;
 
-import edu.fiuba.algo3.modelo.Construccion.Construccion;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 public class Terreno {
     private Recurso recurso;

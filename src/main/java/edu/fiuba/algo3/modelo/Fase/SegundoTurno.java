@@ -1,11 +1,7 @@
 package edu.fiuba.algo3.modelo.Fase;
 
-import edu.fiuba.algo3.modelo.Construccion.Poblado;
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import edu.fiuba.algo3.modelo.Tablero.Terreno;
-import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 import java.util.List;
 

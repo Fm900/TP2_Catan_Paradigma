@@ -1,7 +1,8 @@
-package edu.fiuba.algo3.modelo.Tablero;
+package edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 import java.util.List;
-import edu.fiuba.algo3.modelo.Jugador;
+
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 public interface EstadoVertice  {

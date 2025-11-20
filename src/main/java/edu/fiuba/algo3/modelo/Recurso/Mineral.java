@@ -2,12 +2,13 @@ package edu.fiuba.algo3.modelo.Recurso;
 
 
 public class Mineral extends Recurso {
-    public Mineral(String tipo) {
-        super(tipo);
+    @Override
+    public void agregar(int cantidad, MazoDeRecursos mazo) {
+        mazo.agregarMineral(cantidad, this);
     }
 
     @Override
-    public boolean esMismoTipo(Recurso otraRecurso) {
-        return super.esMismoTipo(otraRecurso);
+    public void eliminar(MazoDeRecursos mazo) {
+        mazo.removerMineral(this);
     }
 }

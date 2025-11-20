@@ -1,4 +1,6 @@
-package edu.fiuba.algo3.modelo.Tablero;
+package edu.fiuba.algo3.modelo.Tablero.Arista;
+
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 public class Arista {
     private final Vertice extremo1;

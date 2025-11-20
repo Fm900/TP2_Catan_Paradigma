@@ -1,12 +1,13 @@
 package edu.fiuba.algo3.modelo.Recurso;
 
 public class Lana extends Recurso {
-    public Lana(String tipo){
-        super(tipo);
-    }
 
     @Override
-    public boolean esMismoTipo(Recurso otraRecurso) {
-        return super.esMismoTipo(otraRecurso);
+    public void agregar(int cantidad, MazoDeRecursos mazo){
+        mazo.agregarLana(this ,cantidad);
+    }
+    @Override
+    public void eliminar(MazoDeRecursos mazo){
+        mazo.removerLana(this);
     }
 }

@@ -1,14 +1,8 @@
 package edu.fiuba.algo3.modelo.Recurso;
 
 public abstract class Recurso {
-    protected String tipo;
-    public Recurso(String tipo) {
-        this.tipo = tipo;
-    }
-    public String getTipo() {
-        return tipo;
-    }
-    public boolean esMismoTipo(Recurso otraRecurso) {
-        return this.tipo.equals(otraRecurso.getTipo());
-    }
+
+    public abstract void agregar(int cantidad, MazoDeRecursos mazo);
+
+    public abstract void eliminar(MazoDeRecursos mazo);
 }

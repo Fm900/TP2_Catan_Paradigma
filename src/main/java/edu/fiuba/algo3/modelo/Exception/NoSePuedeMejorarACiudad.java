@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Exception.Excepciones;
+package edu.fiuba.algo3.modelo.Exception;
 
 public class NoSePuedeMejorarACiudad extends RuntimeException {
     public NoSePuedeMejorarACiudad(String mensaje) {

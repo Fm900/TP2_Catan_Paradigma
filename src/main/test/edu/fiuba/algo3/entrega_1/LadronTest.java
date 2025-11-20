@@ -3,11 +3,8 @@ package edu.fiuba.algo3.entrega_1;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.fiuba.algo3.modelo.Exception.Excepciones.NoTieneRecursos;
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Tablero.Vertice;
+import edu.fiuba.algo3.modelo.Exception.NoTieneRecursos;
 import edu.fiuba.algo3.modelo.Tablero.Ladron;
-import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
