@@ -1,131 +1,65 @@
 package edu.fiuba.algo3;
 
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.EstadoProductivo;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class TerrenoTest {
 
-
     @Test
-    void Test01producirSiCorrespondeLlamaAEstadoProductivoCuandoLaTiradaCoincide() {
-        EstadoProductivo estado = mock(EstadoProductivo.class);
-        Terreno terreno = new Terreno("madera", 5, estado);
-
+    void Test01ProducirSiCorrespondeLlamaAlEstadoSiCoincideConLaTirada(){
+        EstadoProductivo estadoMock = mock(EstadoProductivo.class);
+        Recurso recursoMock = mock(Recurso.class);
         Vertice v1 = mock(Vertice.class);
-        Vertice v2 = mock(Vertice.class);
-        List<Vertice> vertices = List.of(v1, v2);
-        terreno.asignarVerticesAdyacentes(vertices);
 
-        terreno.producirSiCorresponde(5);
+        Terreno terreno = new Terreno(recursoMock, 8, estadoMock);
 
-        verify(estado, times(1)).producir("madera", vertices);
-    }
-
-    @Test
-    void Test02producirSiCorrespondeNoLlamaAEstadoProductivoCuandoLaTiradaNoCoincide() {
-        EstadoProductivo estado = mock(EstadoProductivo.class);
-        Terreno terreno = new Terreno("madera", 5, estado);
-
-        Vertice v1 = mock(Vertice.class);
         terreno.asignarVerticesAdyacentes(List.of(v1));
+        terreno.producirSiCorresponde(8);
 
-        terreno.producirSiCorresponde(4); //no coincide
-
-        verify(estado, never()).producir(anyString(), anyList());
+        verify(estadoMock).producir(recursoMock, List.of(v1));
     }
 
     @Test
-    public void Test03terrenoConLadronNoProduce() {
-        EstadoProductivo estado = new Alterado();
-        Terreno terreno = new Terreno("madera", 5, estado);
-
+    void Test02producirSiCorrespondeNoLlamaAlEstadoCuandoLaTiradaNoCoincide() {
+        EstadoProductivo estadoMock = mock(EstadoProductivo.class);
+        Recurso recursoMock = mock(Recurso.class);
         Vertice v1 = mock(Vertice.class);
+
+        Terreno terreno = new Terreno(recursoMock, 8, estadoMock);
         terreno.asignarVerticesAdyacentes(List.of(v1));
 
         terreno.producirSiCorresponde(5);
 
-        verify(v1, never()).entregarRecursosPorConstruccion(any());
+        verify(estadoMock, never()).producir(any(), any());
     }
 
     @Test
-    void Test04correspondeADevuelveTrueCuandoElNumeroDeFichaCoincide() {
-        Terreno terreno = new Terreno("madera", 5, mock(EstadoProductivo.class));
-
-        assertTrue(terreno.correspondeA(5));
-    }
-
-    @Test
-    void Test05correspondeADevuelveFalseCuandoElNumeroDeFichaNoCoincide() {
-        Terreno terreno = new Terreno("madera", 5, mock(EstadoProductivo.class));
-
-        assertFalse(terreno.correspondeA(8));
-    }
-
-    @Test
-    void Test06cambiarEstadoReemplazaElEstadoProductivoPorElNuevo() {
-        EstadoProductivo estadoOriginal = mock(EstadoProductivo.class);
-        EstadoProductivo estadoNuevo = mock(EstadoProductivo.class);
-
-        //cambio el estado
-        when(estadoOriginal.alterarEstado()).thenReturn(estadoNuevo);
-
-        Terreno terreno = new Terreno("madera", 5, estadoOriginal);
-        terreno.cambiarEstado();
-
-        Vertice v1 = mock(Vertice.class);
-        List<Vertice> vertices = List.of(v1);
-        terreno.asignarVerticesAdyacentes(vertices);
-
-        // ahora producimos con la tirada que coincide
-        terreno.producirSiCorresponde(5);
-
-        // Se debe usar el nuevo estado para producir
-        verify(estadoNuevo, times(1)).producir("madera", vertices);
-    }
-
-    @Test
-    void Test07obtenerHabitantesDevuelveListaVaciaSiNoHayVerticesAsignados() {
-        Terreno terreno = new Terreno("madera", 5, mock(EstadoProductivo.class));
-
-        List<Jugador> habitantes = terreno.obtenerHabitantes();
-
-        assertTrue(habitantes.isEmpty());
-    }
-
-
-    @Test
-    void Test08tieneVerticeDevuelveTrueSiElVerticeEstaEnLaLista() {
-        Terreno terreno = new Terreno("madera", 5, mock(EstadoProductivo.class));
-
-        Vertice v1 = mock(Vertice.class);
-        Vertice v2 = mock(Vertice.class);
-        terreno.asignarVerticesAdyacentes(List.of(v1, v2));
-
-        assertTrue(terreno.tieneVertice(v1));
-    }
-
-    @Test
-    void Test09tieneVerticeDevuelveFalseSiElVerticeNoEstaEnLaLista() {
-        Terreno terreno = new Terreno("madera", 5, mock(EstadoProductivo.class));
-
-        Vertice v1 = mock(Vertice.class);
-        Vertice v2 = mock(Vertice.class);
-        Vertice otro = mock(Vertice.class);
-        terreno.asignarVerticesAdyacentes(List.of(v1, v2));
-
-        assertFalse(terreno.tieneVertice(otro));
-    }
-
-    @Test
-    void Test10tieneVerticeDevuelveFalseSiNoHayVerticesAsignados() {
-        Terreno terreno = new Terreno("madera", 5, mock(EstadoProductivo.class));
+    void Test03TieneVerticeDevuelveTrueCuandoEstaEnLaLista() {
         Vertice v = mock(Vertice.class);
 
-        assertFalse(terreno.tieneVertice(v));
+        Terreno terreno = new Terreno(mock(Recurso.class), 4, mock(EstadoProductivo.class));
+        terreno.asignarVerticesAdyacentes(List.of(v));
+
+        assertTrue(terreno.tieneVertice(v));
+    }
+
+    @Test
+    void Test04TieneVerticeDevuelveFalseCuandoNoEstaEnLaLista() {
+        Vertice v1 = mock(Vertice.class);
+        Vertice v2 = mock(Vertice.class);
+
+        Terreno terreno = new Terreno(mock(Recurso.class), 4, mock(EstadoProductivo.class));
+        terreno.asignarVerticesAdyacentes(List.of(v1));
+
+        assertFalse(terreno.tieneVertice(v2));
     }
 }
