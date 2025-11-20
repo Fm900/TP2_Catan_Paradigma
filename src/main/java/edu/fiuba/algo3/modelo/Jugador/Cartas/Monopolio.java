@@ -9,11 +9,11 @@ import java.util.List;
 
 public class Monopolio extends Carta {
 
-    public Monopolio(ActivarEfecto activacion){
+    public Monopolio(Efecto activacion){
         super((List.of(new Lana(), new Grano(), new Mineral())));
     }
 
-    public void usar(Jugador jugador){
+    public void activarEfecto(Jugador jugador){
         /*
         Recurso recursoAQuitar = jugador.obtenerRecursoAQuitar();
         juego.quitarRecurso(recursoAQuitar);

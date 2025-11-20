@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Fase;
 
 import edu.fiuba.algo3.modelo.Banca;
 import edu.fiuba.algo3.modelo.Intercambio.Bancario;
+import edu.fiuba.algo3.modelo.Intercambio.Intercambiar;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Intercambio.Oferta;
@@ -34,6 +35,10 @@ public class CC implements FasePrincipal {
             return false;
         }
         return ofertaActual.recibirOrferta(receptor, recursosOfrecidos);
+    }
+    public void intercambioConBanca(Recurso recursoRequerido ,Recurso recursoOfrecido, int taza, Banca banca){
+        this.bancarioActual = new Bancario(jugadorActual, recursoRequerido, recursoOfrecido, taza, banca);
+        this.bancarioActual.intercambio();
     }
 
     public void comprarCartas(List<Carta> cartas) {

@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -18,12 +19,13 @@ public class Jugador {
         this.mano = manoInicial;
     }
 
+    //para recursos
     public void descarteMayoria() {
         int cantidadRecursosADescartar = recursos.cantidadDescartar();
         recursos.descartarPorCantidad(cantidadRecursosADescartar);
     }
 
-    public void agregarRecurso(Recurso recurso, int cantidad) {
+    public void agregarRecurso(@NotNull Recurso recurso, int cantidad) {
         recurso.agregar(cantidad, recursos);
     }
 
@@ -33,7 +35,7 @@ public class Jugador {
             recurso.eliminar(recursos);
         }
     }
-
+    // para puntos de juego
     public Recurso obtenerRecursoAleatorio() {
         return recursos.obtenerRecursoAleatorio();
     }
@@ -51,6 +53,7 @@ public class Jugador {
         return puntosTotales;
     }
 
+    // para cartas de desarrollo
     public void agregarCarta(Carta carta) {
         mano.agregar(carta);
     }

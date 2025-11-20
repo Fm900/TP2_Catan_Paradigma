@@ -9,11 +9,11 @@ import java.util.List;
 
 public class Descubrimiento extends Carta{
 
-    public Descubrimiento(ActivarEfecto activacion) {
+    public Descubrimiento(Efecto activacion) {
         super((List.of(new Lana(), new Grano(), new Mineral())));
     }
 
-    public void usar(Jugador jugador) {
+    public void activarEfecto(Jugador jugador) {
     }
 
 }

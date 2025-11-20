@@ -12,13 +12,11 @@ public class ConstruccionCarreteras extends Carta {
 
     private Arista arista;
 
-    public ConstruccionCarreteras(ActivarEfecto activacion) {
+    public ConstruccionCarreteras(Efecto activacion) {
         super((List.of(new Lana(), new Grano(), new Mineral())));
     }
 
-
-    public void usar(Jugador jugador) {
-
+    public void activarEfecto(Jugador jugador) {
     }
 
     public void setArista (Arista arista) {

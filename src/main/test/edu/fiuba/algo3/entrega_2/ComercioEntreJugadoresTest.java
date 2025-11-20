@@ -26,6 +26,7 @@ public class ComercioEntreJugadoresTest {
         GestorDeRecursos gestor1 = new GestorDeRecursos(new ArrayList<Recurso>());
         Mano mano1 = new Mano();
         this.jugado1 = new Jugador(gestor1,mano1);
+        this.jugado2 = null;
         this.recursosRequeridos = null;
         this.recursosOfrecidos = null;
         this.comercio = new CC();
@@ -62,9 +63,6 @@ public class ComercioEntreJugadoresTest {
         jugado1.agregarRecurso(recurso1, 5);
         jugado1.agregarRecurso(recurso2, 3);
 
-        jugado2.agregarRecurso(recurso1, 1);
-        jugado2.agregarRecurso(recurso2, 5);
-
         comercio.iniciarFase(jugado1);
         comercio.crearOferta(recursosRequeridos);
         boolean respuesta = comercio.realizarIntercambio(recursosOfrecidos,jugado2);
@@ -79,9 +77,6 @@ public class ComercioEntreJugadoresTest {
         //damos recursos a los jugadores que van a comerciar
         jugado1.agregarRecurso(recurso1, 5);
         jugado1.agregarRecurso(recurso2, 3);
-
-        jugado2.agregarRecurso(recurso1, 1);
-        jugado2.agregarRecurso(recurso2, 5);
 
         comercio.iniciarFase(jugado1);
         comercio.crearOferta(recursosRequeridos);
