@@ -51,5 +51,13 @@ public class Terreno {
     public boolean tieneVertice(Vertice v) {
         return this.verticesAdyacentes.contains(v);
     }
+
+    public void producirInicial(Vertice vertice){
+        vertice.entregarRecursosPorConstruccion(this.recurso);
+    }
+
+    public Recurso recursoInicial(){
+        return this.recurso;
+    }
 }
 

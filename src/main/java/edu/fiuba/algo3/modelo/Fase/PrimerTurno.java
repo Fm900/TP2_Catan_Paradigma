@@ -2,23 +2,27 @@ package edu.fiuba.algo3.modelo.Fase;
 
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 import java.util.List;
 
 public class PrimerTurno implements FaseInicial {
     List<Jugador> jugadores;
     Tablero tablero;
+    private Vertice verticeParaConstruir;
 
+    @Override
     public void iniciarFase(List<Jugador> jugadores, Tablero tablero) {
-        this.jugadores = jugadores;
-        this.tablero = tablero;
-    }
 
-//    public void construirPoblado(vertice, arista, jugadorActual){
-//        /// construir el problado / carretera principales debe ser con recursos precargados o iniciales por el super constructor X2
-//        this.tablero.colocarPoblado(jugadorActual, vertice);
-//    }
-//    private void construirCarretera(Jugador jugador, Tablero tablero) {
-//        /// se colocal una carretera conectada al poblado puesto anteriormente
-//    }
+        for (int i = jugadores.size() - 1; i >= 0; i--) {
+            Jugador jugador = jugadores.get(i);
+
+            tablero.colocarPoblado(jugador, this.verticeParaConstruir);
+            }
+        }
+
+    public void setVerticeParaConstruir(Vertice vertice){
+        this.verticeParaConstruir = vertice;
+    }
 }
