@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
@@ -13,6 +14,10 @@ public class Tablero {
     public Tablero() {
         GeneradorDeTerrenos generador = new GeneradorDeTerrenos();
         this.terrenos = generador.generar();
+    }
+
+    public void colocarCarretera(Jugador jugador, Arista arista) {
+        arista.construirCarretera(jugador);
     }
 
     public Tablero(GeneradorDeTerrenos generador) {

@@ -3,7 +3,7 @@ package edu.fiuba.algo3.entrega_1;
 import edu.fiuba.algo3.modelo.Fase.Dados;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
-import edu.fiuba.algo3.modelo.Recurso.GestorDeRecursos;
+import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.Recurso;
 
+import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
+
 public abstract class Recurso {
 
     public abstract void agregar(int cantidad, GestorDeRecursos mazo);

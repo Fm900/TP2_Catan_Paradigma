@@ -1,7 +1,8 @@
-package edu.fiuba.algo3.modelo.Recurso;
+package edu.fiuba.algo3.modelo.Jugador;
 
 
 import edu.fiuba.algo3.modelo.Exception.NoTieneRecursosSuficientesParaDescartar;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ public class GestorDeRecursos {
     private List<Recurso> recursos;
 
     public GestorDeRecursos(List<Recurso> recursosIniciales) {
-        this.recursos = recursosIniciales;
+        this.recursos = new ArrayList<>(recursosIniciales);
     }
 
     public int cantidadDescartar() {

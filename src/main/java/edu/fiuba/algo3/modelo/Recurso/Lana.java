@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.Recurso;
 
+import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
+
 public class Lana extends Recurso {
 
     @Override

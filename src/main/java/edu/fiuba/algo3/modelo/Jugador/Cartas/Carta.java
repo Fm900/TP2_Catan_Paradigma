@@ -1,0 +1,34 @@
+package edu.fiuba.algo3.modelo.Jugador.Cartas;
+
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
+
+import java.util.List;
+
+public abstract class Carta {
+
+    protected List<Recurso> precio;
+    protected ActivarEfecto activacion;
+
+
+    public Carta(List<Recurso> precio) {
+        this.precio = precio;
+        this.activacion = new Deshabilitada();
+    }
+
+    public boolean equals(Object o) {
+        return o != null && this.getClass() == o.getClass();
+    }
+
+    public void activarEfecto() {
+        activacion = activacion.activar();
+    }
+
+    public void agregarse(Jugador jugador) {
+        jugador.consumirRecursos(precio);
+        jugador.agregarCarta(this);
+    }
+
+    public abstract void usar(Jugador jugador);
+
+}

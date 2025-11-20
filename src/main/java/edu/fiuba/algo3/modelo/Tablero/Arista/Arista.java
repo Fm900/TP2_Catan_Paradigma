@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Tablero.Arista;
 
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 public class Arista {
@@ -11,9 +12,17 @@ public class Arista {
         this.extremo2 = b;
     }
 
+    public Arista obtenerme(){
+        return this;
+    }
+
     public Vertice otroExtremo(Vertice vertice) {
         if (vertice == extremo1) return extremo2;
         if (vertice == extremo2) return extremo1;
         throw new IllegalStateException("El vertice no pertenece a la arista");
+    }
+
+    public void construirCarretera(Jugador dueño) {
+
     }
 }

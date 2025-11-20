@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Jugador;
 
-import edu.fiuba.algo3.modelo.Recurso.GestorDeRecursos;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
+import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 import java.util.List;
@@ -48,5 +49,13 @@ public class Jugador {
     public int calcularPuntosTotales(){
         int puntosTotales = this.puntos; //por ahora tiene solo esto, probablemente mas adelante se expanda
         return puntosTotales;
+    }
+
+    public void agregarCarta(Carta carta) {
+        mano.agregar(carta);
+    }
+
+    public void descartarCarta(Carta carta) {
+        mano.descartar(carta);
     }
 }

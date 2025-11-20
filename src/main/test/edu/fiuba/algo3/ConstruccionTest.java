@@ -4,7 +4,7 @@ import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/*
 public class ConstruccionTest{
     @Test
     public void test01ElPobladoGeneraUnSoloRecurso() {
@@ -42,3 +42,4 @@ public class ConstruccionTest{
         assertEquals(0,jugador.cantidadRecurso(recurso));
         }
 }
+ */

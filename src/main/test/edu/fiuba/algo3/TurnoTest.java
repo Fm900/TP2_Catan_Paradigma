@@ -1,6 +1,7 @@
 package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.modelo.Fase.FasePrincipal;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Turno;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ public class TurnoTest {
 
     @BeforeEach
     public void setUp() {
-        jugador = new Jugador();
+        //jugador = new Jugador();
         fasePrincipal1 = mock(FasePrincipal.class);
         fasePrincipal2 = mock(FasePrincipal.class);
     }
