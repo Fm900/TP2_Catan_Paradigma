@@ -8,20 +8,24 @@ import java.util.List;
 public abstract class Carta {
 
     protected List<Recurso> precio;
-    protected ActivarEfecto activacion;
+    protected Efecto activacion;
 
 
     public Carta(List<Recurso> precio) {
         this.precio = precio;
-        this.activacion = new Deshabilitada();
+        this.activacion = new Deshabilitado();
+    }
+
+    public void intentarActivarEfecto(Jugador jugador) {
+        this.activacion.usar(this, jugador);
     }
 
     public boolean equals(Object o) {
         return o != null && this.getClass() == o.getClass();
     }
 
-    public void activarEfecto() {
-        activacion = activacion.activar();
+    public void cambiarEstado() {
+        this.activacion = new Habilitado();
     }
 
     public void agregarse(Jugador jugador) {
@@ -29,6 +33,8 @@ public abstract class Carta {
         jugador.agregarCarta(this);
     }
 
-    public abstract void usar(Jugador jugador);
+
+
+    public abstract void activarEfecto(Jugador jugador);
 
 }

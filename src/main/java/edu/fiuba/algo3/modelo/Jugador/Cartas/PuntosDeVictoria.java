@@ -9,11 +9,11 @@ import java.util.List;
 
 public class PuntosDeVictoria extends Carta{
 
-    public PuntosDeVictoria(ActivarEfecto activacion) {
+    public PuntosDeVictoria(Efecto activacion) {
             super((List.of(new Lana(), new Grano(), new Mineral())));
     }
 
-    public void usar(Jugador jugador) {
+    public void activarEfecto(Jugador jugador) {
         jugador.sumarPuntos(1);
     }
 
