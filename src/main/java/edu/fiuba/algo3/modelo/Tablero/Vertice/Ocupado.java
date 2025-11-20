@@ -42,8 +42,9 @@ public class Ocupado implements EstadoVertice {
         if (construccion.getDueño() != jugador){
             throw new NoSePuedeMejorarACiudad("No sos dueño de este poblado, no lo podes mejorar.");
         }
-        Construccion ciudad = new Ciudad(1, 2, jugador);
-        ciudad.construir();
+        construccion.quitarPuntos(jugador); //la construccion que se va a reemplazar le dice al jugador que se saque sus puntos.
+        Construccion ciudad = new Ciudad(2, 2, jugador);
+        ciudad.construir(); //consume recursos y suma los puntos de la nueva ciudad
         this.construccion = ciudad;
     }
 

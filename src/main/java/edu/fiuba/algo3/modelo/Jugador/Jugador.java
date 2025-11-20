@@ -10,6 +10,7 @@ import java.util.Collection;
 public class Jugador {
     private GestorDeRecursos recursos;
     private Mano mano;
+    private int puntos = 0;
 
     public Jugador(GestorDeRecursos gestor, Mano manoInicial) {
         this.recursos = gestor;
@@ -36,4 +37,16 @@ public class Jugador {
         return recursos.obtenerRecursoAleatorio();
     }
 
+    public void sumarPuntos(int puntos){
+        this.puntos += puntos;
+    }
+
+    public void restarPuntos(int puntos){
+        this.puntos -= puntos;
+    }
+
+    public int calcularPuntosTotales(){
+        int puntosTotales = this.puntos; //por ahora tiene solo esto, probablemente mas adelante se expanda
+        return puntosTotales;
+    }
 }

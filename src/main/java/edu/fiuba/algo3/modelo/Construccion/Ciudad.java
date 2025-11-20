@@ -16,5 +16,6 @@ public class Ciudad extends Construccion{
     @Override
     public void construir() {
         this.dueño.consumirRecursos(this.precio);
+        this.dueño.sumarPuntos(this.puntosDeVictoria);
     }
 }

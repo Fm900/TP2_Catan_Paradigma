@@ -14,5 +14,6 @@ public class Poblado extends Construccion {
 
     public void construir(){
         this.dueño.consumirRecursos(this.precio);
+        this.dueño.sumarPuntos(this.puntosDeVictoria);
     }
 }

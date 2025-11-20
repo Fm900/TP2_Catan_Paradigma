@@ -40,4 +40,9 @@ public abstract class Construccion {
     }
 
     public abstract void construir();
+
+    public void quitarPuntos(Jugador jugador) {
+        jugador.restarPuntos(this.puntosDeVictoria);
+    }
+
 }

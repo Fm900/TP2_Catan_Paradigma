@@ -43,4 +43,9 @@ public class Juego {
             jugador.descarteMayoria();
         }
     }
+
+    public int calcularPuntosTotalesDe(Jugador jugador){
+        int puntos = jugador.calcularPuntosTotales();
+        return puntos;
+    }
 }
