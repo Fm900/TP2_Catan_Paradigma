@@ -7,16 +7,13 @@ import java.util.List;
 
 public class Normal implements EstadoProductivo {
 
-    public void producir(String recurso, List<Vertice> verticesAdyacentes) {
+    @Override
+    public void producir(Recurso recurso, List<Vertice> verticesAdyacentes) {
         for (Vertice verticeAdyacente : verticesAdyacentes) {
             verticeAdyacente.entregarRecursosPorConstruccion(recurso);
         }
     }
 
-    @Override
-    public void producir(Recurso recurso, List<Vertice> vertices_adyacentes) {
-
-    }
 
     @Override
     public EstadoProductivo alterarEstado() {

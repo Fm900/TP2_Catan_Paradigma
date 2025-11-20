@@ -47,11 +47,9 @@ public class Terreno {
 
         return propietarios;
     }
-    public String obtenerRecurso() {
-        return this.recurso;
-    }
+
     public boolean tieneVertice(Vertice v) {
-        return verticesAdyacentes != null && this.verticesAdyacentes.contains(v);
+        return this.verticesAdyacentes.contains(v);
     }
 }
 
