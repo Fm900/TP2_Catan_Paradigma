@@ -60,7 +60,6 @@ public class Vertice {
         for (Arista aristaAdyacente: aristas) {
             if(aristaAdyacente.elMismoDueño(jugador)){
                 arista.construirCarretera(jugador);
-                break;
             }
         }
     }

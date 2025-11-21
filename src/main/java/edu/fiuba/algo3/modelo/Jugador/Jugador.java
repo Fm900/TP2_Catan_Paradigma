@@ -25,7 +25,7 @@ public class Jugador {
         recursos.descartarPorCantidad(cantidadRecursosADescartar);
     }
 
-    public void agregarRecurso(@NotNull Recurso recurso, int cantidad) {
+    public void agregarRecurso(Recurso recurso, int cantidad) {
         recurso.agregar(cantidad, recursos);
     }
 
