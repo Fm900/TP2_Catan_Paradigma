@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Construccion.*;
+import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirCarreteraEnEstaArista;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
@@ -10,7 +11,7 @@ import java.util.List;
 
 
 public class Vertice {
-    EstadoVertice estado = new Libre();
+    private EstadoVertice estado = new Libre();
     private final List<Arista> aristas = new ArrayList<>();
     private Jugador dueño;
 
@@ -58,9 +59,8 @@ public class Vertice {
         }
 
         for (Arista aristaAdyacente: aristas) {
-            if(aristaAdyacente.elMismoDueño(jugador)){
-                arista.construirCarretera(jugador);
+            aristaAdyacente.elMismoDueño(jugador);
+            arista.construirCarretera(jugador);
             }
         }
     }
-}

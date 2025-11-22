@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Tablero.Arista;
 
 import edu.fiuba.algo3.modelo.Construccion.Carretera;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
+import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirCarreteraEnEstaArista;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import java.util.List;
@@ -32,8 +33,11 @@ public class Arista {
         this.estado = new Ocupada();
     }
 
-    public boolean elMismoDueño(Jugador jugador){
-        return this.dueño == jugador;
+    public void elMismoDueño(Jugador jugador){
+        if(!(this.dueño == jugador)){
+            throw new NoSePuedeConstruirCarreteraEnEstaArista("No se puede construir una carretera en esta arista");
+        }
+        construirCarretera(jugador);
     }
 
     public void verificarLogicaDeConstruccionDeAristas(Jugador dueño) {

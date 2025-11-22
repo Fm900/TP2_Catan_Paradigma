@@ -22,7 +22,6 @@ public class Obligado implements Intercambiar {
         List<Recurso> recursosADescartar = new ArrayList<Recurso>();
         recursosADescartar.add(recursoADescartar);
         victima.consumirRecursos(recursosADescartar);
-
         victimario.agregarRecurso(recursoADescartar, 1);
     }
 }
