@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
+import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
@@ -23,13 +23,13 @@ public class VerificarElConsumoDeRecursosYLaCorrectaColocaciónDeUnaCarretera {
     Arista arista;
     Jugador jugador;
     List<Recurso> precio;
-    GestorDeRecursos gestor;
+    MazoDeRecursos gestor;
     Mano mano;
 
     @Test
     public void test01VerificarConsumoDeRecursosAlConstruirUnaCarretera(){
         precio = new ArrayList<>(List.of(new Madera(), new Ladrillo()));
-        gestor = new GestorDeRecursos(precio);
+        gestor = new MazoDeRecursos(precio);
         jugador = new Jugador(gestor, mano);
         vertice1 = new Vertice();
         vertice2 = new Vertice();

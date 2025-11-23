@@ -3,7 +3,7 @@ package edu.fiuba.algo3.entrega_2;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.ConstruccionCarreteras;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Deshabilitado;
-import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
+import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.Grano;
@@ -22,13 +22,13 @@ public class VerificarElConsumoDeRrecursosAlComprarUnaCartaDeDesarrolloYQueEstaP
     Carta carta;
     Jugador jugador;
     List<Recurso> precio;
-    GestorDeRecursos gestor;
+    MazoDeRecursos gestor;
     Mano mano;
 
     @Test
     public void test01VerificarConsumoDeRecursosCuandoSeCompraUnCarta(){
         precio = new ArrayList<>((List.of(new Lana(), new Grano(), new Mineral())));
-        jugador = new Jugador(new GestorDeRecursos(precio), mano);
+        jugador = new Jugador(new MazoDeRecursos(precio), mano);
         carta = new ConstruccionCarreteras(new Deshabilitado());
 
         assertDoesNotThrow(() -> jugador.consumirRecursos(precio), "No tienes suficiente");

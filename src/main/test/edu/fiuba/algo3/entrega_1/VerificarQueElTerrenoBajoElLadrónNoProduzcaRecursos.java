@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
+import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -38,8 +38,8 @@ public class VerificarQueElTerrenoBajoElLadrónNoProduzcaRecursos {
         recursoMadera = (List.of(madera, new Madera(), new Ladrillo(), new Grano(), new Lana()));
         terrenoActual = new Terreno (madera, 5, (new Alterado()));
         terrenoDestino = new Terreno( madera, 10, (new Normal()));
-        jugador = new Jugador((new GestorDeRecursos(recursoMadera)), new Mano());
-        jugador2 = new Jugador((new GestorDeRecursos(recursosJugador)), new Mano());
+        jugador = new Jugador((new MazoDeRecursos(recursoMadera)), new Mano());
+        jugador2 = new Jugador((new MazoDeRecursos(recursosJugador)), new Mano());
         ladron = new Ladron(terrenoActual);
     }
 

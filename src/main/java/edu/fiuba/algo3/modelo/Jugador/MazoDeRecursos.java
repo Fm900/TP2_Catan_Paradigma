@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GestorDeRecursos {
+public class MazoDeRecursos {
     private List<Recurso> recursos;
 
-    public GestorDeRecursos(List<Recurso> recursosIniciales) {
+    public MazoDeRecursos(List<Recurso> recursosIniciales) {
         this.recursos = new ArrayList<>(recursosIniciales);
     }
 
@@ -87,5 +87,15 @@ public class GestorDeRecursos {
 
     public Recurso obtenerRecursoAleatorio(){
         return recursos.get(ThreadLocalRandom.current().nextInt(recursos.size()));
+    }
+
+    public int cantidaDeRecurso(Recurso recu) {
+        int cantidad = 0;
+        for (Recurso recurso : recursos) {
+            if (recurso.equals(recu)) {
+                cantidad++;
+            }
+        }
+        return cantidad;
     }
 }

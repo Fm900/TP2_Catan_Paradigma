@@ -2,7 +2,7 @@ package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
-import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
+import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Ladron;
@@ -38,8 +38,8 @@ public class VerificarQueUnJugadorActivoPuedaMoverElLadronYRobarUnaCartaAleatore
         recursosJugador2 = List.of(madera);
         terrenoActual = new Terreno (madera, 5, (new Alterado()));
         terrenoDestino = new Terreno( madera, 10, (new Normal()));
-        jugador1 = new Jugador((new GestorDeRecursos(recursosJugador1)), new Mano());
-        jugador2 = new Jugador((new GestorDeRecursos(recursosJugador2)), new Mano());
+        jugador1 = new Jugador((new MazoDeRecursos(recursosJugador1)), new Mano());
+        jugador2 = new Jugador((new MazoDeRecursos(recursosJugador2)), new Mano());
         ladron = new Ladron(terrenoActual);
     }
 

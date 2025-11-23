@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 import edu.fiuba.algo3.modelo.Exception.ReglaDeDistanciaNoValida;
-import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
+import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
 
     private Jugador jugadorConRecursosParaUnPoblado() {
-        GestorDeRecursos gestor = new GestorDeRecursos(new ArrayList<>());
+        MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
         Mano mano = new Mano();
         Jugador jugador = new Jugador(gestor, mano);
 

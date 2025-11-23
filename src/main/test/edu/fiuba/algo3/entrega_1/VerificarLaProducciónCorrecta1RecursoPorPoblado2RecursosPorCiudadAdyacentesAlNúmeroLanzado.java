@@ -2,7 +2,7 @@ package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Construccion.Ciudad;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
-import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
+import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -25,7 +25,7 @@ public class VerificarLaProducciónCorrecta1RecursoPorPoblado2RecursosPorCiudadA
         Vertice vertice = new Vertice();
         Recurso recurso = new Madera();
         Terreno terrenoDestino = new Terreno(recurso, 10, (new Normal()));
-        Jugador jugador = new Jugador(new GestorDeRecursos(listaRecursos), new Mano());
+        Jugador jugador = new Jugador(new MazoDeRecursos(listaRecursos), new Mano());
         Poblado poblado = new Poblado(1, 1, jugador);
 
         vertice.construirPoblado(jugador);
@@ -46,7 +46,7 @@ public class VerificarLaProducciónCorrecta1RecursoPorPoblado2RecursosPorCiudadA
         Recurso recurso = new Madera();
         Terreno terrenoDestino = new Terreno(recurso, 10, (new Normal()));
         List<Recurso> listaRecursos = (List.of(new Grano(), new Grano(), new Mineral(), new Mineral(), new Mineral(), new Madera(), new Ladrillo(), new Grano(), new Lana()));
-        Jugador jugador = new Jugador(new GestorDeRecursos(listaRecursos), new Mano());
+        Jugador jugador = new Jugador(new MazoDeRecursos(listaRecursos), new Mano());
         Poblado poblado = new Poblado(1, 1, jugador);
         Ciudad ciudad = new Ciudad(2, 2, jugador);
 

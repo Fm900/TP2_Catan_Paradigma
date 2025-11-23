@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Obligado implements Intercambiar {
+public class Obligado implements Intercambio {
 
     private Jugador victimario;
     private Jugador victima;

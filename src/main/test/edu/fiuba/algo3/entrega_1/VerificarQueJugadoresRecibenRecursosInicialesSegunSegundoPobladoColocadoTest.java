@@ -2,7 +2,7 @@ package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Fase.PrimerTurno;
 import edu.fiuba.algo3.modelo.Fase.SegundoTurno;
-import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
+import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -30,7 +30,7 @@ public class VerificarQueJugadoresRecibenRecursosInicialesSegunSegundoPobladoCol
     } //esto es para armar los terrenos a mano, asi se lo que debo esperar al darle los recursos al jugador por el poblado que coloca
 
     private Jugador nuevoJugadorConRecursosIniciales() {
-        GestorDeRecursos gestor = new GestorDeRecursos(new ArrayList<>(List.of(new Madera(), new Ladrillo(), new Lana(), new Grano(),new Madera(), new Ladrillo(), new Lana(), new Grano())));
+        MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>(List.of(new Madera(), new Ladrillo(), new Lana(), new Grano(),new Madera(), new Ladrillo(), new Lana(), new Grano())));
         Mano mano = new Mano();
         return new Jugador(gestor, mano);
     }

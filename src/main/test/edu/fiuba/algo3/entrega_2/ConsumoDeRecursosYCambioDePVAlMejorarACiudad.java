@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.entrega_2;
-import edu.fiuba.algo3.modelo.Banca;
+import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Juego;
-import edu.fiuba.algo3.modelo.Jugador.GestorDeRecursos;
+import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
 
     private Jugador nuevoJugador() {
-        GestorDeRecursos gestor = new GestorDeRecursos(new ArrayList<>());
+        MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
         Mano mano = new Mano();
         return new Jugador(gestor, mano);
     }
@@ -54,7 +54,7 @@ public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
 
     @Test
     void mejorarPobladoACiudadActualizaPuntosDeVictoria() {
-        GestorDeRecursos gestor = new GestorDeRecursos(new ArrayList<>());
+        MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
         Mano mano = new Mano();
         Jugador jugador = new Jugador(gestor, mano);
 
@@ -70,7 +70,7 @@ public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
 
         // crear tablero y juego
         Tablero tablero = new Tablero(new GeneradorDeTerrenos());
-        Banca banca = new Banca();
+        Banca banca = new Banca(new ArrayList<>());
         Juego juego = new Juego(List.of(jugador), new ArrayList<>(), new ArrayList<>(), tablero, banca);
 
         Vertice vertice = new Vertice();

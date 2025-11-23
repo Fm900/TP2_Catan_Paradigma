@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo.Tablero;
 
 import edu.fiuba.algo3.modelo.Exception.MovimientoInvalido;
-import edu.fiuba.algo3.modelo.Intercambio.Intercambiar;
+import edu.fiuba.algo3.modelo.Intercambio.Intercambio;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Intercambio.Obligado;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
@@ -24,7 +24,7 @@ public class Ladron {
     }
 
     public void robar(Jugador jugadorTurno, Jugador victima) {
-        Intercambiar intercambiador = new Obligado(jugadorTurno, victima);
+        Intercambio intercambiador = new Obligado(jugadorTurno, victima);
         intercambiador.intercambio();
     }
 }
