@@ -1,10 +1,12 @@
 package edu.fiuba.algo3.modelo.Fase;
 
+import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 public class JugarCartas implements FasePrincipal {
 
-    public void iniciarFase( Jugador jugadorActual) {
+    public void iniciarFase(Jugador jugadorActual, Banca banca) {
     }
 //    public void iniciarFase(Jugador jugadorActual, Carta cartaActual) {
 //        if (!jugadorActual.tieneCartasParaJugar()){

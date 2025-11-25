@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Construccion.Carretera;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirCarreteraEnEstaArista;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Puerto;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import java.util.List;
 
@@ -12,11 +13,15 @@ public class Arista {
     private final Vertice extremo2;
     private EstadoArista estado;
     private Jugador dueño;
+    private Puerto puerto;
 
     public Arista(Vertice a, Vertice b, EstadoArista estado){
         this.extremo1 = a;
         this.extremo2 = b;
         this.estado = estado;
+    }
+    public void agregarPuerto(Puerto puerto){
+        this.puerto = puerto;
     }
 
     public Arista obtenerme(){

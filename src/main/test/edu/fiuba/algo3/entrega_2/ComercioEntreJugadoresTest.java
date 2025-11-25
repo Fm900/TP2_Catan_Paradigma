@@ -1,11 +1,13 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Fase.Comercio;
+import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Intercambio.Oferta.Oferta;
 import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +24,7 @@ public class ComercioEntreJugadoresTest {
     Recurso recurso3;
     List<Recurso> recursosRequeridos;
     List<Recurso> recursosOfrecidos;
+    Banca banca;
     @BeforeEach
     public void setUp() {
         MazoDeRecursos gestor1 = new MazoDeRecursos(new ArrayList<Recurso>());
@@ -36,6 +39,7 @@ public class ComercioEntreJugadoresTest {
         this.recurso3 = new Mineral();
         this.recursosRequeridos = List.of(recurso1);
         this.recursosOfrecidos = List.of(recurso2,recurso2);
+        this.banca = new Banca(new ArrayList<Recurso>());
 
     }
     @Test
@@ -53,7 +57,7 @@ public class ComercioEntreJugadoresTest {
         int recursos1InicialJugador2 = jugado2.cantidadDeRecurso(recurso1);
         int recursos2InicialJugador2 = jugado2.cantidadDeRecurso(recurso2);
         //iniciamos fase de comercio
-        comercio.iniciarFase(jugado1);
+        comercio.iniciarFase(jugado1,banca);
 
         // jugador1 le hace una oferta a jugador2
         Oferta oferta = comercio.crearOfertaJugador(jugado2,recursosOfrecidos,recursosRequeridos);
@@ -78,7 +82,7 @@ public class ComercioEntreJugadoresTest {
         jugado2.agregarRecurso(recurso2, 5);
         // vemos los recursos por el momento
         //iniciamos fase de comercio
-        comercio.iniciarFase(jugado1);
+        comercio.iniciarFase(jugado1,banca);
 
         // jugador1 le hace una oferta a jugador2
         Oferta oferta = comercio.crearOfertaJugador(jugado2,recursosOfrecidos,recursosRequeridos);

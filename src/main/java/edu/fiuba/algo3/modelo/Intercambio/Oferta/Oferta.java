@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 import java.util.List;
 
-public class Oferta<T>{
+public class Oferta{
     private Resolucion estado;
     private Intercambio intercambio;
 

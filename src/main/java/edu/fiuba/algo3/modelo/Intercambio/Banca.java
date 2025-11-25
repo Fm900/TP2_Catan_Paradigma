@@ -11,19 +11,15 @@ public class Banca {
     public Banca(List<Recurso> recursos) {
         this.recursos = recursos;
     }
-    public void recibirOferta(Recurso recursoRequerido, Oferta oferta) {
-        if(this.cantidaDeRecurso(recursoRequerido) > 0){
-            oferta.acepatar();
-        }
-    }
-    public int cantidaDeRecurso(Recurso recu) {
-        int cantidad = 0;
+
+    public boolean tieneSuficiente(Recurso recursoEvaluado) {
+        int contador = 0;
         for (Recurso recurso : recursos) {
-            if (recu.equals(recurso)) {
-                cantidad++;
+            if(recursoEvaluado.equals(recurso)) {
+                contador++;
             }
         }
-        return cantidad;
+        return contador >= 1;
     }
     public void agregarRecurso(List<Recurso> ingreso) {
         for (Recurso recurso : ingreso) {
