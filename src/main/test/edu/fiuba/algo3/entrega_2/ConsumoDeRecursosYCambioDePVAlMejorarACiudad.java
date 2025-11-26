@@ -20,7 +20,7 @@ public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
     private Jugador nuevoJugador() {
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
         Mano mano = new Mano();
-        return new Jugador(gestor, mano);
+        return new Jugador(gestor, mano,"Alex");
     }
 
     private void darRecursosParaUnPobladoYCiudad(Jugador jugador) {
@@ -56,7 +56,7 @@ public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
     void mejorarPobladoACiudadActualizaPuntosDeVictoria() {
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
         Mano mano = new Mano();
-        Jugador jugador = new Jugador(gestor, mano);
+        Jugador jugador = new Jugador(gestor, mano,"Alex");
 
         // recursos para 1 poblado
         jugador.agregarRecurso(new Madera(), 1);

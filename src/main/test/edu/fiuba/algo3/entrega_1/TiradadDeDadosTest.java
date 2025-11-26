@@ -17,7 +17,7 @@ public class TiradadDeDadosTest {
         /*Arrange*/
         MazoDeRecursos gestor1 = new MazoDeRecursos(new ArrayList<Recurso>());
         Mano mano1 = new Mano();
-        Jugador jugador1 = new Jugador(gestor1, mano1);
+        Jugador jugador1 = new Jugador(gestor1, mano1,"Alex");
         Dados faseDeDados = new Dados();
         Banca banca = new Banca(new ArrayList<Recurso>());
         /*Act*/

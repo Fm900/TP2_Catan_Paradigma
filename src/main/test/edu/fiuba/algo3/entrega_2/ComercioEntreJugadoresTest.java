@@ -31,8 +31,8 @@ public class ComercioEntreJugadoresTest {
         MazoDeRecursos gestor2 = new MazoDeRecursos(new ArrayList<Recurso>());
         Mano mano1 = new Mano();
         Mano mano2 = new Mano();
-        this.jugado1 = new Jugador(gestor1,mano1);
-        this.jugado2 = new Jugador(gestor2,mano2);
+        this.jugado1 = new Jugador(gestor1,mano1,"Alex");
+        this.jugado2 = new Jugador(gestor2,mano2,"Felix");
         this.comercio = new Comercio();
         this.recurso1 = new Madera();
         this.recurso2 = new Ladrillo();

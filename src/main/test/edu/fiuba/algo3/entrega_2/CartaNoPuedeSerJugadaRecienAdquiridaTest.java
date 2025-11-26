@@ -22,7 +22,7 @@ public class CartaNoPuedeSerJugadaRecienAdquiridaTest {
 
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<Recurso>());
         Mano mano = new Mano();
-        Jugador jugadorQueLevanta = new Jugador(gestor,mano);
+        Jugador jugadorQueLevanta = new Jugador(gestor,mano,"Alex");
         Carta cartaRecienLevantada = new Monopolio((new Deshabilitado()));
         jugadorQueLevanta.agregarCarta(cartaRecienLevantada);
 

@@ -28,7 +28,7 @@ public class VerificarElConsumoDeRrecursosAlComprarUnaCartaDeDesarrolloYQueEstaP
     @Test
     public void test01VerificarConsumoDeRecursosCuandoSeCompraUnCarta(){
         precio = new ArrayList<>((List.of(new Lana(), new Grano(), new Mineral())));
-        jugador = new Jugador(new MazoDeRecursos(precio), mano);
+        jugador = new Jugador(new MazoDeRecursos(precio), mano,"Alex");
         carta = new ConstruccionCarreteras(new Deshabilitado());
 
         assertDoesNotThrow(() -> jugador.consumirRecursos(precio), "No tienes suficiente");

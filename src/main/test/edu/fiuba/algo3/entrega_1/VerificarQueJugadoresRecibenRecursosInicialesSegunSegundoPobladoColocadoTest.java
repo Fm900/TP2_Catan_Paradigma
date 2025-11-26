@@ -32,7 +32,7 @@ public class VerificarQueJugadoresRecibenRecursosInicialesSegunSegundoPobladoCol
     private Jugador nuevoJugadorConRecursosIniciales() {
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>(List.of(new Madera(), new Ladrillo(), new Lana(), new Grano(),new Madera(), new Ladrillo(), new Lana(), new Grano())));
         Mano mano = new Mano();
-        return new Jugador(gestor, mano);
+        return new Jugador(gestor, mano,"Alex");
     }
 
 

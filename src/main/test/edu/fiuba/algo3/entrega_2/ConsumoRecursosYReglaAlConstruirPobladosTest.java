@@ -18,7 +18,7 @@ public class ConsumoRecursosYReglaAlConstruirPobladosTest {
     private Jugador nuevoJugador() {
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
         Mano mano = new Mano();
-        return new Jugador(gestor, mano);
+        return new Jugador(gestor, mano,"Alex");
     }
 
     private void darRecursosParaPoblados(Jugador jugador, int cantidadPoblados) {

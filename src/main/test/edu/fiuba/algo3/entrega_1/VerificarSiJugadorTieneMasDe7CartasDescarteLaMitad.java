@@ -21,7 +21,7 @@ public class VerificarSiJugadorTieneMasDe7CartasDescarteLaMitad {
     @Test
     public void test01seVerificaQueJugadorConMenosDe7CartasNoDescarte() {
         recursos = new ArrayList<Recurso>(List.of(new Madera(), new Grano(), new Lana()));
-        jugador = new Jugador(new MazoDeRecursos(recursos), new Mano());
+        jugador = new Jugador(new MazoDeRecursos(recursos), new Mano(),"Alex");
 
         assertThrows(NoTieneRecursosSuficientesParaDescartar.class, () -> jugador.descarteMayoria(), "No llega a la cantidad de 7 recursos");
     }
@@ -30,7 +30,7 @@ public class VerificarSiJugadorTieneMasDe7CartasDescarteLaMitad {
     @Test
     public void test02seVerificaQueJugadorConMasDe7CartasDescarte() {
         recursos = new ArrayList<Recurso>(List.of(new Madera(), new Grano(), new Lana(),new Madera(), new Grano(), new Lana(), new Madera(), new Grano(), new Lana()));
-        jugador = new Jugador(new MazoDeRecursos(recursos), new Mano());
+        jugador = new Jugador(new MazoDeRecursos(recursos), new Mano(),"Alex");
 
         assertDoesNotThrow(() -> jugador.descarteMayoria(), "No llega a la cantidad de 7 recursos");
     }

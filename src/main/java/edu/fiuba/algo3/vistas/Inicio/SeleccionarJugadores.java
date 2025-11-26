@@ -1,10 +1,14 @@
 package edu.fiuba.algo3.vistas.Inicio;
 
+import edu.fiuba.algo3.controllers.ControladorDeAlerta;
+import edu.fiuba.algo3.controllers.ControladorDeInicioDeJuego;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class SeleccionarJugadores extends EscenaGeneral {
 
@@ -18,9 +22,12 @@ public class SeleccionarJugadores extends EscenaGeneral {
     private TextField nombre4;
     private Button comenzar;
     private Button volver;
+    private ControladorDeInicioDeJuego controlador;
+
 
     public SeleccionarJugadores(Stage stage) {
         super(stage);
+        controlador = new ControladorDeInicioDeJuego();
     }
 
     @Override
@@ -98,16 +105,33 @@ public class SeleccionarJugadores extends EscenaGeneral {
 
             int cantidad = tresJugadores.isSelected() ? 3 : 4;
 
-            System.out.println("Cantidad de jugadores: " + cantidad);
-            System.out.println("Jugador 1: " + nombre1.getText());
-            System.out.println("Jugador 2: " + nombre2.getText());
-            System.out.println("Jugador 3: " + nombre3.getText());
+            if (nombre1.getText().isBlank() ||
+                    nombre2.getText().isBlank() ||
+                    nombre3.getText().isBlank() ||
+                    (cantidad == 4 && nombre4.getText().isBlank())) {
 
-            if (cantidad == 4) {
-                System.out.println("Jugador 4: " + nombre4.getText());
+                ControladorDeAlerta.mostrarError("Todos los jugadores deben tener nombre");
+                return;
             }
-            // Aca más adelante cambias a la escena del juego
+            String j1 = nombre1.getText();
+            String j2 = nombre2.getText();
+            String j3 = nombre3.getText();
+            String j4 = cantidad == 4 ? nombre4.getText() : null;
+
+            // DEBUG
+            System.out.println("Cantidad de jugadores: " + cantidad);
+            System.out.println("Jugador 1: " + j1);
+            System.out.println("Jugador 2: " + j2);
+            System.out.println("Jugador 3: " + j3);
+            if (cantidad == 4) System.out.println("Jugador 4: " + j4);
+
+            if (cantidad == 3) {
+                controlador.iniciarJuegoPara(List.of(j1, j2, j3));
+            } else { controlador.iniciarJuegoPara(List.of( j1, j2, j3, j4));}
+
+            // Acá se cambia a la escena del juego
         });
+
         volver.setOnAction(e -> {
             stage.setScene(new MenuPrincipalScena(stage).getScene());
             stage.setMaximized(true);   
@@ -115,7 +139,7 @@ public class SeleccionarJugadores extends EscenaGeneral {
         grupoCantidad.selectedToggleProperty().addListener((obs, oldVal, newVal) -> {
             boolean cuatro = cuatroJugadores.isSelected();
             nombre4.setVisible(cuatro);
-            nombre4.setManaged(cuatro); // IMPORTANTE para que no deje espacios
+            nombre4.setManaged(cuatro);
         });
 
     }

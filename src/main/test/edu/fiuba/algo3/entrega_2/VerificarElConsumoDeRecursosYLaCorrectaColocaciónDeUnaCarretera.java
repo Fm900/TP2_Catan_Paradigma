@@ -30,7 +30,7 @@ public class VerificarElConsumoDeRecursosYLaCorrectaColocaciónDeUnaCarretera {
     public void test01VerificarConsumoDeRecursosAlConstruirUnaCarretera(){
         precio = new ArrayList<>(List.of(new Madera(), new Ladrillo()));
         gestor = new MazoDeRecursos(precio);
-        jugador = new Jugador(gestor, mano);
+        jugador = new Jugador(gestor, mano,"Alex");
         vertice1 = new Vertice();
         vertice2 = new Vertice();
         arista = new Arista(vertice1, vertice2, new Vacia());

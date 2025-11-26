@@ -9,10 +9,12 @@ public class Jugador {
     private MazoDeRecursos recursos;
     private Mano mano;
     private int puntos = 0;
+    private String nombre;
 
-    public Jugador(MazoDeRecursos gestor, Mano manoInicial) {
+    public Jugador(MazoDeRecursos gestor, Mano manoInicial, String nombre) {
         this.recursos = gestor;
         this.mano = manoInicial;
+        this.nombre = nombre;
     }
 
     //para recursos

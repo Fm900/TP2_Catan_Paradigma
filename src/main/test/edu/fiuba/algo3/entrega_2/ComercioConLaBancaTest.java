@@ -31,7 +31,7 @@ public class ComercioConLaBancaTest {
     public void setUp() {
         MazoDeRecursos gestor1 = new MazoDeRecursos(new ArrayList<Recurso>());
         Mano mano1 = new Mano();
-        this.jugado1 = new Jugador(gestor1,mano1);
+        this.jugado1 = new Jugador(gestor1,mano1,"Alex");
         this.comercio = new Comercio();
         this.recurso1 = new Madera();
         this.recurso2 = new Ladrillo();

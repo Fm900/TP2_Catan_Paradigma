@@ -16,7 +16,7 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
     private Jugador jugadorConRecursosParaUnPoblado() {
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
         Mano mano = new Mano();
-        Jugador jugador = new Jugador(gestor, mano);
+        Jugador jugador = new Jugador(gestor, mano, "Alex");
 
         jugador.agregarRecurso(new Madera(), 1);
         jugador.agregarRecurso(new Ladrillo(), 1);
