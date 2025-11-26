@@ -12,25 +12,34 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
 
-        // Crear la escena de menú
+
         MenuPrincipalScena menu = new MenuPrincipalScena(stage);
-        Scene scene = menu.getScene();
 
-        // Colocar la escena en el stage
+
         stage.setScene(menu.getScene());
-
-        // Título de la ventana
         stage.setTitle("Catan");
+
+
         stage.setFullScreen(true);
+
+
         stage.setFullScreenExitHint("");
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        scene.setOnKeyPressed(event -> {
+
+
+        stage.addEventFilter(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
-                stage.setFullScreen(false);
-                stage.setMaximized(true);
+                if (stage.isFullScreen()) {
+                    // Salir de fullscreen → pasar a ventana maximizada
+                    stage.setFullScreen(false);
+                    stage.setMaximized(true);
+                } else {
+                    stage.setFullScreen(true);
+                }
+                event.consume();
             }
         });
-        // Mostrar ventana
+
         stage.show();
     }
 

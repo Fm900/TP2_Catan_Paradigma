@@ -133,8 +133,14 @@ public class SeleccionarJugadores extends EscenaGeneral {
         });
 
         volver.setOnAction(e -> {
+            boolean estabaFullScreen = stage.isFullScreen();
+            boolean estabaMaximized = stage.isMaximized();
             stage.setScene(new MenuPrincipalScena(stage).getScene());
-            stage.setMaximized(true);   
+            if (estabaFullScreen) {
+                stage.setFullScreen(true);
+            } else {
+                stage.setMaximized(estabaMaximized);
+            }
         });
         grupoCantidad.selectedToggleProperty().addListener((obs, oldVal, newVal) -> {
             boolean cuatro = cuatroJugadores.isSelected();

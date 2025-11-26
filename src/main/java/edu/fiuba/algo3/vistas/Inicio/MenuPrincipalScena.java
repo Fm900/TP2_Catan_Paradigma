@@ -29,17 +29,15 @@ public class MenuPrincipalScena extends EscenaGeneral {
         vbox.setSpacing(20);
         vbox.setFillWidth(false);
         vbox.setStyle("-fx-alignment: center;");
-        vbox.setMinHeight(Region.USE_PREF_SIZE);  // <--- clave para evitar que se expanda
+        vbox.setMinHeight(Region.USE_PREF_SIZE);
 
         jugar = new Button("Jugar");
         vbox.getChildren().add(jugar);
 
         StackPane root = new StackPane(vbox);
 
-        // Alinear abajo
         StackPane.setAlignment(vbox, Pos.BOTTOM_CENTER);
 
-        // Moverlo bien abajo (probá 250, 300, 350...)
         StackPane.setMargin(vbox, new Insets(0, 0, -100, 0));
 
         return root;
@@ -49,9 +47,17 @@ public class MenuPrincipalScena extends EscenaGeneral {
     protected void createControllers(Stage stage) {
 
         jugar.setOnAction(e -> {
+            boolean estabaFullScreen = stage.isFullScreen();
+            boolean estabaMaximized = stage.isMaximized();
+
             SeleccionarJugadores escena = new SeleccionarJugadores(stage);
             stage.setScene(escena.getScene());
-            stage.setMaximized(true);
+
+            if (estabaFullScreen) {
+                stage.setFullScreen(true);
+            } else {
+                stage.setMaximized(estabaMaximized);
+            }
             System.out.println("Iniciar juego...");
         });
     }
