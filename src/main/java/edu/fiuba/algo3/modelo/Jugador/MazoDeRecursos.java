@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Jugador;
 
+import edu.fiuba.algo3.modelo.Exception.NoAlcanzanLosRecursos;
 import edu.fiuba.algo3.modelo.Exception.NoTieneRecursosSuficientesParaDescartar;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
@@ -113,11 +114,11 @@ public class MazoDeRecursos {
             this.grano = granoCopia;
             this.lana = lanaCopia;
             this.madera = maderaCopia;
+            throw new NoAlcanzanLosRecursos("No tienes suficientes recursos para realizar esta operacion");
         }
     }
 
     public Recurso obtenerRecursoAleatorio() {
-        Recurso recursoGenerado;
         List<Integer> recursos = new ArrayList<>(List.of(madera, ladrillo, mineral, grano, lana));
         List<Recurso> tipos = List.of(new Madera(), new Ladrillo(), new Mineral(), new Grano(), new Lana());
 

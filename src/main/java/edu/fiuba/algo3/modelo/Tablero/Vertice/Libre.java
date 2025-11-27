@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.Tablero.Vertice;
 import java.util.List;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
+import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente;
 import edu.fiuba.algo3.modelo.Exception.NoSePuedeMejorarACiudad;
 import edu.fiuba.algo3.modelo.Exception.ReglaDeDistanciaNoValida;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
@@ -12,9 +13,9 @@ import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 public class Libre implements EstadoVertice {
 
     @Override
-    public void construirPoblado(Vertice self, Jugador jugador) {
+    public void construirPobladoInicial(Vertice self, Jugador jugador, List<Arista> aristas) {
         //Regla de distancia
-        for (Arista arista : self.aristas()) {
+        for (Arista arista : aristas) {
             Vertice vecino = arista.otroExtremo(self);
             if (!vecino.validarConstruccionEnVecino()) {
                 throw new ReglaDeDistanciaNoValida("No se puede construir un poblado en este vértice");
@@ -26,6 +27,31 @@ public class Libre implements EstadoVertice {
         poblado.construir();
         self.cambiarAOcupado(poblado);
         self.setDueño(jugador);
+    }
+
+    @Override
+    public void construirPoblado(Vertice self, Jugador jugador, List<Arista> aristas) {
+        for (Arista arista : aristas) {
+            try {
+                arista.elMismoDueño(jugador);
+                Vertice vecino = arista.otroExtremo(self);
+
+                if (!vecino.validarConstruccionEnVecino()) {
+                    throw new ReglaDeDistanciaNoValida("Vértice adyacente ocupado");
+                }
+
+                Construccion poblado = new Poblado(1, 1, jugador);
+                poblado.construir();
+                self.cambiarAOcupado(poblado);
+                self.setDueño(jugador);
+                return;
+
+            } catch (NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente e) {
+            }
+        }
+        throw new NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente(
+                "No se puede construir poblado: ninguna arista habilita"
+        );
     }
 
     @Override

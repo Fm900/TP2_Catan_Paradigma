@@ -15,7 +15,7 @@ public class SegundoTurno implements FaseInicial{
         for (int i = jugadores.size() - 1; i >= 0; i--) {
             Jugador jugador = jugadores.get(i);
 
-            tablero.colocarPoblado(jugador, this.verticeParaConstruir);
+            tablero.colocarPobladoInicial(jugador, this.verticeParaConstruir);
 
             for (Terreno terreno : tablero.obtenerTerrenosAdy(verticeParaConstruir)){
                 // el jugador recibe 1 recurso por cada terreno adyacente al que construyo

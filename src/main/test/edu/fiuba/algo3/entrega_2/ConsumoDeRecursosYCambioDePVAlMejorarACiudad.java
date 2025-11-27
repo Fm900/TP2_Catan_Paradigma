@@ -43,7 +43,7 @@ public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
         Vertice vertice = new Vertice();
 
         // Construyo el poblado
-        assertDoesNotThrow(() -> vertice.construirPoblado(jugador));
+        assertDoesNotThrow(() -> vertice.construirPobladoInicial(jugador));
 
         // Mejoro a ciudad
         assertDoesNotThrow(() -> vertice.mejorarPobladoACiudad(jugador));
@@ -75,7 +75,7 @@ public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
 
         Vertice vertice = new Vertice();
 
-        vertice.construirPoblado(jugador);
+        vertice.construirPobladoInicial(jugador);
         assertEquals(1,juego.calcularPuntosTotalesDe(jugador)); // con un poblado el jugador debe tener 1 punto
 
         vertice.mejorarPobladoACiudad(jugador);

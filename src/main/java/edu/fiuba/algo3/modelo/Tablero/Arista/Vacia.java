@@ -10,11 +10,11 @@ import java.util.List;
 
 public class Vacia implements EstadoArista {
     @Override
-    public void construirCarretera(Arista self, Jugador jugador, List<Vertice> extremos) {
-        // Logica de validacion
-        for(Vertice vertice: extremos){
-            vertice.elMismoDueño(jugador, self);
+    public void construirCarretera(Arista self, Jugador jugador, List<Vertice> vertices) {
+        for (Vertice v : vertices){
+            v.validarConexion(jugador);
         }
-
+        self.construirCarretera(jugador);
     }
+
 }

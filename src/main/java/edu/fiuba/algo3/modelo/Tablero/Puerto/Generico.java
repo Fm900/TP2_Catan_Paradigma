@@ -3,8 +3,6 @@ package edu.fiuba.algo3.modelo.Tablero.Puerto;
 import edu.fiuba.algo3.modelo.Exception.RecursoInvalido;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Generico implements Tasa{
@@ -21,6 +19,7 @@ public class Generico implements Tasa{
         if(recursos.size() != cantidad){
             throw new RecursoInvalido("Se deben elegir: " +cantidad+"recursos disntintos");
         }
+
         for (Recurso recurso : recursos) {
             if(jugador.cantidadDeRecurso(recurso) < 1){
                 respuesta = false;
@@ -28,5 +27,4 @@ public class Generico implements Tasa{
         }
         return respuesta;
     }
-
 }

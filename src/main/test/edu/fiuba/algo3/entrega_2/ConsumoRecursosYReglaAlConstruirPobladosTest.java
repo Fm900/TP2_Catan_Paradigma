@@ -42,11 +42,11 @@ public class ConsumoRecursosYReglaAlConstruirPobladosTest {
         Vertice v3 = new Vertice();
 
         // No conecto los vértices -> regla de distancia no me bloquea
-        assertDoesNotThrow(() -> v1.construirPoblado(jugador));
-        assertDoesNotThrow(() -> v2.construirPoblado(jugador));
+        assertDoesNotThrow(() -> v1.construirPobladoInicial(jugador));
+        assertDoesNotThrow(() -> v2.construirPobladoInicial(jugador));
 
         // ahora deberian faltar recursos
-        assertThrows(RuntimeException.class, () -> v3.construirPoblado(jugador));
+        assertThrows(RuntimeException.class, () -> v3.construirPobladoInicial(jugador));
     }
 
 
@@ -63,12 +63,12 @@ public class ConsumoRecursosYReglaAlConstruirPobladosTest {
         v1.conectarConVertice(v2);
 
         //Construyo en v1
-        assertDoesNotThrow(() -> v1.construirPoblado(jugador));
+        assertDoesNotThrow(() -> v1.construirPobladoInicial(jugador));
 
         //Intento construir en v2 y debe romper por ReglaDeDistancia,
-        assertThrows(ReglaDeDistanciaNoValida.class, () -> v2.construirPoblado(jugador));
+        assertThrows(ReglaDeDistanciaNoValida.class, () -> v2.construirPobladoInicial(jugador));
 
         //Como no se consumieron recursos deberia poder construir en v3.
-        assertDoesNotThrow(() -> v3.construirPoblado(jugador));
+        assertDoesNotThrow(() -> v3.construirPobladoInicial(jugador));
     }
 }

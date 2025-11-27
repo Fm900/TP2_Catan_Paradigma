@@ -25,6 +25,10 @@ public class Tablero {
     }
 
 
+    public void colocarPobladoInicial(Jugador jugador, Vertice vertice){
+        vertice.construirPobladoInicial(jugador);
+    }
+
     public void colocarPoblado(Jugador jugador, Vertice vertice){
         vertice.construirPoblado(jugador);
     }

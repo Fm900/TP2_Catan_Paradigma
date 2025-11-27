@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.Fase;
 
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
@@ -17,8 +16,7 @@ public class PrimerTurno implements FaseInicial {
 
         for (int i = jugadores.size() - 1; i >= 0; i--) {
             Jugador jugador = jugadores.get(i);
-
-            tablero.colocarPoblado(jugador, this.verticeParaConstruir);
+            tablero.colocarPobladoInicial(jugador, this.verticeParaConstruir);
         }
     }
 

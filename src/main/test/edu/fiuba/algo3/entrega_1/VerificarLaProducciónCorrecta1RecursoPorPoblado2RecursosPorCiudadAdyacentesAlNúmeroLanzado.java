@@ -28,7 +28,7 @@ public class VerificarLaProducciónCorrecta1RecursoPorPoblado2RecursosPorCiudadA
         Jugador jugador = new Jugador(new MazoDeRecursos(listaRecursos), new Mano(), "Alex");
         Poblado poblado = new Poblado(1, 1, jugador);
 
-        vertice.construirPoblado(jugador);
+        vertice.construirPobladoInicial(jugador);
 
         terrenoDestino.asignarVerticesAdyacentes(List.of(vertice));
 
@@ -50,7 +50,7 @@ public class VerificarLaProducciónCorrecta1RecursoPorPoblado2RecursosPorCiudadA
         Poblado poblado = new Poblado(1, 1, jugador);
         Ciudad ciudad = new Ciudad(2, 2, jugador);
 
-        vertice.construirPoblado(jugador);
+        vertice.construirPobladoInicial(jugador);
 
         vertice.mejorarPobladoACiudad(jugador);
 

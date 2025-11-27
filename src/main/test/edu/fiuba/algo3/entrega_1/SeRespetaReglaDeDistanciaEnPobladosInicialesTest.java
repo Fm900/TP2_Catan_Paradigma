@@ -38,10 +38,10 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
         v1.conectarConVertice(v2);
 
         // Primer poblado: OK
-        assertDoesNotThrow(() -> v1.construirPoblado(jugador1));
+        assertDoesNotThrow(() -> v1.construirPobladoInicial(jugador1));
 
         // Segundo poblado en vértice adyacente rompe por regla de distancia
-        assertThrows(ReglaDeDistanciaNoValida.class, () -> v2.construirPoblado(jugador2));
+        assertThrows(ReglaDeDistanciaNoValida.class, () -> v2.construirPobladoInicial(jugador2));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
         v1.conectarConVertice(v2);
 
         // Construyo en v1 y v3 sin violar distancia
-        assertDoesNotThrow(() -> v1.construirPoblado(jugador1));
-        assertDoesNotThrow(() -> v3.construirPoblado(jugador2));
+        assertDoesNotThrow(() -> v1.construirPobladoInicial(jugador1));
+        assertDoesNotThrow(() -> v3.construirPobladoInicial(jugador2));
     }
 }

@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Construccion.*;
-import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirCarreteraEnEstaArista;
+import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente;
+import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirPorFaltaDeConexion;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
@@ -29,8 +30,12 @@ public class Vertice {
         return List.copyOf(aristas);
     }
 
+    public void construirPobladoInicial(Jugador jugador)  {
+        estado.construirPobladoInicial(this, jugador, aristas);
+    }
+
     public void construirPoblado(Jugador jugador)  {
-        estado.construirPoblado(this, jugador);
+        estado.construirPoblado(this, jugador, aristas);
     }
 
     public void entregarRecursosPorConstruccion(Recurso recurso) {
@@ -53,14 +58,18 @@ public class Vertice {
         this.dueño = jugador;
     }
 
-    public void elMismoDueño(Jugador jugador, Arista arista) {
-        if(this.dueño == jugador){
-            arista.construirCarretera(jugador);
+    public void validarConexion(Jugador jugador) {
+        if (this.dueño == jugador) {
+            return;
         }
-
-        for (Arista aristaAdyacente: aristas) {
-            aristaAdyacente.elMismoDueño(jugador);
-            arista.construirCarretera(jugador);
+        for (Arista a : aristas) {
+            try {
+                a.elMismoDueño(jugador);
+                return;
+            }
+            catch (NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente ignored) {
             }
         }
+        throw new NoSePuedeConstruirPorFaltaDeConexion("El jugador no está conectado a este vértice");
     }
+}

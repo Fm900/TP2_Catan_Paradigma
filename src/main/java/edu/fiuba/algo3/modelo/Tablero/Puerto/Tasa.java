@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface Tasa {
     public List<Recurso> aplicarTasa(List<Recurso> recurso, Jugador jugador);
-
 }

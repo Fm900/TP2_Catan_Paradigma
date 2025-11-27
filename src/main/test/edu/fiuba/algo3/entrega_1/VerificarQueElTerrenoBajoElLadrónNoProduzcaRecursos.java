@@ -47,7 +47,7 @@ public class VerificarQueElTerrenoBajoElLadrónNoProduzcaRecursos {
     @Test
     public void test01TerrenoConLadronNoProduceRecursos(){
 
-        vertice.construirPoblado(jugador);
+        vertice.construirPobladoInicial(jugador);
         terrenoDestino.asignarVerticesAdyacentes(List.of(vertice));
 
         ladron.moverADestino(jugador2, terrenoDestino, jugador);

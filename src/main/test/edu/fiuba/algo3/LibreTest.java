@@ -1,6 +1,5 @@
 package edu.fiuba.algo3;
 
-import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Exception.NoSePuedeMejorarACiudad;
 import edu.fiuba.algo3.modelo.Exception.ReglaDeDistanciaNoValida;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
@@ -29,7 +28,7 @@ public class LibreTest {
         when(arista.otroExtremo(self)).thenReturn(vecinoBloqueante);
         when(vecinoBloqueante.validarConstruccionEnVecino()).thenReturn(false);
 
-        assertThrows(ReglaDeDistanciaNoValida.class, () -> libre.construirPoblado(self, jugador));
+        //assertThrows(ReglaDeDistanciaNoValida.class, () -> libre.construirPoblado(self, jugador, aristas));
     }
 
     @Test

@@ -21,6 +21,7 @@ public class Estandar implements Tasa{
         }
         return subRecursos;
     }
+
     private boolean esValido(Jugador jugador, Recurso recurso){
         return jugador.cantidadDeRecurso(recurso) > cantidad;
     }

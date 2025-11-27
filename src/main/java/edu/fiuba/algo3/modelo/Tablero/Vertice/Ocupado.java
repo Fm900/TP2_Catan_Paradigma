@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.Exception.NoSePuedeMejorarACiudad;
 import edu.fiuba.algo3.modelo.Exception.VerticeOcupadoNoPuedeConstruir;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 
 public class Ocupado implements EstadoVertice {
     private Construccion construccion;
@@ -16,7 +17,12 @@ public class Ocupado implements EstadoVertice {
     }
 
     @Override
-    public void construirPoblado(Vertice self, Jugador jugador) {
+    public void construirPobladoInicial(Vertice self, Jugador jugador, List<Arista> aristas) {
+        throw new VerticeOcupadoNoPuedeConstruir("No puedes construir, el vertice ya esta ocupado");
+    }
+
+    @Override
+    public void construirPoblado(Vertice self, Jugador jugador, List<Arista> aristas) {
         throw new VerticeOcupadoNoPuedeConstruir("No puedes construir, el vertice ya esta ocupado");
     }
 

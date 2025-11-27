@@ -21,15 +21,19 @@ public class Especifico implements Tasa{
         if(!recurso.equals(recursoPuerto)){
             throw new RecursoInvalido("Solo se pude comerciar con el recurso indicado por el puerto");
         }
+
         if(!this.esValido(jugador, recurso)){
             throw new RecursoInvalido("El jugador no puede comerciar con esta tasa porque no tiene los recursos suficientes");
         }
+
         List<Recurso> respuesta = new ArrayList<>();
         for(int i = 0; i < cantidad; i++){
             respuesta.add(recurso);
         }
         return respuesta;
     }
+
+
     private boolean esValido(Jugador jugador, Recurso recurso){
         return jugador.cantidadDeRecurso(recurso) > cantidad;
     }
