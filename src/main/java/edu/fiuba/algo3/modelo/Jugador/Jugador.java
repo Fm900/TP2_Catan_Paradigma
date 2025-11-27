@@ -46,6 +46,9 @@ public class Jugador {
     public int calcularPuntosTotales(){
         return this.puntos; //por ahora tiene solo esto, probablemente mas adelante se expanda
     }
+    public int cantidadDeRecurso(Recurso recurso){
+        return recurso.getCantidad(recursos);
+    }
 
     // para cartas de desarrollo
     public void agregarCarta(Carta carta) {
@@ -56,7 +59,4 @@ public class Jugador {
         mano.descartar(carta);
     }
 
-    public int cantidadDeRecurso(Recurso recurso) {
-        return 2;
-    }
 }

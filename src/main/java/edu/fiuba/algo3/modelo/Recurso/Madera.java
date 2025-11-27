@@ -13,4 +13,7 @@ public class Madera extends Recurso{
     public void eliminar(MazoDeRecursos mazo) {
         mazo.removerMadera(this);
     }
+
+    @Override
+    public int getCantidad(MazoDeRecursos mazo) { return mazo.getCantidadDe(this);}
 }

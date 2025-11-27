@@ -13,4 +13,9 @@ public class Mineral extends Recurso {
     public void eliminar(MazoDeRecursos mazo) {
         mazo.removerMineral(this);
     }
+
+    @Override
+    public int getCantidad(MazoDeRecursos mazo) {
+        return mazo.getCantidadDe(this);
+    }
 }

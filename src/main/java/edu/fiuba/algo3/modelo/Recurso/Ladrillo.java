@@ -14,5 +14,10 @@ public class Ladrillo extends Recurso {
         mazo.removerLadrillo(this);
     }
 
+    @Override
+    public int getCantidad(MazoDeRecursos mazo) {
+        return mazo.getCantidadDe(this);
+    }
+
 
 }

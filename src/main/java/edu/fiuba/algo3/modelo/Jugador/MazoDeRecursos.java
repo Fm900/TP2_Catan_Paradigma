@@ -129,4 +129,24 @@ public class MazoDeRecursos {
         }
         return new Desierto();
     }
+
+    public int getCantidadDe(Madera mader) {
+        return this.madera;
+    }
+
+    public int getCantidadDe(Grano grano) {
+        return  this.grano;
+    }
+
+    public int getCantidadDe(Mineral mineral) {
+        return  this.mineral;
+    }
+
+    public int getCantidadDe(Lana lana) {
+        return this.lana;
+    }
+
+    public int getCantidadDe(Ladrillo ladrillo) {
+        return this.ladrillo;
+    }
 }

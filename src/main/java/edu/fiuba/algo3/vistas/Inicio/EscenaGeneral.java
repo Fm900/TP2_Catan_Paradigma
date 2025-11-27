@@ -4,6 +4,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.net.URL;
+
 public abstract  class EscenaGeneral {
 
     protected Scene scene;
@@ -57,12 +59,12 @@ public abstract  class EscenaGeneral {
         String path = getBackgroundImagePath();
         if (path == null) return;
 
-        var url = getClass().getResource(path);
+        URL url = getClass().getClassLoader().getResource(path);
         if (url == null) {
             throw new RuntimeException("No se encontró la imagen: " + path);
         }
 
-        Image image = new Image(url.toExternalForm(), true);
+        Image image = new Image(url.toString());
 
         BackgroundSize backgroundSize = new BackgroundSize(
                 BackgroundSize.AUTO, BackgroundSize.AUTO,

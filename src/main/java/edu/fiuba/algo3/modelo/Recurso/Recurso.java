@@ -8,4 +8,5 @@ public abstract class Recurso {
 
     public abstract void eliminar(MazoDeRecursos mazo);
 
+    public abstract int getCantidad(MazoDeRecursos mazo);
 }

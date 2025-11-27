@@ -12,4 +12,9 @@ public class Desierto extends Recurso{
     public void eliminar(MazoDeRecursos mazo) {
         //No hace nada
     }
+
+    @Override
+    public int getCantidad(MazoDeRecursos mazo) {
+        return 0;
+    }
 }

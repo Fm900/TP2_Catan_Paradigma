@@ -32,7 +32,7 @@ public class SeleccionarJugadores extends EscenaGeneral {
 
     @Override
     protected String getBackgroundImagePath() {
-        return "/imagenes/FondoSeleccionarJugadoresCatan.png";
+        return "Imagenes/FondoSeleccionarJugadoresCatan.png";
     }
 
     @Override

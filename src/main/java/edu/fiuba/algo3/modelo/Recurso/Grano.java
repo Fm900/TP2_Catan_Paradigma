@@ -12,4 +12,9 @@ public class Grano extends Recurso {
     public void eliminar(MazoDeRecursos mazo) {
         mazo.removerGrano(this);
     }
+
+    @Override
+    public int getCantidad(MazoDeRecursos mazo) {
+        return mazo.getCantidadDe(this);
+    }
 }

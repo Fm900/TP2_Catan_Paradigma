@@ -12,4 +12,9 @@ public class Lana extends Recurso {
     public void eliminar(MazoDeRecursos mazo){
         mazo.removerLana(this);
     }
+
+    @Override
+    public int getCantidad(MazoDeRecursos mazo) {
+        return mazo.getCantidadDe(this);
+    }
 }
