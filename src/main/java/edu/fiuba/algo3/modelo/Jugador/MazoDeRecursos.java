@@ -1,101 +1,131 @@
 package edu.fiuba.algo3.modelo.Jugador;
 
-
 import edu.fiuba.algo3.modelo.Exception.NoTieneRecursosSuficientesParaDescartar;
-import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Recurso.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class MazoDeRecursos {
-    private List<Recurso> recursos;
+
+    private int lana;
+    private int grano;
+    private int madera;
+    private int ladrillo;
+    private int mineral;
 
     public MazoDeRecursos(List<Recurso> recursosIniciales) {
-        this.recursos = new ArrayList<>(recursosIniciales);
+        for (Recurso recurso : recursosIniciales) {
+            recurso.agregar(1, this);
+        }
     }
 
     public int cantidadDescartar() {
-        if (recursos.size() > 7) {
-            return (recursos.size() / 2);
+        if (lana + grano + madera + ladrillo + mineral > 7) {
+            return ((lana + grano + madera + ladrillo + mineral) / 2);
         }
-        throw new NoTieneRecursosSuficientesParaDescartar("No llega a la cantidad de 7 recursos");
+        return 0;
     }
 
     public void descartarPorCantidad(int cantidad) {
-        recursos.subList(0, cantidad).clear();
+        List<Recurso> tipos = List.of(new Madera(), new Ladrillo(), new Mineral(), new Grano(), new Lana());
+        List<Integer> recursos = new ArrayList<>(List.of(madera, ladrillo, mineral, grano, lana));
+
+        for (int i = 0; i < recursos.size() && cantidad > 0; i++) {
+            while (recursos.get(i) > 0 && cantidad > 0) {
+                tipos.get(i).eliminar(this);
+                recursos.set(i, recursos.get(i) - 1);
+                cantidad--;
+            }
+        }
     }
 
     public void agregarLana(Recurso recurso, int cantidad) {
-        for(int i = 0; i < cantidad; i++){
-            recursos.add(recurso);
-        }
+        this.lana += cantidad;
     }
 
-    public void removerLana(Recurso recurso){
-        recursos.remove(recurso);
+    public void removerLana(Recurso recurso) {
+        if (this.lana == 0) {
+            throw new NoTieneRecursosSuficientesParaDescartar("No tienes suficientes ", recurso);
+        }
+        this.lana -= 1;
     }
 
     public void agregarGrano(Recurso recurso, int cantidad) {
-        for(int i = 0; i < cantidad; i++){
-            recursos.add(recurso);
-        }
+        this.grano += cantidad;
     }
 
-    public void removerGrano(Recurso recurso){
-        recursos.remove(recurso);
+    public void removerGrano(Recurso recurso) {
+        if (this.grano == 0) {
+            throw new NoTieneRecursosSuficientesParaDescartar("No tienes suficientes ", recurso);
+        }
+        this.grano -= 1;
     }
 
     public void agregarLadrillo(int cantidad, Recurso recurso) {
-        for(int i = 0; i < cantidad; i++)
-        {recursos.add(recurso);
-        }
+        this.ladrillo += cantidad;
     }
 
     public void removerLadrillo(Recurso recurso) {
-        recursos.remove(recurso);
+        if (this.ladrillo == 0) {
+            throw new NoTieneRecursosSuficientesParaDescartar("No tienes suficientes ", recurso);
+        }
+        this.ladrillo -= 1;
     }
 
     public void agregarMadera(int cantidad, Recurso recurso) {
-        for(int i = 0; i < cantidad; i++)
-        {recursos.add(recurso);
-        }
+        this.madera += cantidad;
     }
 
     public void removerMadera(Recurso recurso) {
-        recursos.remove(recurso);
+        if (this.madera == 0) {
+            throw new NoTieneRecursosSuficientesParaDescartar("No tienes suficientes ", recurso);
+        }
+        this.madera -= 1;
     }
 
     public void agregarMineral(int cantidad, Recurso recurso) {
-        for(int i = 0; i < cantidad; i++)
-        {recursos.add(recurso);
-        }
+        this.mineral += cantidad;
     }
 
     public void removerMineral(Recurso recurso) {
-        recursos.remove(recurso);
+        if (this.mineral == 0) {
+            throw new NoTieneRecursosSuficientesParaDescartar("No tienes suficientes ", recurso);
+        }
+        this.mineral -= 1;
+
     }
 
     public void verificarCumplimiento(List<Recurso> precio) {
-        List<Recurso> recursosCopia = new ArrayList<Recurso>(this.recursos);
-        for (Recurso recurso : precio) {
-            if(!recursosCopia.remove(recurso)){
-                throw new RuntimeException("No tienes suficiente");
+        int maderaCopia = this.madera;
+        int ladrilloCopia = this.ladrillo;
+        int mineralCopia = this.mineral;
+        int granoCopia = this.grano;
+        int lanaCopia = this.lana;
+
+        try {
+            for (Recurso recurso : precio) {
+                recurso.eliminar(this);
             }
+        } catch (NoTieneRecursosSuficientesParaDescartar ex) {
+            this.ladrillo = ladrilloCopia;
+            this.mineral = mineralCopia;
+            this.grano = granoCopia;
+            this.lana = lanaCopia;
+            this.madera = maderaCopia;
         }
     }
 
-    public Recurso obtenerRecursoAleatorio(){
-        return recursos.get(ThreadLocalRandom.current().nextInt(recursos.size()));
-    }
+    public Recurso obtenerRecursoAleatorio() {
+        Recurso recursoGenerado;
+        List<Integer> recursos = new ArrayList<>(List.of(madera, ladrillo, mineral, grano, lana));
+        List<Recurso> tipos = List.of(new Madera(), new Ladrillo(), new Mineral(), new Grano(), new Lana());
 
-    public int cantidaDeRecurso(Recurso recu) {
-        int cantidad = 0;
-        for (Recurso recurso : recursos) {
-            if (recurso.equals(recu)) {
-                cantidad++;
+        for (int i = 0; i < recursos.size(); i++) {
+            if (recursos.get(i) > 0){
+                return tipos.get(i);
             }
         }
-        return cantidad;
+        return new Desierto();
     }
 }

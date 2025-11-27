@@ -13,4 +13,6 @@ public class Ladrillo extends Recurso {
     public void eliminar(MazoDeRecursos mazo) {
         mazo.removerLadrillo(this);
     }
+
+
 }

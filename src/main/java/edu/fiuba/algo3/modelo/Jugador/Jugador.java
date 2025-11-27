@@ -6,10 +6,10 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import java.util.List;
 
 public class Jugador {
-    private MazoDeRecursos recursos;
-    private Mano mano;
+    private final MazoDeRecursos recursos;
+    private final Mano mano;
     private int puntos = 0;
-    private String nombre;
+    private final String nombre;
 
     public Jugador(MazoDeRecursos gestor, Mano manoInicial, String nombre) {
         this.recursos = gestor;
@@ -28,6 +28,8 @@ public class Jugador {
     }
 
     public void consumirRecursos(List<Recurso> precio) {
+
+
         recursos.verificarCumplimiento(precio);
         for(Recurso recurso: precio){
             recurso.eliminar(recursos);
@@ -38,9 +40,6 @@ public class Jugador {
         return recursos.obtenerRecursoAleatorio();
     }
 
-    public int cantidadDeRecurso(Recurso recurso) {return recursos.cantidaDeRecurso(recurso);}
-    // para puntos de juego
-
     public void sumarPuntos(int puntos){
         this.puntos += puntos;
     }
@@ -50,8 +49,7 @@ public class Jugador {
     }
 
     public int calcularPuntosTotales(){
-        int puntosTotales = this.puntos; //por ahora tiene solo esto, probablemente mas adelante se expanda
-        return puntosTotales;
+        return this.puntos; //por ahora tiene solo esto, probablemente mas adelante se expanda
     }
 
     // para cartas de desarrollo

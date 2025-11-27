@@ -8,8 +8,4 @@ public abstract class Recurso {
 
     public abstract void eliminar(MazoDeRecursos mazo);
 
-    @Override
-    public boolean equals(Object o) {
-        return o != null && this.getClass() == o.getClass();
-    }
 }

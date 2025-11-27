@@ -22,9 +22,6 @@ public class Bancario implements Intercambio{
     }
     @Override
     public void intercambio() {
-        if(!banca.tieneSuficiente(requerdio)){
-            throw new NoTieneRecursosSuficientesParaDescartar("La banca no tiene recursos suficientes para el intercambio");
-        }
         List<Recurso> recursosOfrecidos = tasa.aplicarTasa(ofrecidos, jugador);
         jugador.consumirRecursos(recursosOfrecidos);
         banca.agregarRecurso(recursosOfrecidos);

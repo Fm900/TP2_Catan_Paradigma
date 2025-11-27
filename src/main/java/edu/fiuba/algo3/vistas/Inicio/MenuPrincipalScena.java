@@ -19,7 +19,7 @@ public class MenuPrincipalScena extends EscenaGeneral {
 
     @Override
     protected String getBackgroundImagePath() {
-        return "/imagenes/FondoDeMenuPrincipalCatan.jpg";
+        return "Imagenes/FondoDeMenuPrincipalCatan.jpg";
     }
 
     @Override

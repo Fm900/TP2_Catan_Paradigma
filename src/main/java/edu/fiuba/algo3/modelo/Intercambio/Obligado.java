@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Obligado implements Intercambio {
 
-    private Jugador victimario;
-    private Jugador victima;
+    private final Jugador victimario;
+    private final Jugador victima;
 
     public Obligado(Jugador victimario, Jugador victima) {
         this.victimario = victimario;
