@@ -12,7 +12,7 @@ import java.util.List;
 public class ConstructorJuego {
     private final Tablero tablero;
     public ConstructorJuego(String path) {
-        this.tablero = new ConstructorTablero(path);
+        this.tablero = new Tablero();
     }
     public Juego construirJuegoCon(List<String> nombreJugadores){
         List<Jugador> jugadores = new ConstructorJugadores(nombreJugadores).crearJugadores();

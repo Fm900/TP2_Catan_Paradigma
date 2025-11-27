@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.Constructores.ConstructorTablero;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
@@ -9,11 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tablero {
-    private List<Terreno> terrenos = new ArrayList<>();
+    private List<Terreno> terrenos;
+    private List<Vertice> vertices;
+    private List<Arista> aristas;
 
     public Tablero() {
-        GeneradorDeTerrenos generador = new GeneradorDeTerrenos();
-        this.terrenos = generador.generar();
+        ConstructorTablero constructor = new ConstructorTablero();
+
+        this.terrenos = constructor.generarTerrenos();
+        this.vertices = constructor.generarVertices();
+        this.aristas  = constructor.generarAristas(vertices);
+        constructor.asignarVerticesATerrenos(terrenos, vertices);
     }
 
     public void colocarCarretera(Jugador jugador, Arista arista) {
@@ -46,5 +53,18 @@ public class Tablero {
             }
         }
         return terrenosAdy;
+    }
+
+    public Vertice vertice(int id) {
+        return this.vertices.get(id - 1);
+    }
+
+    public Arista aristaEntre(Vertice v1, Vertice v2) {
+        for (Arista arista : v1.aristas()) {
+            if (arista.otroExtremo(v1) == v2) {
+                return arista;
+            }
+        }
+        throw new IllegalArgumentException("v1 y v2 no están conectados por una arista");
     }
 }

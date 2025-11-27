@@ -20,10 +20,14 @@ public class Vertice {
         this.estado = new Ocupado(construccion);
     }
 
+    public void registrarArista(Arista arista) {
+        this.aristas.add(arista);
+    }
+
     public void conectarConVertice(Vertice otro){
         Arista arista = new Arista(this, otro, new Vacia());
-        this.aristas.add(arista);
-        otro.aristas.add(arista);
+        this.registrarArista(arista);
+        otro.registrarArista(arista);
     }
 
     public List<Arista> aristas() {
