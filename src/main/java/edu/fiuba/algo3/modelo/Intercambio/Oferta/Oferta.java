@@ -19,15 +19,15 @@ public class Oferta{
     public void declinar(){
         estado.declinar(this);
     }
-    public boolean estaPendiente() { return estado.estaPendiente(); }
-    public boolean fueAceptada() { return estado.fueAceptada(); }
-    public boolean fueRechazada() { return estado.fueRechazada(); }
 
     void setEstado(Resolucion nuevoEstado) {
         this.estado = nuevoEstado;
     }
     void ejecutarIntercambio() {
         intercambio.intercambio();
+    }
+    public Resolucion getEstado() {
+        return estado;
     }
 
 }

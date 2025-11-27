@@ -10,8 +10,4 @@ public class Pendiente implements Resolucion{
     public void declinar(Oferta oferta) {
         oferta.setEstado(new Rechazado());
     }
-
-    public boolean estaPendiente() { return true; }
-    public boolean fueAceptada() { return false; }
-    public boolean fueRechazada() { return false; }
 }
