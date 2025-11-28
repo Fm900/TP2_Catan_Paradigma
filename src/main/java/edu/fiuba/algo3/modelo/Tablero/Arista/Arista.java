@@ -54,4 +54,12 @@ public class Arista {
         this.dueño = jugador;
         this.cambiarAOcupada();
     }
+    public Vertice extremo1() {
+        return extremo1;
+    }
+
+    public Vertice extremo2() {
+        return extremo2;
+    }
+
 }

@@ -67,4 +67,18 @@ public class Tablero {
         }
         throw new IllegalArgumentException("v1 y v2 no están conectados por una arista");
     }
+    public Arista arista(int id) {
+        return this.aristas.get(id - 1); // ids 1..72
+    }
+
+    public List<Vertice> vertices() {
+        return List.copyOf(vertices);
+    }
+
+    public List<Arista> aristas() {
+        return List.copyOf(aristas);
+    }
+    public List<Terreno> terrenos() {
+        return List.copyOf(terrenos);
+    }
 }

@@ -59,5 +59,17 @@ public class Terreno {
     public Recurso recursoInicial(){
         return this.recurso;
     }
+    public List<Vertice> verticesAdyacentes() {
+        return List.copyOf(verticesAdyacentes);
+    }
+
+    public int numeroFicha() {
+        return fichaNumero;
+    }
+
+    public Recurso recurso() {
+        return recurso;
+    }
+
 }
 

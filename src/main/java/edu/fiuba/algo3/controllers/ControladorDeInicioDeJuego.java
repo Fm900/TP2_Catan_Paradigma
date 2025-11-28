@@ -11,9 +11,11 @@ public class ControladorDeInicioDeJuego {
 
     public void iniciarJuegoPara(List<String> jugadores){
         //aca se pone el path, para el parser
+        /*
         String path = Paths.get("src/test/resources/json/tablero.json").toAbsolutePath().toString();
         ConstructorJuego constJuego = new ConstructorJuego(path);
         Juego juego = constJuego.construirJuegoCon(jugadores);
         juego.iniciarJuego();
+        */
     }
 }

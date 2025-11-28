@@ -2,8 +2,11 @@ package edu.fiuba.algo3.vistas.Inicio;
 
 import edu.fiuba.algo3.controllers.ControladorDeAlerta;
 import edu.fiuba.algo3.controllers.ControladorDeInicioDeJuego;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.vistas.Tablero.VistaTablero;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -130,6 +133,15 @@ public class SeleccionarJugadores extends EscenaGeneral {
             } else { controlador.iniciarJuegoPara(List.of( j1, j2, j3, j4));}
 
             // Acá se cambia a la escena del juego
+            Tablero tableroSoloParaMostrar = new Tablero(); // usa ConstructorTablero adentro
+            VistaTablero vistaTablero = new VistaTablero(tableroSoloParaMostrar);
+
+            Scene escenaTablero = new Scene(
+                    vistaTablero.getRoot(),
+                    getScene().getWidth(),
+                    getScene().getHeight()
+            );
+            stage.setScene(escenaTablero);
         });
 
         volver.setOnAction(e -> {
