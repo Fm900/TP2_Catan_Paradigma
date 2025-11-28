@@ -8,7 +8,4 @@ public class Rechazado implements Resolucion{
     public void declinar(Oferta oferta) {
         oferta.setEstado(new Rechazado());
     }
-    public boolean estaPendiente() { return false; }
-    public boolean fueAceptada() { return false; }
-    public boolean fueRechazada() { return true; }
 }

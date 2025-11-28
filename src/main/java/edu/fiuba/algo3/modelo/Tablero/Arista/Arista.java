@@ -44,8 +44,8 @@ public class Arista {
             }
         }
 
-    public void verificarLogicaDeConstruccionDeAristas(Jugador dueño) {
-        estado.construirCarretera(this, dueño, List.of(extremo1, extremo2));
+    public void verificarLogicaDeConstruccionDeAristas(Jugador jugador) {
+        estado.construirCarretera(this, jugador, List.of(extremo1, extremo2));
     }
 
     public void construirCarretera(Jugador jugador) {

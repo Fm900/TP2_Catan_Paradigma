@@ -2,6 +2,8 @@ package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Fase.Comercio;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
+import edu.fiuba.algo3.modelo.Intercambio.Oferta.Rechazado;
+import edu.fiuba.algo3.modelo.Intercambio.Oferta.Resolucion;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
@@ -65,7 +67,6 @@ public class ComercioEntreJugadoresTest {
         // jugador2 acepta la oferta y se realiza el intercambio
         oferta.acepatar();
         //se verifica el intercambio
-        assertTrue(oferta.fueAceptada());
         assertEquals(recursos1InicialJugador1 + 1, jugado1.cantidadDeRecurso(recurso1));
         assertEquals(recursos2InicialJugador1 - 2, jugado1.cantidadDeRecurso(recurso2));
         assertEquals(recursos1InicialJugador2 - 1, jugado2.cantidadDeRecurso(recurso1));
@@ -74,6 +75,7 @@ public class ComercioEntreJugadoresTest {
 
     @Test
     void test02JugadorIntentaComerciarPeroRechazanSuOferta() {
+        Resolucion estadoEsperado = new Rechazado();
         //Preparamos a los jugadores para el intercambio
         jugado1.agregarRecurso(recurso1, 5);
         jugado1.agregarRecurso(recurso2, 3);
@@ -90,7 +92,7 @@ public class ComercioEntreJugadoresTest {
         // jugador2 acepta la oferta y se realiza el intercambio
         oferta.declinar();
         //se verifica el intercambio
-        assertTrue(oferta.fueRechazada());
+        assertEquals(estadoEsperado.getClass(), oferta.getEstado().getClass());
     }
 
 }
