@@ -7,8 +7,8 @@ import edu.fiuba.algo3.modelo.Recurso.Grano;
 import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
 import edu.fiuba.algo3.modelo.Recurso.Lana;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ConstructorJugadores {
@@ -24,6 +24,7 @@ public class ConstructorJugadores {
             Mano mano = new Mano();
             jugadores.add(new Jugador(mazo,mano,nombreJugador));
         }
+        Collections.shuffle(jugadores);
         return jugadores;
     }
 }

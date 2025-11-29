@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.Constructores;
 
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Vacia;
-import edu.fiuba.algo3.modelo.Tablero.GeneradorDeTerrenos;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import java.util.ArrayList;

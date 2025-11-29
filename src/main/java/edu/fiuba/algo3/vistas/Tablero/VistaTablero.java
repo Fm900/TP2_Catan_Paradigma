@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import edu.fiuba.algo3.vistas.Principales.EscenaGeneral;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -12,45 +13,79 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class VistaTablero {
+public class VistaTablero extends EscenaGeneral {
 
     private final Tablero tablero;
-    private final Pane root;
     private final Map<Vertice, Point2D> posiciones = new HashMap<>();
 
-    public VistaTablero(Tablero tablero) {
+    public VistaTablero(Tablero tablero, Stage stage) {
+        super(stage);
         this.tablero = tablero;
-        this.root = new Pane();
-        root.setPrefSize(1200, 800);
 
+        // Inicializar el tablero
+        inicializarTablero();
+    }
+
+    private void inicializarTablero() {
         calcularPosicionesDeVertices();
 
-        // 1) Primero terrenos (hexágonos de colores)
+        // Orden de dibujo importante
         dibujarTerrenos();
-
-        // 2) Luego aristas (para que queden arriba del terreno)
         dibujarAristas();
-
-        // 3) Finalmente vértices (casitas futuras)
         dibujarVertices();
     }
 
-    public Pane getRoot() {
+    @Override
+    protected Pane createLayout() {
+        Pane root = new Pane();
+        root.setPrefSize(1600, 1000);
+        // Fondo sólido en lugar de imagen
+        root.setStyle("-fx-background-color: #1a1a2e;");
         return root;
     }
 
-    // =======================
-    // POSICIONES
-    // =======================
+    @Override
+    protected void createControllers(Stage stage) {
+        // Aquí puedes agregar interactividad al tablero
+        // Por ejemplo: clicks en vértices para construir
+        setupInteracciones();
+    }
+
+    @Override
+    protected void createStyles() {
+        // Sin CSS - los estilos se aplican directamente en los métodos de dibujo
+    }
+
+    @Override
+    protected String getBackgroundImagePath() {
+        // Sin imagen de fondo
+        return "";
+    }
+
+    private void setupInteracciones() {
+        // Ejemplo: hacer los vértices clickeables
+        for (javafx.scene.Node node : root.getChildren()) {
+            if (node instanceof Circle) {
+                node.setOnMouseClicked(event -> {
+                    Circle circle = (Circle) node;
+                    System.out.println("Vértice clickeado en: " + circle.getCenterX() + ", " + circle.getCenterY());
+                    // Aquí tu lógica para construir casas/ciudades
+                });
+            }
+        }
+    }
+
 
     private void calcularPosicionesDeVertices() {
-
         int[][] filas = {
                 {1, 2, 3},
                 {4, 5, 6, 7},
@@ -66,10 +101,10 @@ public class VistaTablero {
                 {52, 53, 54}
         };
 
-        double centerX = 600;
-        double startY  = 80;
-        double dx = 90;
-        double dy = 55;
+        double centerX = 800;
+        double startY  = 100;
+        double dx = 120;
+        double dy = 75;
 
         List<Vertice> vs = tablero.vertices();
 
@@ -91,13 +126,8 @@ public class VistaTablero {
         }
     }
 
-    // =======================
-    // TERRENOS (HEXÁGONOS)
-    // =======================
-
     private void dibujarTerrenos() {
         for (Terreno terreno : tablero.terrenos()) {
-
             List<Vertice> vs = terreno.verticesAdyacentes();
             if (vs == null || vs.size() < 6) continue;
 
@@ -115,24 +145,24 @@ public class VistaTablero {
                 sy += p.getY();
             }
 
-            // color según recurso
+            // Aplicar estilos directamente al polígono
             hex.setFill(colorPara(terreno.recurso()));
             hex.setStroke(Color.web("#8b7b6b"));
             hex.setStrokeWidth(3);
 
             root.getChildren().add(hex);
 
-            // centro geométrico para el número de la ficha
+            // Texto para número de ficha
             double cx = sx / vs.size();
             double cy = sy / vs.size();
 
             int numero = terreno.numeroFicha();
             if (numero != 0) {
                 Text texto = new Text(String.valueOf(numero));
-                texto.setX(cx - 6);
-                texto.setY(cy + 4);
+                texto.setX(cx - 8);
+                texto.setY(cy + 6);
                 texto.setFill(Color.BLACK);
-                texto.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+                texto.setFont(Font.font("Arial", FontWeight.BOLD, 18));
                 root.getChildren().add(texto);
             }
         }
@@ -140,19 +170,13 @@ public class VistaTablero {
 
 
     private Paint colorPara(Recurso recurso) {
-        // ajustá los tipos según tus clases reales
-        if (recurso instanceof Madera)   return Color.web("#228B22");   // bosque
-        if (recurso instanceof Ladrillo) return Color.web("#B22222");   // colina
-        if (recurso instanceof Grano)    return Color.web("#FFD700");   // campo
-        if (recurso instanceof Lana)     return Color.web("#9ACD32");   // pastizal
-        if (recurso instanceof Mineral)  return Color.web("#808080");   // montaña
-        // desierto u otro
-        return Color.web("#DEB887");
+        if (recurso instanceof Madera)   return Color.web("#228B22");
+        if (recurso instanceof Ladrillo) return Color.web("#B22222");
+        if (recurso instanceof Grano)    return Color.web("#FFD700");
+        if (recurso instanceof Lana)     return Color.web("#9ACD32");
+        if (recurso instanceof Mineral)  return Color.web("#808080");
+        return Color.web("#DEB887"); // Desierto
     }
-
-    // =======================
-    // ARISTAS
-    // =======================
 
     private void dibujarAristas() {
         for (Arista a : tablero.aristas()) {
@@ -166,15 +190,11 @@ public class VistaTablero {
 
             Line line = new Line(p1.getX(), p1.getY(), p2.getX(), p2.getY());
             line.setStroke(Color.web("#C0B0C0"));
-            line.setStrokeWidth(4);
+            line.setStrokeWidth(6);
 
             root.getChildren().add(line);
         }
     }
-
-    // =======================
-    // VÉRTICES
-    // =======================
 
     private void dibujarVertices() {
         List<Vertice> vs = tablero.vertices();
@@ -183,14 +203,26 @@ public class VistaTablero {
             Point2D p = posiciones.get(v);
             if (p == null) continue;
 
-            Circle c = new Circle(p.getX(), p.getY(), 9);
+            Circle c = new Circle(p.getX(), p.getY(), 12);
             c.setFill(Color.BEIGE);
             c.setStroke(Color.web("#555555"));
             c.setStrokeWidth(2);
 
-            // 👇 ya no dibujamos los IDs
+            // Hacer vértices interactivos
+            c.setOnMouseEntered(e -> c.setFill(Color.LIGHTBLUE));
+            c.setOnMouseExited(e -> c.setFill(Color.BEIGE));
+
             root.getChildren().add(c);
         }
     }
-}
 
+    public void limpiarTablero() {
+        root.getChildren().clear();
+    }
+
+    // Método para actualizar la vista
+    public void actualizarVista() {
+        limpiarTablero();
+        inicializarTablero();
+    }
+}

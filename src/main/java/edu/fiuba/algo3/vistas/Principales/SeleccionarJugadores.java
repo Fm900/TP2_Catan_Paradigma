@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.vistas.Inicio;
+package edu.fiuba.algo3.vistas.Principales;
 
 import edu.fiuba.algo3.controllers.ControladorDeAlerta;
 import edu.fiuba.algo3.controllers.ControladorDeInicioDeJuego;
@@ -26,6 +26,7 @@ public class SeleccionarJugadores extends EscenaGeneral {
     private Button comenzar;
     private Button volver;
     private ControladorDeInicioDeJuego controlador;
+    private Tablero tablero;
 
 
     public SeleccionarJugadores(Stage stage) {
@@ -129,19 +130,10 @@ public class SeleccionarJugadores extends EscenaGeneral {
             if (cantidad == 4) System.out.println("Jugador 4: " + j4);
 
             if (cantidad == 3) {
-                controlador.iniciarJuegoPara(List.of(j1, j2, j3));
-            } else { controlador.iniciarJuegoPara(List.of( j1, j2, j3, j4));}
+                this.tablero = controlador.iniciarJuegoPara(List.of(j1, j2, j3));
+            } else { this.tablero = controlador.iniciarJuegoPara(List.of( j1, j2, j3, j4));}
 
-            // Acá se cambia a la escena del juego
-            Tablero tableroSoloParaMostrar = new Tablero(); // usa ConstructorTablero adentro
-            VistaTablero vistaTablero = new VistaTablero(tableroSoloParaMostrar);
-
-            Scene escenaTablero = new Scene(
-                    vistaTablero.getRoot(),
-                    getScene().getWidth(),
-                    getScene().getHeight()
-            );
-            stage.setScene(escenaTablero);
+            mostrarPantallaDeCarga(stage);
         });
 
         volver.setOnAction(e -> {
@@ -161,6 +153,38 @@ public class SeleccionarJugadores extends EscenaGeneral {
         });
 
     }
+    private void mostrarPantallaDeCarga(Stage stage) {
+        // Crear la pantalla de carga con callback para cuando termine
+        Carga pantallaCarga = new Carga(stage, () -> {
+            cambiarATablero(stage);
+        });
+        boolean estabaFullScreen = stage.isFullScreen();
+        boolean estabaMaximized = stage.isMaximized();
+        // Cambiar a la escena de carga
+        stage.setScene(pantallaCarga.getScene());
+        if (estabaFullScreen) {
+            stage.setFullScreen(true);
+        } else {
+            stage.setMaximized(estabaMaximized);
+        }
+    }
+    private void cambiarATablero(Stage stage) {
+        // VistaTablero ya crea su propia escena internamente
+        VistaTablero vistaTablero = new VistaTablero(this.tablero, stage);
+
+        boolean estabaFullScreen = stage.isFullScreen();
+        boolean estabaMaximized = stage.isMaximized();
+
+        // Usa la escena que ya creó VistaTablero, NO crees una nueva
+        stage.setScene(vistaTablero.getScene());
+
+        if (estabaFullScreen) {
+            stage.setFullScreen(true);
+        } else {
+            stage.setMaximized(estabaMaximized);
+        }
+    }
+
 
     @Override
     protected void createStyles() {

@@ -1,0 +1,59 @@
+/* ================================================
+   ESTILOS PARA LA BARRA SUPERIOR
+   ================================================ */
+
+/* ▧ Barra de menú */
+.menu-bar {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 2px 7px;
+}
+
+/* ▧ Texto de menús principales */
+.menu-bar .label {
+    -fx-text-fill: rgba(255,255,255,0.80);
+    -fx-font-size: 18px;
+}
+
+/* ▧ Hover de MENÚ PRINCIPAL (Juego, Ayuda…) */
+.menu:hover {
+    -fx-background-color: rgba(255, 133, 110, 0.90);
+}
+
+.menu:showing {
+    -fx-background-color: rgba(255, 153, 102, 0.45);
+}
+
+/* ▧ Fondo del menú desplegable — naranja transparente */
+.context-menu {
+    -fx-background-color: rgba(255,153,102,0.22);
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: rgba(255,153,102,0.40);
+}
+
+/* ▧ Estilo normal de los MenuItem */
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-padding: 5px 10px;
+}
+
+.menu-item .label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 18px;
+}
+
+/* ▧ Hover del MenuItem */
+.menu-item:hover {
+    -fx-background-color: rgba(255, 133, 110, 0.90);
+}
+
+.menu-item:hover .label {
+    -fx-text-fill: white;
+}
+
+/* Separador */
+.separator {
+    -fx-padding: 2 0 2 0;
+}

@@ -14,7 +14,7 @@ public class Juego {
     private final List<FaseInicial> fasesIniciales;
     private final Tablero tablero;
     private final Banca banca;
-
+    // patron singelton para Juego, implementacion
     public Juego(List<Jugador> jugadores, List<FasePrincipal> fasesPrincipales,  List<FaseInicial> fasesIniciales,  Tablero tablero, Banca banca) {
         this.jugadores = jugadores;
         this.fasesPrincipales = fasesPrincipales;
@@ -23,10 +23,10 @@ public class Juego {
         this.banca = banca;
     }
 
-    public void iniciarJuego(){
-        iniciarFaseInicial();
-        iniciarTurno();
-    }
+//    public void iniciarJuego(){
+//        iniciarFaseInicial();
+//        iniciarTurno();
+//    }
 
     public void iniciarFaseInicial(){
         for (FaseInicial faseInicial : fasesIniciales){
@@ -41,14 +41,14 @@ public class Juego {
         }
     }
 
-//    public void descarteJugadores() {
-//        for (Jugador jugador : jugadores) {
-//            jugador.descarteMayoria();
-//        }
-//    }
-
     public int calcularPuntosTotalesDe(Jugador jugador){
         int puntos = jugador.calcularPuntosTotales();
         return puntos;
+    }
+    public List<Jugador> getJugadores() {
+        return jugadores;
+    }
+    public Tablero getTablero() {
+        return tablero;
     }
 }

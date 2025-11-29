@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.vistas.Inicio;
+package edu.fiuba.algo3.vistas.Principales;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -10,33 +10,40 @@ public abstract  class EscenaGeneral {
 
     protected Scene scene;
     protected Pane root;
+    protected Stage stage;
 
     public EscenaGeneral(Stage stage) {
+        this.stage = stage;
 
-        // 1. Layout específico de la escena
-        root = createLayout();
+        // Crear el layout específico de la escena hija
+        Pane contenidoEscena = createLayout();
 
-        // 2. Controladores (acciones y eventos)
+        // Envolver el contenido con la barra superior
+        VBox layoutConBarra = BarraSuperior.crearLayoutConBarra(contenidoEscena, stage);
+
+        this.root = layoutConBarra;
+
         createControllers(stage);
-
-        // 3. Estilos generales de la escena
         createStyles();
-
-        // 4. Fondo personalizado por escena
         loadBackgroundImage(root);
 
-        // 5. Crear la escena respetando tamaño del Stage actual
         Scene oldScene = stage.getScene();
         if (oldScene != null) {
             scene = new Scene(root, oldScene.getWidth(), oldScene.getHeight());
         } else {
             scene = new Scene(root);
         }
-    }
 
-    // ============================
-    // MÉTODOS QUE CADA ESCENA IMPLEMENTA
-    // ============================
+        scene.widthProperty().addListener((obs, oldVal, newVal) -> {
+            if (stage.isMaximized() || stage.isFullScreen()) return;
+            stage.setWidth(newVal.doubleValue());
+        });
+
+        scene.heightProperty().addListener((obs, oldVal, newVal) -> {
+            if (stage.isMaximized() || stage.isFullScreen()) return;
+            stage.setHeight(newVal.doubleValue());
+        });
+    }
 
     // Layout principal (VBox, StackPane, BorderPane, etc.)
     protected abstract Pane createLayout();
@@ -78,7 +85,6 @@ public abstract  class EscenaGeneral {
                 BackgroundPosition.CENTER,
                 backgroundSize
         );
-
         root.setBackground(new Background(backgroundImage));
     }
 

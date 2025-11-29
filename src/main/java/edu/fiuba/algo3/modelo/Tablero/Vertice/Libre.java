@@ -32,6 +32,7 @@ public class Libre implements EstadoVertice {
     @Override
     public void construirPoblado(Vertice self, Jugador jugador, List<Arista> aristas) {
         for (Arista arista : aristas) {
+            // se puede desarrollar con un if, es un if ¨obligatorio¨, en este caso es factible utilizarlo
             try {
                 arista.elMismoDueño(jugador);
                 Vertice vecino = arista.otroExtremo(self);

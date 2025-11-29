@@ -9,6 +9,7 @@ import java.util.List;
 
 public class MazoDeRecursos {
 
+    // unica lista
     private int lana;
     private int grano;
     private int madera;
@@ -127,6 +128,7 @@ public class MazoDeRecursos {
                 return tipos.get(i);
             }
         }
+        //exception en vez de recurso desierto, caso especial, distinto al descartar mayoria. OJO
         return new Desierto();
     }
 
