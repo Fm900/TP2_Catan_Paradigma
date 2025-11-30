@@ -2,6 +2,7 @@ package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Construccion.Ciudad;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
+import edu.fiuba.algo3.modelo.Exception.NoTieneRecursosSuficientesParaDescartar;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
@@ -36,7 +37,7 @@ public class VerificarLaProducciónCorrecta1RecursoPorPoblado2RecursosPorCiudadA
 
 
         assertDoesNotThrow(() -> jugador.consumirRecursos(listaConMadera), "No tienes suficiente");
-        assertThrows(RuntimeException.class, () -> jugador.consumirRecursos(listaConMadera), "No tienes suficiente");
+        assertThrows(NoTieneRecursosSuficientesParaDescartar.class, () -> jugador.consumirRecursos(listaConMadera), "No tienes suficiente");
     }
 
     @Test

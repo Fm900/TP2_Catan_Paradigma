@@ -17,4 +17,9 @@ public class Desierto extends Recurso{
     public int getCantidad(MazoDeRecursos mazo) {
         return 0;
     }
+
+    @Override
+    public boolean mismaClaseQue(Recurso otro) {
+        return false;
+    }
 }

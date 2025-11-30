@@ -29,6 +29,9 @@ public class Jugador {
 
     public void consumirRecursos(List<Recurso> precio) {
         recursos.verificarCumplimiento(precio);
+        for(Recurso recurso: precio){
+            recurso.eliminar(recursos);
+        }
     }
 
     public Recurso obtenerRecursoAleatorio() {

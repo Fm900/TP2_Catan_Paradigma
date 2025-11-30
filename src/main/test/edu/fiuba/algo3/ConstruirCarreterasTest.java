@@ -10,6 +10,8 @@ import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,7 +27,7 @@ public class ConstruirCarreterasTest {
 
     @BeforeEach
     public void setUp() {
-        List<Recurso> listaRecursos = (List.of(new Madera(), new Ladrillo(), new Grano(), new Lana(), new Madera(), new Ladrillo()));
+        List<Recurso> listaRecursos = new ArrayList<>(List.of(new Madera(), new Ladrillo(), new Grano(), new Lana(), new Madera(), new Ladrillo()));
         vertice1 = new Vertice();
         vertice2 = new Vertice();
         recursos = new MazoDeRecursos(listaRecursos);

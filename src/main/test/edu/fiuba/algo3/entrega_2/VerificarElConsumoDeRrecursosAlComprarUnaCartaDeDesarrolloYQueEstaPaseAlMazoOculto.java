@@ -26,13 +26,19 @@ public class VerificarElConsumoDeRrecursosAlComprarUnaCartaDeDesarrolloYQueEstaP
     Mano mano;
 
     @Test
-    public void test01VerificarConsumoDeRecursosCuandoSeCompraUnCarta(){
-        precio = new ArrayList<>((List.of(new Lana(), new Grano(), new Mineral())));
-        jugador = new Jugador(new MazoDeRecursos(precio), mano,"Alex");
-        carta = new ConstruccionCarreteras(new Deshabilitado());
+    public void testJugadorPuedeConsumirRecursos() {
+        List<Recurso> precio = new ArrayList<>(List.of(new Lana(), new Grano(), new Mineral()));
+        Jugador jugador = new Jugador(new MazoDeRecursos(precio), mano, "Alex");
+        assertDoesNotThrow(() -> jugador.consumirRecursos(precio));
+    }
 
-        assertDoesNotThrow(() -> jugador.consumirRecursos(precio), "No tienes suficientes ");
-        assertThrows(NoAlcanzanLosRecursos.class, () -> jugador.consumirRecursos(precio), "No tienes suficientes recursos para realizar esta operacion");
+    @Test
+    public void testJugadorNoPuedeConsumirRecursosDosVeces() {
+        List<Recurso> precio = new ArrayList<>(List.of(new Lana(), new Grano(), new Mineral()));
+        Jugador jugador = new Jugador(new MazoDeRecursos(precio), mano, "Alex");
+
+        jugador.consumirRecursos(precio); // consume recursos
+        assertThrows(NoTieneRecursosSuficientesParaDescartar.class, () -> jugador.consumirRecursos(precio), "No tienes suficientes recursos para realizar esta operacion");
     }
 
 }
