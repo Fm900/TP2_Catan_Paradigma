@@ -1,0 +1,39 @@
+Objetivos
+
+-   Ser el primer jugador en alcanzar 10 puntos de victoria.
+-   Construir y expandir asentamientos, ciudades y rutas para obtener
+    recursos y puntos.
+
+Reglas
+
+-   En cada turno se tiran dos dados para determinar qué terrenos
+    producen recursos.
+-   Los jugadores recolectan recursos según las intersecciones donde
+    tengan asentamientos o ciudades.
+-   Se pueden construir carreteras, asentamientos y ciudades pagando los
+    recursos correspondientes.
+-   El ladrón se mueve cuando se saca un 7; bloquea la producción de un
+    hexágono y permite robar una carta a otro jugador.
+-   Se pueden realizar intercambios entre jugadores o con el banco (4:1
+    o según puertos).
+-   Las cartas de desarrollo otorgan efectos especiales como puntos,
+    caballeros o mejoras.
+
+Componentes
+
+-   19 hexágonos de terreno.
+-   6 piezas de mar y 9 puertos.
+-   Cartas de recursos: madera, ladrillo, lana, grano, mineral.
+-   Cartas de desarrollo.
+-   Fichas numeradas (2–12).
+-   Piezas de jugadores: carreteras, asentamientos y ciudades.
+-   Ladrón.
+-   Dados.
+
+Consejos
+
+-   Intenta diversificar tus terrenos para producir diferentes recursos.
+-   Controlar puertos puede darte ventaja en intercambios.
+-   No expandas demasiado sin asegurar producción constante.
+-   Usa el ladrón estratégicamente para frenar al jugador líder.
+-   Prioriza caminos si compites por la ruta más larga.

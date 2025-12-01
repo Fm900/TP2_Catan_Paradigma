@@ -20,7 +20,7 @@ public abstract  class EscenaGeneral {
 
         // Envolver el contenido con la barra superior
         VBox layoutConBarra = BarraSuperior.crearLayoutConBarra(contenidoEscena, stage);
-
+        BarraSuperior.inicializarControladorMusica();
         this.root = layoutConBarra;
 
         createControllers(stage);

@@ -12,7 +12,6 @@ public class App extends Application {
 
         MenuPrincipalScena menu = new MenuPrincipalScena(stage);
 
-
         stage.setScene(menu.getScene());
         stage.setTitle("Catan");
 

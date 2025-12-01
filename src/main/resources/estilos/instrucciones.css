@@ -1,0 +1,109 @@
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-background-color: #f8f9fa;
+}
+
+/* Estilo para el título */
+.titulo-instrucciones {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-alignment: center;
+    -fx-padding: 0 0 10px 0;
+}
+
+/* Contenedor principal */
+.contenedor-principal {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #f8f9fa);
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+/* Área de texto mejorada */
+.text-area {
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 5px;
+}
+
+.text-area .content {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 5px;
+    -fx-padding: 12px;
+    -fx-font-size: 16px;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-bar:vertical {
+    -fx-background-color: #f1f3f4;
+}
+
+.text-area .scroll-bar:vertical .thumb {
+    -fx-background-color: #cbd5e0;
+    -fx-background-radius: 4px;
+}
+
+.text-area .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #a0aec0;
+}
+
+/* Botón mejorado */
+.boton-cerrar {
+    -fx-background-color: linear-gradient(to bottom, #ff856e, #ff6b4a);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 24px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 107, 74, 0.3), 5, 0, 0, 2);
+}
+
+.boton-cerrar:hover {
+    -fx-background-color: linear-gradient(to bottom, #ff6b4a, #ff5722);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 107, 74, 0.5), 8, 0, 0, 3);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.boton-cerrar:pressed {
+    -fx-background-color: linear-gradient(to bottom, #e55a3d, #d84315);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 107, 74, 0.2), 3, 0, 0, 1);
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Label de sección */
+.label-seccion {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #495057;
+    -fx-padding: 5px 0 2px 0;
+}
+
+/* Efectos de transición suaves */
+* {
+    -fx-transition: all 0.2s ease-in-out;
+}
