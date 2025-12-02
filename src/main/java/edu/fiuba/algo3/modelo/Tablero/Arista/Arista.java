@@ -1,8 +1,5 @@
 package edu.fiuba.algo3.modelo.Tablero.Arista;
 
-import edu.fiuba.algo3.modelo.Construccion.Carretera;
-import edu.fiuba.algo3.modelo.Construccion.Construccion;
-import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Puerto.Puerto;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
@@ -42,16 +39,10 @@ public class Arista {
         return (this.dueño == jugador);
     }
 
-    public void verificarLogicaDeConstruccionDeAristas(Jugador jugador) {
+    public void construirCarretera(Jugador jugador) {
         estado.construirCarretera(this, jugador, List.of(extremo1, extremo2));
     }
 
-    public void construirCarretera(Jugador jugador) {
-        Construccion carrtera = new Carretera(0, 0, jugador);
-        carrtera.construir();
-        this.dueño = jugador;
-        this.cambiarAOcupada();
-    }
     public Vertice extremo1() {
         return extremo1;
     }

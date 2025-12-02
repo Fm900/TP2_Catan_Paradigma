@@ -40,7 +40,7 @@ public class VerificarQueUnJugadorActivoPuedaMoverElLadronYRobarUnaCartaAleatore
         terrenoDestino = new Terreno( madera, 10, (new Normal()));
         jugador1 = new Jugador((new MazoDeRecursos(recursosJugador1)), new Mano(),"Alex");
         jugador2 = new Jugador((new MazoDeRecursos(recursosJugador2)), new Mano(),"Alex");
-        ladron = new Ladron(terrenoActual);
+        ladron = Ladron.crearLadron(terrenoActual);
     }
 
     @Test

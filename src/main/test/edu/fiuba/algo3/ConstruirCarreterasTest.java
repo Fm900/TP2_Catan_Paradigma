@@ -40,7 +40,7 @@ public class ConstruirCarreterasTest {
         List<Arista> aristas = vertice1.aristas();
         arista = aristas.get(0);
 
-        assertThrows(NoSePuedeConstruirPorFaltaDeConexion.class, () -> arista.verificarLogicaDeConstruccionDeAristas(jugador), "El jugador no está conectado a este vértice");
+        assertThrows(NoSePuedeConstruirPorFaltaDeConexion.class, () -> arista.construirCarretera(jugador), "El jugador no está conectado a este vértice");
     }
 
     @Test
@@ -49,7 +49,7 @@ public class ConstruirCarreterasTest {
         arista = aristas.get(0);
         arista.construirCarretera(jugador);
 
-        assertThrows(AristaOcupadaNoSePuedeConstruir.class, () -> arista.verificarLogicaDeConstruccionDeAristas(jugador), "La Arista esta ocupada");
+        assertThrows(AristaOcupadaNoSePuedeConstruir.class, () -> arista.construirCarretera(jugador), "La Arista esta ocupada");
     }
 
     @Test
@@ -58,7 +58,7 @@ public class ConstruirCarreterasTest {
         vertice1.construirPobladoInicial(jugador);
         arista = aristas.get(0);
 
-        assertDoesNotThrow(()-> arista.verificarLogicaDeConstruccionDeAristas(jugador));
+        assertDoesNotThrow(()-> arista.construirCarretera(jugador));
     }
 
     @Test
@@ -71,6 +71,6 @@ public class ConstruirCarreterasTest {
         Arista arista2 = aristas2.get(0);
         arista2.construirCarretera(jugador);
 
-        assertDoesNotThrow(()-> arista.verificarLogicaDeConstruccionDeAristas(jugador));
+        assertDoesNotThrow(()-> arista.construirCarretera(jugador));
     }
 }

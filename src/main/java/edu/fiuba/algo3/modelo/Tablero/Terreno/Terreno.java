@@ -8,8 +8,8 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 public class Terreno {
-    private Recurso recurso;
-    private Integer fichaNumero;
+    private final Recurso recurso;
+    private final Integer fichaNumero;
     private EstadoProductivo estadoProductivo;
     private List<Vertice> verticesAdyacentes;
 

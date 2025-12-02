@@ -1,11 +1,12 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Exception.ElJuegoNoHaSidoCreadoAun;
 import edu.fiuba.algo3.modelo.Fase.*;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-
-
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import java.util.List;
 
 public class Juego {
@@ -18,7 +19,6 @@ public class Juego {
     private final Tablero tablero;
     private final Banca banca;
 
-    // patron singelton para Juego, implementacion
     private Juego(List<Jugador> jugadores, List<FasePrincipal> fasesPrincipales,  List<FaseInicial> fasesIniciales,  Tablero tablero, Banca banca) {
         this.jugadores = jugadores;
         this.fasesPrincipales = fasesPrincipales;
@@ -31,13 +31,12 @@ public class Juego {
         if(juego == null){
             juego = new Juego(jugadores, fasesPrincipales, fasesIniciales, tablero, banca);
         }
-
         return juego;
     }
 
     public static Juego getInstancia() {
         if (juego == null) {
-            throw new IllegalStateException("El juego aún no fue inicializado.");
+            throw new ElJuegoNoHaSidoCreadoAun("El juego aún no fue inicializado.");
         }
         return juego;
     }
@@ -47,10 +46,13 @@ public class Juego {
 //        iniciarTurno();
 //    }
 
-    public void iniciarFaseInicial(){
-        for (FaseInicial faseInicial : fasesIniciales){
-            faseInicial.iniciarFase(jugadores, tablero);
-        }
+    public void iniciarTurnoUno(Jugador jugador, Vertice vertice, Arista arista){
+        fasesIniciales.get(0).iniciarFase(jugador, vertice, arista);
+    }
+
+
+    public void iniciarTurnoDos(Jugador jugador, Vertice vertice, Arista arista){
+        fasesIniciales.get(1).iniciarFase(jugador, vertice, arista);
     }
 
     public void iniciarTurno(){
@@ -67,7 +69,13 @@ public class Juego {
     public List<Jugador> getJugadores() {
         return jugadores;
     }
-    public Tablero getTablero() {
+    public  Tablero getTablero() {
         return tablero;
+    }
+
+    public void descartarCartasJugadores(){
+        for (Jugador jugador : jugadores) {
+            jugador.descarteMayoria();
+        }
     }
 }

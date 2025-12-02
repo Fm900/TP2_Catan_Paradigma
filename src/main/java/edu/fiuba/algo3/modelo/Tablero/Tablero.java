@@ -31,6 +31,9 @@ public class Tablero {
         this.terrenos = generador.generar();
     }
 
+    public void mejorarPobladoACiudad(Jugador jugador, Vertice vertice) {
+        vertice.mejorarPobladoACiudad(jugador);
+    }
 
     public void colocarPobladoInicial(Jugador jugador, Vertice vertice){
         vertice.construirPobladoInicial(jugador);

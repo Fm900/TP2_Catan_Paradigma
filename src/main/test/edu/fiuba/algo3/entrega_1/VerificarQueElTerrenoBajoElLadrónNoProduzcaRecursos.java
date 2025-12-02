@@ -40,7 +40,7 @@ public class VerificarQueElTerrenoBajoElLadrónNoProduzcaRecursos {
         terrenoDestino = new Terreno( madera, 10, (new Normal()));
         jugador = new Jugador((new MazoDeRecursos(recursoMadera)), new Mano(),"Alex");
         jugador2 = new Jugador((new MazoDeRecursos(recursosJugador)), new Mano(),"Alex");
-        ladron = new Ladron(terrenoActual);
+        ladron = Ladron.crearLadron(terrenoActual);
     }
 
 

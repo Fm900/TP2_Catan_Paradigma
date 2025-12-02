@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Fase;
 
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
@@ -8,20 +9,22 @@ import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 public class Construccion implements FasePrincipal {
     private Jugador jugadorActual;
-    private Vertice vertice;
-    private Arista arista;
-
-
+    private Tablero tablero;
     public void iniciarFase(Jugador jugadorActual, Banca banca) {
         this.jugadorActual = jugadorActual;
+        tablero = Juego.getInstancia().getTablero();
+
     }
 
-    public void construirEnArista(Arista arista, Jugador jugador){
+    public void construirCarretera(Arista arista) {
+        tablero.colocarCarretera(jugadorActual, arista);
+    }
 
-    };
+    public void construirPoblado(Vertice vertice){
+        tablero.colocarPoblado(jugadorActual, vertice);
+    }
 
-    public void construirEnVertice(Vertice vertice, Jugador jugador){
-
-    };
-
+    public void construirCiudad(Vertice vertice){
+        tablero.mejorarPobladoACiudad(jugadorActual, vertice);
+    }
 }

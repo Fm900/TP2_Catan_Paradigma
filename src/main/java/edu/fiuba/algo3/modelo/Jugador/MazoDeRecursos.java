@@ -45,7 +45,7 @@ public class MazoDeRecursos {
         for (Recurso recursoPrecio : precio) {
             boolean eliminado = false;
             for (int i = 0; i < copia.size(); i++) {
-                if (copia.get(i).getClass().equals(recursoPrecio.getClass())) {
+                if (copia.get(i).getClass().equals(recursoPrecio.getClass())){
                     copia.remove(i);
                     eliminado = true;
                     break;
