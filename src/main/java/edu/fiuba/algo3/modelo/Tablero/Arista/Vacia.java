@@ -14,7 +14,6 @@ public class Vacia implements EstadoArista {
     public void construirCarretera(Arista self, Jugador jugador, List<Vertice> vertices) {
         for (Vertice v : vertices){
             if (v.validarConexion(jugador)) {
-                self.construirCarretera(jugador);
                 Construccion carrtera = new Carretera(0, 0, jugador);
                 carrtera.construir();
                 self.cambiarAOcupada();
