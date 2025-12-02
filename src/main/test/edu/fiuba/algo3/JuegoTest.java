@@ -37,7 +37,7 @@ public class JuegoTest {
         fasePrincipal2 = mock(FasePrincipal.class);
         tablero = mock(Tablero.class);
         banca = new Banca(new ArrayList<>());
-        juego = spy(new Juego(List.of(jugador1,jugador2), List.of(fasePrincipal1, fasePrincipal2), List.of(faseInicial), tablero, banca));
+        juego = spy(Juego.crearInstancia(List.of(jugador1,jugador2), List.of(fasePrincipal1, fasePrincipal2), List.of(faseInicial), tablero, banca));
     }
 
 //    @Test

@@ -71,7 +71,7 @@ public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
         // crear tablero y juego
         Tablero tablero = new Tablero(new GeneradorDeTerrenos());
         Banca banca = new Banca(new ArrayList<>());
-        Juego juego = new Juego(List.of(jugador), new ArrayList<>(), new ArrayList<>(), tablero, banca);
+        Juego juego = Juego.crearInstancia(List.of(jugador), new ArrayList<>(), new ArrayList<>(), tablero, banca);
 
         Vertice vertice = new Vertice();
 

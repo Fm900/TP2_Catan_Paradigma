@@ -16,6 +16,6 @@ public class ConstructorJuego {
         List<FasePrincipal> principales = List.of(new Dados(), new Comercio(), new Construccion());
         List<FaseInicial > iniciales = List.of(new PrimerTurno(), new SegundoTurno());
         Tablero tablero = new Tablero();
-        return new Juego(jugadores,principales, iniciales,tablero,banca);
+        return Juego.crearInstancia(jugadores,principales, iniciales,tablero,banca);
     }
 }

@@ -13,7 +13,6 @@ public class PrimerTurno implements FaseInicial {
 
     @Override
     public void iniciarFase(List<Jugador> jugadores, Tablero tablero) {
-
         for (int i = jugadores.size() - 1; i >= 0; i--) {
             Jugador jugador = jugadores.get(i);
             tablero.colocarPobladoInicial(jugador, this.verticeParaConstruir);

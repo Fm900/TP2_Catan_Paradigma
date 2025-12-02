@@ -42,7 +42,6 @@ public class MazoDeRecursos {
 
     public void verificarCumplimiento(List<Recurso> precio) {
         List<Recurso> copia = new ArrayList<>(recursos);
-
         for (Recurso recursoPrecio : precio) {
             boolean eliminado = false;
             for (int i = 0; i < copia.size(); i++) {
