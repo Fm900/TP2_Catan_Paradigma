@@ -66,6 +66,12 @@ public class Juego {
         int puntos = jugador.calcularPuntosTotales();
         return puntos;
     }
+    public void chequearVictoria(Jugador jugador){
+        if (jugador.calcularPuntosTotales() >= 10){
+            this.finalizarJuego();
+        }
+    }
+
     public List<Jugador> getJugadores() {
         return jugadores;
     }
@@ -77,5 +83,9 @@ public class Juego {
         for (Jugador jugador : jugadores) {
             jugador.descarteMayoria();
         }
+    }
+
+    public void finalizarJuego(){
+        //por ahora no hace nada
     }
 }
