@@ -38,11 +38,9 @@ public class Arista {
         this.estado = new Ocupada();
     }
 
-        public void elMismoDueño(Jugador jugador){
-            if(!(this.dueño == jugador)){
-                throw new NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente("No se puede construir una carretera en esta arista");
-            }
-        }
+    public boolean elMismoDueño(Jugador jugador){
+        return (this.dueño == jugador);
+    }
 
     public void verificarLogicaDeConstruccionDeAristas(Jugador jugador) {
         estado.construirCarretera(this, jugador, List.of(extremo1, extremo2));

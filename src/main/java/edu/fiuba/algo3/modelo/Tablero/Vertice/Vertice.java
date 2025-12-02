@@ -62,18 +62,15 @@ public class Vertice {
         this.dueño = jugador;
     }
 
-    public void validarConexion(Jugador jugador) {
+    public boolean validarConexion(Jugador jugador) {
         if (this.dueño == jugador) {
-            return;
+            return true;
         }
         for (Arista a : aristas) {
-            try {
-                a.elMismoDueño(jugador);
-                return;
-            }
-            catch (NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente ignored) {
+            if (a.elMismoDueño(jugador)) {
+                return true;
             }
         }
-        throw new NoSePuedeConstruirPorFaltaDeConexion("El jugador no está conectado a este vértice");
+        return false;
     }
 }

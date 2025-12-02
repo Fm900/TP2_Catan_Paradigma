@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Tablero.Vertice;
 
+import java.util.ArrayList;
 import java.util.List;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
@@ -31,28 +32,25 @@ public class Libre implements EstadoVertice {
 
     @Override
     public void construirPoblado(Vertice self, Jugador jugador, List<Arista> aristas) {
+        List<Boolean> tieneAlgunaArista = new ArrayList<>();
         for (Arista arista : aristas) {
-            // se puede desarrollar con un if, es un if ¨obligatorio¨, en este caso es factible utilizarlo
-            try {
-                arista.elMismoDueño(jugador);
-                Vertice vecino = arista.otroExtremo(self);
-
-                if (!vecino.validarConstruccionEnVecino()) {
-                    throw new ReglaDeDistanciaNoValida("Vértice adyacente ocupado");
-                }
-
-                Construccion poblado = new Poblado(1, 1, jugador);
-                poblado.construir();
-                self.cambiarAOcupado(poblado);
-                self.setDueño(jugador);
-                return;
-
-            } catch (NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente e) {
+            Vertice vecino = arista.otroExtremo(self);
+            if (!vecino.validarConstruccionEnVecino()) {
+                throw new ReglaDeDistanciaNoValida(
+                        "No se puede construir poblado: distancia no valida"
+                );
             }
+            tieneAlgunaArista.add(arista.elMismoDueño(jugador));
         }
-        throw new NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente(
-                "No se puede construir poblado: ninguna arista habilita"
-        );
+        if (!tieneAlgunaArista.contains(true)) {
+            throw new NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente(
+                    "No se puede construir poblado: ninguna arista habilita"
+            );
+        }
+        Construccion poblado = new Poblado(1, 1, jugador);
+        poblado.construir();
+        self.cambiarAOcupado(poblado);
+        self.setDueño(jugador);
     }
 
     @Override
