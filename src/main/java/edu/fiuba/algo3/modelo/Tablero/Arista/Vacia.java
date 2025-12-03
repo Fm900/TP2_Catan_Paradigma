@@ -16,7 +16,7 @@ public class Vacia implements EstadoArista {
             if (v.validarConexion(jugador)) {
                 Construccion carrtera = new Carretera(0, 0, jugador);
                 carrtera.construir();
-                self.cambiarAOcupada();
+                self.cambiarAOcupada(jugador);
                 return;
             }
         }

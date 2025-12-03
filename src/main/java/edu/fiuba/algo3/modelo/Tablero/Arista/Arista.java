@@ -31,8 +31,9 @@ public class Arista {
         throw new IllegalStateException("El vertice no pertenece a la arista");
     }
 
-    public void cambiarAOcupada(){
+    public void cambiarAOcupada(Jugador dueño){
         this.estado = new Ocupada();
+        this.dueño = dueño;
     }
 
     public boolean elMismoDueño(Jugador jugador){

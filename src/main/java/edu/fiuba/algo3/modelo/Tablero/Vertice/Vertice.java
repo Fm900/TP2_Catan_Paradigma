@@ -30,6 +30,10 @@ public class Vertice {
         otro.registrarArista(arista);
     }
 
+    public Jugador getDueño(){
+        return dueño;
+    }
+
     public List<Arista> aristas() {
         return List.copyOf(aristas);
     }
