@@ -1,19 +1,34 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Exception.ReglaDeDistanciaNoValida;
+import edu.fiuba.algo3.modelo.Fase.Dados;
+import edu.fiuba.algo3.modelo.Fase.PrimerTurno;
+import edu.fiuba.algo3.modelo.Intercambio.Banca;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ConsumoRecursosYReglaAlConstruirPobladosTest {
+
+    Jugador jugador;
+
+    @BeforeEach
+    public void setUp() {
+        jugador = nuevoJugador();
+        Juego.crearInstancia(List.of(jugador), List.of(new Dados()), List.of(new PrimerTurno()), new Tablero(), Banca.creacBanca(List.of(new Madera())));
+    }
 
     private Jugador nuevoJugador() {
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
@@ -32,7 +47,7 @@ public class ConsumoRecursosYReglaAlConstruirPobladosTest {
 
     @Test
     void Test01construirVariosPobladosConsumeRecursosHastaQueNoAlcanzaMas() {
-        Jugador jugador = nuevoJugador();
+
 
         // Le doy recursos para 2 poblados
         darRecursosParaPoblados(jugador, 2);
@@ -52,7 +67,6 @@ public class ConsumoRecursosYReglaAlConstruirPobladosTest {
 
     @Test
     void Test02NoConsumeRecursosCuandoLaConstruccionEsInvalida() {
-        Jugador jugador = nuevoJugador();
         darRecursosParaPoblados(jugador, 2);
 
         Vertice v1 = new Vertice();

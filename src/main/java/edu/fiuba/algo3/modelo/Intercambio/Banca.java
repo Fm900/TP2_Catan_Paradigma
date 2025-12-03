@@ -4,6 +4,8 @@ import edu.fiuba.algo3.modelo.Exception.LaBancaNoHaSidoCreadaAun;
 import edu.fiuba.algo3.modelo.Exception.NoSePudoRealizarElIntercambioLaBancaNoTieneSuficientesRecursos;
 import edu.fiuba.algo3.modelo.Intercambio.Oferta.Oferta;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Banca {
@@ -14,7 +16,7 @@ public class Banca {
     private List<Recurso> recursos;
 
     private Banca(List<Recurso> recursos) {
-        this.recursos = recursos;
+        this.recursos = new ArrayList<>(recursos);
     }
 
     public static Banca creacBanca(List<Recurso> recursos){
@@ -32,7 +34,7 @@ public class Banca {
     }
 
     public void agregarRecurso(List<Recurso> ingreso) {
-        this.recursos.addAll(ingreso);
+        recursos.addAll(ingreso);
     }
 
     public void consumirRecursos(Recurso recurso) {

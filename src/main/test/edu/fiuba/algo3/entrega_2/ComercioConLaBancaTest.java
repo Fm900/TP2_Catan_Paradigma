@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ComercioConLaBancaTest {
     Jugador jugado1;
-    Banca banca;
     Comercio comercio;
     Recurso recurso1;
     Recurso recurso2;
@@ -37,12 +36,12 @@ public class ComercioConLaBancaTest {
         this.recurso3 = new Mineral();
         this.recurso4 = new Lana();
         List<Recurso> recursosBancaIniciales = new ArrayList<>(List.of(recurso1,recurso1,recurso2,recurso2,recurso2));
-        this.banca = Banca.creacBanca(recursosBancaIniciales);
+        Banca.creacBanca(recursosBancaIniciales);
         this.jugado1.agregarRecurso(recurso1,10);
         this.jugado1.agregarRecurso(recurso2,10);
         this.jugado1.agregarRecurso(recurso3,10);
         this.jugado1.agregarRecurso(recurso4,10);
-        this.banca.agregarRecurso(recursosBancaIniciales);
+        Banca.getInstance().agregarRecurso(recursosBancaIniciales);
     }
     @Test
     void test01JugadorComerciaConLaBancaMedianteLaTazaEstandar(){

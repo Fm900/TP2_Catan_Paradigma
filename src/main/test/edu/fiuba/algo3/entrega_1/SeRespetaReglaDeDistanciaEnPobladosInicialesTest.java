@@ -1,17 +1,28 @@
 package edu.fiuba.algo3.entrega_1;
 import edu.fiuba.algo3.modelo.Exception.ReglaDeDistanciaNoValida;
+import edu.fiuba.algo3.modelo.Fase.Dados;
+import edu.fiuba.algo3.modelo.Fase.PrimerTurno;
+import edu.fiuba.algo3.modelo.Intercambio.Banca;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
+
+    private Jugador jugador1;
+    private Jugador jugador2;
 
     private Jugador jugadorConRecursosParaUnPoblado() {
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
@@ -26,10 +37,16 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
         return jugador;
     }
 
+    @BeforeEach
+    public void setUp() {
+        jugador1 = jugadorConRecursosParaUnPoblado();
+        jugador2 = jugadorConRecursosParaUnPoblado();
+        Juego.crearInstancia(List.of(jugador1, jugador2), List.of(new Dados()), List.of(new PrimerTurno()), new Tablero(), Banca.creacBanca(List.of(new Madera())));
+    }
+
+
     @Test
     void Testo01NoSePuedeConstruirPobladosInicialesEnVerticesAdyacentes() {
-        Jugador jugador1 = jugadorConRecursosParaUnPoblado();
-        Jugador jugador2 = jugadorConRecursosParaUnPoblado();
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
@@ -46,8 +63,6 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
 
     @Test
     void Testo02SePuedeConstruirPobladosInicialesEnVerticesNoAdyacentes() {
-        Jugador jugador1 = jugadorConRecursosParaUnPoblado();
-        Jugador jugador2 = jugadorConRecursosParaUnPoblado();
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();

@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Jugador;
 
 
+import edu.fiuba.algo3.modelo.Exception.NoAlcanzanLosRecursos;
 import edu.fiuba.algo3.modelo.Exception.NoTieneRecursosSuficientesParaDescartar;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
@@ -52,7 +53,7 @@ public class MazoDeRecursos {
                 }
             }
             if (!eliminado) {
-                throw new NoTieneRecursosSuficientesParaDescartar("No tienes suficiente");
+                throw new NoAlcanzanLosRecursos("No tienes suficiente");
             }
         }
     }
