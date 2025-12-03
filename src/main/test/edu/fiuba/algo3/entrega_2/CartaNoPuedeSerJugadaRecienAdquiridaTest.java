@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Exception.CartaDeshabilitada;
+import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Deshabilitado;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Monopolio;
@@ -21,7 +22,7 @@ public class CartaNoPuedeSerJugadaRecienAdquiridaTest {
 
     @Test
     void test01CartaRecienLevantadaNoPuedeJugarse() {
-
+        Banca.reset();
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<Recurso>());
         Mano mano = new Mano();
         Jugador jugadorQueLevanta = new Jugador(gestor,mano,"Alex");

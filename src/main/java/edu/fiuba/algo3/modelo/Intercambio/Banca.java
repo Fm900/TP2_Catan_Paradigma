@@ -37,6 +37,10 @@ public class Banca {
         return banca;
     }
 
+    public static void reset(){
+        banca = null;
+    }
+
     public void agregarRecurso(List<Recurso> ingreso) {
         recursos.addAll(ingreso);
     }
