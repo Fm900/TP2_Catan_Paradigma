@@ -10,10 +10,9 @@ import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 public class Construccion implements FasePrincipal {
     private Jugador jugadorActual;
     private Tablero tablero;
-    public void iniciarFase(Jugador jugadorActual, Banca banca) {
+        public void iniciarFase(Jugador jugadorActual) {
         this.jugadorActual = jugadorActual;
         tablero = Juego.getInstancia().getTablero();
-
     }
 
     public void construirCarretera(Arista arista) {

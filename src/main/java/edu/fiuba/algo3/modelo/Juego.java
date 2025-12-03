@@ -57,7 +57,7 @@ public class Juego {
 
     public void iniciarTurno(){
         for(Jugador jugador : jugadores){
-        Turno turno = new Turno(fasesPrincipales, jugador, banca);
+        Turno turno = new Turno(fasesPrincipales, jugador);
         turno.iniciarTurno();
         }
     }

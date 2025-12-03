@@ -19,9 +19,9 @@ public class TiradadDeDadosTest {
         Mano mano1 = new Mano();
         Jugador jugador1 = new Jugador(gestor1, mano1,"Alex");
         Dados faseDeDados = new Dados();
-        Banca banca = new Banca(new ArrayList<Recurso>());
+        Banca banca = Banca.creacBanca(new ArrayList<Recurso>());
         /*Act*/
-        faseDeDados.iniciarFase(jugador1,banca);
+        faseDeDados.iniciarFase(jugador1);
         int tirada = faseDeDados.getTirada();
         /*Assert*/
         assert(tirada > 2 && tirada <= 12);

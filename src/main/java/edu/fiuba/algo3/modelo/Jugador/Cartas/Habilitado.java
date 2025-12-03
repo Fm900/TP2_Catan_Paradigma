@@ -4,7 +4,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 public class Habilitado implements Efecto {
 
-    public void usar(Carta carta, Jugador jugador){
-        carta.activarEfecto(jugador);
+    public void usar(Carta carta, Jugador jugador, ParametrosCarta parametros){
+        carta.activarEfecto(jugador, parametros);
     }
 }

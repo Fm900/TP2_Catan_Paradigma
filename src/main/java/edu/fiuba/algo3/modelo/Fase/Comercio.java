@@ -12,9 +12,9 @@ public class Comercio implements FasePrincipal{
     private Jugador jugadorActual;
     private Banca banca;
 
-    public void iniciarFase(Jugador jugadorActual, Banca banca){
+    public void iniciarFase(Jugador jugadorActual){
         this.jugadorActual = jugadorActual;
-        this.banca = banca;
+        this.banca = Banca.getInstance();
     }
 
     public Oferta crearOfertaJugador(Jugador receptor, List<Recurso> recursosOfrecidos, List<Recurso> recursosRequeridos){

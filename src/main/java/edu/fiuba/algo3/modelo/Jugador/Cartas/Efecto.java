@@ -4,5 +4,5 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 public interface Efecto {
 
-    public void usar(Carta carta, Jugador jugador);
+    public void usar(Carta carta, Jugador jugador, ParametrosCarta parametros);
 }

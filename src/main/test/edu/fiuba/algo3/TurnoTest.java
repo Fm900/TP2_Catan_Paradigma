@@ -27,16 +27,16 @@ public class TurnoTest {
         //jugador = new Jugador();
         fasePrincipal1 = mock(FasePrincipal.class);
         fasePrincipal2 = mock(FasePrincipal.class);
-        this.banca = new Banca(new ArrayList<Recurso>());
+        this.banca = Banca.creacBanca(new ArrayList<Recurso>());
 
     }
 
     @Test
     public void test01TurnoEjecutaTodasLasFasesYEnOrden(){
-        Turno turno = new Turno(List.of(fasePrincipal1,fasePrincipal2), jugador, banca);
+        Turno turno = new Turno(List.of(fasePrincipal1,fasePrincipal2), jugador);
         turno.iniciarTurno();
         InOrder inOrder = Mockito.inOrder(fasePrincipal1,fasePrincipal2);
-        inOrder.verify(fasePrincipal1).iniciarFase(jugador,banca);
-        inOrder.verify(fasePrincipal2).iniciarFase(jugador,banca);
+        inOrder.verify(fasePrincipal1).iniciarFase(jugador);
+        inOrder.verify(fasePrincipal2).iniciarFase(jugador);
     }
 }

@@ -16,7 +16,7 @@ public class Dados implements FasePrincipal {
     private Randomizador rand = new GenerarRandom();
 
     @Override
-    public void iniciarFase(Jugador jugadorActual, Banca banca) {
+    public void iniciarFase(Jugador jugadorActual) {
         this.jugador = jugadorActual;
         dado1 = (int) (rand.random() * 6) + 1;
         dado2 = (int) (rand.random() * 6) + 1;

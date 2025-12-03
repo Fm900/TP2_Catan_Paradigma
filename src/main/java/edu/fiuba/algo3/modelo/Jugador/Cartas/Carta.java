@@ -16,8 +16,8 @@ public abstract class Carta {
         this.activacion = new Deshabilitado();
     }
 
-    public void intentarActivarEfecto(Jugador jugador) {
-        this.activacion.usar(this, jugador);
+    public void intentarActivarEfecto(Jugador jugador, ParametrosCarta parametros) {
+        this.activacion.usar(this, jugador, parametros);
     }
 
     public boolean equals(Object o) {
@@ -33,8 +33,5 @@ public abstract class Carta {
         jugador.agregarCarta(this);
     }
 
-
-
-    public abstract void activarEfecto(Jugador jugador);
-
+    public abstract void activarEfecto(Jugador jugador, ParametrosCarta parametros);
 }

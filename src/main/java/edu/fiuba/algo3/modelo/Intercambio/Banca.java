@@ -1,32 +1,43 @@
 package edu.fiuba.algo3.modelo.Intercambio;
 
+import edu.fiuba.algo3.modelo.Exception.LaBancaNoHaSidoCreadaAun;
+import edu.fiuba.algo3.modelo.Exception.NoSePudoRealizarElIntercambioLaBancaNoTieneSuficientesRecursos;
 import edu.fiuba.algo3.modelo.Intercambio.Oferta.Oferta;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import java.util.List;
 
 public class Banca {
+
+    private static Banca banca;
+
     /// va a extender lo que es una estructura de almacenamiento de recursos
     private List<Recurso> recursos;
 
-    public Banca(List<Recurso> recursos) {
+    private Banca(List<Recurso> recursos) {
         this.recursos = recursos;
     }
 
-    public boolean tieneSuficiente(Recurso recursoEvaluado) {
-        int contador = 0;
-        for (Recurso recurso : recursos) {
-            if(recursoEvaluado.equals(recurso)) {
-                contador++;
-            }
+    public static Banca creacBanca(List<Recurso> recursos){
+        if(banca == null){
+            banca = new Banca(recursos);
         }
-        return contador >= 1;
+        return banca;
     }
+
+    public static Banca getInstance() {
+        if (banca == null){
+            throw new LaBancaNoHaSidoCreadaAun("La Banca no ha sido creada aun");
+        }
+        return banca;
+    }
+
     public void agregarRecurso(List<Recurso> ingreso) {
-        for (Recurso recurso : ingreso) {
-            this.recursos.add(recurso);
-        }
+        this.recursos.addAll(ingreso);
     }
+
     public void consumirRecursos(Recurso recurso) {
-        this.recursos.remove(recurso);
+        if(!this.recursos.remove(recurso)){
+            throw new NoSePudoRealizarElIntercambioLaBancaNoTieneSuficientesRecursos("El interambio no se realizo la Banca no tiene suficiente: ", recurso);
+        }
     }
 }

@@ -15,7 +15,7 @@ public class ConstructorBanca {
         agregar(recursos, Lana::new, 19);
         agregar(recursos, Grano::new, 19);
         agregar(recursos, Mineral::new, 19);
-        return new Banca(recursos);
+        return Banca.creacBanca(recursos);
     }
     public void agregar(List<Recurso> lista, Supplier<Recurso> fabrica, int cantidad){
         for( int i = 0; i < cantidad; i++){

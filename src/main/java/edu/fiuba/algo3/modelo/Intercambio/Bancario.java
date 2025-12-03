@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo.Intercambio;
 
-import edu.fiuba.algo3.modelo.Exception.NoTieneRecursosSuficientesParaDescartar;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Puerto.Tasa;
@@ -13,6 +12,7 @@ public class Bancario implements Intercambio{
     private Banca banca;
     private List<Recurso> ofrecidos;
     private Recurso requerdio;
+
     public Bancario(Jugador jugadorActual, Banca banca, List<Recurso> ofrecidos, Recurso requerido, Tasa tasa){
         this.jugador = jugadorActual;
         this.banca = banca;

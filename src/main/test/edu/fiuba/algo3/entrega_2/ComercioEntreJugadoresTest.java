@@ -41,7 +41,7 @@ public class ComercioEntreJugadoresTest {
         this.recurso3 = new Mineral();
         this.recursosRequeridos = List.of(recurso1);
         this.recursosOfrecidos = List.of(recurso2,recurso2);
-        this.banca = new Banca(new ArrayList<Recurso>());
+        this.banca = Banca.creacBanca(new ArrayList<Recurso>());
 
     }
     @Test
@@ -59,7 +59,7 @@ public class ComercioEntreJugadoresTest {
         int recursos1InicialJugador2 = jugado2.cantidadDeRecurso(recurso1);
         int recursos2InicialJugador2 = jugado2.cantidadDeRecurso(recurso2);
         //iniciamos fase de comercio
-        comercio.iniciarFase(jugado1,banca);
+        comercio.iniciarFase(jugado1);
 
         // jugador1 le hace una oferta a jugador2
         Oferta oferta = comercio.crearOfertaJugador(jugado2,recursosOfrecidos,recursosRequeridos);
@@ -84,7 +84,7 @@ public class ComercioEntreJugadoresTest {
         jugado2.agregarRecurso(recurso2, 5);
         // vemos los recursos por el momento
         //iniciamos fase de comercio
-        comercio.iniciarFase(jugado1,banca);
+        comercio.iniciarFase(jugado1);
 
         // jugador1 le hace una oferta a jugador2
         Oferta oferta = comercio.crearOfertaJugador(jugado2,recursosOfrecidos,recursosRequeridos);

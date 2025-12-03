@@ -46,7 +46,7 @@ public class VerificarQueJugadoresRecibenRecursosInicialesSegunSegundoPobladoCol
         List<FasePrincipal> fasesPrincipales = List.of(new Dados(), new Construccion(), new Comercio(), new JugarCartas());
         List<FaseInicial> fasesIniciales = List.of(new PrimerTurno(), new SegundoTurno()
         );
-        Banca banca = new Banca(new ArrayList<>());
+        Banca banca = Banca.creacBanca(new ArrayList<>());
         Juego.crearInstancia(List.of(jugador), fasesPrincipales, fasesIniciales, tablero, banca);
     }
 

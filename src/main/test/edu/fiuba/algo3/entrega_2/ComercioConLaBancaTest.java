@@ -10,7 +10,6 @@ import edu.fiuba.algo3.modelo.Tablero.Puerto.Especifico;
 import edu.fiuba.algo3.modelo.Tablero.Puerto.Estandar;
 import edu.fiuba.algo3.modelo.Tablero.Puerto.Generico;
 import edu.fiuba.algo3.modelo.Tablero.Puerto.Tasa;
-import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,11 +37,12 @@ public class ComercioConLaBancaTest {
         this.recurso3 = new Mineral();
         this.recurso4 = new Lana();
         List<Recurso> recursosBancaIniciales = new ArrayList<>(List.of(recurso1,recurso1,recurso2,recurso2,recurso2));
-        this.banca = new Banca(recursosBancaIniciales);
+        this.banca = Banca.creacBanca(recursosBancaIniciales);
         this.jugado1.agregarRecurso(recurso1,10);
         this.jugado1.agregarRecurso(recurso2,10);
         this.jugado1.agregarRecurso(recurso3,10);
         this.jugado1.agregarRecurso(recurso4,10);
+        this.banca.agregarRecurso(recursosBancaIniciales);
     }
     @Test
     void test01JugadorComerciaConLaBancaMedianteLaTazaEstandar(){
@@ -53,9 +53,8 @@ public class ComercioConLaBancaTest {
         int recursos1InicialJugador1 = jugado1.cantidadDeRecurso(recurso1);
         int recursos2InicialJugador1 = jugado1.cantidadDeRecurso(recurso2);
 
-        comercio.iniciarFase(jugado1,banca);
+        comercio.iniciarFase(jugado1);
         comercio.crearOfertaBanca(tasaDeComercio, recursoOfrecido, recursoRequerido);
-
 
         assertEquals(recursos1InicialJugador1 + 1, jugado1.cantidadDeRecurso(recurso1));
         assertEquals(recursos2InicialJugador1 - 4, jugado1.cantidadDeRecurso(recurso2));
@@ -70,14 +69,14 @@ public class ComercioConLaBancaTest {
         int recursos1InicialJugador1 = jugado1.cantidadDeRecurso(recurso1);
         int recursos2InicialJugador1 = jugado1.cantidadDeRecurso(recurso2);
 
-        comercio.iniciarFase(jugado1,banca);
+        comercio.iniciarFase(jugado1);
         comercio.crearOfertaBanca(tasaDeComercio, recursoPuertoOfrecido, recursoRequerido);
 
         assertEquals(recursos1InicialJugador1 -2, jugado1.cantidadDeRecurso(recurso1));
         assertEquals(recursos2InicialJugador1 + 1, jugado1.cantidadDeRecurso(recurso2));
     }
     @Test
-    void test02JugadorComerciaConLaBancaMedianteLaTazagenerica(){
+    void test03JugadorComerciaConLaBancaMedianteLaTazagenerica(){
         Tasa tasaDeComercio = new Generico();
         List<Recurso> recursosOfrecidos = List.of(recurso2,recurso3,recurso4);
         Recurso recursoRequeridos = recurso1;
@@ -87,7 +86,7 @@ public class ComercioConLaBancaTest {
         int recursos3InicialJugador1 = jugado1.cantidadDeRecurso(recurso3);
         int recursos4InicialJugador1 = jugado1.cantidadDeRecurso(recurso4);
 
-        comercio.iniciarFase(jugado1,banca);
+        comercio.iniciarFase(jugado1);
         comercio.crearOfertaBanca(tasaDeComercio,recursosOfrecidos, recursoRequeridos);
 
         assertEquals(recursos1InicialJugador1 +1, jugado1.cantidadDeRecurso(recurso1));

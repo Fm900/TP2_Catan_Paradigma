@@ -9,16 +9,14 @@ import java.util.List;
 public class Turno {
     private List<FasePrincipal> fases;
     private Jugador jugadorActual;
-    private Banca banca;
 
-    public Turno(List<FasePrincipal> fases, Jugador jugadorActual, Banca banca) {
+    public Turno(List<FasePrincipal> fases, Jugador jugadorActual) {
         this.fases = fases;
         this.jugadorActual = jugadorActual;
-        this.banca = banca;
     }
     public void iniciarTurno(){
         for(FasePrincipal fase : fases){
-            fase.iniciarFase(jugadorActual, banca);
+            fase.iniciarFase(jugadorActual);
         }
     }
 }

@@ -4,9 +4,11 @@ import edu.fiuba.algo3.modelo.Exception.CartaDeshabilitada;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Deshabilitado;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Monopolio;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.ParametrosCarta;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
+import edu.fiuba.algo3.modelo.Recurso.Madera;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import org.junit.jupiter.api.Test;
 
@@ -25,8 +27,9 @@ public class CartaNoPuedeSerJugadaRecienAdquiridaTest {
         Jugador jugadorQueLevanta = new Jugador(gestor,mano,"Alex");
         Carta cartaRecienLevantada = new Monopolio((new Deshabilitado()));
         jugadorQueLevanta.agregarCarta(cartaRecienLevantada);
+        ParametrosCarta parametrosCarta = new ParametrosCarta();
+        parametrosCarta.setRecursoMonopolio(new Madera());
 
-
-        assertThrows(CartaDeshabilitada.class, () -> cartaRecienLevantada.intentarActivarEfecto(jugadorQueLevanta), "Este turno no es posible usar esta carta");
+        assertThrows(CartaDeshabilitada.class, () -> cartaRecienLevantada.intentarActivarEfecto(jugadorQueLevanta, parametrosCarta), "Este turno no es posible usar esta carta");
     }
     }
