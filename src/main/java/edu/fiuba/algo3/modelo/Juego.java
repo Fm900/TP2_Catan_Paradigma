@@ -88,4 +88,8 @@ public class Juego {
     public void finalizarJuego(){
         //por ahora no hace nada
     }
+
+    public static void reset(){
+        juego = null;
+    }
 }

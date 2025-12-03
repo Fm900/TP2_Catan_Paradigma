@@ -54,6 +54,7 @@ public class VerificarQueJugadoresRecibenRecursosInicialesSegunSegundoPobladoCol
 
     @Test
     void Test01JugadorRecibeRecursosInicialesSegunTerrenosAdyacentes(){
+        Juego.reset();
         Jugador jugador = nuevoJugadorConRecursosIniciales();
 
         Vertice verticePrimerTurno = new Vertice();
