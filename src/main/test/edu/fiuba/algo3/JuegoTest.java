@@ -4,12 +4,10 @@ import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Fase.FaseInicial;
 import edu.fiuba.algo3.modelo.Fase.FasePrincipal;
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InOrder;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +34,8 @@ public class JuegoTest {
         fasePrincipal1 = mock(FasePrincipal.class);
         fasePrincipal2 = mock(FasePrincipal.class);
         tablero = mock(Tablero.class);
-        banca = Banca.creacBanca(new ArrayList<>());
+        List<Carta> cartas = new ArrayList<>();
+        banca = Banca.crearBanca(new ArrayList<>(), cartas);
         juego = spy(Juego.crearInstancia(List.of(jugador1,jugador2), List.of(fasePrincipal1, fasePrincipal2), List.of(faseInicial), tablero, banca));
     }
 

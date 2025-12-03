@@ -2,6 +2,7 @@ package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Fase.Comercio;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
@@ -35,8 +36,9 @@ public class ComercioConLaBancaTest {
         this.recurso2 = new Ladrillo();
         this.recurso3 = new Mineral();
         this.recurso4 = new Lana();
+        List<Carta> cartas = new ArrayList<>();
         List<Recurso> recursosBancaIniciales = new ArrayList<>(List.of(recurso1,recurso1,recurso2,recurso2,recurso2));
-        Banca.creacBanca(recursosBancaIniciales);
+        Banca.crearBanca(recursosBancaIniciales, cartas);
         this.jugado1.agregarRecurso(recurso1,10);
         this.jugado1.agregarRecurso(recurso2,10);
         this.jugado1.agregarRecurso(recurso3,10);

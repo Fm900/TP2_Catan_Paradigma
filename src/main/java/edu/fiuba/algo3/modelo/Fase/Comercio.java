@@ -11,6 +11,7 @@ import java.util.List;
 public class Comercio implements FasePrincipal{
     private Jugador jugadorActual;
     private Banca banca;
+    private Intercambio intercambio;
 
     public void iniciarFase(Jugador jugadorActual){
         this.jugadorActual = jugadorActual;
@@ -18,16 +19,17 @@ public class Comercio implements FasePrincipal{
     }
 
     public Oferta crearOfertaJugador(Jugador receptor, List<Recurso> recursosOfrecidos, List<Recurso> recursosRequeridos){
-        Intercambio tipoIntercambio = new EntreJugadores(jugadorActual,receptor,recursosOfrecidos,recursosRequeridos);
-        return new Oferta(tipoIntercambio);
+        intercambio = new EntreJugadores(jugadorActual,receptor,recursosOfrecidos,recursosRequeridos);
+        return new Oferta(intercambio);
     }
+
     public void crearOfertaBanca(Tasa tasaDeComercio, List<Recurso> ofrecidos, Recurso requerido){
-        Intercambio tipoDeIntercambio = new Bancario(jugadorActual, banca, ofrecidos, requerido, tasaDeComercio);
-        tipoDeIntercambio.intercambio();
+        intercambio = new Bancario(jugadorActual, banca, ofrecidos, requerido, tasaDeComercio);
+        intercambio.intercambio();
     }
-    public void comprarCartas(List<Carta> cartas) {
-        for (Carta carta : cartas) {
-            carta.agregarse(jugadorActual);
-        }
+
+    public void comprarCarta(Carta carta) {
+        intercambio = new ComprarCartas(jugadorActual, carta);
+        intercambio.intercambio();
     }
 }

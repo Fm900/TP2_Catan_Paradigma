@@ -1,13 +1,13 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Exception.NoAlcanzanLosRecursos;
-import edu.fiuba.algo3.modelo.Exception.NoTieneRecursosSuficientesParaDescartar;
 import edu.fiuba.algo3.modelo.Fase.Dados;
 import edu.fiuba.algo3.modelo.Fase.PrimerTurno;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
+import edu.fiuba.algo3.modelo.Intercambio.ComprarCartas;
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.Caballero;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
-import edu.fiuba.algo3.modelo.Jugador.Cartas.ConstruccionCarreteras;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Deshabilitado;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
@@ -27,23 +27,23 @@ public class VerificarElConsumoDeRrecursosAlComprarUnaCartaDeDesarrolloYQueEstaP
     List<Recurso> precio;
     MazoDeRecursos gestor;
     Mano mano;
+    List<Carta> cartas;
 
     @BeforeEach
     public void setUp() {
+        mano = new Mano();
         precio = new ArrayList<>(List.of(new Lana(), new Grano(), new Mineral()));
         jugador = new Jugador(new MazoDeRecursos(precio), mano, "Alex");
-        Juego.crearInstancia(List.of(jugador), List.of(new Dados()), List.of(new PrimerTurno()), new Tablero(), Banca.creacBanca(List.of(new Madera())));
+        carta = new Caballero(new Deshabilitado());
+        cartas = new ArrayList<>(List.of(carta));
+        Juego.crearInstancia(List.of(jugador), List.of(new Dados()), List.of(new PrimerTurno()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
     }
 
     @Test
-    public void testJugadorPuedeConsumirRecursos() {
-        assertDoesNotThrow(() -> jugador.consumirRecursos(precio));
-    }
+    public void test01SeVerificaElConsumoDeRecursosConLaCompraDeUnaCarta(){
+        ComprarCartas intercambio = new ComprarCartas(jugador, carta);
 
-    @Test
-    public void testJugadorNoPuedeConsumirRecursosDosVeces() {
-        jugador.consumirRecursos(precio); // consume recursos
-        assertThrows(NoAlcanzanLosRecursos.class, () -> jugador.consumirRecursos(precio), "No tienes suficientes recursos para realizar esta operacion");
+        assertDoesNotThrow(()->intercambio.intercambio(), "No tienes suficiente");
+        assertThrows(NoAlcanzanLosRecursos.class, ()->jugador.consumirRecursos(List.of(new Madera())), "No tienes suficiente");
     }
-
 }

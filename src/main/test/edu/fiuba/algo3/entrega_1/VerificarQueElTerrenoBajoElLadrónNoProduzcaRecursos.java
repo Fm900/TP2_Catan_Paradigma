@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Fase.Dados;
 import edu.fiuba.algo3.modelo.Fase.PrimerTurno;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
@@ -16,6 +17,8 @@ import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -45,7 +48,8 @@ public class VerificarQueElTerrenoBajoElLadrónNoProduzcaRecursos {
         jugador = new Jugador((new MazoDeRecursos(recursoMadera)), new Mano(),"Alex");
         jugador2 = new Jugador((new MazoDeRecursos(recursosJugador)), new Mano(),"Alex");
         ladron = Ladron.crearLadron(terrenoActual);
-        Juego.crearInstancia(List.of(jugador, jugador2), List.of(new Dados()), List.of(new PrimerTurno()), new Tablero(), Banca.creacBanca(List.of(new Madera())));
+        List<Carta> cartas = new ArrayList<>();
+        Juego.crearInstancia(List.of(jugador, jugador2), List.of(new Dados()), List.of(new PrimerTurno()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
     }
 
 

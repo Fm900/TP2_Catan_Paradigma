@@ -1,8 +1,9 @@
 package edu.fiuba.algo3.modelo.Intercambio;
 
 import edu.fiuba.algo3.modelo.Exception.LaBancaNoHaSidoCreadaAun;
+import edu.fiuba.algo3.modelo.Exception.NoSePudoComprarUnaCartaSeAgotaronLasCartasDeLaBanca;
 import edu.fiuba.algo3.modelo.Exception.NoSePudoRealizarElIntercambioLaBancaNoTieneSuficientesRecursos;
-import edu.fiuba.algo3.modelo.Intercambio.Oferta.Oferta;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 import java.util.ArrayList;
@@ -14,14 +15,17 @@ public class Banca {
 
     /// va a extender lo que es una estructura de almacenamiento de recursos
     private List<Recurso> recursos;
+    private List<Carta>  cartas;
 
-    private Banca(List<Recurso> recursos) {
+
+    private Banca(List<Recurso> recursos, List<Carta> cartas) {
         this.recursos = new ArrayList<>(recursos);
+        this.cartas = new ArrayList<>(cartas);
     }
 
-    public static Banca creacBanca(List<Recurso> recursos){
+    public static Banca crearBanca(List<Recurso> recursos, List<Carta> cartas){
         if(banca == null){
-            banca = new Banca(recursos);
+            banca = new Banca(recursos,  cartas);
         }
         return banca;
     }
@@ -41,5 +45,15 @@ public class Banca {
         if(!this.recursos.remove(recurso)){
             throw new NoSePudoRealizarElIntercambioLaBancaNoTieneSuficientesRecursos("El interambio no se realizo la Banca no tiene suficiente: ", recurso);
         }
+    }
+
+    public void eliminarCarta(Carta cartaAEliminar) {
+        if(!this.cartas.remove(cartaAEliminar)){
+            throw new NoSePudoComprarUnaCartaSeAgotaronLasCartasDeLaBanca("No hay mas cartas en la Banca");
+        }
+    }
+
+    public void agregarRecursoCarta(Carta carta) {
+        carta.pagarse(banca);
     }
 }

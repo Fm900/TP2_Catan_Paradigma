@@ -4,12 +4,12 @@ import edu.fiuba.algo3.modelo.Fase.Comercio;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Intercambio.Oferta.Rechazado;
 import edu.fiuba.algo3.modelo.Intercambio.Oferta.Resolucion;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Intercambio.Oferta.Oferta;
 import edu.fiuba.algo3.modelo.Recurso.*;
-import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +41,8 @@ public class ComercioEntreJugadoresTest {
         this.recurso3 = new Mineral();
         this.recursosRequeridos = List.of(recurso1);
         this.recursosOfrecidos = List.of(recurso2,recurso2);
-        this.banca = Banca.creacBanca(new ArrayList<Recurso>());
+        List<Carta> cartas = new ArrayList<>();
+        this.banca = Banca.crearBanca(new ArrayList<Recurso>(), cartas);
 
     }
     @Test

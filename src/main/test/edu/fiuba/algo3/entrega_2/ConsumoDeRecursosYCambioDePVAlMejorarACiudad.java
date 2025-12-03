@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.entrega_2;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
@@ -70,7 +71,8 @@ public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
 
         // crear tablero y juego
         Tablero tablero = new Tablero(new GeneradorDeTerrenos());
-        Banca banca = Banca.creacBanca(new ArrayList<>());
+        List<Carta> cartas = new ArrayList<>();
+        Banca banca = Banca.crearBanca(new ArrayList<>(), cartas);
         Juego juego = Juego.crearInstancia(List.of(jugador), new ArrayList<>(), new ArrayList<>(), tablero, banca);
 
         Vertice vertice = new Vertice();

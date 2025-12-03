@@ -3,6 +3,7 @@ package edu.fiuba.algo3.entrega_1;
 import edu.fiuba.algo3.modelo.Fase.*;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
@@ -46,7 +47,8 @@ public class VerificarQueJugadoresRecibenRecursosInicialesSegunSegundoPobladoCol
         List<FasePrincipal> fasesPrincipales = List.of(new Dados(), new Construccion(), new Comercio(), new JugarCartas());
         List<FaseInicial> fasesIniciales = List.of(new PrimerTurno(), new SegundoTurno()
         );
-        Banca banca = Banca.creacBanca(new ArrayList<>());
+        List<Carta> cartas = new ArrayList<>();
+        Banca banca = Banca.crearBanca(new ArrayList<>(), cartas);
         Juego.crearInstancia(List.of(jugador), fasesPrincipales, fasesIniciales, tablero, banca);
     }
 

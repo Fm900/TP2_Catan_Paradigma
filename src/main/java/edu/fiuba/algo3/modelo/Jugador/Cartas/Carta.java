@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Jugador.Cartas;
 
+import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
@@ -31,6 +32,10 @@ public abstract class Carta {
     public void agregarse(Jugador jugador) {
         jugador.consumirRecursos(precio);
         jugador.agregarCarta(this);
+    }
+
+    public void pagarse(Banca  banca) {
+        banca.agregarRecurso(precio);
     }
 
     public abstract void activarEfecto(Jugador jugador, ParametrosCarta parametros);
