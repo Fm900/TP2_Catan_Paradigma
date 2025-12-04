@@ -1,4 +1,5 @@
 package edu.fiuba.algo3.entrega_2;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
 import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
@@ -30,12 +31,11 @@ public class VerificarElConsumoDeRecursosYLaCorrectaColocaciónDeUnaCarretera {
         MazoDeRecursos gestor = new MazoDeRecursos(recursosIniciales);
         Mano mano = new Mano();
         Jugador jugador = new Jugador(gestor, mano, "El chaqueño palavecino");
-        Vertice vertice1 = new Vertice();
-        Vertice vertice2 = new Vertice();
+        Vertice vertice1 = new Vertice(1,0,0);
+        Vertice vertice2 = new Vertice(2,0,0);
         Arista arista = new Arista(vertice1, vertice2, new Vacia());
         List<Carta> cartas = new ArrayList<>();
-        Juego.crearInstancia(List.of(jugador), List.of(new Dados()), List.of(new Primer()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
-
+        Juego.crearInstancia(List.of(jugador), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
         assertDoesNotThrow(() -> vertice1.construirPobladoInicial(jugador), "Deberia poder construir un poblado inicial con los recursos disponibles");
         assertDoesNotThrow(() -> arista.construirCarretera(jugador), "Deberia poder construirse una carretera conectada a un vertice del jugador");
         assertThrows(RuntimeException.class, () -> jugador.consumirRecursos(precioCarretera), "Tras construir una carretera no deberia poder pagar otra");

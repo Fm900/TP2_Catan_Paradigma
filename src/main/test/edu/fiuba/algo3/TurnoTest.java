@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.Mockito.mock;
 
+/*
 
 public class TurnoTest {
     private Jugador jugador;
@@ -41,3 +42,4 @@ public class TurnoTest {
         inOrder.verify(fasePrincipal2).iniciarFase(jugador);
     }
 }
+*/

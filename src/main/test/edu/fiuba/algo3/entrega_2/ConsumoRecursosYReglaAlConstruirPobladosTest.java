@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Exception.ReglaDeDistanciaNoValida;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
 import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
@@ -29,7 +31,7 @@ public class ConsumoRecursosYReglaAlConstruirPobladosTest {
     public void setUp() {
         jugador = nuevoJugador();
         List<Carta> cartas = new ArrayList<>();
-        Juego.crearInstancia(List.of(jugador), List.of(new Dados()), List.of(new Primer()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
+        Juego juego = Juego.crearInstancia(List.of(jugador), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
     }
 
     private Jugador nuevoJugador() {
@@ -54,9 +56,9 @@ public class ConsumoRecursosYReglaAlConstruirPobladosTest {
         // Le doy recursos para 2 poblados
         darRecursosParaPoblados(jugador, 2);
 
-        Vertice v1 = new Vertice();
-        Vertice v2 = new Vertice();
-        Vertice v3 = new Vertice();
+        Vertice v1 = new Vertice(0,1,1);
+        Vertice v2 = new Vertice(1,1,1);
+        Vertice v3 = new Vertice(2,1,1);
 
         // No conecto los vértices -> regla de distancia no me bloquea
         assertDoesNotThrow(() -> v1.construirPobladoInicial(jugador));
@@ -71,9 +73,9 @@ public class ConsumoRecursosYReglaAlConstruirPobladosTest {
     void Test02NoConsumeRecursosCuandoLaConstruccionEsInvalida() {
         darRecursosParaPoblados(jugador, 2);
 
-        Vertice v1 = new Vertice();
-        Vertice v2 = new Vertice();
-        Vertice v3 = new Vertice();
+        Vertice v1 = new Vertice(0,1,1);
+        Vertice v2 = new Vertice(1,1,1);
+        Vertice v3 = new Vertice(2,1,1);
 
         // v1---v2, v3 aislado
         v1.conectarConVertice(v2);

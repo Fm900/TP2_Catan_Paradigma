@@ -7,7 +7,9 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Constructores.GeneradorDeTerrenos;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +43,7 @@ public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
         Jugador jugador = nuevoJugador();
         darRecursosParaUnPobladoYCiudad(jugador);
 
-        Vertice vertice = new Vertice();
+        Vertice vertice = new Vertice(0,1,1);
 
         // Construyo el poblado
         assertDoesNotThrow(() -> vertice.construirPobladoInicial(jugador));
@@ -73,9 +75,9 @@ public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
         Tablero tablero = new Tablero(new GeneradorDeTerrenos());
         List<Carta> cartas = new ArrayList<>();
         Banca banca = Banca.crearBanca(new ArrayList<>(), cartas);
-        Juego juego = Juego.crearInstancia(List.of(jugador), new ArrayList<>(), new ArrayList<>(), tablero, banca);
+        Juego juego = Juego.crearInstancia(List.of(jugador), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
 
-        Vertice vertice = new Vertice();
+        Vertice vertice = new Vertice(1,0,0);
 
         vertice.construirPobladoInicial(jugador);
         assertEquals(1,juego.calcularPuntosTotalesDe(jugador)); // con un poblado el jugador debe tener 1 punto

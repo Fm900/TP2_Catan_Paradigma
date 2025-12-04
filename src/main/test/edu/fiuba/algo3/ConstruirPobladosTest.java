@@ -2,6 +2,7 @@ package edu.fiuba.algo3;
 import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente;
 import edu.fiuba.algo3.modelo.Exception.ReglaDeDistanciaNoValida;
 import edu.fiuba.algo3.modelo.Exception.VerticeOcupadoNoPuedeConstruir;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
 import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
@@ -18,6 +19,8 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -38,8 +41,8 @@ public class ConstruirPobladosTest {
         Juego.reset();
         Banca.reset();
         List<Recurso> listaRecursos = (List.of(new Madera(), new Ladrillo(), new Grano(), new Lana(), new Madera(), new Ladrillo(), new Madera(), new Ladrillo(), new Grano(), new Lana(), new Madera(), new Ladrillo(), new Grano(), new Lana(), new Madera(), new Ladrillo(), new Madera(), new Madera(), new Ladrillo(), new Grano(), new Lana(), new Madera(), new Ladrillo(), new Madera()));
-        vertice1 = new Vertice();
-        vertice2 = new Vertice();
+        vertice1 = new Vertice(1,0,0);
+        vertice2 = new Vertice(2,0,0);
         recursos = new MazoDeRecursos(listaRecursos);
         jugador1 = new Jugador(recursos, mano, "Hola");
         jugador2 = new Jugador(recursos, mano, "Hola");
@@ -47,7 +50,7 @@ public class ConstruirPobladosTest {
         cartas = List.of(new Monopolio(new Deshabilitado()));
 
         banca = Banca.crearBanca(listaRecursos ,cartas);
-        juego = Juego.crearInstancia(List.of(jugador1, jugador2), List.of(new Dados()), List.of(new Primer()), new Tablero(), banca);
+        Juego.crearInstancia(List.of(jugador1, jugador2), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
 
     }
     @Test
@@ -61,7 +64,7 @@ public class ConstruirPobladosTest {
     }
     @Test
     public void sePuedeConstruirUnPobladoSiSeCumplenLasCondiciones(){
-        Vertice vertice3 = new Vertice();
+        Vertice vertice3 = new Vertice(3,0,0);
         vertice1.construirPobladoInicial(jugador1);
         vertice1.conectarConVertice(vertice2);
         List<Arista> aristas = vertice1.aristas();

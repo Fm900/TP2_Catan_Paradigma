@@ -4,10 +4,7 @@ import edu.fiuba.algo3.modelo.Exception.ElJuegoNoHaSidoCreadoAun;
 import edu.fiuba.algo3.modelo.Turnos.*;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
-import edu.fiuba.algo3.modelo.Turnos.Fase.Fase;
 
 import java.util.List;
 
@@ -37,6 +34,10 @@ public class Juego {
             throw new ElJuegoNoHaSidoCreadoAun("El juego aún no fue inicializado.");
         }
         return juego;
+    }
+
+    public static void reset(){
+        juego = null;
     }
 
     public int calcularPuntosTotalesDe(Jugador jugador){

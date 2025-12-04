@@ -1,6 +1,10 @@
 package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
+import edu.fiuba.algo3.modelo.Recurso.Madera;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import edu.fiuba.algo3.modelo.Turnos.Turno;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Fase;
 import edu.fiuba.algo3.modelo.Juego;
@@ -36,7 +40,7 @@ public class JuegoTest {
         tablero = mock(Tablero.class);
         List<Carta> cartas = new ArrayList<>();
         banca = Banca.crearBanca(new ArrayList<>(), cartas);
-        juego = spy(Juego.crearInstancia(List.of(jugador1,jugador2), List.of(fasePrincipal1, fasePrincipal2), List.of(faseInicial), tablero, banca));
+        Juego.crearInstancia(List.of(jugador1, jugador2), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
     }
 
 //    @Test

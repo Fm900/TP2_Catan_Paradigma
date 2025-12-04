@@ -1,6 +1,7 @@
 package edu.fiuba.algo3;
 import edu.fiuba.algo3.modelo.Exception.AristaOcupadaNoSePuedeConstruir;
 import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirPorFaltaDeConexion;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
 import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
@@ -42,8 +43,8 @@ public class ConstruirCarreterasTest {
         Juego.reset();
         Banca.reset();
         List<Recurso> listaRecursos = new ArrayList<>(List.of(new Madera(), new Ladrillo(), new Lana(), new Grano(), new Madera(), new Ladrillo(), new Madera(), new Ladrillo()));
-        vertice1 = new Vertice();
-        vertice2 = new Vertice();
+        vertice1 = new Vertice(1, 0,0 );
+        vertice2 = new Vertice(1,0,0);
         recursos = new MazoDeRecursos(listaRecursos);
         jugador1 = new Jugador(recursos, mano, "Hola");
         jugador2 = new Jugador(recursos, mano, "Hola");
@@ -52,7 +53,7 @@ public class ConstruirCarreterasTest {
         cartas = List.of(new Monopolio(new Deshabilitado()));
 
         banca = Banca.crearBanca(listaRecursos ,cartas);
-        juego = Juego.crearInstancia(List.of(jugador, jugador2), List.of(new Dados()), List.of(new Primer()), new Tablero(), banca);
+        Juego.crearInstancia(List.of(jugador1, jugador2), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
 
     }
     @Test
@@ -82,7 +83,7 @@ public class ConstruirCarreterasTest {
         List<Arista> aristas1 = vertice1.aristas();
         Arista arista1 = aristas1.get(0);
         arista1.construirCarretera(jugador);
-        Vertice vertice3 = new Vertice();
+        Vertice vertice3 = new Vertice(1,0,0);
         vertice3.conectarConVertice(vertice2);
         List<Arista> aristas = vertice3.aristas();
         Arista arista2 = aristas.get(0);

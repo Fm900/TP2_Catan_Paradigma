@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Exception.NoAlcanzanLosRecursos;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
 import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
@@ -37,8 +38,8 @@ public class VerificarQueUnJugadorActivoPuedaMoverElLadronYRobarUnaCartaAleatore
 
     @BeforeEach
     public void setUp() {
-        vertice1 = new Vertice();
-        vertice2 = new Vertice();
+        vertice1 = new Vertice(1, 0, 0);
+        vertice2 = new Vertice(1, 0, 0);
         recursosJugador1 = List.of();
         recursosJugador2 = List.of(new Madera(), new Ladrillo(), new Lana(), new Grano(), new Lana());
         terrenoActual = new Terreno (new Madera(), 5, (new Alterado()));
@@ -47,7 +48,7 @@ public class VerificarQueUnJugadorActivoPuedaMoverElLadronYRobarUnaCartaAleatore
         jugador2 = new Jugador((new MazoDeRecursos(recursosJugador2)), new Mano(),"Alex");
         ladron = Ladron.crearLadron(terrenoActual);
         List<Carta> cartas = new ArrayList<>();
-        Juego.crearInstancia(List.of(jugador1, jugador2), List.of(new Dados()), List.of(new Primer()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
+        Juego.crearInstancia(List.of(jugador1, jugador2), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
     }
 
     @Test

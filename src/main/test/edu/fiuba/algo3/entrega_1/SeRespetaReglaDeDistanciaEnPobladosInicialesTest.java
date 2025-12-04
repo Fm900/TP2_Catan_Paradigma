@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.entrega_1;
 import edu.fiuba.algo3.modelo.Exception.ReglaDeDistanciaNoValida;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
 import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
@@ -43,15 +45,15 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
         jugador1 = jugadorConRecursosParaUnPoblado();
         jugador2 = jugadorConRecursosParaUnPoblado();
         List<Carta> cartas = new ArrayList<>();
-        Juego.crearInstancia(List.of(jugador1, jugador2), List.of(new Dados()), List.of(new Primer()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
+        Juego.crearInstancia(List.of(jugador1, jugador2), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
     }
 
 
     @Test
     void Testo01NoSePuedeConstruirPobladosInicialesEnVerticesAdyacentes() {
 
-        Vertice v1 = new Vertice();
-        Vertice v2 = new Vertice();
+        Vertice v1 = new Vertice(1,0,0);
+        Vertice v2 = new Vertice(2,1,1);
 
         // v1---v2
         v1.conectarConVertice(v2);
@@ -66,9 +68,9 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
     @Test
     void Testo02SePuedeConstruirPobladosInicialesEnVerticesNoAdyacentes() {
 
-        Vertice v1 = new Vertice();
-        Vertice v2 = new Vertice();
-        Vertice v3 = new Vertice();
+        Vertice v1 = new Vertice(0,1,1);
+        Vertice v2 = new Vertice(1,0,0);
+        Vertice v3 = new Vertice(2,0,0);
 
         // Conecto solo v1 con v2, v3 queda aislado
         v1.conectarConVertice(v2);

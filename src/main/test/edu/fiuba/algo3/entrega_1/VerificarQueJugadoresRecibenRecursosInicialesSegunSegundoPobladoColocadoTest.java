@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
+import edu.fiuba.algo3.controllers.ManejoTurnos;
 import edu.fiuba.algo3.modelo.Turnos.*;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Juego;
@@ -50,7 +51,8 @@ public class VerificarQueJugadoresRecibenRecursosInicialesSegunSegundoPobladoCol
         );
         List<Carta> cartas = new ArrayList<>();
         Banca banca = Banca.crearBanca(new ArrayList<>(), cartas);
-        Juego.crearInstancia(List.of(jugador), fasesPrincipales, fasesIniciales, tablero, banca);
+        Juego.crearInstancia(List.of(jugador), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
+
     }
 
     @Test
@@ -58,8 +60,8 @@ public class VerificarQueJugadoresRecibenRecursosInicialesSegunSegundoPobladoCol
         Juego.reset();
         Jugador jugador = nuevoJugadorConRecursosIniciales();
 
-        Vertice verticePrimerTurno = new Vertice();
-        Vertice verticeSegundoTurno = new Vertice();
+        Vertice verticePrimerTurno = new Vertice(1,1,1);
+        Vertice verticeSegundoTurno = new Vertice(2,2,2);
 
 
         //creo un tablero de forma controlada
@@ -69,19 +71,21 @@ public class VerificarQueJugadoresRecibenRecursosInicialesSegunSegundoPobladoCol
 
         inicializarJuego(tablero, jugador);
         List<Recurso> precio = List.of(new Mineral());
-        Arista aristaPrimerTurno = new Arista(verticePrimerTurno, new Vertice(), new Vacia());
-        Arista aristaSegundoTurno = new Arista(verticeSegundoTurno, new Vertice(), new Vacia());
+        Arista aristaPrimerTurno = new Arista(verticePrimerTurno, new Vertice(0,1,1), new Vacia());
+        Arista aristaSegundoTurno = new Arista(verticeSegundoTurno, new Vertice(0,1,1), new Vacia());
 
 
         // el primer poblado no debe dar recursos, asi que no deberia tener Mineral
         Primer primerTurno = new Primer();
-        primerTurno.iniciarFase(jugador, verticePrimerTurno,aristaPrimerTurno);
+        List<Jugador> jugadores = new ArrayList<>();
+        jugadores.add(jugador);
+        primerTurno.construir(new ManejoTurnos(jugadores), verticePrimerTurno,aristaPrimerTurno);
         assertThrows(RuntimeException.class, () -> jugador.consumirRecursos(precio), "Antes del segundo poblado no deberia poder pagar un mineral");
 
 
         // en el segundo turno construyo un poblado que me debe dar recursos
         Segundo segundoTurno = new Segundo();
-        segundoTurno.iniciarFase(jugador, verticeSegundoTurno, aristaSegundoTurno);
+        segundoTurno.construir(new ManejoTurnos(jugadores), verticeSegundoTurno, aristaSegundoTurno);
         assertDoesNotThrow(() -> jugador.consumirRecursos(precio), "Despues del segundo poblado deberia poder pagar un mineral");
 
     }

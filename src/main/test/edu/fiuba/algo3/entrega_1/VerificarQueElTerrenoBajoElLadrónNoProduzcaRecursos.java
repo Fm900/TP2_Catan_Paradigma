@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
 import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
@@ -40,7 +41,7 @@ public class VerificarQueElTerrenoBajoElLadrónNoProduzcaRecursos {
     @BeforeEach
     public void setUp() {
         madera = new Madera();
-        vertice = new Vertice();
+        vertice = new Vertice(1,0,0);
         recursosJugador = (List.of());
         recursoMadera = (List.of(madera, new Madera(), new Ladrillo(), new Grano(), new Lana()));
         terrenoActual = new Terreno (madera, 5, (new Alterado()));
@@ -49,7 +50,7 @@ public class VerificarQueElTerrenoBajoElLadrónNoProduzcaRecursos {
         jugador2 = new Jugador((new MazoDeRecursos(recursosJugador)), new Mano(),"Alex");
         ladron = Ladron.crearLadron(terrenoActual);
         List<Carta> cartas = new ArrayList<>();
-        Juego.crearInstancia(List.of(jugador, jugador2), List.of(new Dados()), List.of(new Primer()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
+        Juego.crearInstancia(List.of(jugador, jugador2), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
     }
 
 

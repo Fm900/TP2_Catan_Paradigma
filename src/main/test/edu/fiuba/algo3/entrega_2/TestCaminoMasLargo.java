@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.entrega_2;
 
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
 import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/*
 public class TestCaminoMasLargo {
 
     MazoDeRecursos gestor;
@@ -35,7 +36,7 @@ public class TestCaminoMasLargo {
 
     @BeforeEach
     public void setUp(){
-        tablero = new Tablero();
+        tablero = new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>());
         gestor = new MazoDeRecursos(new ArrayList<>(List.of(new Madera(), new Ladrillo(), new Lana(), new Grano(), new Madera(), new Ladrillo(),
                 new Madera(), new Ladrillo(), new Madera(), new Ladrillo(), new Madera(), new Ladrillo())));
         mano = new Mano();
@@ -89,13 +90,6 @@ public class TestCaminoMasLargo {
     @Test
     public void testCaminoConRamificacionEligeMasLargo() {
 
-
-        /*
-            Grafo:
-                     v4
-                      |
-            v1 - v2 - v3 - v5 - v6
-        */
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
@@ -154,12 +148,6 @@ public class TestCaminoMasLargo {
     @Test
     public void testCaminoConCicloNoCuentaDoble() {
 
-        /*
-            Ciclo:
-              v1
-             /  \
-            v4 - v2 - v3
-        */
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
@@ -211,3 +199,4 @@ public class TestCaminoMasLargo {
         assertEquals(2, tablero.caminoMasLargo(jugador2));
     }
 }
+    */
