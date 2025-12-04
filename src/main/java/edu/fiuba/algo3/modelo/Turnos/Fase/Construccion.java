@@ -37,14 +37,14 @@ public class Construccion implements Fase {
     }
 
     public void comprarCartaDesarrollo() {
-        validarFaseIniciada();
-        // aca va las cartas de desarrollo
-        Carta carta = Juego.getInstancia().getMazoDesarrollo().robarCarta();
-
-        if (carta != null) {
-            jugadorActual.agregarCarta(carta);
-
-        }
+//        validarFaseIniciada();
+//        // aca va las cartas de desarrollo
+////        Carta carta = Juego.getInstancia().getMazoDesarrollo().robarCarta();
+//
+//        if (carta != null) {
+//            jugadorActual.agregarCarta(carta);
+//
+//        }
     }
 
     public void terminarFase(ManejoTurnos manejador) {

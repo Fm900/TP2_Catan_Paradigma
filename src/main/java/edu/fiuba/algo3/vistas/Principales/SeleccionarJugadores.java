@@ -28,7 +28,7 @@ public class SeleccionarJugadores extends EscenaGeneral {
     private ControladorDeInicioDeJuego controlador;
     private Tablero tablero;
     private Juego juego;
-
+    private int maxCaracteres = 10;
 
     public SeleccionarJugadores(Stage stage) {
         super(stage);
@@ -110,14 +110,16 @@ public class SeleccionarJugadores extends EscenaGeneral {
 
             int cantidad = tresJugadores.isSelected() ? 3 : 4;
 
-            if (nombre1.getText().isBlank() ||
-                    nombre2.getText().isBlank() ||
-                    nombre3.getText().isBlank() ||
-                    (cantidad == 4 && nombre4.getText().isBlank())) {
+            if ( nombre1.getText().isBlank() || nombre1.getText().length() > maxCaracteres ||
+                    nombre2.getText().isBlank() || nombre2.getText().length() > maxCaracteres ||
+                    nombre3.getText().isBlank() || nombre3.getText().length() > maxCaracteres ||
+                    (cantidad == 4 && (nombre4.getText().isBlank() || nombre4.getText().length() > maxCaracteres)) ) {
 
-                ControladorDeAlerta.mostrarError("Todos los jugadores deben tener nombre");
+                ControladorDeAlerta.mostrarError("Todos los jugadores deben tener nombre y no pueden exceder " + maxCaracteres + " caracteres.", stage);
                 return;
             }
+
+
             String j1 = nombre1.getText();
             String j2 = nombre2.getText();
             String j3 = nombre3.getText();

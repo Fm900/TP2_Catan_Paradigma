@@ -1,11 +1,13 @@
 package edu.fiuba.algo3.controllers;
 
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 
 public class ControladorDeAlerta {
 
-    public static void mostrarError(String mensaje) {
+    public static void mostrarError(String mensaje, Stage stage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(stage);
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
@@ -20,11 +22,12 @@ public class ControladorDeAlerta {
         alert.showAndWait();
     }
 
-    public static void mostrarInfo(String mensaje) {
+    public static void mostrarInfo(String mensaje, Stage stage) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(stage);
         alert.setTitle("Información");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
-        alert.showAndWait();
+        alert.show();
     }
 }

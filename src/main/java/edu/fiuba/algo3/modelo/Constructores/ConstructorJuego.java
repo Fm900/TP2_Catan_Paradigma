@@ -22,15 +22,11 @@ public class ConstructorJuego {
 
         Banca banca = new ConstructorBanca().crearBanca();
 
-        List<Fase> principales = List.of(new Dados(), new Comercio(), new Construccion());
-        List<Turno> iniciales = List.of(new Primer(), new Segundo());
-
         ConstructorTablero ctor = new ConstructorTablero();
         List<Terreno> terrenos = ctor.generarTerrenos();
         List<Vertice> vertices = ctor.generarVertices();
         List<Arista> aristas = ctor.generarAristas();
         Tablero tablero = new Tablero(terrenos, vertices, aristas);
-
-        return Juego.crearInstancia(jugadores,principales, iniciales,tablero,banca);
+        return Juego.crearInstancia(jugadores,tablero,banca);
     }
 }

@@ -22,23 +22,23 @@ public class JugarCartas implements Fase {
 
 
     public void jugarCarta(Carta carta, ParametrosCarta parametros) {
-        validarFaseIniciada();
-
-        // Verificar que la carta se puede jugar (no fue comprada este turno)
-        if (!carta.sePuedeJugar()) {
-            throw new IllegalStateException("Esta carta fue comprada este turno y no se puede jugar aún");
-        }
-
-        // Activar el efecto de la carta
-        carta.intentarActivarEfecto(jugadorActual, parametros);
-
-        // Remover la carta del mazo del jugador (se usa)
-        jugadorActual.descartarCarta(carta);
-
-        //validar pv
-        if (carta.esPuntoVictoria()) {
-            jugadorActual.agregarCarta(carta);
-        }
+//        validarFaseIniciada();
+//
+//        // Verificar que la carta se puede jugar (no fue comprada este turno)
+//        if (!carta.sePuedeJugar()) {
+//            throw new IllegalStateException("Esta carta fue comprada este turno y no se puede jugar aún");
+//        }
+//
+//        // Activar el efecto de la carta
+//        carta.intentarActivarEfecto(jugadorActual, parametros);
+//
+//        // Remover la carta del mazo del jugador (se usa)
+//        jugadorActual.descartarCarta(carta);
+//
+//        //validar pv
+//        if (carta.esPuntoVictoria()) {
+//            jugadorActual.agregarCarta(carta);
+//        }
     }
 
     public void terminarFase(ManejoTurnos manejador) {

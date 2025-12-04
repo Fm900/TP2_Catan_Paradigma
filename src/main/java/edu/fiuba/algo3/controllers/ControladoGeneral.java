@@ -88,6 +88,39 @@ public class ControladoGeneral {
         }
     }
 
+    public ManejoTurnos getManejoTurnos() {
+        return manejoTurnos;
+    }
+
+    private void actualizarVista() {
+        if (vistaTablero != null) {
+            vistaTablero.actualizarJugadorActual(jugadorActual);
+//            vistaTablero.actualizarInfoTurno(getNombreFaseActual());
+        }
+    }
+
+    public void mostrar() {
+        inicializarVista();
+    }
+
+    private void mostrarMensaje(String mensaje) {
+        ControladorDeAlerta.mostrarInfo(mensaje, stage);
+    }
+
+
+    public void verificarVictoria() {
+        for (Jugador jugador : jugadores) {
+            if (this.juego.chequearVictoria(jugador)){
+                mostrarVictoria(jugador);
+            }
+
+        }
+    }
+
+    private void mostrarVictoria(Jugador ganador) {
+
+    }
+
     public Jugador getJugadorActual() {
         return jugadorActual;
     }
@@ -127,33 +160,6 @@ public class ControladoGeneral {
     public Juego getJuego() {
         return juego;
     }
-
-    public ManejoTurnos getManejoTurnos() {
-        return manejoTurnos;
-    }
-
-    private void actualizarVista() {
-        if (vistaTablero != null) {
-            vistaTablero.actualizarJugadorActual(jugadorActual);
-            vistaTablero.actualizarInfoTurno(getNombreFaseActual());
-        }
-    }
-
-    public void mostrar() {
-        inicializarVista();
-    }
-
-    private void mostrarMensaje(String mensaje) {
-    }
-
-
-    public void verificarVictoria() {
-    }
-
-    private void mostrarVictoria(Jugador ganador) {
-
-    }
-
 
     public boolean esturnoNormal() {
         return manejoTurnos.getTurnoActual() instanceof Normal;

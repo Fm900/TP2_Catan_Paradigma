@@ -81,4 +81,7 @@ public class VistaTablero extends EscenaGeneral {
     protected String getBackgroundImagePath() {
         return "Imagenes/FondoSeleccionarJugadoresCatan.png";
     }
+
+    public void actualizarJugadorActual(Jugador jugadorActual) {
+    }
 }

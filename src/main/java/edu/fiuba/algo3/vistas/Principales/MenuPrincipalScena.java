@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.Principales;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -50,16 +51,21 @@ public class MenuPrincipalScena extends EscenaGeneral {
             boolean estabaFullScreen = stage.isFullScreen();
             boolean estabaMaximized = stage.isMaximized();
 
+
             SeleccionarJugadores escena = new SeleccionarJugadores(stage);
             stage.setScene(escena.getScene());
 
-            if (estabaFullScreen) {
-                stage.setFullScreen(true);
-            } else {
-                stage.setMaximized(estabaMaximized);
-            }
+            Platform.runLater(() -> {
+                if (estabaFullScreen) {
+                    stage.setFullScreen(true);
+                } else if (estabaMaximized) {
+                    stage.setMaximized(true);
+                }
+            });
+
             System.out.println("Iniciar juego...");
         });
+
     }
 
     @Override

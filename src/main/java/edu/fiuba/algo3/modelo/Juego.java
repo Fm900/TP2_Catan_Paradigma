@@ -16,22 +16,18 @@ public class Juego {
     private static Juego juego;
 
     private final List<Jugador> jugadores;
-    private final List<Fase> fasesPrincipales;
-    private final List<Turno> fasesIniciales;
     private final Tablero tablero;
     private final Banca banca;
 
-    private Juego(List<Jugador> jugadores, List<Fase> fasesPrincipales, List<Turno> fasesIniciales, Tablero tablero, Banca banca) {
+    private Juego(List<Jugador> jugadores, Tablero tablero, Banca banca) {
         this.jugadores = jugadores;
-        this.fasesPrincipales = fasesPrincipales;
-        this.fasesIniciales = fasesIniciales;
         this.tablero = tablero;
         this.banca = banca;
     }
 
-    public static Juego crearInstancia(List<Jugador> jugadores, List<Fase> fasesPrincipales, List<Turno> fasesIniciales, Tablero tablero, Banca banca) {
+    public static Juego crearInstancia(List<Jugador> jugadores, Tablero tablero, Banca banca) {
         if(juego == null){
-            juego = new Juego(jugadores, fasesPrincipales, fasesIniciales, tablero, banca);
+            juego = new Juego(jugadores, tablero, banca);
         }
         return juego;
     }
@@ -47,15 +43,14 @@ public class Juego {
         int puntos = jugador.calcularPuntosTotales();
         return puntos;
     }
-    public void chequearVictoria(Jugador jugador){
-        if (jugador.calcularPuntosTotales() >= 10){
-            this.finalizarJuego();
-        }
+    public boolean chequearVictoria(Jugador jugador){
+        return calcularPuntosTotalesDe(jugador) >= 10;
     }
 
     public List<Jugador> getJugadores() {
         return this.jugadores;
     }
+
     public  Tablero getTablero() {
         return tablero;
     }
@@ -64,13 +59,5 @@ public class Juego {
         for (Jugador jugador : jugadores) {
             jugador.descarteMayoria();
         }
-    }
-
-    public void finalizarJuego(){
-        //por ahora no hace nada
-    }
-
-    public static void reset(){
-        juego = null;
     }
 }
