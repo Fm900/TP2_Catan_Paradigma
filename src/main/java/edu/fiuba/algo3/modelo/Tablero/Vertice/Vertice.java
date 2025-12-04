@@ -12,10 +12,17 @@ import java.util.List;
 
 
 public class Vertice {
+    private int id;
+    private double x;
+    private double y;
     private EstadoVertice estado = new Libre();
     private final List<Arista> aristas = new ArrayList<>();
     private Jugador dueño;
-
+    public Vertice(int id, double x, double y) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
+    }
     protected void cambiarAOcupado(Construccion construccion) {
         this.estado = new Ocupado(construccion);
     }
@@ -76,5 +83,11 @@ public class Vertice {
             }
         }
         return false;
+    }
+
+    public double getX() { return x; }
+    public double getY() { return y; }
+    public int getId() {
+        return id;
     }
 }

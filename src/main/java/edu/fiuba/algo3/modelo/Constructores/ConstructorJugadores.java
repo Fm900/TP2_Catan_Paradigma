@@ -20,7 +20,10 @@ public class ConstructorJugadores {
         List<Jugador> jugadores = new ArrayList<>();
         for(String nombreJugador : nombresJugadores){
             //el mazo de recursos se inicia de esta manera para que tenga los recursos necesarios para construir los poblados y carreteras de los primeros turnos
-            MazoDeRecursos mazo = new MazoDeRecursos(new ArrayList<>(List.of(new Madera(), new Ladrillo(), new Lana(), new Grano(),new Madera(), new Ladrillo(), new Lana(), new Grano())));
+            MazoDeRecursos mazo = new MazoDeRecursos(new ArrayList<>(List.of(new Madera(),new Madera(), new Madera(), new Madera(),
+                    new Ladrillo(), new Ladrillo(), new Ladrillo(), new Ladrillo(),
+                    new Lana(), new Lana(),
+                    new Grano(), new Grano())));
             Mano mano = new Mano();
             jugadores.add(new Jugador(mazo,mano,nombreJugador));
         }

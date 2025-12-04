@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Tablero {
@@ -14,13 +15,10 @@ public class Tablero {
     private List<Vertice> vertices;
     private List<Arista> aristas;
 
-    public Tablero() {
-        ConstructorTablero constructor = new ConstructorTablero();
-
-        this.terrenos = constructor.generarTerrenos();
-        this.vertices = constructor.generarVertices();
-        this.aristas  = constructor.generarAristas(vertices);
-        constructor.asignarVerticesATerrenos(terrenos, vertices);
+    public Tablero(List<Terreno> terrenos, List<Vertice> vertices, List<Arista> aristas) {
+        this.terrenos = terrenos;
+        this.vertices = vertices;
+        this.aristas = aristas;
     }
 
     public void colocarCarretera(Jugador jugador, Arista arista) {
@@ -75,14 +73,14 @@ public class Tablero {
     }
 
     public List<Vertice> vertices() {
-        return List.copyOf(vertices);
+        return Collections.unmodifiableList(vertices);
     }
 
     public List<Arista> aristas() {
-        return List.copyOf(aristas);
+        return Collections.unmodifiableList(aristas);
     }
     public List<Terreno> terrenos() {
-        return List.copyOf(terrenos);
+        return Collections.unmodifiableList(terrenos);
     }
 
     public int caminoMasLargo(Jugador jugador) {

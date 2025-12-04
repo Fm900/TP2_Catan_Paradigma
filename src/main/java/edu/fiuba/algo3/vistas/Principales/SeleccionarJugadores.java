@@ -1,12 +1,12 @@
 package edu.fiuba.algo3.vistas.Principales;
 
+import edu.fiuba.algo3.controllers.ControladoGeneral;
 import edu.fiuba.algo3.controllers.ControladorDeAlerta;
 import edu.fiuba.algo3.controllers.ControladorDeInicioDeJuego;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import edu.fiuba.algo3.vistas.Tablero.VistaTablero;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -27,6 +27,7 @@ public class SeleccionarJugadores extends EscenaGeneral {
     private Button volver;
     private ControladorDeInicioDeJuego controlador;
     private Tablero tablero;
+    private Juego juego;
 
 
     public SeleccionarJugadores(Stage stage) {
@@ -130,8 +131,10 @@ public class SeleccionarJugadores extends EscenaGeneral {
             if (cantidad == 4) System.out.println("Jugador 4: " + j4);
 
             if (cantidad == 3) {
-                this.tablero = controlador.iniciarJuegoPara(List.of(j1, j2, j3));
-            } else { this.tablero = controlador.iniciarJuegoPara(List.of( j1, j2, j3, j4));}
+                this.juego = controlador.iniciarJuegoPara(List.of(j1, j2, j3));
+            } else {
+                this.juego = controlador.iniciarJuegoPara(List.of(j1, j2, j3,j4));
+            }
 
             mostrarPantallaDeCarga(stage);
         });
@@ -169,15 +172,9 @@ public class SeleccionarJugadores extends EscenaGeneral {
         }
     }
     private void cambiarATablero(Stage stage) {
-        // VistaTablero ya crea su propia escena internamente
-        VistaTablero vistaTablero = new VistaTablero(this.tablero, stage);
-
         boolean estabaFullScreen = stage.isFullScreen();
         boolean estabaMaximized = stage.isMaximized();
-
-        // Usa la escena que ya creó VistaTablero, NO crees una nueva
-        stage.setScene(vistaTablero.getScene());
-
+        ControladoGeneral controladorGeneral = new ControladoGeneral(stage, juego);
         if (estabaFullScreen) {
             stage.setFullScreen(true);
         } else {

@@ -68,7 +68,7 @@ public class Terreno {
     }
 
     public Recurso recurso() {
-        return recurso;
+        return this.recurso;
     }
 
 }

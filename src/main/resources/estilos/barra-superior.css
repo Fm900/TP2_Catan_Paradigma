@@ -3,6 +3,9 @@
    ================================================ */
 
 /* ▧ Barra de menú */
+.contenido-principal {
+    -fx-vgrow: always;
+}
 .menu-bar {
     -fx-background-color: rgba(255, 255, 255, 0.08);
     -fx-border-color: rgba(255, 255, 255, 0.2);
@@ -12,6 +15,7 @@
 
 /* ▧ Texto de menús principales */
 .menu-bar .label {
+    -fx-font-weight: bold;
     -fx-text-fill: rgba(255,255,255,0.80);
     -fx-font-size: 18px;
 }
@@ -27,7 +31,8 @@
 
 /* ▧ Fondo del menú desplegable — naranja transparente */
 .context-menu {
-    -fx-background-color: rgba(255,153,102,0.22);
+    -fx-font-weight: bold;
+    -fx-background-color: rgba(255,153,102,0.90);
     -fx-background-radius: 4px;
     -fx-border-radius: 4px;
     -fx-border-color: rgba(255,153,102,0.40);

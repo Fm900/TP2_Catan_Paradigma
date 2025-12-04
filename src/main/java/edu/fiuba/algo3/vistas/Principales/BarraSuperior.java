@@ -8,11 +8,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import java.awt.Desktop;
 import java.lang.reflect.Method;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class BarraSuperior {
     private static ControladorMusica controladorMusica;
@@ -31,6 +31,7 @@ public class BarraSuperior {
 
         // Layout general
         layoutPrincipal.getChildren().addAll(menuBar, contenido);
+        VBox.setVgrow(menuBar, Priority.NEVER);
         VBox.setVgrow(contenido, Priority.ALWAYS);
 
         return layoutPrincipal;
@@ -40,7 +41,7 @@ public class BarraSuperior {
         MenuBar menuBar = new MenuBar();
 
         menuBar.getStylesheets().add(
-                BarraSuperior.class.getResource("/estilos/barra-superior.css").toExternalForm()
+                Objects.requireNonNull(BarraSuperior.class.getResource("/estilos/barra-superior.css")).toExternalForm()
         );
 
 
@@ -152,20 +153,14 @@ public class BarraSuperior {
 
     private static void abrirURLGitHub() {
         try {
-            // Método usando HostServices de JavaFX
             String url = "https://github.com/Fm900/TP2_Catan_Paradigma";
 
             // Si tienes acceso al Stage principal, puedes usar:
             // getHostServices().showDocument(url);
 
-            // Método alternativo usando reflexión
             Class<?> hostServicesClass = Class.forName("javafx.application.HostServices");
             Method showDocumentMethod = hostServicesClass.getMethod("showDocument", String.class);
 
-            // Necesitas una referencia a tu aplicación principal
-            // showDocumentMethod.invoke(getHostServices(), url);
-
-            // Método más compatible usando Desktop
             java.awt.Desktop.getDesktop().browse(new java.net.URI(url));
 
         } catch (Exception e) {
@@ -225,7 +220,7 @@ public class BarraSuperior {
         // CSS
         try {
             scene.getStylesheets().add(
-                    BarraSuperior.class.getResource("/estilos/instrucciones.css").toExternalForm()
+                    Objects.requireNonNull(BarraSuperior.class.getResource("/estilos/instrucciones.css")).toExternalForm()
             );
         } catch (Exception e) {
             System.err.println("No se pudo cargar el CSS de instrucciones: " + e.getMessage());
@@ -239,9 +234,7 @@ public class BarraSuperior {
     private static String obtenerTextoInstrucciones() {
         try {
             InputStream inputStream = BarraSuperior.class.getResourceAsStream("/instrucciones/reglas_catan.txt");
-            if (inputStream == null) {
-                return "No se pudieron cargar las instrucciones. Archivo no encontrado.";
-            }
+            if (inputStream == null) return "No se pudieron cargar las instrucciones. Archivo no encontrado.";
 
             // Leer el contenido del archivo
             return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);

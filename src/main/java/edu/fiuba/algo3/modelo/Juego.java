@@ -41,10 +41,6 @@ public class Juego {
         return juego;
     }
 
-//    public void iniciarJuego(){
-//        iniciarFaseInicial();
-//        iniciarTurno();
-//    }
 
     public void iniciarTurnoUno(Jugador jugador, Vertice vertice, Arista arista){
         fasesIniciales.get(0).iniciarFase(jugador, vertice, arista);
@@ -73,7 +69,7 @@ public class Juego {
     }
 
     public List<Jugador> getJugadores() {
-        return jugadores;
+        return this.jugadores;
     }
     public  Tablero getTablero() {
         return tablero;

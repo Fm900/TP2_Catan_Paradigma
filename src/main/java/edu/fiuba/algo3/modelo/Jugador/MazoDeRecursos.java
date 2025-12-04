@@ -66,7 +66,7 @@ public class MazoDeRecursos {
     public int getCantidadDe(Recurso recu) {
         int cantidad = 0;
         for (Recurso recurso : recursos) {
-            if (recurso.equals(recu)) {
+            if (recurso.mismaClaseQue(recu)) {
                 cantidad++;
             }
         }

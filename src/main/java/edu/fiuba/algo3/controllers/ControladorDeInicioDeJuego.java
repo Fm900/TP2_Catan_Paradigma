@@ -10,11 +10,10 @@ import java.util.List;
 
 public class ControladorDeInicioDeJuego {
 
-    public Tablero iniciarJuegoPara(List<String> jugadores){
+    public Juego iniciarJuegoPara(List<String> jugadores){
         //aca se pone el path, para el parser
         ConstructorJuego constJuego = new ConstructorJuego();
         Juego juego = constJuego.construirJuegoCon(jugadores);
-//        juego.iniciarJuego();
-        return juego.getTablero();
+        return juego;
     }
 }

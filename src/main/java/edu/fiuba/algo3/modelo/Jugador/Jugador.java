@@ -2,8 +2,9 @@ package edu.fiuba.algo3.modelo.Jugador;
 
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
-import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Recurso.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Jugador {
@@ -54,7 +55,14 @@ public class Jugador {
     public int cantidadDeRecurso(Recurso recurso){
         return recurso.getCantidad(recursos);
     }
-
+    public List<Integer> obtenerCantidadDeRecursos(){
+        List<Integer> respuesta = new ArrayList<>();
+        List<Recurso> recursos = new ArrayList<>(List.of(new Madera(),new Grano(),new Ladrillo(), new Lana(), new Mineral()));
+        for (Recurso recurso : recursos) {
+            respuesta.add(cantidadDeRecurso(recurso));
+        }
+        return respuesta;
+    }
     // para cartas de desarrollo
     public void agregarCarta(Carta carta) {
         mano.agregar(carta);
@@ -62,6 +70,10 @@ public class Jugador {
 
     public void descartarCarta(Carta carta) {
         mano.descartar(carta);
+    }
+
+    public String obtenerNombre() {
+        return nombre;
     }
 
 }
