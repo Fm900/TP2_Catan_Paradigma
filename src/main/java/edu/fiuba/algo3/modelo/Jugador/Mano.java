@@ -21,4 +21,8 @@ public class Mano {
         this.cartas.remove(carta);
     }
 
+    public int cantidadCartas(){
+        return this.cartas.size();
+    }
+
 }

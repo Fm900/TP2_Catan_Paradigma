@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Fase.Dados;
-import edu.fiuba.algo3.modelo.Fase.PrimerTurno;
+import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
+import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
@@ -49,7 +49,7 @@ public class VerificarQueElTerrenoBajoElLadrónNoProduzcaRecursos {
         jugador2 = new Jugador((new MazoDeRecursos(recursosJugador)), new Mano(),"Alex");
         ladron = Ladron.crearLadron(terrenoActual);
         List<Carta> cartas = new ArrayList<>();
-        Juego.crearInstancia(List.of(jugador, jugador2), List.of(new Dados()), List.of(new PrimerTurno()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
+        Juego.crearInstancia(List.of(jugador, jugador2), List.of(new Dados()), List.of(new Primer()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
     }
 
 

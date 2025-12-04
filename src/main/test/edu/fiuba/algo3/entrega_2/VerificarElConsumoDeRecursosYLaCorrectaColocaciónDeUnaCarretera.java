@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_2;
-import edu.fiuba.algo3.modelo.Fase.Dados;
-import edu.fiuba.algo3.modelo.Fase.PrimerTurno;
+import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
+import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
@@ -34,7 +34,7 @@ public class VerificarElConsumoDeRecursosYLaCorrectaColocaciónDeUnaCarretera {
         Vertice vertice2 = new Vertice();
         Arista arista = new Arista(vertice1, vertice2, new Vacia());
         List<Carta> cartas = new ArrayList<>();
-        Juego.crearInstancia(List.of(jugador), List.of(new Dados()), List.of(new PrimerTurno()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
+        Juego.crearInstancia(List.of(jugador), List.of(new Dados()), List.of(new Primer()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
 
         assertDoesNotThrow(() -> vertice1.construirPobladoInicial(jugador), "Deberia poder construir un poblado inicial con los recursos disponibles");
         assertDoesNotThrow(() -> arista.construirCarretera(jugador), "Deberia poder construirse una carretera conectada a un vertice del jugador");

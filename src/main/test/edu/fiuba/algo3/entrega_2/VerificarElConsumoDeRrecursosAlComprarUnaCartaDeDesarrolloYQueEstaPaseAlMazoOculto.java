@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Exception.NoAlcanzanLosRecursos;
-import edu.fiuba.algo3.modelo.Fase.Dados;
-import edu.fiuba.algo3.modelo.Fase.PrimerTurno;
+import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
+import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Intercambio.ComprarCartas;
 import edu.fiuba.algo3.modelo.Juego;
@@ -36,7 +36,7 @@ public class VerificarElConsumoDeRrecursosAlComprarUnaCartaDeDesarrolloYQueEstaP
         jugador = new Jugador(new MazoDeRecursos(precio), mano, "Alex");
         carta = new Caballero(new Deshabilitado());
         cartas = new ArrayList<>(List.of(carta));
-        Juego.crearInstancia(List.of(jugador), List.of(new Dados()), List.of(new PrimerTurno()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
+        Juego.crearInstancia(List.of(jugador), List.of(new Dados()), List.of(new Primer()), new Tablero(), Banca.crearBanca(List.of(new Madera()), cartas));
     }
 
     @Test

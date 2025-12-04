@@ -1,9 +1,6 @@
 package edu.fiuba.algo3.modelo.Intercambio.Oferta;
 
 import edu.fiuba.algo3.modelo.Intercambio.Intercambio;
-import edu.fiuba.algo3.modelo.Recurso.Recurso;
-
-import java.util.List;
 
 public class Oferta{
     private Resolucion estado;
@@ -13,7 +10,7 @@ public class Oferta{
         this.estado = new Pendiente();
         this.intercambio = tipoIntercambio;
     }
-    public void acepatar(){
+    public void aceptar(){
         estado.aceptar(this);
     }
     public void declinar(){

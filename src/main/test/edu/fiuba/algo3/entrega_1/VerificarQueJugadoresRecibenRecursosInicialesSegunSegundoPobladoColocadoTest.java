@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Fase.*;
+import edu.fiuba.algo3.modelo.Turnos.*;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
@@ -15,6 +15,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Normal;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import edu.fiuba.algo3.modelo.Turnos.Fase.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -44,8 +45,8 @@ public class VerificarQueJugadoresRecibenRecursosInicialesSegunSegundoPobladoCol
     }
 
     private void inicializarJuego(Tablero tablero, Jugador jugador) {
-        List<FasePrincipal> fasesPrincipales = List.of(new Dados(), new Construccion(), new Comercio(), new JugarCartas());
-        List<FaseInicial> fasesIniciales = List.of(new PrimerTurno(), new SegundoTurno()
+        List<Fase> fasesPrincipales = List.of(new Dados(), new Construccion(), new Comercio(), new JugarCartas());
+        List<Turno> fasesIniciales = List.of(new Primer(), new Segundo()
         );
         List<Carta> cartas = new ArrayList<>();
         Banca banca = Banca.crearBanca(new ArrayList<>(), cartas);
@@ -73,13 +74,13 @@ public class VerificarQueJugadoresRecibenRecursosInicialesSegunSegundoPobladoCol
 
 
         // el primer poblado no debe dar recursos, asi que no deberia tener Mineral
-        PrimerTurno primerTurno = new PrimerTurno();
+        Primer primerTurno = new Primer();
         primerTurno.iniciarFase(jugador, verticePrimerTurno,aristaPrimerTurno);
         assertThrows(RuntimeException.class, () -> jugador.consumirRecursos(precio), "Antes del segundo poblado no deberia poder pagar un mineral");
 
 
         // en el segundo turno construyo un poblado que me debe dar recursos
-        SegundoTurno segundoTurno = new SegundoTurno();
+        Segundo segundoTurno = new Segundo();
         segundoTurno.iniciarFase(jugador, verticeSegundoTurno, aristaSegundoTurno);
         assertDoesNotThrow(() -> jugador.consumirRecursos(precio), "Despues del segundo poblado deberia poder pagar un mineral");
 

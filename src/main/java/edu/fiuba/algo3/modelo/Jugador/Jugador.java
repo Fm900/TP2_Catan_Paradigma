@@ -76,4 +76,8 @@ public class Jugador {
         return nombre;
     }
 
+
+    public boolean tieneCartasDesarrollo() {
+     return mano.cantidadCartas() > 0;
+    }
 }

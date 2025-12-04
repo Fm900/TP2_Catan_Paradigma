@@ -1,12 +1,14 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Exception.ElJuegoNoHaSidoCreadoAun;
-import edu.fiuba.algo3.modelo.Fase.*;
+import edu.fiuba.algo3.modelo.Turnos.*;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import edu.fiuba.algo3.modelo.Turnos.Fase.Fase;
+
 import java.util.List;
 
 public class Juego {
@@ -14,12 +16,12 @@ public class Juego {
     private static Juego juego;
 
     private final List<Jugador> jugadores;
-    private final List<FasePrincipal> fasesPrincipales;
-    private final List<FaseInicial> fasesIniciales;
+    private final List<Fase> fasesPrincipales;
+    private final List<Turno> fasesIniciales;
     private final Tablero tablero;
     private final Banca banca;
 
-    private Juego(List<Jugador> jugadores, List<FasePrincipal> fasesPrincipales,  List<FaseInicial> fasesIniciales,  Tablero tablero, Banca banca) {
+    private Juego(List<Jugador> jugadores, List<Fase> fasesPrincipales, List<Turno> fasesIniciales, Tablero tablero, Banca banca) {
         this.jugadores = jugadores;
         this.fasesPrincipales = fasesPrincipales;
         this.fasesIniciales = fasesIniciales;
@@ -27,7 +29,7 @@ public class Juego {
         this.banca = banca;
     }
 
-    public static Juego crearInstancia(List<Jugador> jugadores, List<FasePrincipal> fasesPrincipales, List<FaseInicial> fasesIniciales, Tablero tablero, Banca banca) {
+    public static Juego crearInstancia(List<Jugador> jugadores, List<Fase> fasesPrincipales, List<Turno> fasesIniciales, Tablero tablero, Banca banca) {
         if(juego == null){
             juego = new Juego(jugadores, fasesPrincipales, fasesIniciales, tablero, banca);
         }
@@ -39,23 +41,6 @@ public class Juego {
             throw new ElJuegoNoHaSidoCreadoAun("El juego aún no fue inicializado.");
         }
         return juego;
-    }
-
-
-    public void iniciarTurnoUno(Jugador jugador, Vertice vertice, Arista arista){
-        fasesIniciales.get(0).iniciarFase(jugador, vertice, arista);
-    }
-
-
-    public void iniciarTurnoDos(Jugador jugador, Vertice vertice, Arista arista){
-        fasesIniciales.get(1).iniciarFase(jugador, vertice, arista);
-    }
-
-    public void iniciarTurno(){
-        for(Jugador jugador : jugadores){
-        Turno turno = new Turno(fasesPrincipales, jugador);
-        turno.iniciarTurno();
-        }
     }
 
     public int calcularPuntosTotalesDe(Jugador jugador){

@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.Fase.Comercio;
+import edu.fiuba.algo3.modelo.Turnos.Fase.Comercio;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Intercambio.Oferta.Rechazado;
 import edu.fiuba.algo3.modelo.Intercambio.Oferta.Resolucion;
@@ -66,7 +66,7 @@ public class ComercioEntreJugadoresTest {
         Oferta oferta = comercio.crearOfertaJugador(jugado2,recursosOfrecidos,recursosRequeridos);
 
         // jugador2 acepta la oferta y se realiza el intercambio
-        oferta.acepatar();
+        oferta.aceptar();
         //se verifica el intercambio
         assertEquals(recursos1InicialJugador1 + 1, jugado1.cantidadDeRecurso(recurso1));
         assertEquals(recursos2InicialJugador1 - 2, jugado1.cantidadDeRecurso(recurso2));

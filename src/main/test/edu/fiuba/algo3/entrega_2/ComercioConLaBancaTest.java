@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.Fase.Comercio;
+import edu.fiuba.algo3.modelo.Turnos.Fase.Comercio;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Caballero;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;

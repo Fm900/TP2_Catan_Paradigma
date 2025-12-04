@@ -1,8 +1,8 @@
 package edu.fiuba.algo3;
 import edu.fiuba.algo3.modelo.Exception.AristaOcupadaNoSePuedeConstruir;
 import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirPorFaltaDeConexion;
-import edu.fiuba.algo3.modelo.Fase.Dados;
-import edu.fiuba.algo3.modelo.Fase.PrimerTurno;
+import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
+import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
@@ -52,7 +52,7 @@ public class ConstruirCarreterasTest {
         cartas = List.of(new Monopolio(new Deshabilitado()));
 
         banca = Banca.crearBanca(listaRecursos ,cartas);
-        juego = Juego.crearInstancia(List.of(jugador, jugador2), List.of(new Dados()), List.of(new PrimerTurno()), new Tablero(), banca);
+        juego = Juego.crearInstancia(List.of(jugador, jugador2), List.of(new Dados()), List.of(new Primer()), new Tablero(), banca);
 
     }
     @Test
