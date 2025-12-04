@@ -88,7 +88,7 @@ public class Tablero {
 
         for (Arista arista : aristas) {
             if (arista.elMismoDueño(jugador)) {
-                // Probar iniciar DFS desde cada extremo
+
                 max = Math.max(max, dfs(arista.extremo1(), jugador, new ArrayList<>()));
                 max = Math.max(max, dfs(arista.extremo2(), jugador, new ArrayList<>()));
             }
@@ -101,24 +101,18 @@ public class Tablero {
 
         for (Arista a : actual.aristas()) {
 
-            // Descarta carreteras que no son del jugador
             if (!a.elMismoDueño(jugador)) continue;
 
-            // Evita usar la misma carretera dos veces
             if (usadas.contains(a)) continue;
 
-            // No puedo “atravesar” un vértice ocupado por otro jugador
             Vertice prox = a.otroExtremo(actual);
             if (verticesBloquean(actual, prox, jugador)) continue;
 
-            // Marcar temporariamente
             usadas.add(a);
 
-            // Recursión
             int largo = 1 + dfs(prox, jugador, usadas);
             max = Math.max(max, largo);
 
-            // Backtracking
             usadas.remove(a);
         }
 
