@@ -37,16 +37,6 @@ public class Terreno {
         this.estadoProductivo = nuevoEstadoProductino;
 
     }
-    public List<Jugador> obtenerHabitantes(){
-        List<Jugador> propietarios = new ArrayList<>();
-        if (this.verticesAdyacentes == null) { return propietarios; }
-
-        for (Vertice v : this.verticesAdyacentes) {
-            propietarios = v.agregarPropietario(propietarios);
-        }
-
-        return propietarios;
-    }
 
     public boolean tieneVertice(Vertice v) {
         return this.verticesAdyacentes.contains(v);

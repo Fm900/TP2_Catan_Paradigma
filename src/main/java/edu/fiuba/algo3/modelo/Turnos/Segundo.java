@@ -21,7 +21,6 @@ public class Segundo implements Turno {
     public void siguiente(ManejoTurnos manejador) {
         indice++;
 
-        // CUANDO TODOS JUGARON, PASA AL TURNO NORMAL
         if (indice == manejador.getJugadoresInv().size()) {
             manejador.cambiarTurno(new Normal());
         }

@@ -55,16 +55,11 @@ public class Libre implements EstadoVertice {
 
     @Override
     public void entregarRecursosPorConstruccion(Recurso recurso) {
-        // no tiene construccion asi que no hace nada
     }
 
     @Override
     public boolean validarConstruccionEnVecino() {
         return true;
-    }
-
-    public List<Jugador> agregarPropietario(List<Jugador> propietarios) {
-        return propietarios;
     }
 
     @Override

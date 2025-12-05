@@ -11,7 +11,6 @@ public interface EstadoVertice  {
     void construirPoblado (Vertice self, Jugador jugador, List<Arista> aristas);
     void entregarRecursosPorConstruccion(Recurso recurso);
     boolean validarConstruccionEnVecino();
-    List<Jugador> agregarPropietario(List<Jugador> propietarios);
     void mejorarPobladoACiudad(Vertice self, Jugador jugador);
 }
 

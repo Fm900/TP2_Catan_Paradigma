@@ -20,7 +20,7 @@ public class MazoDeRecursos {
         if (recursos.size() > 7) {
             return (recursos.size() / 2);
         }
-        throw new NoTieneRecursosSuficientesParaDescartar("No llega a la cantidad de 7 recursos");
+        return 0;
     }
 
     public void descartarPorCantidad(int cantidad) {

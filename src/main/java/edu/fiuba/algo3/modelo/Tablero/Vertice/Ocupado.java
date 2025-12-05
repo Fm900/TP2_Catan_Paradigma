@@ -28,7 +28,6 @@ public class Ocupado implements EstadoVertice {
 
     @Override
     public void entregarRecursosPorConstruccion(Recurso recurso) {
-        // delega en la construcción
         construccion.producirRecurso(recurso);
     }
 
@@ -37,20 +36,14 @@ public class Ocupado implements EstadoVertice {
         return false;
     }
 
-    public List<Jugador> agregarPropietario(List<Jugador> propietarios) {
-        propietarios = (this.construccion).agregarPropietario(propietarios);
-        return propietarios;
-    }
-
     @Override
     public void mejorarPobladoACiudad(Vertice self, Jugador jugador) {
-        //chequeo el dueño
         if (construccion.getDueño() != jugador){
             throw new NoSePuedeMejorarACiudad("No sos dueño de este poblado, no lo podes mejorar.");
         }
-        construccion.quitarPuntos(jugador); //la construccion que se va a reemplazar le dice al jugador que se saque sus puntos.
+        construccion.quitarPuntos(jugador);
         Construccion ciudad = new Ciudad(2, 2, jugador);
-        ciudad.construir(); //consume recursos y suma los puntos de la nueva ciudad
+        ciudad.construir();
         this.construccion = ciudad;
     }
 

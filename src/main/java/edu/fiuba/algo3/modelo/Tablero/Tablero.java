@@ -22,17 +22,13 @@ public class Tablero {
         this.aristas = aristas;
     }
 
-    public void colocarCarretera(Jugador jugador, Arista arista) {
-        arista.construirCarretera(jugador);
-        Juego.getInstancia().calcularCaminoMasLargo(jugador);
-    }
-
     public Tablero(GeneradorDeTerrenos generador) {
         this.terrenos = generador.generar();
     }
 
-    public void mejorarPobladoACiudad(Jugador jugador, Vertice vertice) {
-        vertice.mejorarPobladoACiudad(jugador);
+    public void colocarCarretera(Jugador jugador, Arista arista) {
+        arista.construirCarretera(jugador);
+        Juego.getInstancia().calcularCaminoMasLargo(jugador);
     }
 
     public void colocarPobladoInicial(Jugador jugador, Vertice vertice){
@@ -41,6 +37,10 @@ public class Tablero {
 
     public void colocarPoblado(Jugador jugador, Vertice vertice){
         vertice.construirPoblado(jugador);
+    }
+
+    public void mejorarPobladoACiudad(Jugador jugador, Vertice vertice) {
+        vertice.mejorarPobladoACiudad(jugador);
     }
 
     public void producirPara(int tirada){
@@ -63,14 +63,6 @@ public class Tablero {
         return this.vertices.get(id - 1);
     }
 
-    public Arista aristaEntre(Vertice v1, Vertice v2) {
-        for (Arista arista : v1.aristas()) {
-            if (arista.otroExtremo(v1) == v2) {
-                return arista;
-            }
-        }
-        throw new IllegalArgumentException("v1 y v2 no están conectados por una arista");
-    }
 
     public Arista arista(int id) {
         return this.aristas.get(id - 1); // ids 1..72

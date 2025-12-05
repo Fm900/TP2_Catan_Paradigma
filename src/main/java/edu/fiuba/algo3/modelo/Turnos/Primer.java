@@ -29,6 +29,7 @@ public class Primer implements Turno {
             manejador.cambiarTurno(new Segundo());
         }
     }
+
     public void construir(ManejoTurnos manejador, Vertice vertice, Arista arista){
         Jugador jugador = jugadorActual(manejador);
 

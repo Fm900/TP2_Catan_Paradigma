@@ -107,7 +107,6 @@ public class ControladoGeneral {
         ControladorDeAlerta.mostrarInfo(mensaje, stage);
     }
 
-
     public void verificarVictoria() {
         for (Jugador jugador : jugadores) {
             if (this.juego.chequearVictoria(jugador)){
