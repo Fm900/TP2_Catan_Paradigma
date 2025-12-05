@@ -19,7 +19,7 @@ public class Primer implements Turno {
 
     @Override
     public Jugador jugadorActual(ManejoTurnos manejador) {
-        return ManejoTurnos.jugadores.get(indice);
+        return manejador.getJugadores().get(this.indice);
     }
 
     @Override

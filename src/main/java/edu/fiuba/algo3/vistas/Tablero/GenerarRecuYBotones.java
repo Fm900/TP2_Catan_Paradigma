@@ -92,23 +92,22 @@ public class GenerarRecuYBotones {
         configurarPanelInferior();
         HBox panelRecursos = crearPanelRecursos();
         panelAbajo.getChildren().add(panelRecursos);
+        panelAbajo.setPadding(new Insets(0, 0, 10, 120));
     }
 
     private void configurarPanelInferior() {
-        panelAbajo.setPadding(new Insets(0));
         panelAbajo.setAlignment(Pos.CENTER);
         panelAbajo.setStyle("-fx-background-color: transparent;");
     }
 
     private HBox crearPanelRecursos() {
         HBox panel = new HBox();
-        panel.setPadding(new Insets(15, 20, 15, 20));
         panel.setAlignment(Pos.CENTER);
-        panel.setSpacing(25);
+
+
         panel.setStyle(ESTILO_PANEL_RECURSOS);
         panel.setMinHeight(40);
         panel.setMinWidth(350);
-        panel.setTranslateY(20);
 
         agregarRecursosAlPanel(panel);
         return panel;
@@ -203,7 +202,7 @@ public class GenerarRecuYBotones {
     // ==================== BOTONES DE ACCIÓN ====================
     private void crearBotonesDerecha() {
         botonesDerecha.setAlignment(Pos.BOTTOM_RIGHT);
-        botonesDerecha.setPadding(new Insets(0, 50, 0, 10));
+        botonesDerecha.setPadding(new Insets(0, 10, 10, 0));
 
         btnLanzarDados = crearBotonConIcono("/Imagenes/dados.png");
         btnComerciar = crearBotonConIcono("/Imagenes/comerciar.png");
@@ -215,7 +214,7 @@ public class GenerarRecuYBotones {
     }
     private void crearBotonesIzquierda() {
         botonesIzquierda.setAlignment(Pos.BOTTOM_LEFT);
-        botonesIzquierda.setPadding(new Insets(0, 50, 0, 10));
+        botonesIzquierda.setPadding(new Insets(0, 0, 10, 10));
 
         btnCartas = crearBotonConIcono("/Imagenes/cartas.png");
 
@@ -394,6 +393,52 @@ public class GenerarRecuYBotones {
         miniStage.initModality(Modality.APPLICATION_MODAL);
         miniStage.showAndWait();
     }
+    public void refrescarVista() {
+        panelAbajo.getChildren().clear();
+        botonesDerecha.getChildren().clear();
+        botonesIzquierda.getChildren().clear();
+        construir();
+    }
 
 
+    public void actualizarJugador(Jugador jugadorActual) {
+        this.jugadorActual = jugadorActual;
+        refrescarVista();
+    }
+    public void actualizarBotonesSegunFase(String nombreFase) {
+        btnLanzarDados.setVisible(false);
+        btnComerciar.setVisible(false);
+        btnCartas.setVisible(false);
+        btnTerminarTurno.setVisible(false);
+
+        switch (nombreFase) {
+            case "Colocación Inicial - Primera Ronda":
+            case "Colocación Inicial - Segunda Ronda":
+                // Solo permitir construir poblado + carretera inicial
+//                btnColocarPobladoInicial.setVisible(true);
+                btnTerminarTurno.setVisible(true);
+                break;
+
+            case "Dados":
+                btnLanzarDados.setVisible(true);
+                btnCartas.setVisible(true);
+                break;
+
+            case "Comercio":
+                btnComerciar.setVisible(true);
+                btnTerminarTurno.setVisible(true);
+                break;
+
+            case "Construccion":
+//                btnConstruir.setVisible(true);
+                btnComerciar.setVisible(true);
+                btnTerminarTurno.setVisible(true);
+                break;
+
+            case "JugarCartas":
+                btnCartas.setVisible(true);
+                btnTerminarTurno.setVisible(true);
+                break;
+        }
+    }
 }

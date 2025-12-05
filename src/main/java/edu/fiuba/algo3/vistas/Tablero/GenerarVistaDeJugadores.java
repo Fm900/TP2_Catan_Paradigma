@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -18,31 +19,36 @@ public class GenerarVistaDeJugadores {
             Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW,
             Color.PURPLE, Color.ORANGE, Color.CYAN, Color.MAGENTA
     };
-    private HBox root;
+    private VBox root;
+    private Label infoDeFase;
 
-    public GenerarVistaDeJugadores(List<Jugador> jugadores, Jugador jugadorActual, HBox root) {
+    public GenerarVistaDeJugadores(List<Jugador> jugadores, Jugador jugadorActual, VBox root) {
         this.jugadores = jugadores;
         this.jugadorActual = jugadorActual;
         this.root = root;
     }
     public void construir(){
         crearPanelSuperior();
+        agregarLabelInferior();
     }
     private void crearPanelSuperior() {
         configurarPanelArriba();
+        HBox panelSuperior = new HBox();
 
         for (int i = 0; i < jugadores.size(); i++) {
             System.out.println(jugadores.get(i).obtenerNombre());
             HBox tarjetaJugador = crearTarjetaJugador(jugadores.get(i), i);
-            root.getChildren().add(tarjetaJugador);
+            panelSuperior.getChildren().add(tarjetaJugador);
+            panelSuperior.setAlignment(Pos.CENTER);
         }
+        root.getChildren().add(panelSuperior);
     }
 
     private void configurarPanelArriba() {
         root.setPadding(new Insets(15, 0, 15, 0));
         root.setStyle("-fx-background-color: transparent;");
         root.setAlignment(Pos.CENTER);
-        root.setSpacing(250);
+        root.setSpacing(0);
     }
 
     private HBox crearTarjetaJugador(Jugador jugador, int indiceColor) {
@@ -100,7 +106,27 @@ public class GenerarVistaDeJugadores {
         contenedor.getChildren().addAll(nombre, puntos);
         return contenedor;
     }
+    private void agregarLabelInferior() {
+        infoDeFase = new Label("HOLA");
+        infoDeFase.setPadding( new Insets(5, 0, 0, 0));
+        infoDeFase.setStyle("-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;");
+        root.getChildren().add(infoDeFase);
+    }
 
+
+    public void refrescarVista() {
+        root.getChildren().clear();
+        construir();
+    }
+
+    public void actualizarJugador(Jugador jugadorActual) {
+        this.jugadorActual = jugadorActual;
+        refrescarVista();
+    }
+
+    public void actualizarInfo(String nombreFase) {
+        infoDeFase.setText(nombreFase);
+    }
 }
 
 

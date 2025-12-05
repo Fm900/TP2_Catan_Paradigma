@@ -93,10 +93,8 @@ public class ControladoGeneral {
     }
 
     private void actualizarVista() {
-        if (vistaTablero != null) {
-            vistaTablero.actualizarJugadorActual(jugadorActual);
-            vistaTablero.actualizarInfoTurno(getNombreFaseActual());
-        }
+        vistaTablero.actualizarJugadorActual(manejoTurnos.jugadorActual());
+        vistaTablero.actualizarInfoTurno(getNombreFaseActual());
     }
 
     public void mostrar() {
