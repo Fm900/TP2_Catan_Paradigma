@@ -5,10 +5,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.vistas.Principales.EscenaGeneral;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -17,11 +14,15 @@ public class VistaTablero extends EscenaGeneral {
     private Tablero tablero;
     private List<Jugador> jugadores;
     private Jugador actual;
+
     private StackPane tableroPane;
+
     private HBox panelArriba;
-    private StackPane contenedorAbajo;
-    private HBox panelAbajo;
-    private HBox buttonContainer;
+
+    private HBox barraAbajo;
+    private HBox espacioCentro;
+    private HBox espacioDerecha;
+    private HBox espacioIzquierda;
 
 
     public VistaTablero(Tablero tablero, Stage stage, List<Jugador> jugadores, Jugador jugador) {
@@ -36,7 +37,7 @@ public class VistaTablero extends EscenaGeneral {
 
         new GeneradorVistaTablero(tableroPane).crearTablero(tablero.terrenos(), tablero.vertices(),tablero.aristas());
 
-        new GenerarRecuYBotones(panelAbajo,buttonContainer,actual).construir();
+        new GenerarRecuYBotones(espacioCentro, espacioDerecha,espacioIzquierda,actual).construir();
     }
 
     @Override
@@ -54,15 +55,25 @@ public class VistaTablero extends EscenaGeneral {
         root.setCenter(tableroPane);
 
 
-        //PARTE DE ABAJO
-        contenedorAbajo = new StackPane();
-        panelAbajo = new HBox();
-        buttonContainer = new HBox(10);
-        contenedorAbajo.setAlignment(panelAbajo, Pos.CENTER);
-        contenedorAbajo.setMargin(panelAbajo, new Insets(0, 0, 20, 0));
-        contenedorAbajo.setAlignment(buttonContainer, Pos.BOTTOM_RIGHT);
-        contenedorAbajo.getChildren().addAll(panelAbajo, buttonContainer);
-        root.setBottom(contenedorAbajo);
+        barraAbajo = new HBox();
+        barraAbajo.setPadding(new Insets(10));
+        barraAbajo.setSpacing(50);
+        barraAbajo.setAlignment(Pos.CENTER);
+
+        espacioIzquierda = new HBox();
+        espacioIzquierda.setAlignment(Pos.CENTER_LEFT);
+
+        espacioCentro = new HBox();
+        espacioCentro.setAlignment(Pos.CENTER);
+
+        espacioDerecha = new HBox();
+        espacioDerecha.setAlignment(Pos.CENTER_RIGHT);
+
+        barraAbajo.getChildren().addAll(espacioIzquierda, espacioCentro, espacioDerecha);
+        HBox.setHgrow(espacioCentro, Priority.ALWAYS);
+
+        root.setBottom(barraAbajo);
+
 
 
         return root;
@@ -83,5 +94,9 @@ public class VistaTablero extends EscenaGeneral {
     }
 
     public void actualizarJugadorActual(Jugador jugadorActual) {
+    }
+
+    public void actualizarInfoTurno(String nombreFaseActual) {
+
     }
 }

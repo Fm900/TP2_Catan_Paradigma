@@ -95,7 +95,7 @@ public class ControladoGeneral {
     private void actualizarVista() {
         if (vistaTablero != null) {
             vistaTablero.actualizarJugadorActual(jugadorActual);
-//            vistaTablero.actualizarInfoTurno(getNombreFaseActual());
+            vistaTablero.actualizarInfoTurno(getNombreFaseActual());
         }
     }
 

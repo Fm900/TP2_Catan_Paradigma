@@ -62,6 +62,9 @@ public class Jugador {
         }
         return respuesta;
     }
+    public List<Carta> obtenerCartas(){
+        return mano.dameLasCartas();
+    }
 
     public void agregarCarta(Carta carta) {
         mano.agregar(carta);

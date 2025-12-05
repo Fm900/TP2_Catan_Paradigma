@@ -1,10 +1,13 @@
 package edu.fiuba.algo3.vistas.Tablero;
 
+import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
@@ -12,7 +15,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -21,8 +27,10 @@ public class GenerarRecuYBotones {
     private Button btnLanzarDados;
     private Button btnTerminarTurno;
     private Button btnComerciar;
+    private Button btnCartas;
     private HBox panelAbajo;
-    private HBox buttonContainer;
+    private HBox botonesDerecha;
+    private HBox botonesIzquierda;
     private static final String[] RUTAS_RECURSOS = {
             "/Imagenes/madera.png", "/Imagenes/grano.png", "/Imagenes/ladrillo.png",
             "/Imagenes/lana.png", "/Imagenes/mineral.png"
@@ -66,14 +74,18 @@ public class GenerarRecuYBotones {
                     "-fx-cursor: hand;";
 
 
-    public GenerarRecuYBotones(HBox panelAbajo,HBox buttonContainer, Jugador jugadorActual){
+
+    public GenerarRecuYBotones(HBox panelAbajo,HBox botonesDerecha, HBox botonesIzquierda ,Jugador jugadorActual){
         this.panelAbajo = panelAbajo;
-        this.buttonContainer = buttonContainer;
+        this.botonesDerecha = botonesDerecha;
         this.jugadorActual = jugadorActual;
+        this.botonesIzquierda = botonesIzquierda;
     }
     public void construir() {
+        crearBotonesIzquierda();
         crearPanelInferior();
-        crearBotonesAccion();
+        crearBotonesDerecha();
+
     }
 
     private void crearPanelInferior() {
@@ -189,8 +201,9 @@ public class GenerarRecuYBotones {
     }
 
     // ==================== BOTONES DE ACCIÓN ====================
-    private void crearBotonesAccion() {
-        configurarContenedorBotones();
+    private void crearBotonesDerecha() {
+        botonesDerecha.setAlignment(Pos.BOTTOM_RIGHT);
+        botonesDerecha.setPadding(new Insets(0, 50, 0, 10));
 
         btnLanzarDados = crearBotonConIcono("/Imagenes/dados.png");
         btnComerciar = crearBotonConIcono("/Imagenes/comerciar.png");
@@ -198,18 +211,22 @@ public class GenerarRecuYBotones {
 
         configurarAccionesBotones();
 
-        buttonContainer.getChildren().addAll(btnLanzarDados, btnComerciar, btnTerminarTurno);
+        botonesDerecha.getChildren().addAll(btnLanzarDados, btnComerciar, btnTerminarTurno);
     }
+    private void crearBotonesIzquierda() {
+        botonesIzquierda.setAlignment(Pos.BOTTOM_LEFT);
+        botonesIzquierda.setPadding(new Insets(0, 50, 0, 10));
 
-    private void configurarContenedorBotones() {
-        buttonContainer.setAlignment(Pos.BOTTOM_RIGHT);
-        buttonContainer.setPadding(new Insets(0, 50, 0, 10));
+        btnCartas = crearBotonConIcono("/Imagenes/cartas.png");
+
+        botonesIzquierda.getChildren().addAll(btnCartas);
     }
 
     private void configurarAccionesBotones() {
         btnLanzarDados.setOnAction(e -> accionLanzarDados());
         btnComerciar.setOnAction(e -> accionComerciar());
         btnTerminarTurno.setOnAction(e -> accionTerminarTurno());
+        btnCartas.setOnAction(e -> accionarMostrarCartas());
     }
 
     private Button crearBotonConIcono(String rutaIcono) {
@@ -263,7 +280,6 @@ public class GenerarRecuYBotones {
         boton.setEffect(sombra);
     }
 
-    // ==================== ACCIONES ====================
     private void accionLanzarDados() {
         System.out.println("Lanzando dados...");
         // Implementar lógica de lanzar dados
@@ -277,6 +293,106 @@ public class GenerarRecuYBotones {
     private void accionTerminarTurno() {
         System.out.println("Terminando turno...");
         // Implementar lógica de fin de turno
+    }
+    private void accionarMostrarCartas() {
+        Stage miniStage = new Stage();
+        miniStage.setTitle("Cartas");
+
+        // ---------- CONTENEDOR PRINCIPAL ----------
+        VBox layout = new VBox(15);
+        layout.setPadding(new Insets(20));
+        layout.setAlignment(Pos.TOP_CENTER);
+        layout.setStyle(
+                "-fx-background-color: linear-gradient(to bottom, #2e4d2e, #1f331f);" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-border-color: #c0c0c0;" +
+                        "-fx-border-width: 2;" +
+                        "-fx-border-radius: 12;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0, 0, 4);"
+        );
+
+        // ---------- TÍTULO ----------
+        Label titulo = new Label("Elegí una carta:");
+        titulo.setStyle(
+                "-fx-text-fill: white;" +
+                        "-fx-font-size: 18px;" +
+                        "-fx-font-weight: bold;"
+        );
+        layout.getChildren().add(titulo);
+
+        // ---------- LISTA DE CARTAS ----------
+        VBox listaCartas = new VBox(10);
+        listaCartas.setPadding(new Insets(5));
+        listaCartas.setAlignment(Pos.TOP_CENTER);
+
+        List<Carta> cartasActuales = jugadorActual.obtenerCartas();
+
+        for (Carta carta : cartasActuales) {
+
+            Button opcion = new Button(carta.toString());
+            opcion.setPrefWidth(220);
+
+            opcion.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom, #4e8b4e, #3a6d3a);" +
+                            "-fx-text-fill: white;" +
+                            "-fx-font-size: 14px;" +
+                            "-fx-font-weight: bold;" +
+                            "-fx-background-radius: 8;" +
+                            "-fx-border-radius: 8;" +
+                            "-fx-border-color: #2a4d2a;" +
+                            "-fx-border-width: 2;"
+            );
+
+            opcion.setOnMouseEntered(ev ->
+                    opcion.setStyle(
+                            "-fx-background-color: linear-gradient(to bottom, #6ecf6e, #5bb85b);" +
+                                    "-fx-text-fill: white;" +
+                                    "-fx-font-size: 14px;" +
+                                    "-fx-font-weight: bold;" +
+                                    "-fx-background-radius: 8;" +
+                                    "-fx-border-radius: 8;" +
+                                    "-fx-border-color: #3c7d3c;" +
+                                    "-fx-border-width: 2;"
+                    )
+            );
+
+            opcion.setOnMouseExited(ev ->
+                    opcion.setStyle(
+                            "-fx-background-color: linear-gradient(to bottom, #4e8b4e, #3a6d3a);" +
+                                    "-fx-text-fill: white;" +
+                                    "-fx-font-size: 14px;" +
+                                    "-fx-font-weight: bold;" +
+                                    "-fx-background-radius: 8;" +
+                                    "-fx-border-radius: 8;" +
+                                    "-fx-border-color: #2a4d2a;" +
+                                    "-fx-border-width: 2;"
+                    )
+            );
+
+            opcion.setOnAction(ev -> {
+                System.out.println("Elegiste: " + carta);
+                miniStage.close();
+            });
+
+            listaCartas.getChildren().add(opcion);
+        }
+
+        // ---------- SCROLL ----------
+        ScrollPane scroll = new ScrollPane(listaCartas);
+        scroll.setFitToWidth(true);
+        scroll.setStyle(
+                "-fx-background: transparent;" +
+                        "-fx-background-color: transparent;"
+        );
+        scroll.setPrefHeight(260);
+
+        layout.getChildren().add(scroll);
+
+        // ---------- ESCENA ----------
+        Scene scene = new Scene(layout, 300, 380);
+        miniStage.setScene(scene);
+        miniStage.initModality(Modality.APPLICATION_MODAL);
+        miniStage.showAndWait();
     }
 
 

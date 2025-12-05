@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mano {
-    private int caballeros;
+    private int caballeros = 0;
+
     private List<Carta> cartas;
 
     public Mano () {
-        this.caballeros = 0;
         this.cartas = new ArrayList<Carta>();
     }
 
@@ -32,6 +32,10 @@ public class Mano {
 
     public int obtenerCantidadCaballeros() {
         return caballeros;
+    }
+
+    public List<Carta> dameLasCartas() {
+        return this.cartas;
     }
 
     public void habilitarCartas() {
