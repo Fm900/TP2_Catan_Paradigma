@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MazoDeRecursos {
-    private List<Recurso> recursos;
+    private final List<Recurso> recursos;
 
     public MazoDeRecursos(List<Recurso> recursosIniciales) {
         this.recursos = new ArrayList<>(recursosIniciales);

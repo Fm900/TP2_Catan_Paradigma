@@ -7,10 +7,8 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import java.util.List;
 
 public abstract class Carta {
-
     protected List<Recurso> precio;
     protected Efecto activacion;
-
 
     public Carta(List<Recurso> precio) {
         this.precio = precio;
@@ -25,10 +23,6 @@ public abstract class Carta {
         return o != null && this.getClass() == o.getClass();
     }
 
-    public void cambiarEstado() {
-        this.activacion = new Habilitado();
-    }
-
     public void agregarse(Jugador jugador) {
         jugador.consumirRecursos(precio);
         jugador.agregarCarta(this);
@@ -39,4 +33,9 @@ public abstract class Carta {
     }
 
     public abstract void activarEfecto(Jugador jugador, ParametrosCarta parametros);
+
+    public void cambiarAHabilitada() {
+        this.activacion = new Habilitado();
+
+    }
 }

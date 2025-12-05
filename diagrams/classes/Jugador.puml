@@ -1,0 +1,147 @@
+@startuml
+class Jugador{
+- int puntos
+- String nombre
+
++ descarteMayoria()
++ agregarRecurso(Recurso recurso, int cantidad)
++ consumirRecursos(List<Recurso> precio)
++ obtenerRecursoAleatorio(): Recurso
++ sumarPuntos(int puntos)
++ restarPuntos(int puntos)
++ calcularPuntosTotales(): int
++ cantidadDeRecurso(Recurso recurso): int
++ List<Integer> obtenerCantidadDeRecursos(): List<Recurso>
++ agregarCarta(Carta carta)
++ descartarCarta(Carta carta)
+}
+
+class Mano {
+- int caballeros
+- List<Carta> cartas
+
++ agregar(Carta carta)
++ descartar(Carta carta)
+}
+
+class MazoDeRecurso{
+- List<Recurso> recursos
+
++ cantidadDescartar():int
++ descartarPorCantidad(int cantidad)
++ agregarRecurso(Recurso recurso, int cantidad)
++ removerRecurso(Recurso recurso)
++ void verificarCumplimiento(List<Recurso> precio)
++ obtenerRecursoAleatorio(): Recurso
+}
+
+interface Recurso{
++ agregar(int cantidad, MazoDeRecursos mazo)
++ eliminar(MazoDeRecursos mazo)
++ getCantidad(MazoDeRecursos mazo): int
+}
+
+class Madera{
++ agregar(int cantidad, MazoDeRecursos mazo)
++ eliminar(MazoDeRecursos mazo)
++ getCantidad(MazoDeRecursos mazo): int
+}
+
+class Ladrillo{
++ agregar(int cantidad, MazoDeRecursos mazo)
++ eliminar(MazoDeRecursos mazo)
++ getCantidad(MazoDeRecursos mazo): int
+}
+
+class Lana{
++ agregar(int cantidad, MazoDeRecursos mazo)
++ eliminar(MazoDeRecursos mazo)
++ getCantidad(MazoDeRecursos mazo): int
+}
+
+class Mineral{
++ agregar(int cantidad, MazoDeRecursos mazo)
++ eliminar(MazoDeRecursos mazo)
++ getCantidad(MazoDeRecursos mazo): int
+}
+
+class Grano{
++ agregar(int cantidad, MazoDeRecursos mazo)
++ eliminar(MazoDeRecursos mazo)
++ getCantidad(MazoDeRecursos mazo): int
+}
+
+class Desierto{
++ agregar(int cantidad, MazoDeRecursos mazo)
++ eliminar(MazoDeRecursos mazo)
++ getCantidad(MazoDeRecursos mazo): int
+}
+
+abstract class Carta{
+- List<Recurso> precio
+- Efecto activacion
+
++ intentarActivarEfecto(Jugador jugador, ParametrosCarta parametros)
++ agregarse(Jugador jugador)
++ pagarse(Banca banca)
++ {abstract} activarEfecto(Jugador jugador, ParametrosCarta parametros)
+}
+
+class Caballero{
++ activarEfecto(Jugador jugador, ParametrosCarta parametros)
+}
+
+class Descubrimiento{
++ activarEfecto(Jugador jugador, ParametrosCarta parametros)
+}
+
+class Monopolio{
++ activarEfecto(Jugador jugador, ParametrosCarta parametros)
+}
+
+class PuntosDeVictoria{
++ activarEfecto(Jugador jugador, ParametrosCarta parametros)
+}
+
+class ConstruccionDeCarrtera{
++ activarEfecto(Jugador jugador, ParametrosCarta parametros)
+}
+
+
+interface Efecto{
++ usar(Carta carta, Jugador jugador, ParametrosCarta parametros)
+}
+
+class Habilitado{
++ usar(Carta carta, Jugador jugador, ParametrosCarta parametros)
+}
+
+class Deshabilitado{
++ usar(Carta carta, Jugador jugador, ParametrosCarta parametros)
+}
+
+Jugador "1" *-- "*" MazoDeRecurso
+Jugador "1" *-- "*" Mano
+
+Mano "1" o-- "*" Carta
+MazoDeRecurso "1" o-- "*" Recurso
+
+Recurso <|.. Madera
+Recurso <|.. Mineral
+Recurso <|.. Grano
+Recurso <|.. Ladrillo
+Recurso <|.. Lana
+Recurso <|.. Desierto
+
+Carta <|.. PuntosDeVictoria
+Carta <|.. Caballero
+Carta <|.. Monopolio
+Carta <|.. Descubrimiento
+Carta <|.. ConstruccionDeCarrtera
+
+Carta "*" *-- "1" Efecto
+Efecto <|.. Habilitado
+Efecto <|.. Deshabilitado
+
+
+@enduml

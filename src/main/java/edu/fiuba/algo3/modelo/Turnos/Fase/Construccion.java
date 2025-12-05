@@ -14,10 +14,9 @@ public class Construccion implements Fase {
 
     @Override
     public void ejecutar(Jugador jugador, ManejoTurnos manejador) {
-
         this.jugadorActual = jugador;
         this.tablero = Juego.getInstancia().getTablero();
-
+        this.jugadorActual.habilitarCartas();
     }
 
 

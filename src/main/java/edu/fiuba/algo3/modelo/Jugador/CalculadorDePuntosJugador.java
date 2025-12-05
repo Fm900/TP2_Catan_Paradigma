@@ -10,8 +10,8 @@ public class CalculadorDePuntosJugador {
     private Jugador jugadorMayorCaballeria;
     private int longitudMasLargoActual;
     private int mayorCantidadCaballeros;
-    private Tablero tablero;
-    private int coeficienteDeSumaCartasEspeciales;
+    private final Tablero tablero;
+    private final int coeficienteDeSumaCartasEspeciales;
 
     public CalculadorDePuntosJugador(Tablero tablero) {
         this.tablero = tablero;

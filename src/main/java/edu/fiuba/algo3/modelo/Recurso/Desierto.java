@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo.Recurso;
 
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 
-public class Desierto extends Recurso{
+public class Desierto implements Recurso{
     @Override
     public void agregar(int cantidad, MazoDeRecursos mazo) {
         //No hace nada
