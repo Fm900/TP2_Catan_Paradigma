@@ -22,12 +22,6 @@ public class Dados implements Fase {
     @Override
     public void ejecutar(Jugador jugador, ManejoTurnos manejador) {
         tirarDados();
-
-        if (tirada == 7) {
-            manejarLadron(jugador, manejador);
-        } else {
-            producirRecursos(manejador);
-        }
     }
 
     private void tirarDados() {
@@ -36,31 +30,23 @@ public class Dados implements Fase {
         tirada = dado1 + dado2;
     }
 
-    private void manejarLadron(Jugador jugador, ManejoTurnos manejador) {
-
+    private void moverLadron(Jugador jugador,Terreno terreno, Jugador victima) {
         Juego.getInstancia().descartarCartasJugadores();
-
-        // 2) Esperar movimiento del ladrón desde la UI
-        // NO avanza automáticamente - espera la interacción del usuario
-        manejador.esperarMovimientoLadron(jugador);
+        Ladron.getInstance().moverADestino(jugador, terreno, victima);
     }
 
     private void producirRecursos(ManejoTurnos manejador) {
-        // Producir recursos normalmente
         Juego.getInstancia().getTablero().producirPara(tirada);
-
-        // Pasar a la siguiente fase automáticamente
         manejador.pasarSiguienteFase();
     }
 
     public int getTirada() {
         return tirada;
     }
-    //se completa mov
-    public void moverLadron(Jugador jugador, Terreno terreno, Jugador robado, ManejoTurnos manejador) {
-        Ladron.getInstance().moverADestino(jugador, terreno, robado);
 
-        // Ahora sí avanzar a la siguiente fase
+    public void moverLadron(Jugador jugador, Terreno terreno, Jugador victima, ManejoTurnos manejador) {
+        Juego.getInstancia().descartarCartasJugadores();
+        Ladron.getInstance().moverADestino(jugador, terreno, victima);
         manejador.pasarSiguienteFase();
     }
 }

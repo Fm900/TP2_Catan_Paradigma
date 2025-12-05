@@ -10,35 +10,17 @@ public class JugarCartas implements Fase {
 
     @Override
     public void ejecutar(Jugador jugador, ManejoTurnos manejador) {
-        // Inicializar la fase
         this.jugadorActual = jugador;
-
-
-        // Si el jugador no tiene cartas jugables, avanza automáticamente
         if (!jugador.tieneCartasDesarrollo()) {
             manejador.pasarSiguienteFase();
         }
     }
 
-
     public void jugarCarta(Carta carta, ParametrosCarta parametros) {
-//        validarFaseIniciada();
-//
-//        // Verificar que la carta se puede jugar (no fue comprada este turno)
-//        if (!carta.sePuedeJugar()) {
-//            throw new IllegalStateException("Esta carta fue comprada este turno y no se puede jugar aún");
-//        }
-//
-//        // Activar el efecto de la carta
-//        carta.intentarActivarEfecto(jugadorActual, parametros);
-//
-//        // Remover la carta del mazo del jugador (se usa)
-//        jugadorActual.descartarCarta(carta);
-//
-//        //validar pv
-//        if (carta.esPuntoVictoria()) {
-//            jugadorActual.agregarCarta(carta);
-//        }
+        validarFaseIniciada();
+        carta.intentarActivarEfecto(jugadorActual, parametros);
+
+        jugadorActual.descartarCarta(carta);
     }
 
     public void terminarFase(ManejoTurnos manejador) {

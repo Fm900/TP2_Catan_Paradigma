@@ -9,16 +9,15 @@ import java.util.List;
 
 public class Normal implements Turno {
 
-    private final List<Fase> fases = new ArrayList<>();
-    private int faseActual = 0;
-    private int indiceJugador = 0;
+    private final List<Fase> fases;
+    private int faseActual;
+    private int indiceJugador;
     private ManejoTurnos manejador;
 
     public Normal() {
-        inicializarFases();
-    }
-
-    private void inicializarFases() {
+        this.fases = new ArrayList<>();
+        this.faseActual = 0;
+        this.indiceJugador = 0;
         fases.add(new Dados());
         fases.add(new Comercio());
         fases.add(new Construccion());

@@ -9,16 +9,17 @@ import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 public class Primer implements Turno {
 
-    private int indice = 0;
+    private int indice;
     private final Tablero tablero;
 
     public Primer() {
         this.tablero = Juego.getInstancia().getTablero();
+        this.indice = 0;
     }
 
     @Override
     public Jugador jugadorActual(ManejoTurnos manejador) {
-        return manejador.jugadores.get(indice);
+        return ManejoTurnos.jugadores.get(indice);
     }
 
     @Override

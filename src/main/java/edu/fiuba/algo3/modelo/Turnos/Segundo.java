@@ -10,11 +10,15 @@ import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 public class Segundo implements Turno {
 
-    private int indice = 0;
+    private int indice;
+
+    public Segundo() {
+        this.indice = 0;
+    }
 
     @Override
     public Jugador jugadorActual(ManejoTurnos manejador) {
-        return manejador.jugadoresInv.get(indice);
+        return ManejoTurnos.jugadoresInv.get(indice);
     }
 
     @Override
