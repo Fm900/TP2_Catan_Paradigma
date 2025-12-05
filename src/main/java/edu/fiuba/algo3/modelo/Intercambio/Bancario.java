@@ -7,15 +7,13 @@ import edu.fiuba.algo3.modelo.Tablero.Puerto.Tasa;
 import java.util.List;
 
 public class Bancario implements Intercambio{
-    private Tasa tasa;
-    private Jugador jugador;
-    private Banca banca;
-    private List<Recurso> ofrecidos;
-    private Recurso requerdio;
+    private final Tasa tasa;
+    private final Jugador jugador;
+    private final List<Recurso> ofrecidos;
+    private final Recurso requerdio;
 
     public Bancario(Jugador jugadorActual, Banca banca, List<Recurso> ofrecidos, Recurso requerido, Tasa tasa){
         this.jugador = jugadorActual;
-        this.banca = banca;
         this.ofrecidos = ofrecidos;
         this.requerdio = requerido;
         this.tasa = tasa;
@@ -24,8 +22,8 @@ public class Bancario implements Intercambio{
     public void intercambio() {
         List<Recurso> recursosOfrecidos = tasa.aplicarTasa(ofrecidos, jugador);
         jugador.consumirRecursos(recursosOfrecidos);
-        banca.agregarRecurso(recursosOfrecidos);
-        banca.consumirRecursos(requerdio);
+        Banca.getInstance().agregarRecurso(recursosOfrecidos);
+        Banca.getInstance().consumirRecursos(requerdio);
         jugador.agregarRecurso(requerdio,1);
     }
 }

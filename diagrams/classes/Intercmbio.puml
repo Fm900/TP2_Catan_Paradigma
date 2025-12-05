@@ -1,0 +1,77 @@
+@startuml
+
+interface Intecambio{
++ intercambio
+}
+
+class Banca{
+- {Static} Banca banca
+- List<Recurso> recursos
+- List<Carta>  cartas
+
+- Banca(List<Recurso>, List<Carta>)
++ {Static} crearBanca(List<Recurso>, List<Carta>)
++ {Static} getInstance(): Banca
++ agregarRecurso((List<Recurso>)
++ consumirRecursos(List<Recurso>)
++ eliminarCarta(Carta)
++ agregarRecursoCarta(Carta)
+}
+
+class Bancario{
+- Tasa tasa
+- Jugador jugador
+- List<Recurso> ofrecidos
+- Recurso requerdio
+
++ intercambio()
+}
+
+class BancarioSinENtregarRecursos{
+- List<Recurso> recursoAEntregar
+- Jugador jugadorAEntregar
+
++ intercambio()
+}
+
+class CompararCartas{
+- Jugador jugador
+- Carta carta
+
++ intercambio()
+}
+
+class EntreJugadores{
+- Jugador ofertante
+- Jugador receptor
+- List<Recurso> recursosOfrecidos
+- List<Recurso> recursosRequeridos
+
++ intercambio()
+}
+
+class EntreJugadoresAleatorio{
+- Jugador victimario
+- Jugador victima
+
++ intercambio()
+}
+
+class EntreJugadoresTodosLosJugadoresAUno{
+- Jugador victimario
+- List<Jugador> victimas
+- Recurso recursoElegido
+
++ intercambio()
+}
+
+Intecambio <|.. EntreJugadores
+Intecambio <|.. BancarioSinENtregarRecursos
+Intecambio <|.. Bancario
+Intecambio <|.. EntreJugadoresAleatorio
+Intecambio <|.. EntreJugadoresTodosLosJugadoresAUno
+Intecambio <|.. CompararCartas
+Bancario ..> Banca
+BancarioSinENtregarRecursos ..> Banca
+CompararCartas ..> Banca
+@enduml

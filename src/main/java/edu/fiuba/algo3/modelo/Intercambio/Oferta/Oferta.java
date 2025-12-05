@@ -4,7 +4,7 @@ import edu.fiuba.algo3.modelo.Intercambio.Intercambio;
 
 public class Oferta{
     private Resolucion estado;
-    private Intercambio intercambio;
+    private final Intercambio intercambio;
 
     public Oferta(Intercambio tipoIntercambio) {
         this.estado = new Pendiente();

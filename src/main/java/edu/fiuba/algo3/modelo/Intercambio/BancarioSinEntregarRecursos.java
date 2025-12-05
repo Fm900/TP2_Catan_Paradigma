@@ -9,18 +9,16 @@ public class BancarioSinEntregarRecursos implements Intercambio {
 
     private final List<Recurso> recursoAEntregar;
     private final Jugador jugadorAEntregar;
-    private final Banca banca;
 
     public BancarioSinEntregarRecursos(List<Recurso> recurso,  Jugador jugador) {
         this.recursoAEntregar = recurso;
         this.jugadorAEntregar = jugador;
-        this.banca = Banca.getInstance();
     }
 
     @Override
     public void intercambio() {
         for (Recurso recurso : recursoAEntregar) {
-            banca.consumirRecursos(recurso);
+            Banca.getInstance().consumirRecursos(recurso);
             jugadorAEntregar.agregarRecurso(recurso, 1);
         }
     }

@@ -10,12 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Banca {
-
     private static Banca banca;
-
-    /// va a extender lo que es una estructura de almacenamiento de recursos
-    private List<Recurso> recursos;
-    private List<Carta>  cartas;
+    private final List<Recurso> recursos;
+    private final List<Carta>  cartas;
 
 
     private Banca(List<Recurso> recursos, List<Carta> cartas) {

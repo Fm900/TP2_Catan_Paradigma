@@ -5,7 +5,6 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import java.util.List;
 
 public class EntreJugadoresTodosLosJugadoresAUno implements Intercambio {
-
     private final Jugador victimario;
     private final List<Jugador> victimas;
     private final Recurso recursoElegido;

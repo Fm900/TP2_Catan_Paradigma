@@ -19,9 +19,7 @@ public class EntreJugadoresAleatoreo implements Intercambio {
     @Override
     public void intercambio() {
         Recurso recursoADescartar = victima.obtenerRecursoAleatorio();
-        List<Recurso> recursosADescartar = new ArrayList<Recurso>();
-        recursosADescartar.add(recursoADescartar);
-        victima.consumirRecursos(recursosADescartar);
+        victima.consumirRecursos(List.of(recursoADescartar));
         victimario.agregarRecurso(recursoADescartar, 1);
     }
 }
