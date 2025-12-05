@@ -18,6 +18,7 @@ public class Descubrimiento extends Carta{
     public void activarEfecto(Jugador jugador, ParametrosCarta parametros) {
         List<Recurso> recursosElegidos = parametros.getRecursosElegidos();
         intercambio = new BancarioSinEntregarRecursos(recursosElegidos, jugador);
+        jugador.descartarCarta(this);
     }
 
 }

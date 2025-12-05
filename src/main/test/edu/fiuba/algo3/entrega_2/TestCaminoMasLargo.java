@@ -78,7 +78,7 @@ public class TestCaminoMasLargo {
 
 
         Tablero tableroTest = new Tablero((new ArrayList<Terreno>()), (new ArrayList<>(List.of(v1, v2, v3, v4, v5))), (new ArrayList<>(List.of(a1, a2, a3, a4))));
-        int res = tableroTest.caminoMasLargo(jugador);
+        int res = tableroTest.calcularCaminoMasLargo(jugador);
         assertEquals(4, res);
     }
 
@@ -122,7 +122,7 @@ public class TestCaminoMasLargo {
         a5.construirCarretera(jugador);
 
         Tablero tableroTest = new Tablero((new ArrayList<Terreno>()), (new ArrayList<>(List.of(v1, v2, v3, v4, v5, v6))), (new ArrayList<>(List.of(a1, a2, a3, a4, a5))));
-        int res = tableroTest.caminoMasLargo(jugador);
+        int res = tableroTest.calcularCaminoMasLargo(jugador);
         assertEquals(4, res);
     }
 
@@ -154,7 +154,7 @@ public class TestCaminoMasLargo {
         a3.construirCarretera(jugador);
 
         Tablero tableroTest = new Tablero((new ArrayList<Terreno>()), (new ArrayList<>(List.of(v1, v2, v3, v4))), (new ArrayList<>(List.of(a1, a2, a3))));
-        int res = tableroTest.caminoMasLargo(jugador);
+        int res = tableroTest.calcularCaminoMasLargo(jugador);
         assertEquals(1, res);
     }
 
@@ -192,7 +192,7 @@ public class TestCaminoMasLargo {
         a4.construirCarretera(jugador);
 
         Tablero tableroTest = new Tablero((new ArrayList<Terreno>()), (new ArrayList<>(List.of(v1, v2, v3, v4))), (new ArrayList<>(List.of(a1, a2, a3, a4))));
-        int res = tableroTest.caminoMasLargo(jugador);
+        int res = tableroTest.calcularCaminoMasLargo(jugador);
 
         assertEquals(4, res);
     }
@@ -231,7 +231,7 @@ public class TestCaminoMasLargo {
 
         Tablero tableroTest = new Tablero((new ArrayList<Terreno>()), (new ArrayList<>(List.of(v1, v2, v3, v4, v5))), (new ArrayList<>(List.of(a1, a2, a3, a4))));
 
-        assertEquals(2, tableroTest.caminoMasLargo(jugador));
-        assertEquals(2, tableroTest.caminoMasLargo(jugador2));
+        assertEquals(2, tableroTest.calcularCaminoMasLargo(jugador));
+        assertEquals(2, tableroTest.calcularCaminoMasLargo(jugador2));
     }
 }

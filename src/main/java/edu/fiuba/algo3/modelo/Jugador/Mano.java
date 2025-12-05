@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mano {
+    private int caballeros = 0;
 
     private List<Carta> cartas;
 
@@ -25,4 +26,11 @@ public class Mano {
         return this.cartas.size();
     }
 
+    public void agregarCaballero(){
+        this.caballeros = this.caballeros + 1;
+    }
+
+    public int obtenerCantidadCaballeros() {
+        return caballeros;
+    }
 }

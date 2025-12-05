@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.Constructores.ConstructorTablero;
 import edu.fiuba.algo3.modelo.Constructores.GeneradorDeTerrenos;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
@@ -23,6 +24,7 @@ public class Tablero {
 
     public void colocarCarretera(Jugador jugador, Arista arista) {
         arista.construirCarretera(jugador);
+        Juego.getInstancia().calcularCaminoMasLargo(jugador);
     }
 
     public Tablero(GeneradorDeTerrenos generador) {
@@ -46,6 +48,7 @@ public class Tablero {
             t.producirSiCorresponde(tirada);
         }
     }
+
     public List<Terreno> obtenerTerrenosAdy(Vertice vertice){
         List<Terreno> terrenosAdy = new ArrayList<>();
         for (Terreno terreno : terrenos){
@@ -68,6 +71,7 @@ public class Tablero {
         }
         throw new IllegalArgumentException("v1 y v2 no están conectados por una arista");
     }
+
     public Arista arista(int id) {
         return this.aristas.get(id - 1); // ids 1..72
     }
@@ -79,24 +83,23 @@ public class Tablero {
     public List<Arista> aristas() {
         return Collections.unmodifiableList(aristas);
     }
+
     public List<Terreno> terrenos() {
         return Collections.unmodifiableList(terrenos);
     }
 
-    public int caminoMasLargo(Jugador jugador) {
+    public int calcularCaminoMasLargo(Jugador jugador) {
         int max = 0;
-
         for (Arista arista : aristas) {
             if (arista.elMismoDueño(jugador)) {
-
-                max = Math.max(max, dfs(arista.extremo1(), jugador, new ArrayList<>()));
-                max = Math.max(max, dfs(arista.extremo2(), jugador, new ArrayList<>()));
+                max = Math.max(max, calcularCaminoMasLargoJugador(arista.extremo1(), jugador, new ArrayList<>()));
+                max = Math.max(max, calcularCaminoMasLargoJugador(arista.extremo2(), jugador, new ArrayList<>()));
             }
         }
         return max;
     }
 
-    private int dfs(Vertice actual, Jugador jugador, List<Arista> usadas) {
+    private int calcularCaminoMasLargoJugador(Vertice actual, Jugador jugador, List<Arista> usadas) {
         int max = 0;
 
         for (Arista a : actual.aristas()) {
@@ -110,7 +113,7 @@ public class Tablero {
 
             usadas.add(a);
 
-            int largo = 1 + dfs(prox, jugador, usadas);
+            int largo = 1 + calcularCaminoMasLargoJugador(prox, jugador, usadas);
             max = Math.max(max, largo);
 
             usadas.remove(a);
@@ -123,6 +126,4 @@ public class Tablero {
         return (v1.getDueño() != null && v1.getDueño() != jugador)
                 || (v2.getDueño() != null && v2.getDueño() != jugador);
     }
-
-
 }

@@ -23,5 +23,6 @@ public class Monopolio extends Carta {
         Recurso recursoPedido = parametros.getRecursoMonopolio();
         intercambio = new EntreJugadoresTodosLosJugadoresAUno(jugador, Juego.getInstancia().getJugadores(), recursoPedido);
         intercambio.intercambio();
+        jugador.descartarCarta(this);
     }
 }

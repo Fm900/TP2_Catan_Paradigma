@@ -3,6 +3,8 @@ package edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,6 @@ public class Jugador {
         this.nombre = nombre;
     }
 
-    //para recursos
     public void descarteMayoria() {
         int cantidadRecursosADescartar = recursos.cantidadDescartar();
         recursos.descartarPorCantidad(cantidadRecursosADescartar);
@@ -42,7 +43,7 @@ public class Jugador {
 
     public void sumarPuntos(int puntos){
         this.puntos += puntos;
-        Juego.getInstancia().chequearVictoria(this);
+        //Juego.getInstancia().chequearVictoria(this);
     }
 
     public void restarPuntos(int puntos){
@@ -52,9 +53,11 @@ public class Jugador {
     public int calcularPuntosTotales(){
         return this.puntos;
     }
+
     public int cantidadDeRecurso(Recurso recurso){
         return recurso.getCantidad(recursos);
     }
+
     public List<Integer> obtenerCantidadDeRecursos(){
         List<Integer> respuesta = new ArrayList<>();
         List<Recurso> recursos = new ArrayList<>(List.of(new Madera(),new Grano(),new Ladrillo(), new Lana(), new Mineral()));
@@ -63,7 +66,7 @@ public class Jugador {
         }
         return respuesta;
     }
-    // para cartas de desarrollo
+
     public void agregarCarta(Carta carta) {
         mano.agregar(carta);
     }
@@ -76,8 +79,14 @@ public class Jugador {
         return nombre;
     }
 
+    public void agregarCaballero() { mano.agregarCaballero(); }
 
     public boolean tieneCartasDesarrollo() {
      return mano.cantidadCartas() > 0;
     }
+
+    public int obtenerCantidadCaballeros(){
+        return mano.obtenerCantidadCaballeros();
+    }
+
 }

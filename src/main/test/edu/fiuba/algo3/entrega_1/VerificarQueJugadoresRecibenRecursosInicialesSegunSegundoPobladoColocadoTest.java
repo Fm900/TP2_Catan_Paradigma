@@ -53,18 +53,17 @@ public class VerificarQueJugadoresRecibenRecursosInicialesSegunSegundoPobladoCol
         Terreno terrenoConMineral = new Terreno(new Mineral(), 5, new Normal());
         terrenoConMineral.asignarVerticesAdyacentes(List.of(verticeSegundoTurno));
 
-
-        Tablero tablero = new Tablero(new GeneradorDeTerrenosControlado(List.of(terrenoConMineral)));
-
         List<Carta> cartas = new ArrayList<>();
         Banca banca = Banca.crearBanca(new ArrayList<>(), cartas);
-        Juego.crearInstancia(List.of(jugador), tablero, banca);
 
         List<Recurso> precio = List.of(new Mineral());
 
         Arista aristaPrimerTurno = new Arista(verticePrimerTurno, new Vertice(0, 1.0, 1.0), new Vacia());
         Arista aristaSegundoTurno = new Arista(verticeSegundoTurno, new Vertice(0, 1.0, 1.0), new Vacia());
 
+        Tablero tablero = new Tablero(new ArrayList<Terreno>(List.of(terrenoConMineral)), new ArrayList<Vertice>(List.of(verticePrimerTurno, verticeSegundoTurno)), new ArrayList<Arista>(List.of(aristaPrimerTurno, aristaSegundoTurno)));
+
+        Juego.crearInstancia(List.of(jugador), tablero, banca);
 
         List<Jugador> jugadores = new ArrayList<>();
         jugadores.add(jugador);

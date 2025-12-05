@@ -35,7 +35,6 @@ public class ConstruirCarreterasTest {
     MazoDeRecursos recursos;
     Mano mano;
     List<Carta> cartas;
-    Juego juego;
     Banca banca;
 
     @BeforeEach

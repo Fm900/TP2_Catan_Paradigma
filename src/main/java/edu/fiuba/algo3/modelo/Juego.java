@@ -1,7 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Exception.ElJuegoNoHaSidoCreadoAun;
-import edu.fiuba.algo3.modelo.Turnos.*;
+import edu.fiuba.algo3.modelo.Jugador.CalculadorDePuntosJugador;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
@@ -11,7 +12,7 @@ import java.util.List;
 public class Juego {
 
     private static Juego juego;
-
+    private CalculadorDePuntosJugador calculador;
     private final List<Jugador> jugadores;
     private final Tablero tablero;
     private final Banca banca;
@@ -20,6 +21,7 @@ public class Juego {
         this.jugadores = jugadores;
         this.tablero = tablero;
         this.banca = banca;
+        this.calculador = new CalculadorDePuntosJugador(this.tablero);
     }
 
     public static Juego crearInstancia(List<Jugador> jugadores, Tablero tablero, Banca banca) {
@@ -41,9 +43,17 @@ public class Juego {
     }
 
     public int calcularPuntosTotalesDe(Jugador jugador){
-        int puntos = jugador.calcularPuntosTotales();
-        return puntos;
+        return calculador.calcular(jugador);
     }
+
+    public void calcularCaminoMasLargo(Jugador jugador) {
+        calculador.calcularCaminoMasLargo(jugador);
+    }
+
+    public void calcularMayorCaballeria(Jugador jugador) {
+        calculador.calcularMayorCaballeria(jugador);
+    }
+
     public boolean chequearVictoria(Jugador jugador){
         return calcularPuntosTotalesDe(jugador) >= 10;
     }

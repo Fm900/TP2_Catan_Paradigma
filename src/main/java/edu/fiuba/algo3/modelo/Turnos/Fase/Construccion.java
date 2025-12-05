@@ -36,17 +36,6 @@ public class Construccion implements Fase {
         tablero.mejorarPobladoACiudad(jugadorActual, vertice);
     }
 
-    public void comprarCartaDesarrollo() {
-//        validarFaseIniciada();
-//        // aca va las cartas de desarrollo
-////        Carta carta = Juego.getInstancia().getMazoDesarrollo().robarCarta();
-//
-//        if (carta != null) {
-//            jugadorActual.agregarCarta(carta);
-//
-//        }
-    }
-
     public void terminarFase(ManejoTurnos manejador) {
         // El jugador indica que terminó de construir
         manejador.pasarSiguienteFase();

@@ -25,6 +25,7 @@ public class ConstruccionCarreteras extends Carta {
         for(Arista arista: aristas){
             tablero.colocarCarretera(jugador ,arista);
         }
+        jugador.descartarCarta(this);
     }
 }
 
