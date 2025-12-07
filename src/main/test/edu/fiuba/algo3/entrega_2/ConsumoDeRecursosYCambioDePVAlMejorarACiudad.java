@@ -11,6 +11,7 @@ import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
     private Jugador nuevoJugador() {
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
         Mano mano = new Mano();
-        return new Jugador(gestor, mano,"Alex");
+        return new Jugador(gestor, mano,"Alex", Color.BLACK);
     }
 
     private void darRecursosParaUnPobladoYCiudad(Jugador jugador) {
@@ -59,7 +60,7 @@ public class ConsumoDeRecursosYCambioDePVAlMejorarACiudad {
     void mejorarPobladoACiudadActualizaPuntosDeVictoria() {
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
         Mano mano = new Mano();
-        Jugador jugador = new Jugador(gestor, mano,"Alex");
+        Jugador jugador = new Jugador(gestor, mano,"Alex", Color.CORAL);
 
         // recursos para 1 poblado
         jugador.agregarRecurso(new Madera(), 1);

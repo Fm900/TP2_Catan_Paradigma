@@ -13,6 +13,7 @@ import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Vacia;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class VerificarElConsumoDeRecursosYLaCorrectaColocaciónDeUnaCarretera {
 
         MazoDeRecursos gestor = new MazoDeRecursos(recursosIniciales);
         Mano mano = new Mano();
-        Jugador jugador = new Jugador(gestor, mano, "El chaqueño palavecino");
+        Jugador jugador = new Jugador(gestor, mano, "El chaqueño palavecino", Color.BLACK);
         Vertice vertice1 = new Vertice(1,0,0);
         Vertice vertice2 = new Vertice(2,0,0);
         Arista arista = new Arista(vertice1, vertice2, new Vacia());

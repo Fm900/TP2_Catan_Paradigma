@@ -14,6 +14,7 @@ import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Turnos.Normal;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class TiradadDeDadosTest {
         /*Arrange*/
         MazoDeRecursos gestor1 = new MazoDeRecursos(new ArrayList<Recurso>());
         Mano mano1 = new Mano();
-        Jugador jugador1 = new Jugador(gestor1, mano1,"Alex");
+        Jugador jugador1 = new Jugador(gestor1, mano1,"Alex", Color.WHITE);
         Dados faseDeDados = new Dados();
         List<Carta> cartas = new ArrayList<>();
         Banca.reset();

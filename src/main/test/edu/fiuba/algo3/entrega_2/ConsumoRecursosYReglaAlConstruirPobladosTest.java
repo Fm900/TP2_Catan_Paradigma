@@ -14,6 +14,7 @@ import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +38,7 @@ public class ConsumoRecursosYReglaAlConstruirPobladosTest {
     private Jugador nuevoJugador() {
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
         Mano mano = new Mano();
-        return new Jugador(gestor, mano,"Alex");
+        return new Jugador(gestor, mano,"Alex", Color.BLACK);
     }
 
     private void darRecursosParaPoblados(Jugador jugador, int cantidadPoblados) {

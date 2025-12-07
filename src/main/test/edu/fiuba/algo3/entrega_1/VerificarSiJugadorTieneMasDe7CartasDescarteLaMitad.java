@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.*;
+import javafx.scene.paint.Color;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class VerificarSiJugadorTieneMasDe7CartasDescarteLaMitad {
     @Test
     public void test01seVerificaQueJugadorConMenosDe7CartasNoDescarte() {
         recursos = new ArrayList<Recurso>(List.of(new Madera(), new Grano(), new Lana()));
-        jugador = new Jugador(new MazoDeRecursos(recursos), new Mano(),"Alex");
+        jugador = new Jugador(new MazoDeRecursos(recursos), new Mano(),"Alex", Color.BLACK);
 
         assertThrows(NoTieneRecursosSuficientesParaDescartar.class, () -> jugador.descarteMayoria(), "No llega a la cantidad de 7 recursos");
     }
@@ -30,7 +31,7 @@ public class VerificarSiJugadorTieneMasDe7CartasDescarteLaMitad {
     @Test
     public void test02seVerificaQueJugadorConMasDe7CartasDescarte() {
         recursos = new ArrayList<Recurso>(List.of(new Madera(), new Grano(), new Lana(),new Madera(), new Grano(), new Lana(), new Madera(), new Grano(), new Lana()));
-        jugador = new Jugador(new MazoDeRecursos(recursos), new Mano(),"Alex");
+        jugador = new Jugador(new MazoDeRecursos(recursos), new Mano(),"Alex", Color.BLACK);
 
         assertDoesNotThrow(() -> jugador.descarteMayoria(), "No llega a la cantidad de 7 recursos");
     }

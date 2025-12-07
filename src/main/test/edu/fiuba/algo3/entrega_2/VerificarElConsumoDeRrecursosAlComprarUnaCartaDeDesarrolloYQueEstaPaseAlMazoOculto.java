@@ -17,6 +17,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class VerificarElConsumoDeRrecursosAlComprarUnaCartaDeDesarrolloYQueEstaP
     public void setUp() {
         mano = new Mano();
         precio = new ArrayList<>(List.of(new Lana(), new Grano(), new Mineral()));
-        jugador = new Jugador(new MazoDeRecursos(precio), mano, "Alex");
+        jugador = new Jugador(new MazoDeRecursos(precio), mano, "Alex", Color.ROSYBROWN);
         carta = new Caballero(new Deshabilitado());
         cartas = new ArrayList<>(List.of(carta));
         Juego.crearInstancia(List.of(jugador), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));

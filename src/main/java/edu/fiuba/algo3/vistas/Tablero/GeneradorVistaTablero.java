@@ -87,7 +87,7 @@ public class GeneradorVistaTablero {
 
             Circle c = new Circle(v.getX(), v.getY(), 8, Color.WHITE);
             c.setStroke(Color.BLACK);
-            c.setStrokeWidth(1.5);   // más finito
+            c.setStrokeWidth(1.5);
 
             // ejemplo de interacción
             c.setOnMouseClicked(e -> c.setFill(Color.RED));
@@ -230,14 +230,12 @@ public class GeneradorVistaTablero {
     }
 
     private Image obtenerImagenFicha(int numero) {
-        if (numero == 0) return null; // desierto, sin ficha
+        if (numero == 0) return null;
 
         if (fichasCache.containsKey(numero)) {
             return fichasCache.get(numero);
         }
 
-        // Para 6 y 8 usamos las versiones "B" (rojas),
-        // el resto usa la normal.
         String sufijo = (numero == 6 || numero == 8) ? "B" : "";
         String ruta = String.format("/fichas/ficha_n_%d%s.png",
                 numero, sufijo);

@@ -11,6 +11,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class CartaNoPuedeSerJugadaRecienAdquiridaTest {
         Banca.reset();
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<Recurso>());
         Mano mano = new Mano();
-        Jugador jugadorQueLevanta = new Jugador(gestor,mano,"Alex");
+        Jugador jugadorQueLevanta = new Jugador(gestor,mano,"Alex", Color.WHITE);
         Carta cartaRecienLevantada = new Monopolio((new Deshabilitado()));
         jugadorQueLevanta.agregarCarta(cartaRecienLevantada);
         ParametrosCarta parametrosCarta = new ParametrosCarta();

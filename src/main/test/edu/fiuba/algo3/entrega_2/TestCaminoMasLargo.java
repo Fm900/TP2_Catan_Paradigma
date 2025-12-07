@@ -13,6 +13,7 @@ import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,8 +41,8 @@ public class TestCaminoMasLargo {
                 new Madera(), new Madera(), new Ladrillo(), new Lana(), new Grano(), new Madera(), new Ladrillo(),
                 new Madera())));
         mano = new Mano();
-        jugador = new Jugador(gestor, mano,"Alex");
-        jugador2 = new Jugador(gestor, mano, "Max");
+        jugador = new Jugador(gestor, mano,"Alex", Color.BLACK);
+        jugador2 = new Jugador(gestor, mano, "Max", Color.RED);
         cartas = List.of(new Monopolio(new Deshabilitado()));
         this.banca = Banca.crearBanca(new ArrayList<Recurso>(), cartas);
         Juego juego = Juego.crearInstancia(List.of(jugador), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));

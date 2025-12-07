@@ -17,6 +17,7 @@ import edu.fiuba.algo3.modelo.Tablero.Terreno.Normal;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import edu.fiuba.algo3.modelo.Turnos.Fase.*;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class VerificarQueJugadoresRecibenRecursosInicialesSegunSegundoPobladoCol
         // recursos para dos poblados y dos carreteras
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>(List.of(new Madera(), new Madera(), new Madera(), new Madera(), new Ladrillo(), new Ladrillo(), new Ladrillo(), new Ladrillo(), new Lana(), new Lana(), new Grano(), new Grano())));
         Mano mano = new Mano();
-        return new Jugador(gestor, mano,"Roberto");
+        return new Jugador(gestor, mano,"Roberto", Color.RED);
     }
 
     @Test

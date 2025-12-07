@@ -28,9 +28,12 @@ public class GenerarRecuYBotones {
     private Button btnTerminarTurno;
     private Button btnComerciar;
     private Button btnCartas;
+    private Button btnConstruir;
     private HBox panelAbajo;
     private HBox botonesDerecha;
     private HBox botonesIzquierda;
+
+
     private static final String[] RUTAS_RECURSOS = {
             "/Imagenes/madera.png", "/Imagenes/grano.png", "/Imagenes/ladrillo.png",
             "/Imagenes/lana.png", "/Imagenes/mineral.png"
@@ -217,8 +220,9 @@ public class GenerarRecuYBotones {
         botonesIzquierda.setPadding(new Insets(0, 0, 10, 10));
 
         btnCartas = crearBotonConIcono("/Imagenes/cartas.png");
+        btnConstruir = crearBotonConIcono("/Imagenes/construir.png");
 
-        botonesIzquierda.getChildren().addAll(btnCartas);
+        botonesIzquierda.getChildren().addAll(btnCartas, btnConstruir);
     }
 
     private void configurarAccionesBotones() {
@@ -226,6 +230,7 @@ public class GenerarRecuYBotones {
         btnComerciar.setOnAction(e -> accionComerciar());
         btnTerminarTurno.setOnAction(e -> accionTerminarTurno());
         btnCartas.setOnAction(e -> accionarMostrarCartas());
+        btnConstruir.setOnAction(e -> accionarConstruccion());
     }
 
     private Button crearBotonConIcono(String rutaIcono) {
@@ -286,12 +291,15 @@ public class GenerarRecuYBotones {
 
     private void accionComerciar() {
         System.out.println("Comerciar...");
-        // Implementar lógica de comercio
+
     }
 
     private void accionTerminarTurno() {
         System.out.println("Terminando turno...");
         // Implementar lógica de fin de turno
+    }
+    private void accionarConstruccion() {
+        System.out.println("Construccion...");
     }
     private void accionarMostrarCartas() {
         Stage miniStage = new Stage();
@@ -410,12 +418,12 @@ public class GenerarRecuYBotones {
         btnComerciar.setVisible(false);
         btnCartas.setVisible(false);
         btnTerminarTurno.setVisible(false);
+        btnConstruir.setVisible(false);
 
         switch (nombreFase) {
             case "Colocación Inicial - Primera Ronda":
             case "Colocación Inicial - Segunda Ronda":
-                // Solo permitir construir poblado + carretera inicial
-//                btnColocarPobladoInicial.setVisible(true);
+                btnConstruir.setVisible(true);
                 btnTerminarTurno.setVisible(true);
                 break;
 
@@ -430,8 +438,7 @@ public class GenerarRecuYBotones {
                 break;
 
             case "Construccion":
-//                btnConstruir.setVisible(true);
-                btnComerciar.setVisible(true);
+                btnConstruir.setVisible(true);
                 btnTerminarTurno.setVisible(true);
                 break;
 

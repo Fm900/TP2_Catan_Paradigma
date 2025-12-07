@@ -17,6 +17,7 @@ import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -44,8 +45,8 @@ public class ConstruirPobladosTest {
         vertice1 = new Vertice(1,0,0);
         vertice2 = new Vertice(2,0,0);
         recursos = new MazoDeRecursos(listaRecursos);
-        jugador1 = new Jugador(recursos, mano, "Hola");
-        jugador2 = new Jugador(recursos, mano, "Hola");
+        jugador1 = new Jugador(recursos, mano, "Hola", Color.ROSYBROWN);
+        jugador2 = new Jugador(recursos, mano, "Hola", Color.BLACK);
         vertice1.conectarConVertice(vertice2);
         cartas = List.of(new Monopolio(new Deshabilitado()));
 

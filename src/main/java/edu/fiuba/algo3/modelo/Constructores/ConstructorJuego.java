@@ -12,13 +12,14 @@ import edu.fiuba.algo3.modelo.Turnos.Fase.Comercio;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Construccion;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Dados;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Fase;
+import javafx.scene.paint.Color;
 
 
 import java.util.List;
 
 public class ConstructorJuego {
-    public Juego construirJuegoCon(List<String> nombreJugadores){
-        List<Jugador> jugadores = new ConstructorJugadores(nombreJugadores).crearJugadores();
+    public Juego construirJuegoCon(List<String> nombreJugadores,List<Color> colores){
+        List<Jugador> jugadores = new ConstructorJugadores(nombreJugadores, colores).crearJugadores();
 
         Banca banca = new ConstructorBanca().crearBanca();
 

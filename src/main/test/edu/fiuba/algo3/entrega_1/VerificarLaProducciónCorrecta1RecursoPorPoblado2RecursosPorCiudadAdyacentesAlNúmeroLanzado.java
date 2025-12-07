@@ -17,6 +17,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Normal;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,11 +47,11 @@ public class VerificarLaProducciónCorrecta1RecursoPorPoblado2RecursosPorCiudadA
         vertice = new Vertice(1,0,0);
         recurso = new Madera();
         terrenoDestino = new Terreno(recurso, 10, (new Normal()));
-        jugador = new Jugador(new MazoDeRecursos(listaRecursos), new Mano(), "Alex");
+        jugador = new Jugador(new MazoDeRecursos(listaRecursos), new Mano(), "Alex", Color.RED);
         poblado = new Poblado(1, 1, jugador);
 
         List<Recurso> listaRecursos = (List.of(new Grano(), new Grano(), new Mineral(), new Mineral(), new Mineral(), new Madera(), new Ladrillo(), new Grano(), new Lana()));
-        jugador2 = new Jugador(new MazoDeRecursos(listaRecursos), new Mano(),"Alex");
+        jugador2 = new Jugador(new MazoDeRecursos(listaRecursos), new Mano(),"Alex", Color.BLACK);
         List<Carta> cartas = new ArrayList<>();
         Juego.crearInstancia(List.of(jugador ,jugador2), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
 

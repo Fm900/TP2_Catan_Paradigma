@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo.Jugador;
 
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Recurso.*;
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +12,13 @@ public class Jugador {
     private final Mano mano;
     private int puntos;
     private final String nombre;
-
-    public Jugador(MazoDeRecursos gestor, Mano manoInicial, String nombre) {
+    private Color color;
+    public Jugador(MazoDeRecursos gestor, Mano manoInicial, String nombre, Color color) {
         this.recursos = gestor;
         this.mano = manoInicial;
         this.nombre = nombre;
         this.puntos = 0;
+        this.color = color;
     }
 
     public void descarteMayoria() {
@@ -90,5 +93,9 @@ public class Jugador {
 
     public void habilitarCartas() {
         mano.habilitarCartas();
+    }
+
+    public Color color(){
+        return color;
     }
 }

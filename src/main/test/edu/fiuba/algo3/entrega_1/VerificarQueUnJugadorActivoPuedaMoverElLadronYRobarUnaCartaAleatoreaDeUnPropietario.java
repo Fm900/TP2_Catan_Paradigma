@@ -17,6 +17,7 @@ import edu.fiuba.algo3.modelo.Tablero.Terreno.Alterado;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Normal;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -44,8 +45,8 @@ public class VerificarQueUnJugadorActivoPuedaMoverElLadronYRobarUnaCartaAleatore
         recursosJugador2 = List.of(new Madera(), new Ladrillo(), new Lana(), new Grano(), new Lana());
         terrenoActual = new Terreno (new Madera(), 5, (new Alterado()));
         terrenoDestino = new Terreno( new Madera(), 10, (new Normal()));
-        jugador1 = new Jugador((new MazoDeRecursos(recursosJugador1)), new Mano(),"Alex");
-        jugador2 = new Jugador((new MazoDeRecursos(recursosJugador2)), new Mano(),"Alex");
+        jugador1 = new Jugador((new MazoDeRecursos(recursosJugador1)), new Mano(),"Alex", Color.BLACK);
+        jugador2 = new Jugador((new MazoDeRecursos(recursosJugador2)), new Mano(),"Alex",Color.WHITE);
         ladron = Ladron.crearLadron(terrenoActual);
         List<Carta> cartas = new ArrayList<>();
         Juego.crearInstancia(List.of(jugador1, jugador2), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));

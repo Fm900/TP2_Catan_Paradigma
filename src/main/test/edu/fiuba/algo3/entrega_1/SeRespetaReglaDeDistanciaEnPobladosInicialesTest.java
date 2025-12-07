@@ -13,6 +13,7 @@ import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class SeRespetaReglaDeDistanciaEnPobladosInicialesTest {
     private Jugador jugadorConRecursosParaUnPoblado() {
         MazoDeRecursos gestor = new MazoDeRecursos(new ArrayList<>());
         Mano mano = new Mano();
-        Jugador jugador = new Jugador(gestor, mano, "Alex");
+        Jugador jugador = new Jugador(gestor, mano, "Alex", Color.BLACK);
 
         jugador.agregarRecurso(new Madera(), 1);
         jugador.agregarRecurso(new Ladrillo(), 1);

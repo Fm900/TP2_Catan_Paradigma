@@ -16,6 +16,7 @@ import edu.fiuba.algo3.modelo.Tablero.Terreno.Alterado;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Normal;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,8 +47,8 @@ public class VerificarQueElTerrenoBajoElLadrónNoProduzcaRecursos {
         recursoMadera = (List.of(madera, new Madera(), new Ladrillo(), new Grano(), new Lana()));
         terrenoActual = new Terreno (madera, 5, (new Alterado()));
         terrenoDestino = new Terreno( madera, 10, (new Normal()));
-        jugador = new Jugador((new MazoDeRecursos(recursoMadera)), new Mano(),"Alex");
-        jugador2 = new Jugador((new MazoDeRecursos(recursosJugador)), new Mano(),"Alex");
+        jugador = new Jugador((new MazoDeRecursos(recursoMadera)), new Mano(),"Alex", Color.RED);
+        jugador2 = new Jugador((new MazoDeRecursos(recursosJugador)), new Mano(),"Alex",Color.BLACK);
         ladron = Ladron.crearLadron(terrenoActual);
         List<Carta> cartas = new ArrayList<>();
         Juego.crearInstancia(List.of(jugador, jugador2), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));

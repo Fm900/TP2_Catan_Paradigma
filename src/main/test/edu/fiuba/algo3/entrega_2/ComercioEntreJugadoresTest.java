@@ -11,6 +11,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Mano;
 import edu.fiuba.algo3.modelo.Intercambio.Oferta.Oferta;
 import edu.fiuba.algo3.modelo.Recurso.*;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,8 +35,8 @@ public class ComercioEntreJugadoresTest {
         MazoDeRecursos gestor2 = new MazoDeRecursos(new ArrayList<Recurso>());
         Mano mano1 = new Mano();
         Mano mano2 = new Mano();
-        this.jugador1 = new Jugador(gestor1,mano1,"Alex");
-        this.jugador2 = new Jugador(gestor2,mano2,"Felix");
+        this.jugador1 = new Jugador(gestor1,mano1,"Alex", Color.CORAL);
+        this.jugador2 = new Jugador(gestor2,mano2,"Felix",Color.BLACK);
         this.comercio = new Comercio();
         this.recurso1 = new Madera();
         this.recurso2 = new Ladrillo();

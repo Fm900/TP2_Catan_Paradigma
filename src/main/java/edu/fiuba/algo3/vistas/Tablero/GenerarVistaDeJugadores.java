@@ -15,10 +15,6 @@ import java.util.List;
 public class GenerarVistaDeJugadores {
     private List<Jugador> jugadores;
     private Jugador jugadorActual;
-    private static final Color[] COLORES_JUGADORES = {
-            Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW,
-            Color.PURPLE, Color.ORANGE, Color.CYAN, Color.MAGENTA
-    };
     private VBox root;
     private Label infoDeFase;
 
@@ -34,10 +30,10 @@ public class GenerarVistaDeJugadores {
     private void crearPanelSuperior() {
         configurarPanelArriba();
         HBox panelSuperior = new HBox();
+        panelSuperior.setSpacing(200);
 
         for (int i = 0; i < jugadores.size(); i++) {
-            System.out.println(jugadores.get(i).obtenerNombre());
-            HBox tarjetaJugador = crearTarjetaJugador(jugadores.get(i), i);
+            HBox tarjetaJugador = crearTarjetaJugador(jugadores.get(i));
             panelSuperior.getChildren().add(tarjetaJugador);
             panelSuperior.setAlignment(Pos.CENTER);
         }
@@ -51,11 +47,11 @@ public class GenerarVistaDeJugadores {
         root.setSpacing(0);
     }
 
-    private HBox crearTarjetaJugador(Jugador jugador, int indiceColor) {
+    private HBox crearTarjetaJugador(Jugador jugador) {
         HBox tarjeta = new HBox();
         configurarTarjetaJugador(tarjeta, jugador);
 
-        Circle icono = crearIconoJugador(indiceColor);
+        Circle icono = crearIconoJugador(jugador.color());
         VBox infoJugador = crearInfoJugador(jugador);
 
         tarjeta.getChildren().addAll(icono, infoJugador);
@@ -83,9 +79,9 @@ public class GenerarVistaDeJugadores {
         tarjeta.setStyle(estilo);
     }
 
-    private Circle crearIconoJugador(int indiceColor) {
+    private Circle crearIconoJugador(Color color) {
         Circle icono = new Circle(20);
-        icono.setFill(COLORES_JUGADORES[indiceColor % COLORES_JUGADORES.length]);
+        icono.setFill(color);
         return icono;
     }
 

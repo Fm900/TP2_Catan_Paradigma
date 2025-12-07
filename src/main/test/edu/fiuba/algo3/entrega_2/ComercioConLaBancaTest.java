@@ -19,6 +19,7 @@ import edu.fiuba.algo3.modelo.Tablero.Puerto.Especifico;
 import edu.fiuba.algo3.modelo.Tablero.Puerto.Estandar;
 import edu.fiuba.algo3.modelo.Tablero.Puerto.Generico;
 import edu.fiuba.algo3.modelo.Tablero.Puerto.Tasa;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +46,7 @@ public class ComercioConLaBancaTest {
         List<Recurso> recursosBancaIniciales = new ArrayList<>(List.of(recurso1,recurso1,recurso2,recurso2,recurso2));
         MazoDeRecursos gestor1 = new MazoDeRecursos(new ArrayList<Recurso>());
         Mano mano1 = new Mano();
-        this.jugador1 = new Jugador(gestor1,mano1,"Alex");
+        this.jugador1 = new Jugador(gestor1,mano1,"Alex", Color.RED);
         this.jugador1.agregarRecurso(recurso1,10);
         this.jugador1.agregarRecurso(recurso2,10);
         this.jugador1.agregarRecurso(recurso3,10);
