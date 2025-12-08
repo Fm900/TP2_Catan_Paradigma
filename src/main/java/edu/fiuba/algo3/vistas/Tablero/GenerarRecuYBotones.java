@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.vistas.Tablero;
 
+import edu.fiuba.algo3.controllers.ControladorDeClickTablero;
+import edu.fiuba.algo3.controllers.ControladorGeneral;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import javafx.geometry.Insets;
@@ -30,9 +32,11 @@ public class GenerarRecuYBotones {
     private Button btnCartas;
     private Button btnConstruir;
     private Button btnTerminarFase;
+    private Button btnMoverLadron;
     private HBox panelAbajo;
     private HBox botonesDerecha;
     private HBox botonesIzquierda;
+    private ControladorDeClickTablero controladorDeClickTablero;
 
 
     private static final String[] RUTAS_RECURSOS = {
@@ -210,10 +214,11 @@ public class GenerarRecuYBotones {
         btnLanzarDados = crearBotonConIcono("/Imagenes/dados.png");
         btnComerciar = crearBotonConIcono("/Imagenes/comerciar.png");
         btnCartas = crearBotonConIcono("/Imagenes/cartas.png");
+        btnMoverLadron = crearBotonConIcono("/Imagenes/Ladron.png");
 
         configurarAccionesBotones();
 
-        botonesDerecha.getChildren().addAll(btnLanzarDados, btnComerciar, btnCartas);
+        botonesDerecha.getChildren().addAll(btnLanzarDados, btnComerciar, btnCartas, btnMoverLadron);
     }
     private void crearBotonesIzquierda() {
         botonesIzquierda.setAlignment(Pos.BOTTOM_LEFT);
@@ -234,7 +239,9 @@ public class GenerarRecuYBotones {
         btnCartas.setOnAction(e -> accionarMostrarCartas());
         btnConstruir.setOnAction(e -> accionarConstruccion());
         btnTerminarFase.setOnAction(e -> accionTerminarFase());
+        btnMoverLadron.setOnAction(e -> accionDeMoverLadron());
     }
+
 
     private Button crearBotonConIcono(String rutaIcono) {
         Button boton = new Button();
@@ -271,7 +278,7 @@ public class GenerarRecuYBotones {
             boton.setStyle(ESTILO_BOTON_HOVER);
             boton.setEffect(new Glow(0.3));
         });
-
+        //aca va texto
         boton.setOnMouseExited(e -> {
             boton.setStyle(ESTILO_BOTON_BASE);
             boton.setEffect(null);
@@ -289,24 +296,30 @@ public class GenerarRecuYBotones {
 
     private void accionLanzarDados() {
         System.out.println("Lanzando dados...");
-        // Implementar lógica de lanzar dados
+        controladorDeClickTablero.tirarDados();
     }
 
     private void accionComerciar() {
         System.out.println("Comerciar...");
-
     }
 
     private void accionTerminarTurno() {
         System.out.println("Terminando turno...");
-        // Implementar lógica de fin de turno
+        controladorDeClickTablero.terminarTurno();
     }
     private void accionarConstruccion() {
+        controladorDeClickTablero.construirBoton();
         System.out.println("Construccion...");
     }
     private void accionTerminarFase() {
         System.out.println("Terminando fase...");
+        controladorDeClickTablero.terminarFase();
     }
+    private void accionDeMoverLadron() {
+        System.out.println("Moviendo al ladron...");
+        controladorDeClickTablero.moverLadron();
+    }
+
     private void accionarMostrarCartas() {
         Stage miniStage = new Stage();
         miniStage.setTitle("Cartas");
@@ -421,6 +434,7 @@ public class GenerarRecuYBotones {
         btnTerminarTurno.setVisible(false);
         btnConstruir.setVisible(false);
         btnTerminarFase.setVisible(false);
+        btnMoverLadron.setVisible(false);
 
         switch (nombreFase) {
             case "Colocación Inicial - Primera Ronda":
@@ -430,9 +444,7 @@ public class GenerarRecuYBotones {
 
             case "Dados":
                 btnLanzarDados.setVisible(true);
-                btnCartas.setVisible(true);
                 btnTerminarTurno.setVisible(true);
-                btnConstruir.setVisible(true);
                 break;
 
             case "Comercio":
@@ -452,5 +464,13 @@ public class GenerarRecuYBotones {
                 btnTerminarTurno.setVisible(true);
                 break;
         }
+    }
+
+    public void setListener(ControladorGeneral controladorDeClickTablero) {
+        this.controladorDeClickTablero = controladorDeClickTablero;
+    }
+
+    public void crearBotonMoverLadron() {
+        btnMoverLadron.setVisible(true);
     }
 }

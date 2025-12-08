@@ -36,7 +36,6 @@ public class Construccion implements Fase {
     }
 
     public void terminarFase(ManejoTurnos manejador) {
-        // El jugador indica que terminó de construir
         manejador.pasarSiguienteFase();
     }
 

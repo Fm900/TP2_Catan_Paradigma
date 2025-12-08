@@ -30,12 +30,7 @@ public class Dados implements Fase {
         tirada = dado1 + dado2;
     }
 
-    private void moverLadron(Jugador jugador,Terreno terreno, Jugador victima) {
-        Juego.getInstancia().descartarCartasJugadores();
-        Ladron.getInstance().moverADestino(jugador, terreno, victima);
-    }
-
-    private void producirRecursos(ManejoTurnos manejador) {
+    public void producirRecursos(ManejoTurnos manejador) {
         Juego.getInstancia().getTablero().producirPara(tirada);
         manejador.pasarSiguienteFase();
     }

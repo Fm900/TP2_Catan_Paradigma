@@ -9,4 +9,9 @@ public interface ControladorDeClickTablero {
     void onSeleccionCancelada();
     void onVerticeSeleccionado(Vertice v, Circle c);
     void onAristaSeleccionada(Arista a, Line l);
+    void construirBoton();
+    void tirarDados();
+    void terminarFase();
+    void terminarTurno();
+    void moverLadron();
 }

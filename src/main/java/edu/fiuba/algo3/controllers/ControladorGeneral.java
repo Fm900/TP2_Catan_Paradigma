@@ -1,17 +1,21 @@
 package edu.fiuba.algo3.controllers;
 
+import edu.fiuba.algo3.modelo.Exception.AristaOcupadaNoSePuedeConstruir;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import edu.fiuba.algo3.modelo.Turnos.Fase.*;
 import edu.fiuba.algo3.modelo.Turnos.Normal;
 import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Turnos.Segundo;
 import edu.fiuba.algo3.modelo.Turnos.Turno;
-import edu.fiuba.algo3.modelo.Turnos.Fase.Fase;
 import edu.fiuba.algo3.vistas.Tablero.GeneradorVistaTablero;
+import edu.fiuba.algo3.vistas.Tablero.GenerarRecuYBotones;
 import edu.fiuba.algo3.vistas.Tablero.VistaTablero;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -27,10 +31,12 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     private final ManejoTurnos manejoTurnos;
     private VistaTablero vistaTablero;
     private GeneradorVistaTablero generadorVista;
+    private GenerarRecuYBotones generarRecuYBotones;
     private Vertice verticeSeleccionado;
     private Arista aristaSeleccionada;
     private Circle circuloSeleccionado;
     private Line lineaSeleccionada;
+    private Terreno terrenoSeleccionado;
 
     public ControladorGeneral(Stage stage, Juego juego) {
         this.juego = juego;
@@ -55,6 +61,11 @@ public class ControladorGeneral implements ControladorDeClickTablero{
         if (generadorVista != null) {
             generadorVista.setListener(this);
         }
+        generarRecuYBotones = vistaTablero.getGenerarRecuYBotones();
+        if(generarRecuYBotones != null) {
+            generarRecuYBotones.setListener(this);
+        }
+
 
         if (estabaFullScreen) {
             stage.setFullScreen(true);
@@ -189,4 +200,105 @@ public class ControladorGeneral implements ControladorDeClickTablero{
         this.aristaSeleccionada = a;
         this.lineaSeleccionada = l;
     }
+
+    @Override
+    public void construirBoton(){
+        Turno turno = getTurnoActual();
+        if (turno instanceof Primer) {
+            construirPirmerTurno((Primer) turno);
+        } else if (turno instanceof Segundo) {
+            construirSegundoTurno((Segundo) turno);
+        } else if (turno instanceof Normal && getFaseActual() instanceof Construccion) {
+            construirFaseConstruccion((Normal) turno);
+        }
+    }
+
+    @Override
+    public void tirarDados() {
+        Dados fase = (Dados) getFaseActual();
+        fase.ejecutar(getJugadorActual(), getManejoTurnos());
+        int tirada = fase.getTirada();
+        if (tirada != 7){
+            fase.producirRecursos(getManejoTurnos());
+        } else{
+            generarRecuYBotones.crearBotonMoverLadron();
+            mostrarMensaje("Te salio un 7, selecciona un terreno, un vertice y mueve al ladron");
+        }
+    }
+    @Override
+    public void moverLadron(){
+        Dados fase = (Dados) getFaseActual();
+        Jugador victima = verticeSeleccionado.getDueño();
+        fase.moverLadron(getJugadorActual(), terrenoSeleccionado,victima,getManejoTurnos());
+    }
+
+    @Override
+    public void terminarFase() {
+        siguienteFase();
+    }
+
+    @Override
+    public void terminarTurno() {
+        verificarVictoria();
+        siguienteTurno();
+    }
+
+    private void construirPirmerTurno(Primer turno){
+        try {
+            // Intentar construir usando el método del turno
+            turno.construir(manejoTurnos, verticeSeleccionado, aristaSeleccionada);
+
+            // Si llegamos aquí, la construcción fue exitosa
+            Color colorJugador = jugadorActual.color();
+            generadorVista.colorearVertice(circuloSeleccionado, colorJugador);
+            generadorVista.colorearArista(lineaSeleccionada, colorJugador);
+
+            limpiarSeleccion();
+            mostrarMensaje("¡Construcción exitosa!");
+
+            siguienteTurno();
+
+        } catch (Exception e) {
+            mostrarMensaje("Error: " + e.getMessage());
+            generadorVista.resetearSeleccion();
+            limpiarSeleccion();
+        }
+    }
+    private void construirSegundoTurno(Segundo turno){
+        try {
+            turno.construir(manejoTurnos, verticeSeleccionado, aristaSeleccionada);
+
+            Color colorJugador = jugadorActual.color();
+            generadorVista.colorearVertice(circuloSeleccionado, colorJugador);
+            generadorVista.colorearArista(lineaSeleccionada, colorJugador);
+
+            limpiarSeleccion();
+            mostrarMensaje("¡Construcción exitosa! Recibiste recursos iniciales.");
+
+            // Avanzar al siguiente jugador
+            siguienteTurno();
+
+        } catch (Exception e) {
+            mostrarMensaje("Error: " + e.getMessage());
+            generadorVista.resetearSeleccion();
+            limpiarSeleccion();
+        }
+    }
+    private void construirFaseConstruccion(Normal turno){
+        Construccion fase = (Construccion) turno.faseActual();
+        if (verticeSeleccionado.getDueño().equals(getJugadorActual())) {
+            fase.construirCiudad(verticeSeleccionado);
+        }
+        fase.construirPoblado(verticeSeleccionado);
+        fase.construirCarretera(aristaSeleccionada);
+    }
+    private void limpiarSeleccion() {
+        this.verticeSeleccionado = null;
+        this.aristaSeleccionada = null;
+        this.circuloSeleccionado = null;
+        this.lineaSeleccionada = null;
+    }
+
+
+
 }

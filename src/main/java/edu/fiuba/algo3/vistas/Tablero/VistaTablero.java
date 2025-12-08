@@ -106,4 +106,8 @@ public class VistaTablero extends EscenaGeneral {
     public GeneradorVistaTablero getGeneradorVista() {
         return genVistaTablero;
     }
+
+    public GenerarRecuYBotones getGenerarRecuYBotones() {
+        return genRecuYBotones;
+    }
 }
