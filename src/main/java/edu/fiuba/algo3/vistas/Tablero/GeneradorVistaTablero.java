@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.vistas.Tablero;
 
+import edu.fiuba.algo3.controllers.ControladorDeClickTablero;
+import edu.fiuba.algo3.controllers.ControladorGeneral;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
@@ -24,14 +26,17 @@ public class GeneradorVistaTablero {
     private Group tableroPane;
     private Image imagenAgua;
     private final Map<Integer, Image> fichasCache = new HashMap<>();
+    private ControladorDeClickTablero controladorDeClickTablero;
+    private final Map<Circle, Vertice> mapaCirculoVertice = new HashMap<>();
+    private final Map<Line, Arista> mapaLineaArista = new HashMap<>();
+    private Circle verticeSeleccionado = null;
+    private Line aristaSeleccionada = null;
 
     public GeneradorVistaTablero(StackPane root) {
         this.root = root;
     }
 
-    public void crearTablero(List<Terreno> terrenos,
-                             List<Vertice> verticesModelo,
-                             List<Arista> aristasModelo) {
+    public void crearTablero(List<Terreno> terrenos, List<Vertice> verticesModelo, List<Arista> aristasModelo) {
 
         tableroPane = new Group();
         root.getChildren().add(tableroPane);
@@ -52,6 +57,7 @@ public class GeneradorVistaTablero {
             dibujarVertices(verticesModelo);
         });
     }
+
     private Image getImagenAgua() {
         if (imagenAgua == null) {
             imagenAgua = new Image(
@@ -62,16 +68,61 @@ public class GeneradorVistaTablero {
         }
         return imagenAgua;
     }
+
+    public void resetearVertice(Circle circulo) {
+        if (circulo != null) {
+            circulo.setFill(Color.WHITE);
+            if (circulo == verticeSeleccionado) {
+                verticeSeleccionado = null;
+            }
+        }
+    }
+
+    public void resetearArista(Line linea) {
+        if (linea != null) {
+            linea.setStroke(Color.GRAY);
+            if (linea == aristaSeleccionada) {
+                aristaSeleccionada = null;
+            }
+        }
+    }
+
+    public void resetearSeleccion() {
+        if (verticeSeleccionado != null) {
+            verticeSeleccionado.setFill(Color.WHITE);
+            verticeSeleccionado = null;
+        }
+        if (aristaSeleccionada != null) {
+            aristaSeleccionada.setStroke(Color.GRAY);
+            aristaSeleccionada = null;
+        }
+    }
+
+    public void colorearVertice(Circle circulo, Color colorJugador) {
+        if (circulo != null) {
+            circulo.setFill(colorJugador);
+            circulo.setStroke(Color.BLACK);
+            circulo.setStrokeWidth(2);
+            circulo.setOnMouseClicked(null);
+        }
+    }
+
+    public void colorearArista(Line linea, Color colorJugador) {
+        if (linea != null) {
+            linea.setStroke(colorJugador);
+            linea.setStrokeWidth(6);
+            linea.setOnMouseClicked(null);
+        }
+    }
+
     private Polygon crearHexagonoDesdeModelo(Terreno terreno) {
 
         Polygon p = new Polygon();
 
-        // El terreno ya tiene los 6 vértices asignados por modelo
         terreno.verticesAdyacentes().forEach(v ->
                 p.getPoints().addAll(v.getX(), v.getY())
         );
 
-        //textura segun el tipo de terreno
         ImagePattern textura = crearTexturaPara(terreno, p);
         p.setFill(textura);
 
@@ -82,24 +133,38 @@ public class GeneradorVistaTablero {
     }
 
     private void dibujarVertices(List<Vertice> verticesModelo) {
-
         for (Vertice v : verticesModelo) {
-
             Circle c = new Circle(v.getX(), v.getY(), 8, Color.WHITE);
             c.setStroke(Color.BLACK);
             c.setStrokeWidth(1.5);
 
-            // ejemplo de interacción
-            c.setOnMouseClicked(e -> c.setFill(Color.RED));
+            mapaCirculoVertice.put(c, v);
+
+            c.setOnMouseClicked(e -> {
+                if (verticeSeleccionado != null && verticeSeleccionado != c) {
+                    verticeSeleccionado.setFill(Color.WHITE);
+                }
+                if (verticeSeleccionado == c) {
+                    c.setFill(Color.WHITE);
+                    verticeSeleccionado = null;
+                    if (controladorDeClickTablero != null) {
+                        controladorDeClickTablero.onSeleccionCancelada();
+                    }
+                } else {
+                    c.setFill(Color.RED);
+                    verticeSeleccionado = c;
+                    if (controladorDeClickTablero != null) {
+                        controladorDeClickTablero.onVerticeSeleccionado(v, c);
+                    }
+                }
+            });
 
             tableroPane.getChildren().add(c);
         }
     }
 
     private void dibujarAristas(List<Arista> aristasModelo) {
-
         for (Arista a : aristasModelo) {
-
             Vertice v1 = a.extremo1();
             Vertice v2 = a.extremo2();
 
@@ -107,15 +172,36 @@ public class GeneradorVistaTablero {
             l.setStroke(Color.GRAY);
             l.setStrokeWidth(4);
 
-            // ejemplo de interacción
-            l.setOnMouseClicked(e -> l.setStroke(Color.BLUE));
+            mapaLineaArista.put(l, a);
+
+            l.setOnMouseClicked(e -> {
+                if (aristaSeleccionada != null && aristaSeleccionada != l) {
+                    aristaSeleccionada.setStroke(Color.GRAY);
+                }
+
+                // Si es la misma arista, deseleccionar
+                if (aristaSeleccionada == l) {
+                    l.setStroke(Color.GRAY);
+                    aristaSeleccionada = null;
+                    if (controladorDeClickTablero != null) {
+                        controladorDeClickTablero.onSeleccionCancelada();
+                    }
+                } else {
+                    // Seleccionar nueva arista
+                    l.setStroke(Color.BLUE);
+                    aristaSeleccionada = l;
+                    if (controladorDeClickTablero != null) {
+                        controladorDeClickTablero.onAristaSeleccionada(a, l);
+                    }
+                }
+            });
 
             tableroPane.getChildren().add(l);
         }
     }
 
     private void dibujarHexagonosAgua() {
-        // Constantes (deben coincidir con ConstructorTablero)
+
         double RADIO = 70;
         double ALTURA = RADIO * Math.sqrt(3);
         int[] filas = {3, 4, 5, 4, 3};
@@ -124,38 +210,21 @@ public class GeneradorVistaTablero {
         double dx = ALTURA;
         double dy = RADIO * 1.5;
 
-        // Fila superior de agua (fila -1)
         dibujarFilaAgua(-1, 4, dx, dy, filaMax, RADIO);
-
-        // Lateral izquierdo superior
         dibujarHexagonoAgua(0, -1, dx, dy, filaMax, 3, RADIO);
         dibujarHexagonoAgua(1, -1, dx, dy, filaMax, 4, RADIO);
-
-        // Lateral izquierdo medio
         dibujarHexagonoAgua(2, -1, dx, dy, filaMax, 5, RADIO);
-
-        // Lateral izquierdo inferior
         dibujarHexagonoAgua(3, -1, dx, dy, filaMax, 4, RADIO);
         dibujarHexagonoAgua(4, -1, dx, dy, filaMax, 3, RADIO);
-
-        // Lateral derecho superior
         dibujarHexagonoAgua(0, 3, dx, dy, filaMax, 3, RADIO);
         dibujarHexagonoAgua(1, 4, dx, dy, filaMax, 4, RADIO);
-
-        // Lateral derecho medio
         dibujarHexagonoAgua(2, 5, dx, dy, filaMax, 5, RADIO);
-
-        // Lateral derecho inferior
         dibujarHexagonoAgua(3, 4, dx, dy, filaMax, 4, RADIO);
         dibujarHexagonoAgua(4, 3, dx, dy, filaMax, 3, RADIO);
-
-        // Fila inferior de agua (fila 5)
         dibujarFilaAgua(5, 4, dx, dy, filaMax, RADIO);
     }
 
     private void dibujarFilaAgua(int fila, int cantidad, double dx, double dy, int filaMax, double radio) {
-        double offsetX = (filaMax - cantidad) * (dx / 2.0);
-
         for (int col = 0; col < cantidad; col++) {
             dibujarHexagonoAgua(fila, col, dx, dy, filaMax, cantidad, radio);
         }
@@ -176,10 +245,8 @@ public class GeneradorVistaTablero {
             hex.getPoints().addAll(vx, vy);
         }
 
-        // === Textura de océano ===
         Image img = getImagenAgua();
 
-        // Bounds del hexágono
         Bounds b = hex.getBoundsInLocal();
         double x = b.getMinX();
         double y = b.getMinY();
@@ -200,7 +267,7 @@ public class GeneradorVistaTablero {
         hex.setStroke(Color.DARKBLUE);
         hex.setStrokeWidth(2);
 
-        tableroPane.getChildren().add(0, hex); // al fondo
+        tableroPane.getChildren().add(0, hex);
     }
 
 
@@ -247,6 +314,7 @@ public class GeneradorVistaTablero {
         fichasCache.put(numero, img);
         return img;
     }
+
     private void agregarFichaNumero(Terreno terreno, Polygon hexagono) {
         int numero = terreno.numeroFicha();
         if (numero == 0) return; // desierto, sin ficha
@@ -275,4 +343,7 @@ public class GeneradorVistaTablero {
         tableroPane.getChildren().add(fichaView);
     }
 
+    public void setListener(ControladorDeClickTablero controladorGeneral) {
+        this.controladorDeClickTablero = controladorGeneral;
+    }
 }

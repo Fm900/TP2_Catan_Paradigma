@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.vistas.Principales;
 
-import edu.fiuba.algo3.controllers.ControladoGeneral;
+import edu.fiuba.algo3.controllers.ControladorGeneral;
 import edu.fiuba.algo3.controllers.ControladorDeAlerta;
 import edu.fiuba.algo3.controllers.ControladorDeInicioDeJuego;
 import edu.fiuba.algo3.modelo.Juego;
@@ -59,7 +59,6 @@ public class SeleccionarJugadores extends EscenaGeneral {
                 getClass().getResource("/estilos/selec-jugadores.css").toExternalForm()
         );
 
-        /* ---------- CANTIDAD DE JUGADORES ---------- */
 
         Label labelCantidad = new Label("Cantidad de jugadores:");
         labelCantidad.getStyleClass().add("label-titulo");
@@ -79,7 +78,6 @@ public class SeleccionarJugadores extends EscenaGeneral {
         opcionesCantidad.getStyleClass().add("opciones-cantidad");
         opcionesCantidad.setAlignment(Pos.CENTER_LEFT);
 
-        /* ---------- NOMBRES + COLORES ---------- */
 
         Label labelNombres = new Label("Nombres de los jugadores:");
         labelNombres.getStyleClass().add("label-titulo");
@@ -138,7 +136,6 @@ public class SeleccionarJugadores extends EscenaGeneral {
         VBox camposNombres = new VBox(10, labelNombres, fila1, fila2, fila3, fila4);
         camposNombres.getStyleClass().add("campos-nombres");
 
-        /* ---------- BOTONES ---------- */
 
         comenzar = new Button("Comenzar partida");
         volver   = new Button("Volver al menú");
@@ -236,11 +233,10 @@ public class SeleccionarJugadores extends EscenaGeneral {
     }
 
     private void cambiarATablero(Stage stage) {
-        new ControladoGeneral(stage, juego);
+        new ControladorGeneral(stage, juego);
     }
 
     @Override
     protected void createStyles() {
-        // Ya no se usa porque todo está en styles.css
     }
 }

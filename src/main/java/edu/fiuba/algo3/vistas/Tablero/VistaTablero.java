@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.Tablero;
 
+import edu.fiuba.algo3.controllers.ControladorGeneral;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.vistas.Principales.EscenaGeneral;
@@ -23,9 +24,10 @@ public class VistaTablero extends EscenaGeneral {
     private HBox espacioCentro;
     private HBox espacioDerecha;
     private HBox espacioIzquierda;
-    GenerarVistaDeJugadores genVistaDeJugadores ;
-    GeneradorVistaTablero genVistaTablero;
-    GenerarRecuYBotones genRecuYBotones;
+
+    private GenerarVistaDeJugadores genVistaDeJugadores ;
+    private GeneradorVistaTablero genVistaTablero;
+    private GenerarRecuYBotones genRecuYBotones;
 
 
     public VistaTablero(Tablero tablero, Stage stage, List<Jugador> jugadores, Jugador jugador) {
@@ -50,16 +52,11 @@ public class VistaTablero extends EscenaGeneral {
     protected Pane createLayout() {
         BorderPane root = new BorderPane();
 
-        //PARTE DE ARRIBA
         panelArriba = new VBox();
         root.setTop(panelArriba);
 
-
-
-        //PARTE DEL CENTRO
         tableroPane = new StackPane();
         root.setCenter(tableroPane);
-
 
         barraAbajo = new HBox();
         barraAbajo.setAlignment(Pos.CENTER);
@@ -85,7 +82,6 @@ public class VistaTablero extends EscenaGeneral {
 
     @Override
     protected void createControllers(Stage stage) {
-        // acá van listeners futuros si querés clickear aristas, vértices, etc.
     }
 
     @Override
@@ -105,5 +101,9 @@ public class VistaTablero extends EscenaGeneral {
     public void actualizarInfoTurno(String nombreFase) {
         genVistaDeJugadores.actualizarInfo(nombreFase);
         genRecuYBotones.actualizarBotonesSegunFase(nombreFase);
+    }
+
+    public GeneradorVistaTablero getGeneradorVista() {
+        return genVistaTablero;
     }
 }

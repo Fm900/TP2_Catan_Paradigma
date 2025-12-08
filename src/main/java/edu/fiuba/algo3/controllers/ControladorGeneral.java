@@ -2,18 +2,23 @@ package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import edu.fiuba.algo3.modelo.Turnos.Normal;
 import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Turnos.Segundo;
 import edu.fiuba.algo3.modelo.Turnos.Turno;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Fase;
+import edu.fiuba.algo3.vistas.Tablero.GeneradorVistaTablero;
 import edu.fiuba.algo3.vistas.Tablero.VistaTablero;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.util.List;
 
-public class ControladoGeneral {
+public class ControladorGeneral implements ControladorDeClickTablero{
     private final List<Jugador> jugadores;
     private Jugador jugadorActual;
     private final Juego juego;
@@ -21,8 +26,13 @@ public class ControladoGeneral {
     private final Stage stage;
     private final ManejoTurnos manejoTurnos;
     private VistaTablero vistaTablero;
+    private GeneradorVistaTablero generadorVista;
+    private Vertice verticeSeleccionado;
+    private Arista aristaSeleccionada;
+    private Circle circuloSeleccionado;
+    private Line lineaSeleccionada;
 
-    public ControladoGeneral(Stage stage, Juego juego) {
+    public ControladorGeneral(Stage stage, Juego juego) {
         this.juego = juego;
         this.jugadores = juego.getJugadores();
         this.tablero = juego.getTablero();
@@ -40,6 +50,11 @@ public class ControladoGeneral {
 
         vistaTablero = new VistaTablero(tablero, stage, jugadores, jugadorActual);
         stage.setScene(vistaTablero.getScene());
+
+        generadorVista = vistaTablero.getGeneradorVista();
+        if (generadorVista != null) {
+            generadorVista.setListener(this);
+        }
 
         if (estabaFullScreen) {
             stage.setFullScreen(true);
@@ -95,10 +110,6 @@ public class ControladoGeneral {
     private void actualizarVista() {
         vistaTablero.actualizarJugadorActual(manejoTurnos.jugadorActual());
         vistaTablero.actualizarInfoTurno(getNombreFaseActual());
-    }
-
-    public void mostrar() {
-        inicializarVista();
     }
 
     private void mostrarMensaje(String mensaje) {
@@ -158,15 +169,24 @@ public class ControladoGeneral {
         return juego;
     }
 
-    public boolean esturnoNormal() {
-        return manejoTurnos.getTurnoActual() instanceof Normal;
+    @Override
+    public void onSeleccionCancelada() {
+        this.verticeSeleccionado = null;
+        this.aristaSeleccionada = null;
+        this.circuloSeleccionado = null;
+        this.lineaSeleccionada = null;
+        System.out.println("Selección cancelada");
     }
 
-    public boolean esPrimerTurno() {
-        return manejoTurnos.getTurnoActual() instanceof Primer;
+    @Override
+    public void onVerticeSeleccionado(Vertice v, Circle c) {
+        this.verticeSeleccionado = v;
+        this.circuloSeleccionado = c;
     }
 
-    public boolean esSegundoTurno() {
-        return manejoTurnos.getTurnoActual() instanceof Segundo;
+    @Override
+    public void onAristaSeleccionada(Arista a, Line l) {
+        this.aristaSeleccionada = a;
+        this.lineaSeleccionada = l;
     }
 }

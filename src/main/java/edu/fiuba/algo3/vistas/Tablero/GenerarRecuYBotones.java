@@ -29,6 +29,7 @@ public class GenerarRecuYBotones {
     private Button btnComerciar;
     private Button btnCartas;
     private Button btnConstruir;
+    private Button btnTerminarFase;
     private HBox panelAbajo;
     private HBox botonesDerecha;
     private HBox botonesIzquierda;
@@ -202,27 +203,28 @@ public class GenerarRecuYBotones {
         Tooltip.install(item, tooltip);
     }
 
-    // ==================== BOTONES DE ACCIÓN ====================
     private void crearBotonesDerecha() {
         botonesDerecha.setAlignment(Pos.BOTTOM_RIGHT);
         botonesDerecha.setPadding(new Insets(0, 10, 10, 0));
 
         btnLanzarDados = crearBotonConIcono("/Imagenes/dados.png");
         btnComerciar = crearBotonConIcono("/Imagenes/comerciar.png");
-        btnTerminarTurno = crearBotonConIcono("/Imagenes/finalizar.png");
+        btnCartas = crearBotonConIcono("/Imagenes/cartas.png");
 
         configurarAccionesBotones();
 
-        botonesDerecha.getChildren().addAll(btnLanzarDados, btnComerciar, btnTerminarTurno);
+        botonesDerecha.getChildren().addAll(btnLanzarDados, btnComerciar, btnCartas);
     }
     private void crearBotonesIzquierda() {
         botonesIzquierda.setAlignment(Pos.BOTTOM_LEFT);
         botonesIzquierda.setPadding(new Insets(0, 0, 10, 10));
 
-        btnCartas = crearBotonConIcono("/Imagenes/cartas.png");
-        btnConstruir = crearBotonConIcono("/Imagenes/construir.png");
 
-        botonesIzquierda.getChildren().addAll(btnCartas, btnConstruir);
+        btnConstruir = crearBotonConIcono("/Imagenes/construir.png");
+        btnTerminarFase = crearBotonConIcono("/Imagenes/terminarFase.png");
+        btnTerminarTurno = crearBotonConIcono("/Imagenes/finalizar.png");
+
+        botonesIzquierda.getChildren().addAll(btnConstruir,btnTerminarFase,btnTerminarTurno);
     }
 
     private void configurarAccionesBotones() {
@@ -231,6 +233,7 @@ public class GenerarRecuYBotones {
         btnTerminarTurno.setOnAction(e -> accionTerminarTurno());
         btnCartas.setOnAction(e -> accionarMostrarCartas());
         btnConstruir.setOnAction(e -> accionarConstruccion());
+        btnTerminarFase.setOnAction(e -> accionTerminarFase());
     }
 
     private Button crearBotonConIcono(String rutaIcono) {
@@ -301,11 +304,13 @@ public class GenerarRecuYBotones {
     private void accionarConstruccion() {
         System.out.println("Construccion...");
     }
+    private void accionTerminarFase() {
+        System.out.println("Terminando fase...");
+    }
     private void accionarMostrarCartas() {
         Stage miniStage = new Stage();
         miniStage.setTitle("Cartas");
 
-        // ---------- CONTENEDOR PRINCIPAL ----------
         VBox layout = new VBox(15);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.TOP_CENTER);
@@ -318,7 +323,6 @@ public class GenerarRecuYBotones {
                         "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0, 0, 4);"
         );
 
-        // ---------- TÍTULO ----------
         Label titulo = new Label("Elegí una carta:");
         titulo.setStyle(
                 "-fx-text-fill: white;" +
@@ -327,7 +331,6 @@ public class GenerarRecuYBotones {
         );
         layout.getChildren().add(titulo);
 
-        // ---------- LISTA DE CARTAS ----------
         VBox listaCartas = new VBox(10);
         listaCartas.setPadding(new Insets(5));
         listaCartas.setAlignment(Pos.TOP_CENTER);
@@ -384,7 +387,6 @@ public class GenerarRecuYBotones {
             listaCartas.getChildren().add(opcion);
         }
 
-        // ---------- SCROLL ----------
         ScrollPane scroll = new ScrollPane(listaCartas);
         scroll.setFitToWidth(true);
         scroll.setStyle(
@@ -395,7 +397,6 @@ public class GenerarRecuYBotones {
 
         layout.getChildren().add(scroll);
 
-        // ---------- ESCENA ----------
         Scene scene = new Scene(layout, 300, 380);
         miniStage.setScene(scene);
         miniStage.initModality(Modality.APPLICATION_MODAL);
@@ -419,26 +420,30 @@ public class GenerarRecuYBotones {
         btnCartas.setVisible(false);
         btnTerminarTurno.setVisible(false);
         btnConstruir.setVisible(false);
+        btnTerminarFase.setVisible(false);
 
         switch (nombreFase) {
             case "Colocación Inicial - Primera Ronda":
             case "Colocación Inicial - Segunda Ronda":
                 btnConstruir.setVisible(true);
-                btnTerminarTurno.setVisible(true);
                 break;
 
             case "Dados":
                 btnLanzarDados.setVisible(true);
                 btnCartas.setVisible(true);
+                btnTerminarTurno.setVisible(true);
+                btnConstruir.setVisible(true);
                 break;
 
             case "Comercio":
                 btnComerciar.setVisible(true);
+                btnTerminarFase.setVisible(true);
                 btnTerminarTurno.setVisible(true);
                 break;
 
             case "Construccion":
                 btnConstruir.setVisible(true);
+                btnTerminarFase.setVisible(true);
                 btnTerminarTurno.setVisible(true);
                 break;
 
