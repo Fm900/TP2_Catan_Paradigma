@@ -4,19 +4,31 @@ import edu.fiuba.algo3.controllers.ControladorDeClickTablero;
 import edu.fiuba.algo3.controllers.ControladorGeneral;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Especifico;
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Generico;
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Puerto;
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Tasa;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 
 import java.util.*;
@@ -31,12 +43,14 @@ public class GeneradorVistaTablero {
     private final Map<Line, Arista> mapaLineaArista = new HashMap<>();
     private Circle verticeSeleccionado = null;
     private Line aristaSeleccionada = null;
+    private final Map<String, Image> barcosCache = new HashMap<>();
+
 
     public GeneradorVistaTablero(StackPane root) {
         this.root = root;
     }
 
-    public void crearTablero(List<Terreno> terrenos, List<Vertice> verticesModelo, List<Arista> aristasModelo) {
+    public void crearTablero(List<Terreno> terrenos, List<Vertice> verticesModelo, List<Arista> aristasModelo, List<Puerto> puertosModelo) {
 
         tableroPane = new Group();
         root.getChildren().add(tableroPane);
@@ -55,6 +69,8 @@ public class GeneradorVistaTablero {
             dibujarAristas(aristasModelo);
 
             dibujarVertices(verticesModelo);
+
+            dibujarPuertos(puertosModelo);
         });
     }
 
@@ -345,5 +361,130 @@ public class GeneradorVistaTablero {
 
     public void setListener(ControladorDeClickTablero controladorGeneral) {
         this.controladorDeClickTablero = controladorGeneral;
+    }
+
+
+    private Image obtenerImagenBarco(Puerto puerto) {
+        String nombre;
+
+        if (puerto.getRecurso() == null) {
+            nombre = "barcoGenerico.png";
+        } else if (puerto.getRecurso() instanceof Madera) {
+            nombre = "barcoMadera.png";
+        } else if (puerto.getRecurso() instanceof Grano) {
+            nombre = "barcoTrigo.png";
+        } else if (puerto.getRecurso() instanceof Lana) {
+            nombre = "barcoLana.png";
+        } else if (puerto.getRecurso() instanceof Ladrillo) {
+            nombre = "barcoLadrillo.png";
+        } else if (puerto.getRecurso() instanceof Mineral) {
+            nombre = "barcoMineral.png";
+        } else {
+            nombre = "barcoGenerico.png";
+        }
+
+        if (barcosCache.containsKey(nombre)) {
+            return barcosCache.get(nombre);
+        }
+
+        String ruta = "/Imagenes/" + nombre;
+        Image img = new Image(
+                Objects.requireNonNull(
+                        getClass().getResourceAsStream(ruta),
+                        "No se encontró la imagen de barco: " + ruta
+                )
+        );
+        barcosCache.put(nombre, img);
+        return img;
+    }
+
+
+
+    private void dibujarPuertos(List<Puerto> puertosModelo) {
+        if (puertosModelo == null) return;
+
+        double cx = tableroPane.getBoundsInLocal().getCenterX();
+        double cy = tableroPane.getBoundsInLocal().getCenterY();
+
+        for (Puerto puerto : puertosModelo) {
+
+            Arista a = puerto.getArista();
+            Vertice v1 = a.extremo1();
+            Vertice v2 = a.extremo2();
+
+            double x1 = v1.getX();
+            double y1 = v1.getY();
+            double x2 = v2.getX();
+            double y2 = v2.getY();
+
+            // Punto medio de la arista
+            double midX = (x1 + x2) / 2.0;
+            double midY = (y1 + y2) / 2.0;
+
+            // Vector normal a la arista
+            double dx = x2 - x1;
+            double dy = y2 - y1;
+
+            double nx = -dy;
+            double ny = dx;
+            double nlen = Math.hypot(nx, ny);
+            if (nlen == 0) nlen = 1;
+            nx /= nlen;
+            ny /= nlen;
+
+            double candidateX1 = midX + nx * 45;
+            double candidateY1 = midY + ny * 45;
+            double candidateX2 = midX - nx * 45;
+            double candidateY2 = midY - ny * 45;
+
+            double d1 = Math.hypot(candidateX1 - cx, candidateY1 - cy);
+            double d2 = Math.hypot(candidateX2 - cx, candidateY2 - cy);
+
+            double portX = (d1 > d2) ? candidateX1 : candidateX2;
+            double portY = (d1 > d2) ? candidateY1 : candidateY2;
+
+
+            double shorten = 12.0;
+
+            // hacia v1
+            double vx1 = x1 - portX;
+            double vy1 = y1 - portY;
+            double len1 = Math.hypot(vx1, vy1);
+            double end1X = portX + vx1 * ((len1 - shorten) / len1);
+            double end1Y = portY + vy1 * ((len1 - shorten) / len1);
+
+            // hacia v2
+            double vx2 = x2 - portX;
+            double vy2 = y2 - portY;
+            double len2 = Math.hypot(vx2, vy2);
+            double end2X = portX + vx2 * ((len2 - shorten) / len2);
+            double end2Y = portY + vy2 * ((len2 - shorten) / len2);
+
+            Line l1 = new Line(portX, portY, end1X, end1Y);
+            Line l2 = new Line(portX, portY, end2X, end2Y);
+            l1.setStroke(Color.BURLYWOOD);
+            l2.setStroke(Color.BURLYWOOD);
+            l1.setStrokeWidth(4);
+            l2.setStrokeWidth(4);
+            l1.setStrokeLineCap(StrokeLineCap.ROUND);
+            l2.setStrokeLineCap(StrokeLineCap.ROUND);
+
+            // ==== imagen del barco ====
+            Image imgBarco = obtenerImagenBarco(puerto);
+            ImageView barcoView = new ImageView(imgBarco);
+
+            // tamaño del barco en pantalla
+            double anchoBarco = 70;
+            barcoView.setFitWidth(anchoBarco);
+            barcoView.setPreserveRatio(true);
+
+            double escala = anchoBarco / imgBarco.getWidth();
+            double altoBarco = imgBarco.getHeight() * escala;
+            barcoView.setLayoutX(portX - anchoBarco / 2.0);
+            barcoView.setLayoutY(portY - altoBarco / 2.0);
+
+            tableroPane.getChildren().addAll(l1, l2, barcoView);
+
+        }
     }
 }

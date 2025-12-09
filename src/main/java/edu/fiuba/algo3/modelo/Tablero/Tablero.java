@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Constructores.GeneradorDeTerrenos;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Puerto;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
@@ -15,11 +16,17 @@ public class Tablero {
     private List<Terreno> terrenos;
     private List<Vertice> vertices;
     private List<Arista> aristas;
+    private List<Puerto> puertos;
 
-    public Tablero(List<Terreno> terrenos, List<Vertice> vertices, List<Arista> aristas) {
+    public Tablero(List<Terreno> terrenos, List<Vertice> vertices, List<Arista> aristas, List<Puerto> puertos) {
         this.terrenos = terrenos;
         this.vertices = vertices;
         this.aristas = aristas;
+        this.puertos = puertos;
+    }
+
+    public Tablero(List<Terreno> terrenos, List<Vertice> vertices, List<Arista> aristas) {
+        this(terrenos, vertices,aristas, new ArrayList<>());
     }
 
     public Tablero(GeneradorDeTerrenos generador) {
@@ -117,5 +124,9 @@ public class Tablero {
     private boolean verticesBloquean(Vertice v1, Vertice v2, Jugador jugador) {
         return (v1.getDueño() != null && v1.getDueño() != jugador)
                 || (v2.getDueño() != null && v2.getDueño() != jugador);
+    }
+
+    public List<Puerto> puertos() {
+        return Collections.unmodifiableList(puertos);
     }
 }

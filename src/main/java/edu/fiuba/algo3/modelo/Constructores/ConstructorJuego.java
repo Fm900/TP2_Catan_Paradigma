@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Constructores;
 
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Puerto;
 import edu.fiuba.algo3.modelo.Turnos.*;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Juego;
@@ -27,7 +28,8 @@ public class ConstructorJuego {
         List<Terreno> terrenos = ctor.generarTerrenos();
         List<Vertice> vertices = ctor.generarVertices();
         List<Arista> aristas = ctor.generarAristas();
-        Tablero tablero = new Tablero(terrenos, vertices, aristas);
+        List<Puerto> puertos = ctor.generarPuertos();
+        Tablero tablero = new Tablero(terrenos, vertices, aristas,puertos);
         return Juego.crearInstancia(jugadores,tablero,banca);
     }
 }

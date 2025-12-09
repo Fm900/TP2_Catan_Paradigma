@@ -42,7 +42,7 @@ public class VistaTablero extends EscenaGeneral {
         genVistaDeJugadores.construir();
 
         genVistaTablero = new GeneradorVistaTablero(tableroPane);
-        genVistaTablero.crearTablero(tablero.terrenos(), tablero.vertices(),tablero.aristas());
+        genVistaTablero.crearTablero(tablero.terrenos(), tablero.vertices(),tablero.aristas(), tablero.puertos());
 
         genRecuYBotones = new GenerarRecuYBotones(espacioCentro, espacioDerecha,espacioIzquierda,actual);
         genRecuYBotones.construir();

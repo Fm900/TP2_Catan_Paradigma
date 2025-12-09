@@ -1,7 +1,9 @@
 package edu.fiuba.algo3.modelo.Constructores;
 
+import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Vacia;
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Puerto;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
@@ -23,11 +25,13 @@ public class ConstructorTablero {
     private final List<Terreno> terrenos;
     private final List<Vertice> vertices;
     private final List<Arista> aristas;
+    private final List<Puerto> puertos;
 
     public ConstructorTablero() {
         this.terrenos = new GeneradorDeTerrenos().generar();
         this.vertices = new ArrayList<>();
         this.aristas = new ArrayList<>();
+        this.puertos = new ArrayList<>();
         generarGeometria();
     }
 
@@ -41,6 +45,10 @@ public class ConstructorTablero {
 
     public List<Arista> generarAristas() {
         return Collections.unmodifiableList(this.aristas);
+    }
+
+    public List<Puerto> generarPuertos() {
+        return Collections.unmodifiableList(this.puertos);
     }
 
     private void generarGeometria() {
@@ -133,9 +141,89 @@ public class ConstructorTablero {
                                     Map<String, Arista> mapaAristas) {
         vertices.addAll(mapaVertices.values());
         aristas.addAll(mapaAristas.values());
+        crearPuertos();
     }
 
     private static double redondear(double n) {
         return Math.round(n * red) / red;
     }
+
+    private void crearPuertos() {
+        List<Arista> aristasCosta = new ArrayList<>();
+
+        for (Arista a : aristas) {
+            int count = 0;
+            for (Terreno t : terrenos) {
+                if (t.tieneVertice(a.extremo1()) && t.tieneVertice(a.extremo2())) {
+                    count++;
+                    if (count > 1) break;
+                }
+            }
+            if (count == 1) {
+                aristasCosta.add(a);
+            }
+        }
+
+        double cx = vertices.stream().mapToDouble(Vertice::getX).average().orElse(0);
+        double cy = vertices.stream().mapToDouble(Vertice::getY).average().orElse(0);
+
+        class AC {
+            Arista a;
+            double ang;
+            AC(Arista arista) {
+                this.a = arista;
+                double mx = (arista.extremo1().getX() + arista.extremo2().getX()) / 2.0;
+                double my = (arista.extremo1().getY() + arista.extremo2().getY()) / 2.0;
+                this.ang = Math.atan2(my - cy, mx - cx);
+            }
+        }
+
+        List<AC> lista = new ArrayList<>();
+        for (Arista a : aristasCosta) {
+            lista.add(new AC(a));
+        }
+        lista.sort(Comparator.comparingDouble(ac -> ac.ang));
+
+        int N = lista.size();
+        double step = (double) N / 9.0;
+
+        List<Arista> seleccionadas = new ArrayList<>();
+        Set<Integer> usados = new HashSet<>();
+
+        for (int i = 0; i < 9; i++) {
+            int idx = (int) Math.round(i * step);
+            if (idx >= N) idx = N - 1;
+
+            while (usados.contains(idx) && idx < N - 1) {
+                idx++;
+            }
+            usados.add(idx);
+            seleccionadas.add(lista.get(idx).a);
+        }
+
+        List<Recurso> tipos = new ArrayList<>();
+        tipos.add(null);
+        tipos.add(null);
+        tipos.add(null);
+        tipos.add(null);
+        tipos.add(new Madera());
+        tipos.add(new Ladrillo());
+        tipos.add(new Lana());
+        tipos.add(new Grano());
+        tipos.add(new Mineral());
+
+        Collections.shuffle(tipos);
+
+        for (int i = 0; i < 9; i++) {
+            Arista arista = seleccionadas.get(i);
+            Recurso tipo = tipos.get(i);
+
+            if (tipo == null) {
+                puertos.add(new Puerto(arista));
+            } else {
+                puertos.add(new Puerto(tipo, arista));
+            }
+        }
+    }
+
 }
