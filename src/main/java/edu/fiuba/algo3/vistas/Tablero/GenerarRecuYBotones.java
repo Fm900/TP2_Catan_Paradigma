@@ -473,4 +473,8 @@ public class GenerarRecuYBotones {
     public void crearBotonMoverLadron() {
         btnMoverLadron.setVisible(true);
     }
+
+    public void desactivarBoton() {
+        btnLanzarDados.setVisible(false);
+    }
 }

@@ -11,6 +11,7 @@ import edu.fiuba.algo3.modelo.Turnos.Normal;
 import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Turnos.Segundo;
 import edu.fiuba.algo3.modelo.Turnos.Turno;
+import edu.fiuba.algo3.vistas.Otros.AnimacionDados;
 import edu.fiuba.algo3.vistas.Tablero.GeneradorVistaTablero;
 import edu.fiuba.algo3.vistas.Tablero.GenerarRecuYBotones;
 import edu.fiuba.algo3.vistas.Tablero.VerticeVista;
@@ -215,15 +216,18 @@ public class ControladorGeneral implements ControladorDeClickTablero{
 
     @Override
     public void tirarDados() {
+        AnimacionDados animacionDados = new AnimacionDados();
         Dados fase = (Dados) getFaseActual();
         fase.ejecutar(getJugadorActual(), getManejoTurnos());
         int tirada = fase.getTirada();
+        animacionDados.mostrarAnimacion(stage,fase.getDado1(),fase.getDado2());
+
         if (tirada != 7){
             fase.producirRecursos(getManejoTurnos());
         } else{
             generarRecuYBotones.crearBotonMoverLadron();
-            mostrarMensaje("Te salio un 7, selecciona un terreno, un vertice y mueve al ladron");
         }
+        generarRecuYBotones.desactivarBoton();
     }
     @Override
     public void moverLadron(){
