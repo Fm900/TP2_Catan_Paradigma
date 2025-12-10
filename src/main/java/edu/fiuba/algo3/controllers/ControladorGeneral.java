@@ -18,6 +18,7 @@ import edu.fiuba.algo3.vistas.Tablero.VerticeVista;
 import edu.fiuba.algo3.vistas.Tablero.VistaTablero;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -37,6 +38,7 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     private VerticeVista circuloSeleccionado;
     private Line lineaSeleccionada;
     private Terreno terrenoSeleccionado;
+    private Polygon polygonSeleccionado;
 
     public ControladorGeneral(Stage stage, Juego juego) {
         this.juego = juego;
@@ -203,6 +205,12 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     }
 
     @Override
+    public void obTerrenoSeleccionado(Terreno t, Polygon p) {
+        this.terrenoSeleccionado = t;
+        this.polygonSeleccionado = p;
+    }
+
+    @Override
     public void construirBoton(){
         Turno turno = getTurnoActual();
         if (turno instanceof Primer) {
@@ -233,6 +241,9 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     public void moverLadron(){
         Dados fase = (Dados) getFaseActual();
         Jugador victima = verticeSeleccionado.getDueño();
+        if (victima == null){
+            mostrarMensaje("El vertice sleccionado tiene que tener dueño");
+        }
         fase.moverLadron(getJugadorActual(), terrenoSeleccionado,victima,getManejoTurnos());
     }
 

@@ -9,6 +9,7 @@ import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -31,6 +32,7 @@ public class GeneradorVistaTablero {
     private final Map<Line, Arista> mapaLineaArista = new HashMap<>();
     private VerticeVista verticeSeleccionado = null;
     private Line aristaSeleccionada = null;
+    private Polygon hexagonoSeleccionado = null;
     private final Map<String, Image> barcosCache = new HashMap<>();
 
 
@@ -116,6 +118,26 @@ public class GeneradorVistaTablero {
 
         p.setStroke(Color.BLACK);
         p.setStrokeWidth(2);
+        p.setOnMouseClicked(e -> {
+            if (hexagonoSeleccionado != null && hexagonoSeleccionado != p) {
+                hexagonoSeleccionado.setEffect(null);
+                hexagonoSeleccionado.setStroke(Color.BLACK);
+            }
+            if (hexagonoSeleccionado == p) {
+                p.setEffect(null);
+                p.setStroke(Color.BLACK);
+                hexagonoSeleccionado = null;
+            } else {
+                ColorAdjust darken = new ColorAdjust();
+                darken.setBrightness(-0.4);
+                p.setEffect(darken);
+                p.setStroke(Color.YELLOW);
+                hexagonoSeleccionado = p;
+                if (controladorDeClickTablero != null) {
+                    controladorDeClickTablero.obTerrenoSeleccionado(terreno,p);
+                }
+            }
+        });
 
         return p;
     }
@@ -461,6 +483,7 @@ public class GeneradorVistaTablero {
     public void actualizarReferencias() {
         verticeSeleccionado = null;
         aristaSeleccionada = null;
+        hexagonoSeleccionado = null;
     }
 
 }
