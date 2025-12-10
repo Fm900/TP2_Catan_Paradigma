@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.controllers;
 
-import edu.fiuba.algo3.modelo.Exception.AristaOcupadaNoSePuedeConstruir;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
@@ -14,9 +13,9 @@ import edu.fiuba.algo3.modelo.Turnos.Segundo;
 import edu.fiuba.algo3.modelo.Turnos.Turno;
 import edu.fiuba.algo3.vistas.Tablero.GeneradorVistaTablero;
 import edu.fiuba.algo3.vistas.Tablero.GenerarRecuYBotones;
+import edu.fiuba.algo3.vistas.Tablero.VerticeVista;
 import edu.fiuba.algo3.vistas.Tablero.VistaTablero;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
@@ -34,7 +33,7 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     private GenerarRecuYBotones generarRecuYBotones;
     private Vertice verticeSeleccionado;
     private Arista aristaSeleccionada;
-    private Circle circuloSeleccionado;
+    private VerticeVista circuloSeleccionado;
     private Line lineaSeleccionada;
     private Terreno terrenoSeleccionado;
 
@@ -121,6 +120,7 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     private void actualizarVista() {
         vistaTablero.actualizarJugadorActual(manejoTurnos.jugadorActual());
         vistaTablero.actualizarInfoTurno(getNombreFaseActual());
+        vistaTablero.actualizarInfoTablero();
     }
 
     private void mostrarMensaje(String mensaje) {
@@ -190,9 +190,9 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     }
 
     @Override
-    public void onVerticeSeleccionado(Vertice v, Circle c) {
+    public void onVerticeSeleccionado(Vertice v, VerticeVista vista) {
         this.verticeSeleccionado = v;
-        this.circuloSeleccionado = c;
+        this.circuloSeleccionado = vista;
     }
 
     @Override
@@ -245,12 +245,10 @@ public class ControladorGeneral implements ControladorDeClickTablero{
 
     private void construirPirmerTurno(Primer turno){
         try {
-            // Intentar construir usando el método del turno
             turno.construir(manejoTurnos, verticeSeleccionado, aristaSeleccionada);
 
-            // Si llegamos aquí, la construcción fue exitosa
             Color colorJugador = jugadorActual.color();
-            generadorVista.colorearVertice(circuloSeleccionado, colorJugador);
+            generadorVista.colocarCasa(circuloSeleccionado, colorJugador);
             generadorVista.colorearArista(lineaSeleccionada, colorJugador);
 
             limpiarSeleccion();
@@ -269,13 +267,12 @@ public class ControladorGeneral implements ControladorDeClickTablero{
             turno.construir(manejoTurnos, verticeSeleccionado, aristaSeleccionada);
 
             Color colorJugador = jugadorActual.color();
-            generadorVista.colorearVertice(circuloSeleccionado, colorJugador);
+            generadorVista.colocarCasa(circuloSeleccionado, colorJugador);
             generadorVista.colorearArista(lineaSeleccionada, colorJugador);
 
             limpiarSeleccion();
             mostrarMensaje("¡Construcción exitosa! Recibiste recursos iniciales.");
 
-            // Avanzar al siguiente jugador
             siguienteTurno();
 
         } catch (Exception e) {
@@ -286,8 +283,10 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     }
     private void construirFaseConstruccion(Normal turno){
         Construccion fase = (Construccion) turno.faseActual();
+        Jugador jugadorActual = fase.getJugadorActual();
         if (verticeSeleccionado.getDueño().equals(getJugadorActual())) {
             fase.construirCiudad(verticeSeleccionado);
+            generadorVista.colocarCiudad(circuloSeleccionado, jugadorActual.color());
         }
         fase.construirPoblado(verticeSeleccionado);
         fase.construirCarretera(aristaSeleccionada);

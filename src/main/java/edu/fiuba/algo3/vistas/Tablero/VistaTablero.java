@@ -102,6 +102,9 @@ public class VistaTablero extends EscenaGeneral {
         genVistaDeJugadores.actualizarInfo(nombreFase);
         genRecuYBotones.actualizarBotonesSegunFase(nombreFase);
     }
+    public void actualizarInfoTablero() {
+        genVistaTablero.actualizarReferencias();
+    }
 
     public GeneradorVistaTablero getGeneradorVista() {
         return genVistaTablero;
@@ -110,4 +113,6 @@ public class VistaTablero extends EscenaGeneral {
     public GenerarRecuYBotones getGenerarRecuYBotones() {
         return genRecuYBotones;
     }
+
+
 }

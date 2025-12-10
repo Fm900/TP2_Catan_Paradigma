@@ -1,34 +1,22 @@
 package edu.fiuba.algo3.vistas.Tablero;
 
 import edu.fiuba.algo3.controllers.ControladorDeClickTablero;
-import edu.fiuba.algo3.controllers.ControladorGeneral;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
-import edu.fiuba.algo3.modelo.Tablero.Puerto.Especifico;
-import edu.fiuba.algo3.modelo.Tablero.Puerto.Generico;
 import edu.fiuba.algo3.modelo.Tablero.Puerto.Puerto;
-import edu.fiuba.algo3.modelo.Tablero.Puerto.Tasa;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 
 import java.util.*;
@@ -39,9 +27,9 @@ public class GeneradorVistaTablero {
     private Image imagenAgua;
     private final Map<Integer, Image> fichasCache = new HashMap<>();
     private ControladorDeClickTablero controladorDeClickTablero;
-    private final Map<Circle, Vertice> mapaCirculoVertice = new HashMap<>();
+    private final Map<VerticeVista, Vertice> mapaCirculoVertice = new HashMap<>();
     private final Map<Line, Arista> mapaLineaArista = new HashMap<>();
-    private Circle verticeSeleccionado = null;
+    private VerticeVista verticeSeleccionado = null;
     private Line aristaSeleccionada = null;
     private final Map<String, Image> barcosCache = new HashMap<>();
 
@@ -85,27 +73,9 @@ public class GeneradorVistaTablero {
         return imagenAgua;
     }
 
-    public void resetearVertice(Circle circulo) {
-        if (circulo != null) {
-            circulo.setFill(Color.WHITE);
-            if (circulo == verticeSeleccionado) {
-                verticeSeleccionado = null;
-            }
-        }
-    }
-
-    public void resetearArista(Line linea) {
-        if (linea != null) {
-            linea.setStroke(Color.GRAY);
-            if (linea == aristaSeleccionada) {
-                aristaSeleccionada = null;
-            }
-        }
-    }
-
     public void resetearSeleccion() {
         if (verticeSeleccionado != null) {
-            verticeSeleccionado.setFill(Color.WHITE);
+            verticeSeleccionado.deseleccionar();
             verticeSeleccionado = null;
         }
         if (aristaSeleccionada != null) {
@@ -114,13 +84,15 @@ public class GeneradorVistaTablero {
         }
     }
 
-    public void colorearVertice(Circle circulo, Color colorJugador) {
-        if (circulo != null) {
-            circulo.setFill(colorJugador);
-            circulo.setStroke(Color.BLACK);
-            circulo.setStrokeWidth(2);
-            circulo.setOnMouseClicked(null);
+    public void colocarCasa(VerticeVista vista, Color colorJugador) {
+        if (vista != null) {
+            vista.mostrarCasa(colorJugador);
+            vista.setOnMouseClicked(null);
         }
+    }
+    public void colocarCiudad(VerticeVista vista,Color color) {
+        vista.mostrarCiudad(color);
+        vista.setOnMouseClicked(null);
     }
 
     public void colorearArista(Line linea, Color colorJugador) {
@@ -150,34 +122,34 @@ public class GeneradorVistaTablero {
 
     private void dibujarVertices(List<Vertice> verticesModelo) {
         for (Vertice v : verticesModelo) {
-            Circle c = new Circle(v.getX(), v.getY(), 8, Color.WHITE);
-            c.setStroke(Color.BLACK);
-            c.setStrokeWidth(1.5);
 
-            mapaCirculoVertice.put(c, v);
+            VerticeVista vista = new VerticeVista(v);
 
-            c.setOnMouseClicked(e -> {
-                if (verticeSeleccionado != null && verticeSeleccionado != c) {
-                    verticeSeleccionado.setFill(Color.WHITE);
+            mapaCirculoVertice.put(vista, v);
+
+            vista.setOnMouseClicked(e -> {
+                if (verticeSeleccionado != null && verticeSeleccionado != vista) {
+                    verticeSeleccionado.deseleccionar();
                 }
-                if (verticeSeleccionado == c) {
-                    c.setFill(Color.WHITE);
+                if (verticeSeleccionado == vista) {
+                    vista.deseleccionar();
                     verticeSeleccionado = null;
                     if (controladorDeClickTablero != null) {
                         controladorDeClickTablero.onSeleccionCancelada();
                     }
                 } else {
-                    c.setFill(Color.RED);
-                    verticeSeleccionado = c;
+                    vista.seleccionar();
+                    verticeSeleccionado = vista;
                     if (controladorDeClickTablero != null) {
-                        controladorDeClickTablero.onVerticeSeleccionado(v, c);
+                        controladorDeClickTablero.onVerticeSeleccionado(v, vista);
                     }
                 }
             });
 
-            tableroPane.getChildren().add(c);
+            tableroPane.getChildren().add(vista);
         }
     }
+
 
     private void dibujarAristas(List<Arista> aristasModelo) {
         for (Arista a : aristasModelo) {
@@ -186,7 +158,7 @@ public class GeneradorVistaTablero {
 
             Line l = new Line(v1.getX(), v1.getY(), v2.getX(), v2.getY());
             l.setStroke(Color.GRAY);
-            l.setStrokeWidth(4);
+            l.setStrokeWidth(7);
 
             mapaLineaArista.put(l, a);
 
@@ -195,7 +167,6 @@ public class GeneradorVistaTablero {
                     aristaSeleccionada.setStroke(Color.GRAY);
                 }
 
-                // Si es la misma arista, deseleccionar
                 if (aristaSeleccionada == l) {
                     l.setStroke(Color.GRAY);
                     aristaSeleccionada = null;
@@ -203,7 +174,6 @@ public class GeneradorVistaTablero {
                         controladorDeClickTablero.onSeleccionCancelada();
                     }
                 } else {
-                    // Seleccionar nueva arista
                     l.setStroke(Color.BLUE);
                     aristaSeleccionada = l;
                     if (controladorDeClickTablero != null) {
@@ -487,4 +457,10 @@ public class GeneradorVistaTablero {
 
         }
     }
+
+    public void actualizarReferencias() {
+        verticeSeleccionado = null;
+        aristaSeleccionada = null;
+    }
+
 }
