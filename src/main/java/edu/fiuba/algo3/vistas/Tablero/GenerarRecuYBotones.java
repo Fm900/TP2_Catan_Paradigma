@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -212,9 +213,24 @@ public class GenerarRecuYBotones {
         botonesDerecha.setPadding(new Insets(0, 10, 10, 0));
 
         btnLanzarDados = crearBotonConIcono("/Imagenes/dados.png");
+        Tooltip tooltipDado = new Tooltip("Tirar dados");
+        tooltipDado.setShowDelay(Duration.millis(5));
+        btnLanzarDados.setTooltip(tooltipDado);
+
         btnComerciar = crearBotonConIcono("/Imagenes/comerciar.png");
+        Tooltip tooltipComercio = new Tooltip("Comerciar");
+        tooltipComercio.setShowDelay(Duration.millis(5));
+        btnComerciar.setTooltip(tooltipComercio);
+
         btnCartas = crearBotonConIcono("/Imagenes/cartas.png");
+        Tooltip tooltipCarta = new Tooltip("Jugar Cartas");
+        tooltipCarta.setShowDelay(Duration.millis(5));
+        btnCartas.setTooltip(tooltipCarta);
+
         btnMoverLadron = crearBotonConIcono("/Imagenes/Ladron.png");
+        Tooltip tooltipLadron = new Tooltip("Mover Ladron");
+        tooltipLadron.setShowDelay(Duration.millis(5));
+        btnMoverLadron.setTooltip(tooltipLadron);
 
         configurarAccionesBotones();
 
@@ -226,8 +242,19 @@ public class GenerarRecuYBotones {
 
 
         btnConstruir = crearBotonConIcono("/Imagenes/construir.png");
+        Tooltip tooltipConstruir = new Tooltip("Construir");
+        tooltipConstruir.setShowDelay(Duration.millis(5));
+        btnConstruir.setTooltip(tooltipConstruir);
+
         btnTerminarFase = crearBotonConIcono("/Imagenes/terminarFase.png");
+        Tooltip tooltipTerminarFase = new Tooltip("Terminar la fase actual");
+        tooltipTerminarFase.setShowDelay(Duration.millis(5));
+        btnTerminarFase.setTooltip(tooltipTerminarFase);
+
         btnTerminarTurno = crearBotonConIcono("/Imagenes/finalizar.png");
+        Tooltip tooltipTerminarTurno = new Tooltip("Terminar turno");
+        tooltipTerminarTurno.setShowDelay(Duration.millis(5));
+        btnTerminarTurno.setTooltip(tooltipTerminarTurno);
 
         botonesIzquierda.getChildren().addAll(btnConstruir,btnTerminarFase,btnTerminarTurno);
     }
