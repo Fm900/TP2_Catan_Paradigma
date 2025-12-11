@@ -57,7 +57,7 @@ public class ControladorGeneral implements ControladorDeClickTablero{
         boolean estabaFullScreen = stage.isFullScreen();
         boolean estabaMaximized = stage.isMaximized();
 
-        vistaTablero = new VistaTablero(tablero, stage, jugadores, jugadorActual);
+        vistaTablero = new VistaTablero(tablero, stage, jugadores, jugadorActual, manejoTurnos);
         stage.setScene(vistaTablero.getScene());
 
         generadorVista = vistaTablero.getGeneradorVista();

@@ -12,7 +12,8 @@ public class Jugador {
     private final Mano mano;
     private int puntos;
     private final String nombre;
-    private Color color;
+    private final Color color;
+
     public Jugador(MazoDeRecursos gestor, Mano manoInicial, String nombre, Color color) {
         this.recursos = gestor;
         this.mano = manoInicial;
@@ -98,4 +99,14 @@ public class Jugador {
     public Color color(){
         return color;
     }
+
+    public List<Recurso> obtenerRecursos() {
+        return recursos.obtenerRecursos();
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
 }

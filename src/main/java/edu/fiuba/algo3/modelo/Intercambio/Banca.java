@@ -57,4 +57,8 @@ public class Banca {
     public void agregarRecursoCarta(Carta carta) {
         carta.pagarse(banca);
     }
+
+    public List<Carta> getCartas() {
+        return cartas;
+    }
 }

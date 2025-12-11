@@ -30,6 +30,7 @@ public class Comercio implements Fase {
         }
 
         intercambioActual = new EntreJugadores(jugadorActual, receptor, recursosOfrecidos, recursosRequeridos);
+        intercambioActual.intercambio();
         return new Oferta(intercambioActual);
     }
 
@@ -46,16 +47,17 @@ public class Comercio implements Fase {
     }
 
     public void comerciarConBanca(Tasa tasaDeComercio, List<Recurso> ofrecidos, Recurso requerido) {
-
         intercambioActual = new Bancario(jugadorActual, banca, ofrecidos, requerido, tasaDeComercio);
-        intercambioActual.intercambio();
     }
 
 
     public void comprarCarta(Carta carta) {
-
         intercambioActual = new ComprarCartas(jugadorActual, carta);
         intercambioActual.intercambio();
+    }
+
+    public void efectuarComercio(){
+
     }
 
     public void terminarFase(ManejoTurnos manejador) {

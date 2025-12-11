@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.vistas.Tablero;
 
-import edu.fiuba.algo3.controllers.ControladorGeneral;
+
+import edu.fiuba.algo3.controllers.ManejoTurnos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.vistas.Principales.EscenaGeneral;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -28,13 +28,15 @@ public class VistaTablero extends EscenaGeneral {
     private GenerarVistaDeJugadores genVistaDeJugadores ;
     private GeneradorVistaTablero genVistaTablero;
     private GenerarRecuYBotones genRecuYBotones;
+    private ManejoTurnos manejoTurnos;
 
 
-    public VistaTablero(Tablero tablero, Stage stage, List<Jugador> jugadores, Jugador jugador) {
+    public VistaTablero(Tablero tablero, Stage stage, List<Jugador> jugadores, Jugador jugador, ManejoTurnos manejoTurnos) {
         super(stage);
         this.tablero = tablero;
         this.jugadores = jugadores;
         this.actual = jugador;
+        this.manejoTurnos = manejoTurnos;
         iniciar();
     }
     public void iniciar() {
@@ -44,7 +46,7 @@ public class VistaTablero extends EscenaGeneral {
         genVistaTablero = new GeneradorVistaTablero(tableroPane);
         genVistaTablero.crearTablero(tablero.terrenos(), tablero.vertices(),tablero.aristas(), tablero.puertos());
 
-        genRecuYBotones = new GenerarRecuYBotones(espacioCentro, espacioDerecha,espacioIzquierda,actual);
+        genRecuYBotones = new GenerarRecuYBotones(espacioCentro, espacioDerecha,espacioIzquierda,actual, manejoTurnos);
         genRecuYBotones.construir();
     }
 

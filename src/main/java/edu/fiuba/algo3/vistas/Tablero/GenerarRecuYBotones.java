@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.vistas.Tablero;
 
-import edu.fiuba.algo3.controllers.ControladorDeClickTablero;
-import edu.fiuba.algo3.controllers.ControladorGeneral;
+import edu.fiuba.algo3.controllers.*;
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import javafx.geometry.Insets;
@@ -38,6 +37,7 @@ public class GenerarRecuYBotones {
     private HBox botonesDerecha;
     private HBox botonesIzquierda;
     private ControladorDeClickTablero controladorDeClickTablero;
+    private ManejoTurnos manejadorDeTurnos;
 
 
     private static final String[] RUTAS_RECURSOS = {
@@ -84,11 +84,12 @@ public class GenerarRecuYBotones {
 
 
 
-    public GenerarRecuYBotones(HBox panelAbajo,HBox botonesDerecha, HBox botonesIzquierda ,Jugador jugadorActual){
+    public GenerarRecuYBotones(HBox panelAbajo,HBox botonesDerecha, HBox botonesIzquierda ,Jugador jugadorActual, ManejoTurnos manejoTurnos){
         this.panelAbajo = panelAbajo;
         this.botonesDerecha = botonesDerecha;
         this.jugadorActual = jugadorActual;
         this.botonesIzquierda = botonesIzquierda;
+        this.manejadorDeTurnos = manejoTurnos;
     }
     public void construir() {
         crearBotonesIzquierda();
@@ -327,7 +328,26 @@ public class GenerarRecuYBotones {
     }
 
     private void accionComerciar() {
-        System.out.println("Comerciar...");
+
+        // Obtener el Stage actual
+        Stage stage = (Stage) btnComerciar.getScene().getWindow();
+
+        // Crear controladores
+        ControladorComercioConJugadores controladorJugadores =
+                new ControladorComercioConJugadores(jugadorActual, manejadorDeTurnos);
+
+        ControladorComercioConBanca controladorBanca =
+                new ControladorComercioConBanca(jugadorActual, manejadorDeTurnos);
+
+        // Crear vista pasándole ambos controladores
+        VistaComercio vistaComercio = new VistaComercio(stage, controladorJugadores, controladorBanca);
+
+        // Setear vista en los controladores
+        controladorJugadores.setVista(vistaComercio);
+        controladorBanca.setVista(vistaComercio);
+
+        // Mostrar pantalla inicial
+        vistaComercio.mostrarPantallaInicial();
     }
 
     private void accionTerminarTurno() {
