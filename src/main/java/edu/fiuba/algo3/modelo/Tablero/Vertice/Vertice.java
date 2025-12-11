@@ -28,7 +28,9 @@ public class Vertice {
     }
 
     public void registrarArista(Arista arista) {
-        this.aristas.add(arista);
+        if (!aristas.contains(arista)) {
+            this.aristas.add(arista);
+        }
     }
 
     public void conectarConVertice(Vertice otro){

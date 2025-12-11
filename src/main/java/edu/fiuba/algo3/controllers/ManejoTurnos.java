@@ -39,12 +39,6 @@ public class ManejoTurnos {
     public void pasarSiguienteFase() {
         ((Normal) turnoActual).pasarSiguienteFase();
     }
-    public void esperarMovimientoLadron(Jugador jugador) {
-        // Guardar referencia a la fase de dados para llamar a moverLadron después
-        // O cambiar a un estado especial "EsperandoLadron"
-
-        // La UI debe capturar esta señal y mostrar la interfaz para mover el ladrón
-    }
     public List<Jugador> getJugadores() {
         return jugadores;
     }

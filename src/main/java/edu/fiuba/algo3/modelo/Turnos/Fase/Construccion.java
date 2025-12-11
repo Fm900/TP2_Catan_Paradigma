@@ -10,15 +10,13 @@ import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 public class Construccion implements Fase {
     private Jugador jugadorActual;
-    private Tablero tablero;
+    private Tablero tablero = Juego.getInstancia().getTablero();
 
     @Override
     public void ejecutar(Jugador jugador, ManejoTurnos manejador) {
         this.jugadorActual = jugador;
-        this.tablero = Juego.getInstancia().getTablero();
         this.jugadorActual.habilitarCartas();
     }
-
 
     public void construirCarretera(Arista arista) {
         validarFaseIniciada();
@@ -27,16 +25,12 @@ public class Construccion implements Fase {
 
     public void construirPoblado(Vertice vertice) {
         validarFaseIniciada();
-        tablero.colocarPoblado(jugadorActual, vertice);
+        tablero.colocarPoblado(getJugadorActual(), vertice);
     }
 
     public void construirCiudad(Vertice vertice) {
         validarFaseIniciada();
         tablero.mejorarPobladoACiudad(jugadorActual, vertice);
-    }
-
-    public void terminarFase(ManejoTurnos manejador) {
-        manejador.pasarSiguienteFase();
     }
 
     private void validarFaseIniciada() {

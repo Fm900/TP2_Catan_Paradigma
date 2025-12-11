@@ -483,6 +483,10 @@ public class GeneradorVistaTablero {
     public void actualizarReferencias() {
         verticeSeleccionado = null;
         aristaSeleccionada = null;
+        if (hexagonoSeleccionado != null) {
+            hexagonoSeleccionado.setEffect(null);
+            hexagonoSeleccionado.setStroke(Color.BLACK);
+        }
         hexagonoSeleccionado = null;
     }
 

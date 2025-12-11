@@ -47,6 +47,7 @@ public class Normal implements Turno {
         if (faseActual >= fases.size()) {
             avanzarSiguienteJugador();
         }
+        ejecutarFaseActual();
     }
 
     private void avanzarSiguienteJugador() {

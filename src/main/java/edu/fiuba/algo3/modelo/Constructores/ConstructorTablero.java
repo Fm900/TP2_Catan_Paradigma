@@ -120,9 +120,10 @@ public class ConstructorTablero {
         for (int k = 0; k < vertices_hexagono; k++) {
             Vertice v1 = verticesTerreno.get(k);
             Vertice v2 = verticesTerreno.get((k + 1) % vertices_hexagono);
-
             String keyArista = generarKeyArista(v1, v2);
-            mapaAristas.computeIfAbsent(keyArista, key -> new Arista(v1, v2, new Vacia()));
+            Arista a = mapaAristas.computeIfAbsent(keyArista, key ->  new Arista(v1, v2, new Vacia()));
+            v1.registrarArista(a);
+            v2.registrarArista(a);
         }
     }
 

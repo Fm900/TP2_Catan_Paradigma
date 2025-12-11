@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.controllers;
 
+import edu.fiuba.algo3.modelo.Exception.*;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
@@ -224,11 +225,10 @@ public class ControladorGeneral implements ControladorDeClickTablero{
 
     @Override
     public void tirarDados() {
-        AnimacionDados animacionDados = new AnimacionDados();
         Dados fase = (Dados) getFaseActual();
         fase.ejecutar(getJugadorActual(), getManejoTurnos());
         int tirada = fase.getTirada();
-        animacionDados.mostrarAnimacion(stage,fase.getDado1(),fase.getDado2());
+        AnimacionDados.mostrarAnimacion(stage,fase.getDado1(),fase.getDado2());
 
         if (tirada != 7){
             fase.producirRecursos(getManejoTurnos());
@@ -299,18 +299,31 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     private void construirFaseConstruccion(Normal turno){
         Construccion fase = (Construccion) turno.faseActual();
         Jugador jugadorActual = fase.getJugadorActual();
-        if (verticeSeleccionado.getDueño().equals(getJugadorActual())) {
-            fase.construirCiudad(verticeSeleccionado);
-            generadorVista.colocarCiudad(circuloSeleccionado, jugadorActual.color());
+        try {
+            if (verticeSeleccionado != null && verticeSeleccionado.getDueño() != null) {
+                fase.construirCiudad(verticeSeleccionado);
+            }
+            if (verticeSeleccionado != null) {
+                fase.construirPoblado(verticeSeleccionado);
+            }
+            if (aristaSeleccionada != null) {
+                fase.construirCarretera(aristaSeleccionada);
+            }
+        } catch (AristaOcupadaNoSePuedeConstruir | NoAlcanzanLosRecursos |
+                 NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente |
+                 NoSePuedeConstruirPorFaltaDeConexion |
+                 NoSePuedeMejorarACiudad |
+                 ReglaDeDistanciaNoValida |
+                 VerticeOcupadoNoPuedeConstruir e){
+            mostrarMensaje("Error: " + e.getMessage());
         }
-        fase.construirPoblado(verticeSeleccionado);
-        fase.construirCarretera(aristaSeleccionada);
     }
     private void limpiarSeleccion() {
         this.verticeSeleccionado = null;
         this.aristaSeleccionada = null;
         this.circuloSeleccionado = null;
-        this.lineaSeleccionada = null;
+        this.terrenoSeleccionado = null;
+        this.polygonSeleccionado = null;
     }
 
 
