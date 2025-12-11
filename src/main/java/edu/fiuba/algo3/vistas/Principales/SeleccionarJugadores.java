@@ -12,7 +12,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SeleccionarJugadores extends EscenaGeneral {
 
@@ -158,17 +161,32 @@ public class SeleccionarJugadores extends EscenaGeneral {
 
             int cantidad = tresJugadores.isSelected() ? 3 : 4;
 
-            if (nombre1.getText().isBlank() || nombre1.getText().length() > maxCaracteres ||
-                    nombre2.getText().isBlank() || nombre2.getText().length() > maxCaracteres ||
-                    nombre3.getText().isBlank() || nombre3.getText().length() > maxCaracteres ||
-                    (cantidad == 4 && (nombre4.getText().isBlank() || nombre4.getText().length() > maxCaracteres))) {
+            List<String> nombres = new ArrayList<>();
+            nombres.add(nombre1.getText());
+            nombres.add(nombre2.getText());
+            nombres.add(nombre3.getText());
+            if (cantidad == 4) nombres.add(nombre4.getText());
 
+            for (String n : nombres) {
+                if (n.isBlank() || n.length() > maxCaracteres) {
+                    ControladorDeAlerta.mostrarError(
+                            "Todos los jugadores deben tener nombre y no pueden exceder " + maxCaracteres + " caracteres.",
+                            stage
+                    );
+                    return;
+                }
+            }
+
+
+            Set<String> conjunto = new HashSet<>(nombres);
+            if (conjunto.size() != nombres.size()) {
                 ControladorDeAlerta.mostrarError(
-                        "Todos los jugadores deben tener nombre y no pueden exceder " + maxCaracteres + " caracteres.",
+                        "Los nombres no pueden repetirse.",
                         stage
                 );
                 return;
             }
+
             Color c1 = color1.getValue();
             Color c2 = color2.getValue();
             Color c3 = color3.getValue();
@@ -193,9 +211,9 @@ public class SeleccionarJugadores extends EscenaGeneral {
             String j4 = cantidad == 4 ? nombre4.getText() : null;
 
             if (cantidad == 3) {
-                this.juego = controlador.iniciarJuegoPara(List.of(j1, j2, j3), List.of(c1,c2,c3));
+                this.juego = controlador.iniciarJuegoPara(nombres, List.of(c1,c2,c3));
             } else {
-                this.juego = controlador.iniciarJuegoPara(List.of(j1, j2, j3, j4),List.of(c1,c2,c3,c4));
+                this.juego = controlador.iniciarJuegoPara(nombres,List.of(c1,c2,c3,c4));
             }
 
             mostrarPantallaDeCarga(stage);

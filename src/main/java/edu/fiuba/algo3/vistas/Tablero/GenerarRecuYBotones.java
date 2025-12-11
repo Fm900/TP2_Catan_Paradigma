@@ -519,6 +519,7 @@ public class GenerarRecuYBotones {
 
     public void crearBotonMoverLadron() {
         btnMoverLadron.setVisible(true);
+        btnTerminarTurno.setVisible(false);
     }
 
     public void desactivarBoton() {

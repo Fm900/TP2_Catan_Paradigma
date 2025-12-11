@@ -89,19 +89,17 @@ public class GeneradorVistaTablero {
     public void colocarCasa(VerticeVista vista, Color colorJugador) {
         if (vista != null) {
             vista.mostrarCasa(colorJugador);
-            vista.setOnMouseClicked(null);
         }
     }
     public void colocarCiudad(VerticeVista vista,Color color) {
         vista.mostrarCiudad(color);
-        vista.setOnMouseClicked(null);
+
     }
 
     public void colorearArista(Line linea, Color colorJugador) {
         if (linea != null) {
             linea.setStroke(colorJugador);
             linea.setStrokeWidth(6);
-            linea.setOnMouseClicked(null);
         }
     }
 
