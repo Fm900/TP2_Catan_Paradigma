@@ -18,11 +18,12 @@ public class ControladorComercioConJugadores {
 
     private final ManejoTurnos manejoTurnos;
     private Oferta ofertaActual;
-    private Comercio comercioActual;
+    private final Comercio comercioActual;
 
     public ControladorComercioConJugadores(Jugador jugadorActual, ManejoTurnos manejoTurnos) {
         this.jugadorActual = jugadorActual;
         this.manejoTurnos = manejoTurnos;
+        this.comercioActual = new Comercio();
     }
 
     public void setVista(VistaComercio vista) {
@@ -62,7 +63,6 @@ public class ControladorComercioConJugadores {
     // MÉTODO SOLICITADO: manejarComercioEntreJugadores
     // ----------------------------------------------------------------------
     public void manejarComercioEntreJugadores(List<Recurso> recursosQueOfrece, List<Recurso> recursosQuePide, Jugador jugadorElegido) {
-        comercioActual = new Comercio();
         comercioActual.ejecutar( jugadorActual,  manejoTurnos);
         this.ofertaActual =  comercioActual.crearOfertaJugador(jugadorElegido, recursosQueOfrece,recursosQuePide);
 

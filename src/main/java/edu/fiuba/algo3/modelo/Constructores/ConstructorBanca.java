@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Jugador.Cartas.*;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -45,6 +46,7 @@ public class ConstructorBanca {
                 new Monopolio(new Deshabilitado()),
                 new Monopolio(new Deshabilitado())));
 
+        Collections.shuffle(cartas);
         return Banca.crearBanca(recursos, cartas);
     }
     public void agregar(List<Recurso> lista, Supplier<Recurso> fabrica, int cantidad){

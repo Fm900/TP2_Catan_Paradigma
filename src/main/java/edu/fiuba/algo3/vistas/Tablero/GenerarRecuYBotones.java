@@ -368,99 +368,12 @@ public class GenerarRecuYBotones {
     }
 
     private void accionarMostrarCartas() {
-        Stage miniStage = new Stage();
-        miniStage.setTitle("Cartas");
+        Stage stage = (Stage) btnCartas.getScene().getWindow();
 
-        VBox layout = new VBox(15);
-        layout.setPadding(new Insets(20));
-        layout.setAlignment(Pos.TOP_CENTER);
-        layout.setStyle(
-                "-fx-background-color: linear-gradient(to bottom, #2e4d2e, #1f331f);" +
-                        "-fx-background-radius: 12;" +
-                        "-fx-border-color: #c0c0c0;" +
-                        "-fx-border-width: 2;" +
-                        "-fx-border-radius: 12;" +
-                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0, 0, 4);"
-        );
+        ControladorJugarCartas controlador = new ControladorJugarCartas(manejadorDeTurnos);
+        VistaCartas vista = new VistaCartas(controlador);
 
-        Label titulo = new Label("Elegí una carta:");
-        titulo.setStyle(
-                "-fx-text-fill: white;" +
-                        "-fx-font-size: 18px;" +
-                        "-fx-font-weight: bold;"
-        );
-        layout.getChildren().add(titulo);
-
-        VBox listaCartas = new VBox(10);
-        listaCartas.setPadding(new Insets(5));
-        listaCartas.setAlignment(Pos.TOP_CENTER);
-
-        List<Carta> cartasActuales = jugadorActual.obtenerCartas();
-
-        for (Carta carta : cartasActuales) {
-
-            Button opcion = new Button(carta.toString());
-            opcion.setPrefWidth(220);
-
-            opcion.setStyle(
-                    "-fx-background-color: linear-gradient(to bottom, #4e8b4e, #3a6d3a);" +
-                            "-fx-text-fill: white;" +
-                            "-fx-font-size: 14px;" +
-                            "-fx-font-weight: bold;" +
-                            "-fx-background-radius: 8;" +
-                            "-fx-border-radius: 8;" +
-                            "-fx-border-color: #2a4d2a;" +
-                            "-fx-border-width: 2;"
-            );
-
-            opcion.setOnMouseEntered(ev ->
-                    opcion.setStyle(
-                            "-fx-background-color: linear-gradient(to bottom, #6ecf6e, #5bb85b);" +
-                                    "-fx-text-fill: white;" +
-                                    "-fx-font-size: 14px;" +
-                                    "-fx-font-weight: bold;" +
-                                    "-fx-background-radius: 8;" +
-                                    "-fx-border-radius: 8;" +
-                                    "-fx-border-color: #3c7d3c;" +
-                                    "-fx-border-width: 2;"
-                    )
-            );
-
-            opcion.setOnMouseExited(ev ->
-                    opcion.setStyle(
-                            "-fx-background-color: linear-gradient(to bottom, #4e8b4e, #3a6d3a);" +
-                                    "-fx-text-fill: white;" +
-                                    "-fx-font-size: 14px;" +
-                                    "-fx-font-weight: bold;" +
-                                    "-fx-background-radius: 8;" +
-                                    "-fx-border-radius: 8;" +
-                                    "-fx-border-color: #2a4d2a;" +
-                                    "-fx-border-width: 2;"
-                    )
-            );
-
-            opcion.setOnAction(ev -> {
-                System.out.println("Elegiste: " + carta);
-                miniStage.close();
-            });
-
-            listaCartas.getChildren().add(opcion);
-        }
-
-        ScrollPane scroll = new ScrollPane(listaCartas);
-        scroll.setFitToWidth(true);
-        scroll.setStyle(
-                "-fx-background: transparent;" +
-                        "-fx-background-color: transparent;"
-        );
-        scroll.setPrefHeight(260);
-
-        layout.getChildren().add(scroll);
-
-        Scene scene = new Scene(layout, 300, 380);
-        miniStage.setScene(scene);
-        miniStage.initModality(Modality.APPLICATION_MODAL);
-        miniStage.showAndWait();
+        vista.mostrar();
     }
     public void refrescarVista() {
         panelAbajo.getChildren().clear();
