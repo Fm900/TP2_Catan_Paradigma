@@ -61,4 +61,14 @@ public class Banca {
     public List<Carta> getCartas() {
         return cartas;
     }
+
+    public List<Recurso> getRecursos() {
+        return recursos;
+    }
+
+    public Carta popPrimerCarta() {
+        Carta carta = this.cartas.get(0);
+        cartas.remove(carta);
+        return carta;
+    }
 }

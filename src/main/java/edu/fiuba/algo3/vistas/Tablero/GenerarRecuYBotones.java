@@ -497,13 +497,11 @@ public class GenerarRecuYBotones {
             case "Comercio":
                 btnComerciar.setVisible(true);
                 btnTerminarFase.setVisible(true);
-                btnTerminarTurno.setVisible(true);
                 break;
 
             case "Construccion":
                 btnConstruir.setVisible(true);
                 btnTerminarFase.setVisible(true);
-                btnTerminarTurno.setVisible(true);
                 break;
 
             case "JugarCartas":

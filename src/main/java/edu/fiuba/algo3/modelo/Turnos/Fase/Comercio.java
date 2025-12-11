@@ -51,8 +51,8 @@ public class Comercio implements Fase {
     }
 
 
-    public void comprarCarta(Carta carta) {
-        intercambioActual = new ComprarCartas(jugadorActual, carta);
+    public void comprarCarta() {
+        intercambioActual = new ComprarCartas(jugadorActual);
         intercambioActual.intercambio();
     }
 

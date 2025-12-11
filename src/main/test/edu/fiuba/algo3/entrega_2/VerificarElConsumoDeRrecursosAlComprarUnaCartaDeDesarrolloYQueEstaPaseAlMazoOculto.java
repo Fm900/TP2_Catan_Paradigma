@@ -45,7 +45,7 @@ public class VerificarElConsumoDeRrecursosAlComprarUnaCartaDeDesarrolloYQueEstaP
 
     @Test
     public void test01SeVerificaElConsumoDeRecursosConLaCompraDeUnaCarta(){
-        ComprarCartas intercambio = new ComprarCartas(jugador, carta);
+        ComprarCartas intercambio = new ComprarCartas(jugador);
 
         assertDoesNotThrow(()->intercambio.intercambio(), "No tienes suficiente");
         assertThrows(NoAlcanzanLosRecursos.class, ()->jugador.consumirRecursos(List.of(new Madera())), "No tienes suficiente");

@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Tasa;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -78,26 +79,34 @@ public class VistaComercio {
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER_LEFT);
 
+        // Botones
         Button btnJugadores = new Button("Comercio con Jugadores");
-        Button btnBanca = new Button("Comercio con Maritimo");
+        Button btnBanca = new Button("Comercio con Banca");
+        Button btnComprarCarta = new Button("Comprar Carta");
 
+        // == Acciones ==
         btnJugadores.setOnAction(e -> {
-            // cerramos el modal actual y abrimos el flujo de comercio (no bloqueante)
             modal.hide();
             controladorConJugadores.abrirComercioEntreJugadores();
         });
 
         btnBanca.setOnAction(e -> {
-                modal.hide();
-                controladorConBanca.abrirComercioConBanca();
+            modal.hide();
+            controladorConBanca.abrirComercioConBanca(); // se asume que ya lo creaste
         });
 
-        root.getChildren().addAll(new Label("Elegí el tipo de comercio:"), btnJugadores, btnBanca);
+        root.getChildren().addAll(
+                new Label("Elegí el tipo de comercio:"),
+                btnJugadores,
+                btnBanca,
+                btnComprarCarta
+        );
 
-        Scene scene = new Scene(root, 400, 250);
+        Scene scene = new Scene(root, 400, 260);
         modal.setScene(scene);
-        modal.show(); // no showAndWait()
+        modal.show();
     }
+
 
     // ----------------------------------------------------------------------
     // PANTALLA DE COMERCIO ENTRE JUGADORES
@@ -351,61 +360,220 @@ public class VistaComercio {
         modal.show();
     }
 
+    public void comprarCarta() {
+        try {
+            var carta = controladorConBanca.comprarCarta();
 
-    public void mostrarCompraDeCartas() {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Carta obtenida");
+            alert.setContentText("Compraste: " + carta.getClass().getSimpleName());
+            alert.showAndWait();
 
-        Stage modal = crearVentanaModal("Comprar Cartas");
+        } catch (Exception ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("No se pudo comprar la carta");
+            alert.setContentText(ex.getMessage());
+            alert.showAndWait();
+        }
+    }
 
-        cartasSeleccionadas.clear();
 
+    public void mostrarEleccionDeTasa() {
+
+        Stage modal = crearVentanaModal("Comercio con Banca (" + "4" + ":1)");
+
+        BorderPane root = new BorderPane();
+        VBox panel = new VBox(20);
+        panel.setPadding(new Insets(20));
+        panel.setAlignment(Pos.TOP_CENTER);
+
+        Label titulo = new Label("Elegí 4 recursos iguales y 1 recurso de la banca");
+        titulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+
+        // -----------------------------
+        // Recursos del jugador
+        // -----------------------------
+        Label lblJugador = new Label("Tus recursos (elige 4 iguales):");
+        lblJugador.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        List<Recurso> recursosJugador = controladorConBanca.obtenerRecursosJugadorActual();
+        List<Recurso> seleccionJugador = new ArrayList<>();
+
+        VBox panelJugador = crearPanelDeRecursos("Tus recursos", recursosJugador, seleccionJugador);
+
+        // -----------------------------
+        // Recursos de la banca
+        // -----------------------------
+        Label lblBanca = new Label("Recursos disponibles en la Banca (elige 1):");
+        lblBanca.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        List<Recurso> recursosBanca = Banca.getInstance().getRecursos();
+        List<Recurso> seleccionBanca = new ArrayList<>();
+
+        VBox panelBanca = crearPanelDeRecursos("Recursos de la Banca", recursosBanca, seleccionBanca);
+
+        // -----------------------------
+        // Botón confirmar intercambio
+        // -----------------------------
+        Button btnConfirmar = new Button("Confirmar intercambio");
+        btnConfirmar.setOnAction(e -> {
+
+            // Validaciones
+            if (seleccionJugador.size() != 4) {
+                mostrarAlerta("Tenés que elegir EXACTAMENTE 3 recursos.");
+                return;
+            }
+
+            // Verificar que los tres sean del mismo tipo
+            Class<?> tipo = seleccionJugador.get(0).getClass();
+            boolean todosIguales = seleccionJugador.stream().allMatch(r -> r.getClass().equals(tipo));
+
+            if (!todosIguales) {
+                mostrarAlerta("Los 3 recursos deben ser del MISMO tipo.");
+                return;
+            }
+
+            if (seleccionBanca.size() != 1) {
+                mostrarAlerta("Tenés que elegir 1 recurso de la banca.");
+                return;
+            }
+
+            // Cerrar ventana limpia
+            modal.hide();
+            if (ownerStage.getScene() != null && ownerStage.getScene().getRoot() != null) {
+                ownerStage.getScene().getRoot().setEffect(null);
+            }
+
+            // Llamar al controlador
+            controladorConBanca.iniciarComercioConBanca(
+                    new ArrayList<>(seleccionJugador),
+                    seleccionBanca.get(0)
+
+            );
+        });
+
+        panel.getChildren().addAll(
+                titulo,
+                lblJugador,
+                panelJugador,
+                lblBanca,
+                panelBanca,
+                btnConfirmar
+        );
+
+        ScrollPane scroll = new ScrollPane(panel);
+        scroll.setFitToWidth(true);
+        root.setCenter(scroll);
+
+        Scene scene = new Scene(root, 900, 700);
+        modal.setScene(scene);
+        modal.show();
+    }
+
+
+    public void mostrarPantallaPuertos() {
         VBox root = new VBox(15);
         root.setPadding(new Insets(15));
         root.setAlignment(Pos.TOP_CENTER);
 
-        Label titulo = new Label("Seleccioná las cartas que querés comprar");
-        titulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        root.getChildren().add(new Label("Elegí un puerto / tasa de comercio"));
 
-        FlowPane panelCartas = new FlowPane();
-        panelCartas.setHgap(10);
-        panelCartas.setVgap(10);
-        panelCartas.setPrefWrapLength(800);
+        List<Tasa> tasas = controladorConBanca.obtenerTasasDisponibles();
 
-        // Obtener cartas desde la banca (singleton)
-        List<Carta> cartas = Banca.getInstance().getCartas();
-
-        for (Carta carta : cartas) {
-
-            Label cartaLabel = new Label( carta.getClass().getSimpleName());
-            cartaLabel.setPadding(new Insets(12));
-            cartaLabel.setStyle("-fx-border-color: black; -fx-background-color: white;");
-            cartaLabel.setMinWidth(150);
-            cartaLabel.setAlignment(Pos.CENTER);
-
-            cartaLabel.setOnMouseClicked(e -> {
-
-                if (!cartasSeleccionadas.contains(carta)) {
-                    cartasSeleccionadas.add(carta);
-                    cartaLabel.setStyle("-fx-border-color: green; -fx-background-color: lightgreen;");
-                } else {
-                    cartasSeleccionadas.remove(carta);
-                    cartaLabel.setStyle("-fx-border-color: black; -fx-background-color: white;");
-                }
-            });
-
-            panelCartas.getChildren().add(cartaLabel);
+        for (Tasa t : tasas) {
+            Button btn = new Button(nombreTasa(t));
+            btn.setOnAction(e -> controladorConBanca.seleccionarTasa(t), );
+            root.getChildren().add(btn);
         }
 
-        Button btnComprar = new Button("Confirmar Compra");
-        btnComprar.setOnAction(e -> {
+        ownerStage.setScene(new Scene(root, 700, 500));
+    }
+
+    private String nombreTasa(Tasa t) {
+        String tipo = t.getClass().getSimpleName();
+        if (tipo.equals("Especifico")) return "Puerto 2:1 (Específico)";
+        if (tipo.equals("Generico")) return "Puerto 3:1 (Genérico)";
+        return tipo;
+    }
+
+    public void mostrarIntercambioConPuerto(Tasa tasa) {
+
+        Stage modal = crearVentanaModal("Comercio con Puerto");
+
+        BorderPane root = new BorderPane();
+        VBox panel = new VBox(20);
+        panel.setPadding(new Insets(20));
+        panel.setAlignment(Pos.TOP_CENTER);
+
+        String tituloTexto = "Comercio con Puerto (" + nombreTasa(tasa) + ")";
+        Label titulo = new Label(tituloTexto);
+        titulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+
+        // -----------------------------
+        // Recursos del jugador
+        // -----------------------------
+        Label lblJugador = new Label("Tus recursos (elige según la tasa):");
+        lblJugador.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        List<Recurso> recursosJugador = controladorConBanca.obtenerRecursosJugadorActual();
+        List<Recurso> seleccionJugador = new ArrayList<>();
+
+        VBox panelJugador = crearPanelDeRecursos("Tus recursos", recursosJugador, seleccionJugador);
+
+        // -----------------------------
+        // Recursos de la banca
+        // -----------------------------
+        Label lblBanca = new Label("Recursos disponibles en la Banca (elige 1):");
+        lblBanca.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        List<Recurso> recursosBanca = Banca.getInstance().getRecursos();
+        List<Recurso> seleccionBanca = new ArrayList<>();
+
+        VBox panelBanca = crearPanelDeRecursos("Recursos de la Banca", recursosBanca, seleccionBanca);
+
+        // -----------------------------
+        // Botón confirmar
+        // -----------------------------
+        Button btnConfirmar = new Button("Confirmar intercambio");
+        btnConfirmar.setOnAction(e -> {
+
+            // ------ VALIDACIONES ------
+            if (seleccionBanca.size() != 1) {
+                mostrarAlerta("Debés elegir 1 recurso de la banca.");
+                return;
+            }
+
+            // Cierre limpio
             modal.hide();
-            controladorConBanca.comprarCartas(cartasSeleccionadas);
+            if (ownerStage.getScene() != null && ownerStage.getScene().getRoot() != null)
+                ownerStage.getScene().getRoot().setEffect(null);
+
+            controladorConBanca.seleccionarTasa(
+                    tasa,
+                    new ArrayList<>(seleccionJugador),
+                    seleccionBanca.get(0)
+            );
         });
 
-        root.getChildren().addAll(titulo, panelCartas, btnComprar);
+        panel.getChildren().addAll(
+                titulo,
+                lblJugador,
+                panelJugador,
+                lblBanca,
+                panelBanca,
+                btnConfirmar
+        );
 
-        Scene scene = new Scene(root, 900, 600);
+        ScrollPane scroll = new ScrollPane(panel);
+        scroll.setFitToWidth(true);
+
+        root.setCenter(scroll);
+
+        Scene scene = new Scene(root, 900, 700);
         modal.setScene(scene);
         modal.show();
     }
+
+
 
 }
