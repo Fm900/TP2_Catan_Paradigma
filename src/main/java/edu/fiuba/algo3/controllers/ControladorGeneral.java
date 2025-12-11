@@ -13,14 +13,28 @@ import edu.fiuba.algo3.modelo.Turnos.Primer;
 import edu.fiuba.algo3.modelo.Turnos.Segundo;
 import edu.fiuba.algo3.modelo.Turnos.Turno;
 import edu.fiuba.algo3.vistas.Otros.AnimacionDados;
+import edu.fiuba.algo3.vistas.Otros.MostrarVictoria;
 import edu.fiuba.algo3.vistas.Tablero.GeneradorVistaTablero;
 import edu.fiuba.algo3.vistas.Tablero.GenerarRecuYBotones;
 import edu.fiuba.algo3.vistas.Tablero.VerticeVista;
 import edu.fiuba.algo3.vistas.Tablero.VistaTablero;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -136,15 +150,17 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     public void verificarVictoria() {
         for (Jugador jugador : jugadores) {
             if (this.juego.chequearVictoria(jugador)){
-                mostrarVictoria(jugador);
+                mostrarVictoria(jugador.obtenerNombre());
             }
 
         }
     }
 
-    private void mostrarVictoria(Jugador ganador) {
-
+    public void mostrarVictoria(String nombreJugador) {
+        MostrarVictoria mini = new MostrarVictoria("/estilos/victoria.css");
+        mini.mostrar(nombreJugador);
     }
+
 
     public Jugador getJugadorActual() {
         return jugadorActual;
@@ -248,6 +264,9 @@ public class ControladorGeneral implements ControladorDeClickTablero{
         }
         fase.moverLadron(getJugadorActual(), terrenoSeleccionado,victima,getManejoTurnos());
         generadorVista.dibujarLadron();
+        limpiarSeleccion();
+        mostrarMensaje("¡Se movio el Ladron!");
+        siguienteTurno();
 
     }
 

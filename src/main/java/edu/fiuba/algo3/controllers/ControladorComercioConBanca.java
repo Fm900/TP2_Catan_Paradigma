@@ -68,7 +68,7 @@ public class ControladorComercioConBanca {
     }
 
     public void intercambiarConPuerto(){
-        vista.mostrarIntercambioConPuerto();
+//        vista.mostrarIntercambioConPuerto();
     }
 
     public List<Tasa> obtenerTasasDisponibles() {

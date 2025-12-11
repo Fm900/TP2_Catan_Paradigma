@@ -480,11 +480,11 @@ public class VistaComercio {
 
         List<Tasa> tasas = controladorConBanca.obtenerTasasDisponibles();
 
-        for (Tasa t : tasas) {
-            Button btn = new Button(nombreTasa(t));
-            btn.setOnAction(e -> controladorConBanca.seleccionarTasa(t), );
-            root.getChildren().add(btn);
-        }
+//        for (Tasa t : tasas) {
+//            Button btn = new Button(nombreTasa(t));
+//            btn.setOnAction(e -> controladorConBanca.seleccionarTasa(t), );
+//            root.getChildren().add(btn);
+//        }
 
         ownerStage.setScene(new Scene(root, 700, 500));
     }

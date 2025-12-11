@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.util.Objects;
@@ -23,11 +24,12 @@ public class AnimacionDados {
     public static void mostrarAnimacion(Stage owner, int valor1Final, int valor2Final) {
 
         Stage dialog = new Stage();
+        dialog.initStyle(StageStyle.UNDECORATED);
         dialog.initOwner(owner);
         dialog.initModality(Modality.WINDOW_MODAL);
         dialog.setTitle("Tirada de dados");
 
-        // Dados
+
         ImageView dado1 = new ImageView();
         ImageView dado2 = new ImageView();
 
@@ -39,12 +41,13 @@ public class AnimacionDados {
         // Texto del resultado
         Label resultadoLabel = new Label("");
         resultadoLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
-
+        resultadoLabel.setWrapText(true);
         HBox boxDados = new HBox(20, dado1, dado2);
         boxDados.setAlignment(Pos.CENTER);
 
         VBox root = new VBox(15, boxDados, resultadoLabel);
         root.setAlignment(Pos.CENTER);
+        root.setPadding(new javafx.geometry.Insets(20));
 
         root.getStyleClass().add("popup-dados");
         Scene scene = new Scene(root);
@@ -54,8 +57,8 @@ public class AnimacionDados {
                 ).toExternalForm()
         );
         dialog.setScene(scene);
-        dialog.setWidth(260);
-        dialog.setHeight(230);
+        dialog.setMinWidth(260);
+        dialog.setMinHeight(230);
 
         dialog.show();
 
@@ -81,7 +84,9 @@ public class AnimacionDados {
             }else {
                 resultadoLabel.setText("Resultado: " + suma);
             }
-
+            PauseTransition mostrarResultado = new PauseTransition(Duration.seconds(1.5));
+            mostrarResultado.setOnFinished(event -> dialog.close());
+            mostrarResultado.play();
         });
 
         pausa.play();
