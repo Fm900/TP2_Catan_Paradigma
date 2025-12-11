@@ -43,19 +43,11 @@ public class MazoDeRecursos {
 
     public void verificarCumplimiento(List<Recurso> precio) {
         List<Recurso> copia = new ArrayList<Recurso>(recursos);
-        /*
-        for (Recurso recurso : precio) {
-            if(!copia.remove(recurso)){
-                throw new NoAlcanzanLosRecursos("No tienes suficiente");
-            }
-        }
-        this.recursos = copia;
-        */
 
         for (Recurso recursoPrecio : precio) {
             boolean eliminado = false;
             for (int i = 0; i < copia.size(); i++) {
-                if (copia.get(i).getClass().equals(recursoPrecio.getClass())){
+                if (copia.get(i).getClass().getSimpleName().equals(recursoPrecio.getClass().getSimpleName())) {
                     copia.remove(i);
                     eliminado = true;
                     break;

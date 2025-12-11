@@ -18,16 +18,6 @@ import edu.fiuba.algo3.vistas.Tablero.GeneradorVistaTablero;
 import edu.fiuba.algo3.vistas.Tablero.GenerarRecuYBotones;
 import edu.fiuba.algo3.vistas.Tablero.VerticeVista;
 import edu.fiuba.algo3.vistas.Tablero.VistaTablero;
-import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.ScaleTransition;
-import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
@@ -93,14 +83,13 @@ public class ControladorGeneral implements ControladorDeClickTablero{
 
     private void iniciarPrimerTurno() {
         actualizarVista();
-        System.out.println(jugadorActual.obtenerNombre());
         mostrarMensaje("Turno de colocación inicial - Primera ronda");
     }
 
     public void siguienteTurno() {
         manejoTurnos.siguiente();
         jugadorActual = manejoTurnos.jugadorActual();
-        System.out.println(jugadorActual.obtenerNombre());
+
         actualizarVista();
         notificarCambioTurno();
     }
