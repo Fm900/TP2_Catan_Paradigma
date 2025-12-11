@@ -27,4 +27,8 @@ public class Especifico implements Tasa {
 
         return recursos;
     }
+
+    public Recurso getRecurso() {
+        return recursoPuerto;
+    }
 }

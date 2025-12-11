@@ -49,9 +49,7 @@ public class Banca {
     }
 
     public void eliminarCarta(Carta cartaAEliminar) {
-        if(!this.cartas.remove(cartaAEliminar)){
-            throw new NoSePudoComprarUnaCartaSeAgotaronLasCartasDeLaBanca("No hay mas cartas en la Banca");
-        }
+        this.cartas.remove(cartaAEliminar);
     }
 
     public void agregarRecursoCarta(Carta carta) {
@@ -70,5 +68,12 @@ public class Banca {
         Carta carta = this.cartas.get(0);
         cartas.remove(carta);
         return carta;
+    }
+
+    public Carta getPrimerCarta() {
+        if (this.cartas.isEmpty()) {
+            throw new NoSePudoComprarUnaCartaSeAgotaronLasCartasDeLaBanca("No hay mas cartas en la Banca");
+        }
+        return this.cartas.get(0);
     }
 }

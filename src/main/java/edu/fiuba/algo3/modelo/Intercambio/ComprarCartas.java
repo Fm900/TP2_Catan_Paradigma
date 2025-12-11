@@ -13,8 +13,9 @@ public class ComprarCartas implements Intercambio {
 
     @Override
     public void intercambio() {
-        Carta carta = Banca.getInstance().popPrimerCarta();
+        Carta carta = Banca.getInstance().getPrimerCarta();
         carta.agregarse(jugador);
         Banca.getInstance().agregarRecursoCarta(carta);
+        Banca.getInstance().eliminarCarta(carta);
     }
 }

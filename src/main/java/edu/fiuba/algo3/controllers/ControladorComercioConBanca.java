@@ -10,6 +10,7 @@ import edu.fiuba.algo3.modelo.Tablero.Puerto.Tasa;
 import edu.fiuba.algo3.modelo.Turnos.Fase.Comercio;
 import edu.fiuba.algo3.vistas.Tablero.VistaComercio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorComercioConBanca {
@@ -19,6 +20,7 @@ public class ControladorComercioConBanca {
     private final Comercio comercioActual;
     private final ManejoTurnos manejoTurnos;
     private final Estandar estandar;
+    private Tasa tasa;
 
     public ControladorComercioConBanca(Jugador jugadorActual, ManejoTurnos manejadorDeTurnos) {
         this.jugadorActual = jugadorActual;
@@ -40,10 +42,6 @@ public class ControladorComercioConBanca {
         return jugadorActual.obtenerRecursos();
     }
 
-    public void abrirComercioConPuerto() {
-        comercioActual.ejecutar(jugadorActual, manejoTurnos);
-
-    }
 
     public void abrirComercioDirectoConBanca() {
         comercioActual.ejecutar(jugadorActual, manejoTurnos);
@@ -55,10 +53,14 @@ public class ControladorComercioConBanca {
         vista.comprarCarta();
     }
 
+    public void abrirComercioConPuerto() {
+        comercioActual.ejecutar(jugadorActual, manejoTurnos);
+        vista.mostrarPantallaPuertos();
+    }
+
     public Carta comprarCarta() {
         Carta carta = Banca.getInstance().popPrimerCarta();
         comercioActual.comprarCarta();
-        System.out.println(carta);
         return carta;
     }
 
@@ -67,16 +69,17 @@ public class ControladorComercioConBanca {
         comercioActual.comerciarConBanca(estandar, recursosJugador, recursosBanca);
     }
 
-    public void intercambiarConPuerto(){
-//        vista.mostrarIntercambioConPuerto();
-    }
-
     public List<Tasa> obtenerTasasDisponibles() {
         return Juego.getInstancia().getTasas(jugadorActual);
     }
 
 
-    public void seleccionarTasa(Tasa t, List<Recurso> recursosOfrecidos, Recurso recursosBanca) {
-        comercioActual.comerciarConBanca(t, recursosOfrecidos, recursosBanca);
+    public void seleccionarTasa(Tasa t) {
+        this.tasa = t;
+        vista.mostrarIntercambioConPuerto(t);
+    }
+
+    public void efectuarComercioConPuerto(Tasa tasa, ArrayList<Recurso> recursos, Recurso recurso) {
+        comercioActual.comerciarConBanca(tasa, recursos, recurso);
     }
 }

@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Especifico;
 import edu.fiuba.algo3.modelo.Tablero.Puerto.Tasa;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -94,6 +95,12 @@ public class VistaComercio {
             modal.hide();
             controladorConBanca.abrirComercioConBanca(); // se asume que ya lo creaste
         });
+
+        btnComprarCarta.setOnAction(e -> {
+            modal.hide();
+            controladorConBanca.abrirCompraDeCartas();
+        });
+
 
         root.getChildren().addAll(
                 new Label("Elegí el tipo de comercio:"),
@@ -194,7 +201,6 @@ public class VistaComercio {
                 ownerStage.getScene().getRoot().setEffect(null);
             }
 
-            // llamar al método que maneja la propuesta
             controladorConJugadores.manejarComercioEntreJugadores(
                     new ArrayList<>(recursosQueOfrece),
                     new ArrayList<>(recursosQuePide),
@@ -336,7 +342,6 @@ public class VistaComercio {
 
         Button btnPuerto = new Button("Comerciar con Puerto");
         Button btnBanca = new Button("Comerciar con Banca");
-        Button btnComprarCartas = new Button("Comprar Cartas");
 
         btnPuerto.setOnAction(e -> {
             modal.hide();
@@ -348,12 +353,7 @@ public class VistaComercio {
             controladorConBanca.abrirComercioDirectoConBanca();
         });
 
-        btnComprarCartas.setOnAction(e -> {
-            modal.hide();
-            controladorConBanca.abrirCompraDeCartas();
-        });
-
-        root.getChildren().addAll(titulo, btnPuerto, btnBanca, btnComprarCartas);
+        root.getChildren().addAll(titulo, btnPuerto, btnBanca);
 
         Scene scene = new Scene(root, 400, 250);
         modal.setScene(scene);
@@ -472,30 +472,46 @@ public class VistaComercio {
 
 
     public void mostrarPantallaPuertos() {
-        VBox root = new VBox(15);
-        root.setPadding(new Insets(15));
+
+        Stage modal = crearVentanaModal("Puertos disponibles");
+
+        VBox root = new VBox(20);
+        root.setPadding(new Insets(20));
         root.setAlignment(Pos.TOP_CENTER);
 
-        root.getChildren().add(new Label("Elegí un puerto / tasa de comercio"));
+        Label titulo = new Label("Elegí un puerto / tasa de comercio");
+        titulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         List<Tasa> tasas = controladorConBanca.obtenerTasasDisponibles();
 
-//        for (Tasa t : tasas) {
-//            Button btn = new Button(nombreTasa(t));
-//            btn.setOnAction(e -> controladorConBanca.seleccionarTasa(t), );
-//            root.getChildren().add(btn);
-//        }
+        for (Tasa t : tasas) {
+            Button btn = new Button(nombreTasa(t));
+            btn.setPrefWidth(250);
+            btn.setOnAction(e -> {
+                modal.hide();
+                // limpiar blur
+                if (ownerStage.getScene() != null && ownerStage.getScene().getRoot() != null)
+                    ownerStage.getScene().getRoot().setEffect(null);
 
-        ownerStage.setScene(new Scene(root, 700, 500));
+                controladorConBanca.seleccionarTasa(t);
+            });
+            root.getChildren().add(btn);
+        }
+
+        Scene scene = new Scene(root, 400, 350);
+        modal.setScene(scene);
+        modal.show();  // NO cambia la escena del juego, solo superpone la ventana
     }
 
     private String nombreTasa(Tasa t) {
         String tipo = t.getClass().getSimpleName();
-        if (tipo.equals("Especifico")) return "Puerto 2:1 (Específico)";
+        if (tipo.equals("Especifico")){
+            Especifico tipoEspecifico = (Especifico)t;
+            Recurso recurso = tipoEspecifico.getRecurso();
+            return "Puerto 2:1 (Específico)" + recurso.getClass().getSimpleName();}
         if (tipo.equals("Generico")) return "Puerto 3:1 (Genérico)";
         return tipo;
     }
-
     public void mostrarIntercambioConPuerto(Tasa tasa) {
 
         Stage modal = crearVentanaModal("Comercio con Puerto");
@@ -523,13 +539,41 @@ public class VistaComercio {
         // -----------------------------
         // Recursos de la banca
         // -----------------------------
-        Label lblBanca = new Label("Recursos disponibles en la Banca (elige 1):");
-        lblBanca.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-
         List<Recurso> recursosBanca = Banca.getInstance().getRecursos();
         List<Recurso> seleccionBanca = new ArrayList<>();
 
-        VBox panelBanca = crearPanelDeRecursos("Recursos de la Banca", recursosBanca, seleccionBanca);
+        VBox panelBanca;
+
+        boolean esEspecifico = tasa instanceof Especifico;
+
+        Label lblBanca = new Label(
+                esEspecifico ?
+                        "El recurso recibido es automático según tu puerto:" :
+                        "Recursos disponibles en la Banca (elige 1):"
+        );
+        lblBanca.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        if (esEspecifico) {
+            // ⚠ NO permitir elección → se muestra 1 solo recurso fijo
+            Recurso recursoFijo = ((Especifico) tasa).getRecurso();
+
+            Label carta = new Label(recursoFijo.getClass().getSimpleName());
+            carta.setPadding(new Insets(10));
+            carta.setStyle("-fx-border-color: blue; -fx-background-color: lightblue;");
+            carta.setMinWidth(120);
+            carta.setAlignment(Pos.CENTER);
+
+            seleccionBanca.add(recursoFijo); // agregado automático
+
+            FlowPane cont = new FlowPane(carta);
+            cont.setHgap(10);
+
+            panelBanca = new VBox(10, new Label("Recurso recibido automáticamente:"), cont);
+
+        } else {
+            // GENÉRICO (3:1) → usuario elige 1 recurso
+            panelBanca = crearPanelDeRecursos("Recursos de la Banca", recursosBanca, seleccionBanca);
+        }
 
         // -----------------------------
         // Botón confirmar
@@ -537,18 +581,19 @@ public class VistaComercio {
         Button btnConfirmar = new Button("Confirmar intercambio");
         btnConfirmar.setOnAction(e -> {
 
-            // ------ VALIDACIONES ------
-            if (seleccionBanca.size() != 1) {
-                mostrarAlerta("Debés elegir 1 recurso de la banca.");
-                return;
+            if (!esEspecifico) {
+                if (seleccionBanca.size() != 1) {
+                    mostrarAlerta("Debés elegir 1 recurso de la banca.");
+                    return;
+                }
             }
 
-            // Cierre limpio
             modal.hide();
             if (ownerStage.getScene() != null && ownerStage.getScene().getRoot() != null)
                 ownerStage.getScene().getRoot().setEffect(null);
 
-            controladorConBanca.seleccionarTasa(
+            // El recurso recibido ya está en seleccionBanca (automático si es específico)
+            controladorConBanca.efectuarComercioConPuerto(
                     tasa,
                     new ArrayList<>(seleccionJugador),
                     seleccionBanca.get(0)
@@ -573,7 +618,5 @@ public class VistaComercio {
         modal.setScene(scene);
         modal.show();
     }
-
-
 
 }

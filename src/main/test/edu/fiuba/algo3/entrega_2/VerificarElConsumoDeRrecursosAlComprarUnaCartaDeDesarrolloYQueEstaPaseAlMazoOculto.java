@@ -32,6 +32,7 @@ public class VerificarElConsumoDeRrecursosAlComprarUnaCartaDeDesarrolloYQueEstaP
     MazoDeRecursos gestor;
     Mano mano;
     List<Carta> cartas;
+    Carta carta2;
 
     @BeforeEach
     public void setUp() {
@@ -39,7 +40,8 @@ public class VerificarElConsumoDeRrecursosAlComprarUnaCartaDeDesarrolloYQueEstaP
         precio = new ArrayList<>(List.of(new Lana(), new Grano(), new Mineral()));
         jugador = new Jugador(new MazoDeRecursos(precio), mano, "Alex", Color.ROSYBROWN);
         carta = new Caballero(new Deshabilitado());
-        cartas = new ArrayList<>(List.of(carta));
+        carta2 = new Caballero(new Deshabilitado());
+        cartas = new ArrayList<>(List.of(carta, carta2));
         Juego.crearInstancia(List.of(jugador), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
     }
 
@@ -48,6 +50,6 @@ public class VerificarElConsumoDeRrecursosAlComprarUnaCartaDeDesarrolloYQueEstaP
         ComprarCartas intercambio = new ComprarCartas(jugador);
 
         assertDoesNotThrow(()->intercambio.intercambio(), "No tienes suficiente");
-        assertThrows(NoAlcanzanLosRecursos.class, ()->jugador.consumirRecursos(List.of(new Madera())), "No tienes suficiente");
+        assertThrows(NoAlcanzanLosRecursos.class, ()->intercambio.intercambio(), "No tienes suficiente");
     }
 }

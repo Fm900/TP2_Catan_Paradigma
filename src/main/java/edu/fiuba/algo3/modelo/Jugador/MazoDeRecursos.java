@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MazoDeRecursos {
-    private final List<Recurso> recursos;
+    private List<Recurso> recursos;
 
     public MazoDeRecursos(List<Recurso> recursosIniciales) {
         this.recursos = new ArrayList<>(recursosIniciales);
@@ -42,9 +42,17 @@ public class MazoDeRecursos {
     }
 
     public void verificarCumplimiento(List<Recurso> precio) {
-        List<Recurso> copia = new ArrayList<>(recursos);
+        List<Recurso> copia = new ArrayList<Recurso>(recursos);
+        /*
+        for (Recurso recurso : precio) {
+            if(!copia.remove(recurso)){
+                throw new NoAlcanzanLosRecursos("No tienes suficiente");
+            }
+        }
+        this.recursos = copia;
+        */
+
         for (Recurso recursoPrecio : precio) {
-            /*
             boolean eliminado = false;
             for (int i = 0; i < copia.size(); i++) {
                 if (copia.get(i).getClass().equals(recursoPrecio.getClass())){
@@ -56,8 +64,7 @@ public class MazoDeRecursos {
             if (!eliminado) {
                 throw new NoAlcanzanLosRecursos("No tienes suficiente");
             }
-            */
-             recursos.remove(recursoPrecio);
+
         }
     }
 
