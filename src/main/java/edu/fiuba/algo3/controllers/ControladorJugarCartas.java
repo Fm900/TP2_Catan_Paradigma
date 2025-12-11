@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.ParametrosCarta;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Turnos.Fase.JugarCartas;
 
@@ -25,5 +26,8 @@ public class ControladorJugarCartas {
     public void jugarCarta(Carta carta) {
         fase.ejecutar(jugador, manejo);
         //fase.jugarCarta(Carta);
+    }
+    public void activarCarta(Carta carta, ParametrosCarta parametrosCarta) {
+        carta.activarEfecto(jugador,parametrosCarta);
     }
 }

@@ -41,9 +41,6 @@ public class VistaComercio {
             this.controladorConBanca = controladorConBanca;
         }
 
-    // ----------------------------------------------------------------------
-    // CREAR VENTANA MODAL (no bloqueante)
-    // ----------------------------------------------------------------------
     private Stage crearVentanaModal(String titulo) {
         Stage modal = new Stage();
         modal.initOwner(ownerStage);
@@ -412,9 +409,6 @@ public class VistaComercio {
 
         VBox panelBanca = crearPanelDeRecursos("Recursos de la Banca", recursosBanca, seleccionBanca);
 
-        // -----------------------------
-        // Botón confirmar intercambio
-        // -----------------------------
         Button btnConfirmar = new Button("Confirmar intercambio");
         btnConfirmar.setOnAction(e -> {
 

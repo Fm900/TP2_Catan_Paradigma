@@ -371,9 +371,9 @@ public class GenerarRecuYBotones {
         Stage stage = (Stage) btnCartas.getScene().getWindow();
 
         ControladorJugarCartas controlador = new ControladorJugarCartas(manejadorDeTurnos);
-        VistaCartas vista = new VistaCartas(controlador);
+        VistaCartas vista = new VistaCartas(controlador, controladorDeClickTablero, manejadorDeTurnos);
 
-        vista.mostrar();
+        vista.mostrar(stage);
     }
     public void refrescarVista() {
         panelAbajo.getChildren().clear();

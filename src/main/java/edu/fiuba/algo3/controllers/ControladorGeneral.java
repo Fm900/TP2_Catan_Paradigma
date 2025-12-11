@@ -271,6 +271,10 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     }
 
     private void construirPirmerTurno(Primer turno){
+        if (verticeSeleccionado == null || aristaSeleccionada == null){
+            mostrarMensaje("se debe seleccionar un vertice y arista");
+            return;
+        }
         try {
             turno.construir(manejoTurnos, verticeSeleccionado, aristaSeleccionada);
 
@@ -296,6 +300,10 @@ public class ControladorGeneral implements ControladorDeClickTablero{
         }
     }
     private void construirSegundoTurno(Segundo turno){
+        if (verticeSeleccionado == null || aristaSeleccionada == null){
+            mostrarMensaje("se debe seleccionar un vertice y arista");
+            return;
+        }
         try {
             turno.construir(manejoTurnos, verticeSeleccionado, aristaSeleccionada);
 

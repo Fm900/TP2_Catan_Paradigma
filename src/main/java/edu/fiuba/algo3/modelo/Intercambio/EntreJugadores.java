@@ -19,15 +19,15 @@ public class EntreJugadores implements Intercambio {
     @Override
     public void intercambio() {
         // Transferir recursos requeridos del receptor al ofertante
-        receptor.consumirRecursos(recursosRequeridos);
-        for (Recurso recurso : recursosRequeridos) {
-            ofertante.agregarRecurso(recurso, 1);
-        }
 
         // Transferir recursos ofrecidos del ofertante al receptor
         ofertante.consumirRecursos(recursosOfrecidos);
         for (Recurso recurso : recursosOfrecidos) {
             receptor.agregarRecurso(recurso, 1);
+        }
+        receptor.consumirRecursos(recursosRequeridos);
+        for (Recurso recurso : recursosRequeridos) {
+            ofertante.agregarRecurso(recurso, 1);
         }
     }
 
