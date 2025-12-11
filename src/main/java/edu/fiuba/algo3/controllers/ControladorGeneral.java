@@ -265,15 +265,21 @@ public class ControladorGeneral implements ControladorDeClickTablero{
             Color colorJugador = jugadorActual.color();
             generadorVista.colocarCasa(circuloSeleccionado, colorJugador);
             generadorVista.colorearArista(lineaSeleccionada, colorJugador);
-
+            actualizarVista();
             limpiarSeleccion();
             mostrarMensaje("¡Construcción exitosa!");
 
             siguienteTurno();
 
-        } catch (Exception e) {
+        } catch (AristaOcupadaNoSePuedeConstruir | NoAlcanzanLosRecursos |
+                 NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente |
+                 NoSePuedeConstruirPorFaltaDeConexion |
+                 NoSePuedeMejorarACiudad |
+                 ReglaDeDistanciaNoValida |
+                 VerticeOcupadoNoPuedeConstruir e) {
             mostrarMensaje("Error: " + e.getMessage());
             generadorVista.resetearSeleccion();
+            actualizarVista();
             limpiarSeleccion();
         }
     }
@@ -290,7 +296,12 @@ public class ControladorGeneral implements ControladorDeClickTablero{
 
             siguienteTurno();
 
-        } catch (Exception e) {
+        } catch (AristaOcupadaNoSePuedeConstruir | NoAlcanzanLosRecursos |
+                 NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente |
+                 NoSePuedeConstruirPorFaltaDeConexion |
+                 NoSePuedeMejorarACiudad |
+                 ReglaDeDistanciaNoValida |
+                 VerticeOcupadoNoPuedeConstruir e) {
             mostrarMensaje("Error: " + e.getMessage());
             generadorVista.resetearSeleccion();
             limpiarSeleccion();
@@ -299,15 +310,19 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     private void construirFaseConstruccion(Normal turno){
         Construccion fase = (Construccion) turno.faseActual();
         Jugador jugadorActual = fase.getJugadorActual();
+        Color color = jugadorActual.color();
         try {
             if (verticeSeleccionado != null && verticeSeleccionado.getDueño() != null) {
                 fase.construirCiudad(verticeSeleccionado);
+                generadorVista.colocarCiudad(circuloSeleccionado, color);
             }
             if (verticeSeleccionado != null) {
                 fase.construirPoblado(verticeSeleccionado);
+                generadorVista.colocarCiudad(circuloSeleccionado, color);
             }
             if (aristaSeleccionada != null) {
                 fase.construirCarretera(aristaSeleccionada);
+                generadorVista.colorearArista(lineaSeleccionada, color);
             }
         } catch (AristaOcupadaNoSePuedeConstruir | NoAlcanzanLosRecursos |
                  NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente |

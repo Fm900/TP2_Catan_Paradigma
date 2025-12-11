@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Construccion.*;
-import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente;
-import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirPorFaltaDeConexion;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
@@ -87,5 +85,9 @@ public class Vertice {
     public double getY() { return y; }
     public int getId() {
         return id;
+    }
+
+    public boolean tieneArista(Arista arista) {
+        return aristas.contains(arista);
     }
 }

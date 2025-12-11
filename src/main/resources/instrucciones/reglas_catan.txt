@@ -1,3 +1,20 @@
+Precios
+- Carretera:
+        1 Mader
+        1 Ladrillo
+- Poblado:
+        1 Madera
+        1 Ladrillo
+        1 Lana
+        1 Grano
+- Ciudad:
+        2 Grano
+        3 Mineral
+- Cartas de Desarrollo:
+        1 Grano
+        1 Mineral
+        1 Lana
+
 Objetivos
 
 -   Ser el primer jugador en alcanzar 10 puntos de victoria.

@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Turnos;
 
 import edu.fiuba.algo3.controllers.ManejoTurnos;
+import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirPorFaltaDeConexion;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
@@ -33,7 +34,9 @@ public class Primer implements Turno {
 
     public void construir(ManejoTurnos manejador, Vertice vertice, Arista arista){
         Jugador jugador = jugadorActual(manejador);
-
+        if (!vertice.tieneArista(arista)){
+            throw new NoSePuedeConstruirPorFaltaDeConexion("El vertice y la arista no estan conectados");
+        }
         tablero.colocarPobladoInicial(jugador, vertice);
         tablero.colocarCarretera(jugador, arista);
     }
