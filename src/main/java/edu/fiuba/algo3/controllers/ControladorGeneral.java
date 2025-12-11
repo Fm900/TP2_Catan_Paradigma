@@ -79,12 +79,14 @@ public class ControladorGeneral implements ControladorDeClickTablero{
 
     private void iniciarPrimerTurno() {
         actualizarVista();
+        System.out.println(jugadorActual.obtenerNombre());
         mostrarMensaje("Turno de colocación inicial - Primera ronda");
     }
 
     public void siguienteTurno() {
         manejoTurnos.siguiente();
         jugadorActual = manejoTurnos.jugadorActual();
+        System.out.println(jugadorActual.obtenerNombre());
         actualizarVista();
         notificarCambioTurno();
     }
@@ -245,6 +247,8 @@ public class ControladorGeneral implements ControladorDeClickTablero{
             mostrarMensaje("El vertice sleccionado tiene que tener dueño");
         }
         fase.moverLadron(getJugadorActual(), terrenoSeleccionado,victima,getManejoTurnos());
+        generadorVista.dibujarLadron();
+
     }
 
     @Override

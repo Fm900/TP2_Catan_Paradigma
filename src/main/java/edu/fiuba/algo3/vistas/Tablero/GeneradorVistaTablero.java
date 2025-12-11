@@ -3,6 +3,7 @@ package edu.fiuba.algo3.vistas.Tablero;
 import edu.fiuba.algo3.controllers.ControladorDeClickTablero;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Ladron;
 import edu.fiuba.algo3.modelo.Tablero.Puerto.Puerto;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
@@ -15,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
@@ -34,6 +36,7 @@ public class GeneradorVistaTablero {
     private Line aristaSeleccionada = null;
     private Polygon hexagonoSeleccionado = null;
     private final Map<String, Image> barcosCache = new HashMap<>();
+    private Circle ladronVista;
 
 
     public GeneradorVistaTablero(StackPane root) {
@@ -61,6 +64,8 @@ public class GeneradorVistaTablero {
             dibujarVertices(verticesModelo);
 
             dibujarPuertos(puertosModelo);
+
+            dibujarLadron();
         });
     }
 
@@ -276,6 +281,52 @@ public class GeneradorVistaTablero {
         tableroPane.getChildren().add(0, hex);
     }
 
+    public void dibujarLadron() {
+        if (ladronVista != null) {
+            tableroPane.getChildren().remove(ladronVista);
+        }
+        Terreno terreno = Ladron.getInstance().getTerreno();
+        crearLadronVista();
+
+        Polygon hex = buscarHexagonoDeTerreno(terreno);
+        if (hex == null) return;
+
+        Bounds b = hex.getBoundsInLocal();
+        double cx = (b.getMinX() + b.getMaxX()) / 2.0;
+        double cy = (b.getMinY() + b.getMaxY()) / 2.0;
+
+
+        ladronVista.setCenterX(cx);
+        ladronVista.setCenterY(cy);
+
+
+        tableroPane.getChildren().add(ladronVista);
+    }
+
+    private Polygon buscarHexagonoDeTerreno(Terreno terreno) {
+        for (javafx.scene.Node node : tableroPane.getChildren()) {
+            if (node instanceof Polygon) {
+                Polygon p = (Polygon) node;
+                List<Double> puntosTerreno = new ArrayList<>();
+                terreno.verticesAdyacentes().forEach(v -> {
+                    puntosTerreno.add(v.getX());
+                    puntosTerreno.add(v.getY());
+                });
+
+                if (p.getPoints().equals(puntosTerreno)) {
+                    return p;
+                }
+            }
+        }
+        return null;
+    }
+
+    private void crearLadronVista() {
+        Image img = new Image(getClass().getResource("/imagenes/Ladron.png").toExternalForm());
+        ladronVista = new Circle(30);
+        ladronVista.setFill(new ImagePattern(img));
+
+    }
 
     private ImagePattern crearTexturaPara(Terreno terreno, Polygon p) {
         String ruta = "hexagonos/desierto.png";
@@ -323,7 +374,9 @@ public class GeneradorVistaTablero {
 
     private void agregarFichaNumero(Terreno terreno, Polygon hexagono) {
         int numero = terreno.numeroFicha();
-        if (numero == 0) return; // desierto, sin ficha
+        if (numero == 0) {
+            return;
+        };
 
         Image imagen = obtenerImagenFicha(numero);
         if (imagen == null) return;
@@ -352,7 +405,6 @@ public class GeneradorVistaTablero {
     public void setListener(ControladorDeClickTablero controladorGeneral) {
         this.controladorDeClickTablero = controladorGeneral;
     }
-
 
     private Image obtenerImagenBarco(Puerto puerto) {
         String nombre;
@@ -387,8 +439,6 @@ public class GeneradorVistaTablero {
         barcosCache.put(nombre, img);
         return img;
     }
-
-
 
     private void dibujarPuertos(List<Puerto> puertosModelo) {
         if (puertosModelo == null) return;

@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Constructores;
 
 import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.Tablero.Ladron;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Alterado;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Normal;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
@@ -33,7 +34,9 @@ public class GeneradorDeTerrenos {
         }
 
         Recurso recursoNulo = new Desierto();
-        terrenos.add(new Terreno(recursoNulo, 0, new Alterado()));
+        Terreno terrenoNulo = new Terreno(recursoNulo, 0, new Alterado());
+        Ladron.crearLadron(terrenoNulo);
+        terrenos.add(terrenoNulo);
         
         Collections.shuffle(terrenos);
 

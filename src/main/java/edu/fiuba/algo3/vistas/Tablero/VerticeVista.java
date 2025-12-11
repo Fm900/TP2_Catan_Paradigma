@@ -12,6 +12,7 @@ public class VerticeVista extends Group {
     private final Circle circle;
     private final SVGPath casa;
     private final SVGPath ciudad;
+    private Color colorJugador;
 
     public VerticeVista(Vertice v) {
         this.modelo = v;
@@ -55,13 +56,26 @@ public class VerticeVista extends Group {
     // --- Estados gráficos ---
     public void seleccionar() {
         circle.setFill(Color.RED);
+        if (casa.isVisible()) {
+            casa.setFill(Color.RED);
+        }
+        if (ciudad.isVisible()) {
+            ciudad.setFill(Color.RED);
+        }
     }
 
     public void deseleccionar() {
         circle.setFill(Color.WHITE);
+        if (casa.isVisible()) {
+            casa.setFill(colorJugador);
+        }
+        if (ciudad.isVisible()) {
+            ciudad.setFill(colorJugador);
+        }
     }
 
     public void mostrarCasa(Color colorJugador) {
+        this.colorJugador = colorJugador;
         casa.setFill(colorJugador);
         casa.setVisible(true);
         circle.setVisible(false);
