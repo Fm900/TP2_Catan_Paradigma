@@ -43,22 +43,24 @@ public class VistaCartas {
         layout.getChildren().add(titulo);
 
         // ------------------ Lista Horizontal ------------------
-        HBox lista = new HBox(15);  // cambia VBox por HBox
+        HBox lista = new HBox(20);  // espacio mayor entre cartas
         lista.setAlignment(Pos.CENTER_LEFT);
 
         List<Carta> cartas = controlador.obtenerCartasJugador();
 
         for (Carta carta : cartas) {
-
-            VBox cartaBox = new VBox(10); // cada carta con su nombre y botón en vertical
+            VBox cartaBox = new VBox(10);
             cartaBox.setAlignment(Pos.CENTER);
+            cartaBox.setPrefWidth(120);  // ancho fijo
+            cartaBox.setPrefHeight(180); // alto fijo
 
             // Imagen
             String nombre = carta.getClass().getSimpleName();
             String ruta = "/imagenes/" + nombre + ".png";
             ImageView imagen = new ImageView(new Image(ruta));
-            imagen.setFitWidth(80);
-            imagen.setFitHeight(80);
+            imagen.setPreserveRatio(true); // ✅ mantiene proporción original
+            imagen.setFitWidth(100);       // ancho máximo
+            imagen.setFitHeight(120);      // altura máxima
 
             // Nombre
             Label nombreCarta = new Label(nombre);
@@ -66,6 +68,7 @@ public class VistaCartas {
 
             // Botón jugar
             Button jugar = new Button("Jugar");
+            jugar.setMaxWidth(Double.MAX_VALUE); // botón ocupa todo el ancho de la carta
             jugar.setStyle(
                     "-fx-border-radius: 10;" +
                             " -fx-border-width: 2;" +
@@ -83,20 +86,11 @@ public class VistaCartas {
         }
 
         ScrollPane scroll = new ScrollPane(lista);
-        scroll.setFitToHeight(true);  // importante para scroll horizontal
-        scroll.setPrefHeight(200);
+        scroll.setFitToHeight(true);
+        scroll.setPrefHeight(220);          // altura del scroll
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         layout.getChildren().add(scroll);
-
-        Button cerrar = new Button("Cerrar");
-        cerrar.setOnAction(e -> miniStage.close());
-        layout.getChildren().add(cerrar);
-
-        Scene scene = new Scene(layout, 600, 300);  // ancho mayor para horizontal
-        miniStage.setScene(scene);
-        miniStage.showAndWait();
     }
-
 }
