@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Jugador.CalculadorDePuntosJugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Tasa;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 import java.util.List;
@@ -70,5 +71,8 @@ public class Juego {
         for (Jugador jugador : jugadores) {
             jugador.descarteMayoria();
         }
+    }
+    public List<Tasa> getTasas(Jugador jugador){
+        return tablero.dameLasTasasDe(jugador);
     }
 }

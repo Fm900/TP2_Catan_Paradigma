@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Puerto.Puerto;
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Tasa;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
@@ -128,5 +129,15 @@ public class Tablero {
 
     public List<Puerto> puertos() {
         return Collections.unmodifiableList(puertos);
+    }
+
+    public List<Tasa> dameLasTasasDe(Jugador jugador) {
+        List<Tasa> respuesta = new ArrayList<>();
+        for (Puerto puerto : puertos) {
+            if (puerto.preguntaleATuArista(jugador)){
+                respuesta.add(puerto.getTasaDeComercio());
+            }
+        }
+        return respuesta;
     }
 }

@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Tablero.Puerto;
 
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 
@@ -30,5 +31,9 @@ public class Puerto {
 
     public Arista getArista() {
         return arista;
+    }
+
+    public boolean preguntaleATuArista(Jugador jugador) {
+        return arista.estoyEnLosVerticesAdyacentes(jugador);
     }
 }

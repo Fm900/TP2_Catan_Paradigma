@@ -52,4 +52,7 @@ public class Arista {
         return extremo2;
     }
 
+    public boolean estoyEnLosVerticesAdyacentes(Jugador jugador) {
+        return extremo1.getDueño() == jugador || extremo2.getDueño()== jugador;
+    }
 }
