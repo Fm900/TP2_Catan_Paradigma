@@ -1,0 +1,55 @@
+@startuml
+class Juego{
+- List<Jugador> jugadores
+
++ iniciarJuego()
++ iniciarFaseInicial()
++ iniciarTurno()
+}
+
+class Turno{
+- Jugador jugadorActual
+
++ iniciarTurno()
+}
+
+interface FasePrincipal{
++ iniciarFase(Jugador jugadorActual)
+}
+
+class CC{
++ iniciarFase(Jugador jugadorActual)
+}
+
+class Dados{
++ iniciarFase(Jugador jugadorActual)
+}
+
+class JugarCartas{
++ iniciarFase(Jugador jugadorActual)
+}
+interface FaseInicial{
++ iniciarFase(List<Jugador> jugadores)
+}
+
+class PrimerTurno{
++ iniciarFase(List<Jugador> jugadores)
+}
+
+class SegundoTurno{
++ iniciarFase(List<Jugador> jugadores)
+}
+
+Juego "1" *-- "*" FaseInicial
+Juego "1" *-- "*" FasePrincipal
+Juego "1" *-- "1" Turno
+
+FaseInicial <|-- PrimerTurno
+FaseInicial <|-- SegundoTurno
+
+FasePrincipal <|-- Dados
+FasePrincipal <|-- CC
+FasePrincipal <|-- JugarCartas
+
+Turno "1" *-- "*" FasePrincipal
+@enduml

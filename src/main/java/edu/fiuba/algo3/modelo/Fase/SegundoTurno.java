@@ -1,0 +1,43 @@
+package edu.fiuba.algo3.modelo.Fase;
+
+import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.Tablero.Terreno;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
+
+import java.util.List;
+
+public class SegundoTurno implements FaseInicial{
+
+    @Override
+    public void iniciarFase(List<Jugador> jugadores, Tablero tablero) {
+        for (int i = jugadores.size() - 1; i >= 0; i--) {
+            Jugador jugador = jugadores.get(i);
+            construirPoblado(jugador,  tablero);
+            construirCarretera(jugador,tablero);
+        }
+    }
+    public void construirCarretera(Jugador jugador, Tablero tablero) {
+
+    }
+    public void construirPoblado(Jugador jugador, Tablero tablero){
+        Vertice vertice = elegirVertice();
+        tablero.colocarPoblado(jugador, vertice);
+
+        agregarRecursosPorTerrenosAdyacentes(jugador, tablero, vertice);
+    }
+    public void agregarRecursosPorTerrenosAdyacentes(Jugador jugador, Tablero tablero, Vertice vertice) {
+        List<Terreno> terrenosAdy = tablero.obtenerTerrenosAdy(vertice);
+        for(Terreno terreno: terrenosAdy){
+            String recurso = terreno.obtenerRecurso();
+            if (!recurso.equals("Desierto")){
+                jugador.agregarRecursos(recurso,1);
+            }
+        }
+    }
+    public Vertice elegirVertice(){
+        // Se elige el vertice
+        Vertice vertice = new Vertice();
+        return vertice;
+    }
+}

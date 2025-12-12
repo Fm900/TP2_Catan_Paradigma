@@ -1,0 +1,48 @@
+@startuml
+actor Juego
+
+participant Tablero
+participant "Terreno" as Terreno
+participant "EstadoProductivo\n(Normal)" as EstadoProductivo
+participant "Vertice" as Vertice
+participant "EstadoVertice\n(Ocupado)" as EstadoVertice
+participant "Construccion\n(Poblado)" as Construccion
+participant "Producir" as Producir
+participant Jugador
+
+Juego -> Tablero: producirPara(tirada)
+
+activate Tablero
+loop por cada terreno en terrenos
+    Tablero -> Terreno: producirSiCorresponde(tirada)
+    deactivate Tablero
+
+    activate Terreno
+    Terreno -> EstadoProductivo: producir(recurso, vertices_adyacentes)
+    deactivate Terreno
+
+    activate EstadoProductivo
+    loop por cada vertice en\nvertices_adyacentes
+        EstadoProductivo -> Vertice: entregarRecursosPorConstruccion(recurso)
+        deactivate EstadoProductivo
+
+        activate Vertice
+        Vertice -> EstadoVertice: entregarRecursosPorConstruccion(recurso)
+        deactivate Vertice
+
+        activate EstadoVertice
+        EstadoVertice -> Construccion: producirRecurso(recurso)
+        deactivate EstadoVertice
+
+        activate Construccion
+        Construccion -> Producir: producir(recurso, dueño)
+        deactivate Construccion
+
+        activate Producir
+        Producir -> Jugador: agregarRecursos(recurso, cantidad)
+        deactivate Producir
+
+    end
+
+end
+@enduml

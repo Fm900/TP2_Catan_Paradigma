@@ -1,0 +1,51 @@
+@startuml
+actor Juego
+
+participant ":Tablero" as Tablero
+participant ":Vertice" as Vertice
+participant "EstadoVertice\n(Libre)" as EstadoLibre
+participant ":Arista" as Arista
+participant "Vertice vecino" as VerticeVecino
+participant "EstadoVertice vecino\n(Libre)" as EstadoVecino
+participant ":Poblado" as Poblado
+participant ":Jugador" as Jugador
+
+Juego -> Tablero: colocarPoblado(jugador, vertice)
+
+activate Tablero
+Tablero -> Vertice: construirPoblado(jugador)
+deactivate Tablero
+
+activate  Vertice
+Vertice -> EstadoLibre: construirPoblado(self, jugador)
+
+loop por cada Arista a en self.aristas()
+    activate EstadoLibre
+    EstadoLibre -> Vertice: aristas()
+    EstadoLibre -> Arista: otroExtremo(self)
+    activate Arista
+    Arista --> EstadoLibre: verticeVecino
+    deactivate Arista
+
+    EstadoLibre -> VerticeVecino: estado
+    activate VerticeVecino
+    VerticeVecino -> EstadoVecino: validarConstruccionEnVecino()
+    deactivate VerticeVecino
+    activate EstadoVecino
+    EstadoVecino --> EstadoLibre: true
+    deactivate EstadoVecino
+end
+
+
+EstadoLibre -> Poblado: construir(jugador)
+activate Poblado
+Poblado -> Jugador: consumirRecursosParaPoblado()
+Poblado --> EstadoLibre: nueva Construccion poblado
+deactivate Poblado
+deactivate EstadoLibre
+
+EstadoLibre -> Vertice: cambiarAOcupado(construccion)
+Vertice --> Vertice: estado = new Ocupado(construccion)
+deactivate Vertice
+
+@enduml

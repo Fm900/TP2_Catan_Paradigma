@@ -1,0 +1,35 @@
+@startuml
+
+actor Main
+participant ":Juego" as Juego
+participant ":Turno" as Turno
+participant FaseInicial
+participant FasePrincipal
+
+Main -> Juego: new Juego(List<Jugador> jugadores, List<FasePrincipal> fasesPrincipales,  List<FaseInicial> fasesIniciales
+
+activate Juego
+Juego --> Main
+Main -> Juego: iniciarJuego()
+
+Juego -> Juego: iniciarFaseInicial()
+loop for FasesIniciales
+    Juego -> FaseInicial: iniciarfases(jugadores)
+    activate FaseInicial
+    deactivate FaseInicial
+end loop
+
+Juego -> Juego: iniciarTurno()
+loop for jugadores
+    Juego -> Turno: new Turno(fasesPrincipales, jugador)
+    activate Turno
+    Juego -> Turno: iniciarTurno()
+    loop for FasesPrincipales
+        Turno -> FasePrincipal: iniciarFase(jugador)
+        activate FasePrincipal
+        deactivate FasePrincipal
+        deactivate Turno
+    end loop
+end loop
+deactivate Juego
+@enduml
