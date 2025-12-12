@@ -1,0 +1,92 @@
+package edu.fiuba.algo3.entrega_2;
+
+import edu.fiuba.algo3.modelo.Fase.Comercio;
+import edu.fiuba.algo3.modelo.Jugador.MazoDeRecursos;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Mano;
+import edu.fiuba.algo3.modelo.Intercambio.Oferta.Oferta;
+import edu.fiuba.algo3.modelo.Recurso.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class ComercioEntreJugadoresTest {
+    Jugador jugado1;
+    Jugador jugado2;
+    Comercio comercio;
+    Recurso recurso1;
+    Recurso recurso2;
+    Recurso recurso3;
+    List<Recurso> recursosRequeridos;
+    List<Recurso> recursosOfrecidos;
+    @BeforeEach
+    public void setUp() {
+        MazoDeRecursos gestor1 = new MazoDeRecursos(new ArrayList<Recurso>());
+        MazoDeRecursos gestor2 = new MazoDeRecursos(new ArrayList<Recurso>());
+        Mano mano1 = new Mano();
+        Mano mano2 = new Mano();
+        this.jugado1 = new Jugador(gestor1,mano1);
+        this.jugado2 = new Jugador(gestor2,mano2);
+        this.comercio = new Comercio();
+        this.recurso1 = new Madera();
+        this.recurso2 = new Ladrillo();
+        this.recurso3 = new Mineral();
+        this.recursosRequeridos = List.of(recurso1);
+        this.recursosOfrecidos = List.of(recurso2,recurso2);
+
+    }
+    @Test
+    void test01JugadorComerciaConOtroJugador() {
+        //Preparamos a los jugadores para el intercambio
+
+        this.jugado1.agregarRecurso(recurso1, 5);//6
+        this.jugado1.agregarRecurso(recurso2, 3);//1
+
+        this.jugado2.agregarRecurso(recurso1, 2);//1
+        this.jugado2.agregarRecurso(recurso2, 5);//7
+        // vemos los recursos por el momento
+        int recursos1InicialJugador1 = jugado1.cantidadDeRecurso(recurso1);
+        int recursos2InicialJugador1 = jugado1.cantidadDeRecurso(recurso2);
+        int recursos1InicialJugador2 = jugado2.cantidadDeRecurso(recurso1);
+        int recursos2InicialJugador2 = jugado2.cantidadDeRecurso(recurso2);
+        //iniciamos fase de comercio
+        comercio.iniciarFase(jugado1);
+
+        // jugador1 le hace una oferta a jugador2
+        Oferta oferta = comercio.crearOfertaJugador(jugado2,recursosOfrecidos,recursosRequeridos);
+
+        // jugador2 acepta la oferta y se realiza el intercambio
+        oferta.acepatar();
+        //se verifica el intercambio
+        assertTrue(oferta.fueAceptada());
+        assertEquals(recursos1InicialJugador1 + 1, jugado1.cantidadDeRecurso(recurso1));
+        assertEquals(recursos2InicialJugador1 - 2, jugado1.cantidadDeRecurso(recurso2));
+        assertEquals(recursos1InicialJugador2 - 1, jugado2.cantidadDeRecurso(recurso1));
+        assertEquals(recursos2InicialJugador2 + 2, jugado2.cantidadDeRecurso(recurso2));
+    }
+
+    @Test
+    void test02JugadorIntentaComerciarPeroRechazanSuOferta() {
+        //Preparamos a los jugadores para el intercambio
+        jugado1.agregarRecurso(recurso1, 5);
+        jugado1.agregarRecurso(recurso2, 3);
+
+        jugado2.agregarRecurso(recurso1, 2);
+        jugado2.agregarRecurso(recurso2, 5);
+        // vemos los recursos por el momento
+        //iniciamos fase de comercio
+        comercio.iniciarFase(jugado1);
+
+        // jugador1 le hace una oferta a jugador2
+        Oferta oferta = comercio.crearOfertaJugador(jugado2,recursosOfrecidos,recursosRequeridos);
+
+        // jugador2 acepta la oferta y se realiza el intercambio
+        oferta.declinar();
+        //se verifica el intercambio
+        assertTrue(oferta.fueRechazada());
+    }
+
+}

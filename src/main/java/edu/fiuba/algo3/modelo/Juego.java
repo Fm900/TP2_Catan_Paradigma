@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Fase.*;
+import edu.fiuba.algo3.modelo.Intercambio.Banca;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 
@@ -11,12 +13,14 @@ public class Juego {
     private final List<FasePrincipal> fasesPrincipales;
     private final List<FaseInicial> fasesIniciales;
     private final Tablero tablero;
+    private final Banca banca;
 
-    public Juego(List<Jugador> jugadores, List<FasePrincipal> fasesPrincipales,  List<FaseInicial> fasesIniciales,  Tablero tablero) {
+    public Juego(List<Jugador> jugadores, List<FasePrincipal> fasesPrincipales,  List<FaseInicial> fasesIniciales,  Tablero tablero, Banca banca) {
         this.jugadores = jugadores;
         this.fasesPrincipales = fasesPrincipales;
         this.fasesIniciales = fasesIniciales;
         this.tablero = tablero;
+        this.banca = banca;
     }
 
     public void iniciarJuego(){
@@ -37,9 +41,14 @@ public class Juego {
         }
     }
 
-    public void descarteJugadores() {
-        for (Jugador jugador : jugadores) {
-            jugador.descarteMayoria();
-        }
+//    public void descarteJugadores() {
+//        for (Jugador jugador : jugadores) {
+//            jugador.descarteMayoria();
+//        }
+//    }
+
+    public int calcularPuntosTotalesDe(Jugador jugador){
+        int puntos = jugador.calcularPuntosTotales();
+        return puntos;
     }
 }

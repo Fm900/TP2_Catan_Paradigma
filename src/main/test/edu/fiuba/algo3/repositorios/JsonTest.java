@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.repositorios;
 
-import edu.fiuba.algo3.modelo.Message;
+import edu.fiuba.algo3.modelo.Exception.Message;
 import org.junit.jupiter.api.Test;
 
 import java.net.URISyntaxException;

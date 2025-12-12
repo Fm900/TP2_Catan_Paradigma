@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Fase.FasePrincipal;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 import java.util.List;
 

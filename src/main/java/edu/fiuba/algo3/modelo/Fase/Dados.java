@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Fase;
 
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 public class Dados implements FasePrincipal {
     private int dado1;

@@ -1,40 +1,27 @@
 package edu.fiuba.algo3.modelo.Fase;
 
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import edu.fiuba.algo3.modelo.Tablero.Vertice;
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 import java.util.List;
 
 public class PrimerTurno implements FaseInicial {
+    List<Jugador> jugadores;
+    Tablero tablero;
+    private Vertice verticeParaConstruir;
 
+    @Override
     public void iniciarFase(List<Jugador> jugadores, Tablero tablero) {
-        for(Jugador jugador: jugadores){
-            construirPoblado(jugador,  tablero);
-            //construirCarretera(jugador, tablero);
+
+        for (int i = jugadores.size() - 1; i >= 0; i--) {
+            Jugador jugador = jugadores.get(i);
+
+            tablero.colocarPoblado(jugador, this.verticeParaConstruir);
+            }
         }
-    }
 
-    private void construirCarretera(Jugador jugador, Tablero tablero) {
-        //
-    }
-
-    public void construirPoblado(Jugador jugador, Tablero tablero){
-        agregarRecursosParaPoblado(jugador);
-        Vertice vertice = elegirVertice();
-        tablero.colocarPoblado(jugador, vertice);
-    }
-
-    public void agregarRecursosParaPoblado(Jugador jugador){
-        jugador.agregarRecursos("madera", 1);
-        jugador.agregarRecursos("ladrillo", 1);
-        jugador.agregarRecursos("lana", 1);
-        jugador.agregarRecursos("grano", 1);
-    }
-
-    public Vertice elegirVertice(){
-        // Se elige el vertice
-        Vertice vertice = new Vertice();
-        return vertice;
+    public void setVerticeParaConstruir(Vertice vertice){
+        this.verticeParaConstruir = vertice;
     }
 }
