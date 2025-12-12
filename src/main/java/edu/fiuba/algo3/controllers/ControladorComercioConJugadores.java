@@ -30,20 +30,10 @@ public class ControladorComercioConJugadores {
         this.vista = vista;
     }
 
-    // ----------------------------------------------------------------------
-    // ABRIR PANTALLAS
-    // ----------------------------------------------------------------------
     public void abrirComercioEntreJugadores() {
         vista.mostrarComercioEntreJugadores();
     }
 
-    public void abrirComercioConBanca() {
-        System.out.println("Comercio con banca todavía no implementado.");
-    }
-
-    // ----------------------------------------------------------------------
-    // DATOS PARA LA VISTA
-    // ----------------------------------------------------------------------
 
     public List<Jugador> obtenerJugadoresExceptoActual() {
         List<Jugador> jugadores = new ArrayList<>(Juego.getInstancia().getJugadores());
@@ -59,9 +49,6 @@ public class ControladorComercioConJugadores {
         return new ArrayList<>(jugador.obtenerRecursos());
     }
 
-    // ----------------------------------------------------------------------
-    // MÉTODO SOLICITADO: manejarComercioEntreJugadores
-    // ----------------------------------------------------------------------
     public void manejarComercioEntreJugadores(List<Recurso> recursosQueOfrece, List<Recurso> recursosQuePide, Jugador jugadorElegido) {
         comercioActual.ejecutar( jugadorActual,  manejoTurnos);
         this.ofertaActual =  comercioActual.crearOfertaJugador(jugadorElegido, recursosQueOfrece,recursosQuePide);
@@ -72,9 +59,6 @@ public class ControladorComercioConJugadores {
         }
     }
 
-    // ----------------------------------------------------------------------
-    // RESPUESTA A LA OFERTA
-    // ----------------------------------------------------------------------
     public void responderOferta(boolean aceptada) {
         if (aceptada) {
             comercioActual.aceptarOferta(ofertaActual);

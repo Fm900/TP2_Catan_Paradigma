@@ -1,7 +1,10 @@
 package edu.fiuba.algo3.modelo.Turnos;
 
+import edu.fiuba.algo3.controllers.ControladorGeneral;
 import edu.fiuba.algo3.controllers.ManejoTurnos;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import edu.fiuba.algo3.modelo.Turnos.Fase.*;
 
 import java.util.ArrayList;
@@ -36,6 +39,22 @@ public class Normal implements Turno {
         ejecutarFaseActual();
     }
 
+    @Override
+    public String obtenerTexto(ManejoTurnos manejador) {
+        return "Turno de" + jugadorActual(manejador) + " - Fase: " + nombreFaseActual();
+    }
+
+    @Override
+    public void ejecutarConstruccion(ControladorGeneral controlador) throws Exception {
+        Construccion fase = (Construccion) this.faseActual();
+        controlador.construirEnFaseConstruccion(fase);
+    }
+
+    @Override
+    public String obtenerNombre() {
+        return nombreFaseActual();
+    }
+
     private void ejecutarFaseActual() {
         Jugador jugador = manejador.getJugadores().get(indiceJugador);
         fases.get(faseActual).ejecutar(jugador, manejador);
@@ -63,12 +82,6 @@ public class Normal implements Turno {
 
     public String nombreFaseActual() {
         return fases.get(faseActual).getClass().getSimpleName();
-    }
-
-    public int numeroRonda() {
-        if (manejador == null) return 1;
-        int totalJugadores = manejador.getJugadores().size();
-        return (indiceJugador * fases.size() + faseActual) / (totalJugadores * fases.size()) + 1;
     }
 
     public Jugador getJugadorActual() {

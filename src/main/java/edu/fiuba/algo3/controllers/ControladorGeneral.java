@@ -9,8 +9,7 @@ import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 import edu.fiuba.algo3.modelo.Turnos.Fase.*;
 import edu.fiuba.algo3.modelo.Turnos.Normal;
-import edu.fiuba.algo3.modelo.Turnos.Primer;
-import edu.fiuba.algo3.modelo.Turnos.Segundo;
+
 import edu.fiuba.algo3.modelo.Turnos.Turno;
 import edu.fiuba.algo3.vistas.Otros.AnimacionDados;
 import edu.fiuba.algo3.vistas.Otros.MostrarVictoria;
@@ -21,10 +20,7 @@ import edu.fiuba.algo3.vistas.Tablero.VistaTablero;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 import java.util.List;
 
@@ -65,13 +61,10 @@ public class ControladorGeneral implements ControladorDeClickTablero{
         stage.setScene(vistaTablero.getScene());
 
         generadorVista = vistaTablero.getGeneradorVista();
-        if (generadorVista != null) {
-            generadorVista.setListener(this);
-        }
+        generadorVista.setListener(this);
+
         generarRecuYBotones = vistaTablero.getGenerarRecuYBotones();
-        if(generarRecuYBotones != null) {
-            generarRecuYBotones.setListener(this);
-        }
+        generarRecuYBotones.setListener(this);
 
 
         if (estabaFullScreen) {
@@ -102,23 +95,15 @@ public class ControladorGeneral implements ControladorDeClickTablero{
 
     private void notificarCambioTurno() {
         Turno turnoActual = manejoTurnos.getTurnoActual();
-
-        if (turnoActual instanceof Primer) {
-            mostrarMensaje("Primera ronda - Turno de " + jugadorActual.obtenerNombre());
-        } else if (turnoActual instanceof Segundo) {
-            mostrarMensaje("Segunda ronda - Turno de " + jugadorActual.obtenerNombre());
-        } else if (turnoActual instanceof Normal) {
-            Normal normal = (Normal) turnoActual;
-            mostrarMensaje("Turno de " + jugadorActual.obtenerNombre() + " - Fase: " + normal.nombreFaseActual());
-        }
+        String datosTurnoActual = turnoActual.obtenerTexto(manejoTurnos);
+        mostrarMensaje(datosTurnoActual);
     }
 
     private void notificarCambioFase() {
         Turno turnoActual = manejoTurnos.getTurnoActual();
-
-        if (turnoActual instanceof Normal) {
-            Normal normal = (Normal) turnoActual;
-            mostrarMensaje("Fase: " + normal.nombreFaseActual());
+        String fase = turnoActual.obtenerTexto(manejoTurnos);
+        if (!fase.isEmpty()){
+            mostrarMensaje(fase);
         }
     }
 
@@ -132,7 +117,7 @@ public class ControladorGeneral implements ControladorDeClickTablero{
         vistaTablero.actualizarInfoTablero();
     }
 
-    private void mostrarMensaje(String mensaje) {
+    public void mostrarMensaje(String mensaje) {
         ControladorDeAlerta.mostrarInfo(mensaje, stage);
     }
 
@@ -173,14 +158,7 @@ public class ControladorGeneral implements ControladorDeClickTablero{
 
     public String getNombreFaseActual() {
         Turno turno = manejoTurnos.getTurnoActual();
-        if (turno instanceof Normal) {
-            return ((Normal) turno).nombreFaseActual();
-        } else if (turno instanceof Primer) {
-            return "Colocación Inicial - Primera Ronda";
-        } else if (turno instanceof Segundo) {
-            return "Colocación Inicial - Segunda Ronda";
-        }
-        return "Desconocido";
+        return turno.obtenerNombre();
     }
 
     public Tablero getTablero() {
@@ -189,6 +167,16 @@ public class ControladorGeneral implements ControladorDeClickTablero{
 
     public Juego getJuego() {
         return juego;
+    }
+    @Override
+    public void terminarFase() {
+        siguienteFase();
+    }
+
+    @Override
+    public void terminarTurno() {
+        verificarVictoria();
+        siguienteTurno();
     }
 
     @Override
@@ -218,17 +206,6 @@ public class ControladorGeneral implements ControladorDeClickTablero{
         this.polygonSeleccionado = p;
     }
 
-    @Override
-    public void construirBoton(){
-        Turno turno = getTurnoActual();
-        if (turno instanceof Primer) {
-            construirPirmerTurno((Primer) turno);
-        } else if (turno instanceof Segundo) {
-            construirSegundoTurno((Segundo) turno);
-        } else if (turno instanceof Normal && getFaseActual() instanceof Construccion) {
-            construirFaseConstruccion((Normal) turno);
-        }
-    }
 
     @Override
     public void tirarDados() {
@@ -260,99 +237,62 @@ public class ControladorGeneral implements ControladorDeClickTablero{
     }
 
     @Override
-    public void terminarFase() {
-        siguienteFase();
+    public void construirBoton(){
+        try{
+            getTurnoActual().ejecutarConstruccion(this);
+        } catch (Exception e){
+            manejarErrorConstruccion(e);
+        }
     }
-
-    @Override
-    public void terminarTurno() {
-        verificarVictoria();
-        siguienteTurno();
-    }
-
-    private void construirPirmerTurno(Primer turno){
-        if (verticeSeleccionado == null || aristaSeleccionada == null){
+    public boolean validarSeleccion() {
+        if (verticeSeleccionado == null || aristaSeleccionada == null) {
             mostrarMensaje("se debe seleccionar un vertice y arista");
-            return;
+            return false;
         }
-        try {
-            turno.construir(manejoTurnos, verticeSeleccionado, aristaSeleccionada);
-
-            Color colorJugador = jugadorActual.color();
-            generadorVista.colocarCasa(circuloSeleccionado, colorJugador);
-            generadorVista.colorearArista(lineaSeleccionada, colorJugador);
-            actualizarVista();
-            limpiarSeleccion();
-            mostrarMensaje("¡Construcción exitosa!");
-
-            siguienteTurno();
-
-        } catch (AristaOcupadaNoSePuedeConstruir | NoAlcanzanLosRecursos |
-                 NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente |
-                 NoSePuedeConstruirPorFaltaDeConexion |
-                 NoSePuedeMejorarACiudad |
-                 ReglaDeDistanciaNoValida |
-                 VerticeOcupadoNoPuedeConstruir e) {
-            mostrarMensaje("Error: " + e.getMessage());
-            generadorVista.resetearSeleccion();
-            actualizarVista();
-            limpiarSeleccion();
-        }
+        return true;
     }
-    private void construirSegundoTurno(Segundo turno){
-        if (verticeSeleccionado == null || aristaSeleccionada == null){
-            mostrarMensaje("se debe seleccionar un vertice y arista");
-            return;
-        }
-        try {
-            turno.construir(manejoTurnos, verticeSeleccionado, aristaSeleccionada);
-
-            Color colorJugador = jugadorActual.color();
-            generadorVista.colocarCasa(circuloSeleccionado, colorJugador);
-            generadorVista.colorearArista(lineaSeleccionada, colorJugador);
-
-            limpiarSeleccion();
-            mostrarMensaje("¡Construcción exitosa! Recibiste recursos iniciales.");
-
-            siguienteTurno();
-
-        } catch (AristaOcupadaNoSePuedeConstruir | NoAlcanzanLosRecursos |
-                 NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente |
-                 NoSePuedeConstruirPorFaltaDeConexion |
-                 NoSePuedeMejorarACiudad |
-                 ReglaDeDistanciaNoValida |
-                 VerticeOcupadoNoPuedeConstruir e) {
-            mostrarMensaje("Error: " + e.getMessage());
-            generadorVista.resetearSeleccion();
-            limpiarSeleccion();
-        }
+    private void manejarErrorConstruccion(Exception e) {
+        mostrarMensaje("Error: " + e.getMessage());
+        generadorVista.resetearSeleccion();
+        actualizarVista();
+        limpiarSeleccion();
     }
-    private void construirFaseConstruccion(Normal turno){
-        Construccion fase = (Construccion) turno.faseActual();
+    public void actualizarVistaConConstruccion() {
+        Color colorJugador = jugadorActual.color();
+        generadorVista.colocarCasa(circuloSeleccionado, colorJugador);
+        generadorVista.colorearArista(lineaSeleccionada, colorJugador);
+        actualizarVista();
+        limpiarSeleccion();
+    }
+    public Vertice getVerticeSeleccionado() {
+        return verticeSeleccionado;
+    }
+    public Arista getAristaSeleccionada() {
+        return aristaSeleccionada;
+    }
+    public void construirEnFaseConstruccion(Construccion fase) throws Exception {
         Jugador jugadorActual = fase.getJugadorActual();
         Color color = jugadorActual.color();
-        try {
-            if (verticeSeleccionado != null && verticeSeleccionado.getDueño() != null) {
+
+        if (verticeSeleccionado != null) {
+            if (verticeSeleccionado.getDueño() != null) {
                 fase.construirCiudad(verticeSeleccionado);
                 generadorVista.colocarCiudad(circuloSeleccionado, color);
-            }
-            if (verticeSeleccionado != null) {
+            } else {
                 fase.construirPoblado(verticeSeleccionado);
-                generadorVista.colocarCiudad(circuloSeleccionado, color);
+                generadorVista.colocarCasa(circuloSeleccionado, color);
             }
-            if (aristaSeleccionada != null) {
-                fase.construirCarretera(aristaSeleccionada);
-                generadorVista.colorearArista(lineaSeleccionada, color);
-            }
-        } catch (AristaOcupadaNoSePuedeConstruir | NoAlcanzanLosRecursos |
-                 NoSePuedeConstruirElJugadorNoEsDueñoDeLaAristaAdyacente |
-                 NoSePuedeConstruirPorFaltaDeConexion |
-                 NoSePuedeMejorarACiudad |
-                 ReglaDeDistanciaNoValida |
-                 VerticeOcupadoNoPuedeConstruir e){
-            mostrarMensaje("Error: " + e.getMessage());
         }
+
+        if (aristaSeleccionada != null) {
+            fase.construirCarretera(aristaSeleccionada);
+            generadorVista.colorearArista(lineaSeleccionada, color);
+        }
+
+        actualizarVista();
+        limpiarSeleccion();
     }
+
     private void limpiarSeleccion() {
         this.verticeSeleccionado = null;
         this.aristaSeleccionada = null;

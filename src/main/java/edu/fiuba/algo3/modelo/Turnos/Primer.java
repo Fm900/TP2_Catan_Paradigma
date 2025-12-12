@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Turnos;
 
+import edu.fiuba.algo3.controllers.ControladorGeneral;
 import edu.fiuba.algo3.controllers.ManejoTurnos;
 import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirPorFaltaDeConexion;
 import edu.fiuba.algo3.modelo.Juego;
@@ -30,6 +31,29 @@ public class Primer implements Turno {
         if (indice == manejador.getJugadores().size()) {
             manejador.cambiarTurno(new Segundo());
         }
+    }
+
+    @Override
+    public String obtenerTexto(ManejoTurnos manejador) {
+        return "Primera ronda - Turno de " + jugadorActual(manejador);
+    }
+
+    @Override
+    public void ejecutarConstruccion(ControladorGeneral controlador) {
+        if (!controlador.validarSeleccion()) return;
+
+        this.construir(controlador.getManejoTurnos(),
+                controlador.getVerticeSeleccionado(),
+                controlador.getAristaSeleccionada());
+
+        controlador.actualizarVistaConConstruccion();
+        controlador.mostrarMensaje("¡Construcción exitosa!");
+        controlador.siguienteTurno();
+    }
+
+    @Override
+    public String obtenerNombre() {
+        return "Colocación Inicial - Primera Ronda";
     }
 
     public void construir(ManejoTurnos manejador, Vertice vertice, Arista arista){
