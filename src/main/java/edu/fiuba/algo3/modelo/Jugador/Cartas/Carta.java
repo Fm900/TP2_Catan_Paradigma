@@ -1,31 +1,26 @@
 package edu.fiuba.algo3.modelo.Jugador.Cartas;
 
+import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 import java.util.List;
 
 public abstract class Carta {
-
     protected List<Recurso> precio;
     protected Efecto activacion;
-
 
     public Carta(List<Recurso> precio) {
         this.precio = precio;
         this.activacion = new Deshabilitado();
     }
 
-    public void intentarActivarEfecto(Jugador jugador) {
-        this.activacion.usar(this, jugador);
+    public void intentarActivarEfecto(Jugador jugador, ParametrosCarta parametros) {
+        this.activacion.usar(this, jugador, parametros);
     }
 
     public boolean equals(Object o) {
         return o != null && this.getClass() == o.getClass();
-    }
-
-    public void cambiarEstado() {
-        this.activacion = new Habilitado();
     }
 
     public void agregarse(Jugador jugador) {
@@ -33,8 +28,14 @@ public abstract class Carta {
         jugador.agregarCarta(this);
     }
 
+    public void pagarse(Banca  banca) {
+        banca.agregarRecurso(precio);
+    }
 
+    public abstract void activarEfecto(Jugador jugador, ParametrosCarta parametros);
 
-    public abstract void activarEfecto(Jugador jugador);
+    public void cambiarAHabilitada() {
+        this.activacion = new Habilitado();
 
+    }
 }

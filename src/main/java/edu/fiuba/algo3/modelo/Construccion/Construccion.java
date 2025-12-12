@@ -44,5 +44,4 @@ public abstract class Construccion {
     public void quitarPuntos(Jugador jugador) {
         jugador.restarPuntos(this.puntosDeVictoria);
     }
-
 }

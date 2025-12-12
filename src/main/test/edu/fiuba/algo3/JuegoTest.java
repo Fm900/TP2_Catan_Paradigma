@@ -1,15 +1,17 @@
 package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
-import edu.fiuba.algo3.modelo.Fase.FaseInicial;
-import edu.fiuba.algo3.modelo.Fase.FasePrincipal;
+import edu.fiuba.algo3.modelo.Recurso.Madera;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+import edu.fiuba.algo3.modelo.Turnos.Turno;
+import edu.fiuba.algo3.modelo.Turnos.Fase.Fase;
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InOrder;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +22,9 @@ public class JuegoTest {
 
     private Jugador jugador1;
     private Jugador jugador2;
-    private FaseInicial faseInicial;
-    private FasePrincipal fasePrincipal1;
-    private FasePrincipal fasePrincipal2;
+    private Turno faseInicial;
+    private Fase fasePrincipal1;
+    private Fase fasePrincipal2;
     private Juego juego;
     private Tablero tablero;
     private Banca banca;
@@ -32,12 +34,13 @@ public class JuegoTest {
     public void setUp() {
         //jugador1 = new Jugador();
         //jugador2 = new Jugador();
-        faseInicial = mock(FaseInicial.class);
-        fasePrincipal1 = mock(FasePrincipal.class);
-        fasePrincipal2 = mock(FasePrincipal.class);
+        faseInicial = mock(Turno.class);
+        fasePrincipal1 = mock(Fase.class);
+        fasePrincipal2 = mock(Fase.class);
         tablero = mock(Tablero.class);
-        banca = new Banca(new ArrayList<>());
-        juego = spy(new Juego(List.of(jugador1,jugador2), List.of(fasePrincipal1, fasePrincipal2), List.of(faseInicial), tablero, banca));
+        List<Carta> cartas = new ArrayList<>();
+        banca = Banca.crearBanca(new ArrayList<>(), cartas);
+        Juego.crearInstancia(List.of(jugador1, jugador2), new Tablero(new ArrayList<Terreno>(), new ArrayList<Vertice>(), new ArrayList<Arista>()), Banca.crearBanca(List.of(new Madera()), cartas));
     }
 
 //    @Test

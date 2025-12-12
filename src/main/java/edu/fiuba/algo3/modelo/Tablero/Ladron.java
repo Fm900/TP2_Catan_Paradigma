@@ -1,30 +1,54 @@
 package edu.fiuba.algo3.modelo.Tablero;
 
+import edu.fiuba.algo3.modelo.Exception.ElLadronNoHaSidoCreadoAun;
 import edu.fiuba.algo3.modelo.Exception.MovimientoInvalido;
+import edu.fiuba.algo3.modelo.Intercambio.EntreJugadores;
 import edu.fiuba.algo3.modelo.Intercambio.Intercambio;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Intercambio.Obligado;
+import edu.fiuba.algo3.modelo.Intercambio.EntreJugadoresAleatoreo;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Ladron {
     Terreno terrenoActual;
 
-    public Ladron(Terreno terreno){
+    private static Ladron ladron;
+
+    private Ladron(Terreno terreno){
         this.terrenoActual = terreno;
+    }
+
+    public static Ladron crearLadron(Terreno terreno) {
+        if (ladron == null) {
+            ladron = new Ladron(terreno);
+        }
+        return ladron;
+    }
+
+
+    public static Ladron getInstance(){
+        if(ladron == null){
+            throw new ElLadronNoHaSidoCreadoAun("El Ladron no se ha inicializado.");
+        }
+        return ladron;
     }
 
     public void moverADestino(Jugador jugadorTurno, Terreno terreno, Jugador victima){
         if (terrenoActual == terreno) { throw new MovimientoInvalido("El ladron ya esta en ese terreno"); }
-
         terrenoActual.cambiarEstado();
         this.terrenoActual = terreno;
         this.terrenoActual.cambiarEstado();
-
         this.robar(jugadorTurno, victima);
     }
 
     public void robar(Jugador jugadorTurno, Jugador victima) {
-        Intercambio intercambiador = new Obligado(jugadorTurno, victima);
+        Intercambio intercambiador = new EntreJugadoresAleatoreo(jugadorTurno, victima);
         intercambiador.intercambio();
+    }
+    public Terreno getTerreno() {
+        return terrenoActual;
     }
 }

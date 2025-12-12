@@ -1,36 +1,79 @@
 package edu.fiuba.algo3.modelo.Intercambio;
 
-import edu.fiuba.algo3.modelo.Intercambio.Oferta.Oferta;
+import edu.fiuba.algo3.modelo.Exception.LaBancaNoHaSidoCreadaAun;
+import edu.fiuba.algo3.modelo.Exception.NoSePudoComprarUnaCartaSeAgotaronLasCartasDeLaBanca;
+import edu.fiuba.algo3.modelo.Exception.NoSePudoRealizarElIntercambioLaBancaNoTieneSuficientesRecursos;
+import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Banca {
-    /// va a extender lo que es una estructura de almacenamiento de recursos
-    private List<Recurso> recursos;
+    private static Banca banca;
+    private final List<Recurso> recursos;
+    private final List<Carta>  cartas;
 
-    public Banca(List<Recurso> recursos) {
-        this.recursos = recursos;
+
+    private Banca(List<Recurso> recursos, List<Carta> cartas) {
+        this.recursos = new ArrayList<>(recursos);
+        this.cartas = new ArrayList<>(cartas);
     }
-    public void recibirOferta(Recurso recursoRequerido, Oferta oferta) {
-        if(this.cantidaDeRecurso(recursoRequerido) > 0){
-            oferta.acepatar();
+
+    public static Banca crearBanca(List<Recurso> recursos, List<Carta> cartas){
+        if(banca == null){
+            banca = new Banca(recursos,  cartas);
         }
+        return banca;
     }
-    public int cantidaDeRecurso(Recurso recu) {
-        int cantidad = 0;
-        for (Recurso recurso : recursos) {
-            if (recu.equals(recurso)) {
-                cantidad++;
-            }
+
+    public static Banca getInstance() {
+        if (banca == null){
+            throw new LaBancaNoHaSidoCreadaAun("La Banca no ha sido creada aun");
         }
-        return cantidad;
+        return banca;
     }
+
+    public static void reset(){
+        banca = null;
+    }
+
     public void agregarRecurso(List<Recurso> ingreso) {
-        for (Recurso recurso : ingreso) {
-            this.recursos.add(recurso);
+        recursos.addAll(ingreso);
+    }
+
+    public void consumirRecursos(Recurso recurso) {
+        if(!this.recursos.remove(recurso)){
+            throw new NoSePudoRealizarElIntercambioLaBancaNoTieneSuficientesRecursos("El interambio no se realizo la Banca no tiene suficiente: ", recurso);
         }
     }
-    public void consumirRecursos(Recurso recurso) {
-        this.recursos.remove(recurso);
+
+    public void eliminarCarta(Carta cartaAEliminar) {
+        this.cartas.remove(cartaAEliminar);
+    }
+
+    public void agregarRecursoCarta(Carta carta) {
+        carta.pagarse(banca);
+    }
+
+    public List<Carta> getCartas() {
+        return cartas;
+    }
+
+    public List<Recurso> getRecursos() {
+        return recursos;
+    }
+
+    public Carta popPrimerCarta() {
+        Carta carta = this.cartas.get(0);
+        cartas.remove(carta);
+        return carta;
+    }
+
+    public Carta getPrimerCarta() {
+        if (this.cartas.isEmpty()) {
+            throw new NoSePudoComprarUnaCartaSeAgotaronLasCartasDeLaBanca("No hay mas cartas en la Banca");
+        }
+        return this.cartas.get(0);
     }
 }

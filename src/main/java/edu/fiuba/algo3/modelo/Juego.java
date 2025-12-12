@@ -1,54 +1,78 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.Fase.*;
+import edu.fiuba.algo3.modelo.Exception.ElJuegoNoHaSidoCreadoAun;
+import edu.fiuba.algo3.modelo.Jugador.CalculadorDePuntosJugador;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 import edu.fiuba.algo3.modelo.Intercambio.Banca;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Puerto.Tasa;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-
 
 import java.util.List;
 
 public class Juego {
+
+    private static Juego juego;
+    private CalculadorDePuntosJugador calculador;
     private final List<Jugador> jugadores;
-    private final List<FasePrincipal> fasesPrincipales;
-    private final List<FaseInicial> fasesIniciales;
     private final Tablero tablero;
     private final Banca banca;
 
-    public Juego(List<Jugador> jugadores, List<FasePrincipal> fasesPrincipales,  List<FaseInicial> fasesIniciales,  Tablero tablero, Banca banca) {
+    private Juego(List<Jugador> jugadores, Tablero tablero, Banca banca) {
         this.jugadores = jugadores;
-        this.fasesPrincipales = fasesPrincipales;
-        this.fasesIniciales = fasesIniciales;
         this.tablero = tablero;
         this.banca = banca;
+        this.calculador = new CalculadorDePuntosJugador(this.tablero);
     }
 
-    public void iniciarJuego(){
-        iniciarFaseInicial();
-        iniciarTurno();
-    }
-
-    public void iniciarFaseInicial(){
-        for (FaseInicial faseInicial : fasesIniciales){
-            faseInicial.iniciarFase(jugadores, tablero);
+    public static Juego crearInstancia(List<Jugador> jugadores, Tablero tablero, Banca banca) {
+        if(juego == null){
+            juego = new Juego(jugadores, tablero, banca);
         }
+        return juego;
     }
 
-    public void iniciarTurno(){
-        for(Jugador jugador : jugadores){
-        Turno turno = new Turno(fasesPrincipales, jugador);
-        turno.iniciarTurno();
+    public static Juego getInstancia() {
+        if (juego == null) {
+            throw new ElJuegoNoHaSidoCreadoAun("El juego aún no fue inicializado.");
         }
+        return juego;
     }
 
-//    public void descarteJugadores() {
-//        for (Jugador jugador : jugadores) {
-//            jugador.descarteMayoria();
-//        }
-//    }
+    public static void reset(){
+        juego = null;
+    }
 
     public int calcularPuntosTotalesDe(Jugador jugador){
-        int puntos = jugador.calcularPuntosTotales();
-        return puntos;
+        return calculador.calcular(jugador);
+    }
+
+    public void calcularCaminoMasLargo(Jugador jugador) {
+        calculador.calcularCaminoMasLargo(jugador);
+    }
+
+    public void calcularMayorCaballeria(Jugador jugador) {
+        calculador.calcularMayorCaballeria(jugador);
+    }
+
+    public boolean chequearVictoria(Jugador jugador){
+        return calcularPuntosTotalesDe(jugador) >= 10;
+    }
+
+    public List<Jugador> getJugadores() {
+        return this.jugadores;
+    }
+
+    public  Tablero getTablero() {
+        return tablero;
+    }
+
+    public void descartarCartasJugadores(){
+        for (Jugador jugador : jugadores) {
+            jugador.descarteMayoria();
+        }
+    }
+    public List<Tasa> getTasas(Jugador jugador){
+        return tablero.dameLasTasasDe(jugador);
     }
 }

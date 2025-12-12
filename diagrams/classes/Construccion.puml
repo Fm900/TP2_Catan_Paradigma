@@ -7,10 +7,11 @@ class Jugador {
 
 abstract class Construccion{
 - Int puntosDeVictoria
-- Producir producir
 - Jugador dueño
+- coeficienteDeProduccion
+- List<Recurso> precio
 
-+ producirRecurso(String recurso)
++ producirRecurso(Recurso recurso)
 }
 
 class Poblado{
@@ -25,30 +26,10 @@ class Carretera{
     + construir(jugador : Jugador) : Construccion
 }
 
-interface Producir{
-+ producir(String recurso, Jugador dueño)
-}
-
-class ProducirX1{
-producir(String recurso, Jugador dueño)
-}
-
-class ProducirX2{
-producir(String recurso, Jugador dueño)
-}
-class NoProducir{
-producir(String recurso, Jugador dueño)
-}
 
 Jugador "1" *-- "*" Construccion
 
 Construccion <|-- Poblado
 Construccion <|-- Ciudad
 Construccion <|-- Carretera
-
-Construccion "1" *-- "1" Producir
-
-Producir <|.. ProducirX1
-Producir <|.. ProducirX2
-Producir <|.. NoProducir
 @enduml

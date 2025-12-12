@@ -1,0 +1,67 @@
+package edu.fiuba.algo3.modelo.Turnos;
+
+import edu.fiuba.algo3.controllers.ControladorGeneral;
+import edu.fiuba.algo3.controllers.ManejoTurnos;
+import edu.fiuba.algo3.modelo.Exception.NoSePuedeConstruirPorFaltaDeConexion;
+import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
+
+public class Primer implements Turno {
+
+    private int indice;
+    private final Tablero tablero;
+
+    public Primer() {
+        this.tablero = Juego.getInstancia().getTablero();
+        this.indice = 0;
+    }
+
+    @Override
+    public Jugador jugadorActual(ManejoTurnos manejador) {
+        return manejador.getJugadores().get(this.indice);
+    }
+
+    @Override
+    public void siguiente(ManejoTurnos manejador) {
+        indice++;
+
+        if (indice == manejador.getJugadores().size()) {
+            manejador.cambiarTurno(new Segundo());
+        }
+    }
+
+    @Override
+    public String obtenerTexto(ManejoTurnos manejador) {
+        return "Primera ronda - Turno de " + jugadorActual(manejador);
+    }
+
+    @Override
+    public void ejecutarConstruccion(ControladorGeneral controlador) {
+        if (!controlador.validarSeleccion()) return;
+
+        this.construir(controlador.getManejoTurnos(),
+                controlador.getVerticeSeleccionado(),
+                controlador.getAristaSeleccionada());
+
+        controlador.actualizarVistaConConstruccion();
+        controlador.mostrarMensaje("¡Construcción exitosa!");
+        controlador.siguienteTurno();
+    }
+
+    @Override
+    public String obtenerNombre() {
+        return "Colocación Inicial - Primera Ronda";
+    }
+
+    public void construir(ManejoTurnos manejador, Vertice vertice, Arista arista){
+        Jugador jugador = jugadorActual(manejador);
+        if (!vertice.tieneArista(arista)){
+            throw new NoSePuedeConstruirPorFaltaDeConexion("El vertice y la arista no estan conectados");
+        }
+        tablero.colocarPobladoInicial(jugador, vertice);
+        tablero.colocarCarretera(jugador, arista);
+    }
+}

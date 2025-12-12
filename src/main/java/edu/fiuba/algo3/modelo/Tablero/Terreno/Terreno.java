@@ -8,8 +8,8 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;
 
 public class Terreno {
-    private Recurso recurso;
-    private Integer fichaNumero;
+    private final Recurso recurso;
+    private final Integer fichaNumero;
     private EstadoProductivo estadoProductivo;
     private List<Vertice> verticesAdyacentes;
 
@@ -37,16 +37,6 @@ public class Terreno {
         this.estadoProductivo = nuevoEstadoProductino;
 
     }
-    public List<Jugador> obtenerHabitantes(){
-        List<Jugador> propietarios = new ArrayList<>();
-        if (this.verticesAdyacentes == null) { return propietarios; }
-
-        for (Vertice v : this.verticesAdyacentes) {
-            propietarios = v.agregarPropietario(propietarios);
-        }
-
-        return propietarios;
-    }
 
     public boolean tieneVertice(Vertice v) {
         return this.verticesAdyacentes.contains(v);
@@ -59,5 +49,17 @@ public class Terreno {
     public Recurso recursoInicial(){
         return this.recurso;
     }
+    public List<Vertice> verticesAdyacentes() {
+        return List.copyOf(verticesAdyacentes);
+    }
+
+    public int numeroFicha() {
+        return fichaNumero;
+    }
+
+    public Recurso recurso() {
+        return this.recurso;
+    }
+
 }
 

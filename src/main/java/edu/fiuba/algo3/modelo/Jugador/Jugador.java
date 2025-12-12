@@ -1,21 +1,27 @@
 package edu.fiuba.algo3.modelo.Jugador;
 
 import edu.fiuba.algo3.modelo.Jugador.Cartas.Carta;
-import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Recurso.*;
+import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Jugador {
-    private MazoDeRecursos recursos;
-    private Mano mano;
-    private int puntos = 0;
+    private final MazoDeRecursos recursos;
+    private final Mano mano;
+    private int puntos;
+    private final String nombre;
+    private final Color color;
 
-    public Jugador(MazoDeRecursos gestor, Mano manoInicial) {
+    public Jugador(MazoDeRecursos gestor, Mano manoInicial, String nombre, Color color) {
         this.recursos = gestor;
         this.mano = manoInicial;
+        this.nombre = nombre;
+        this.puntos = 0;
+        this.color = color;
     }
 
-    //para recursos
     public void descarteMayoria() {
         int cantidadRecursosADescartar = recursos.cantidadDescartar();
         recursos.descartarPorCantidad(cantidadRecursosADescartar);
@@ -36,9 +42,6 @@ public class Jugador {
         return recursos.obtenerRecursoAleatorio();
     }
 
-    public int cantidadDeRecurso(Recurso recurso) {return recursos.cantidaDeRecurso(recurso);}
-    // para puntos de juego
-
     public void sumarPuntos(int puntos){
         this.puntos += puntos;
     }
@@ -48,11 +51,25 @@ public class Jugador {
     }
 
     public int calcularPuntosTotales(){
-        int puntosTotales = this.puntos; //por ahora tiene solo esto, probablemente mas adelante se expanda
-        return puntosTotales;
+        return this.puntos;
     }
 
-    // para cartas de desarrollo
+    public int cantidadDeRecurso(Recurso recurso){
+        return recurso.getCantidad(recursos);
+    }
+
+    public List<Integer> obtenerCantidadDeRecursos(){
+        List<Integer> respuesta = new ArrayList<>();
+        List<Recurso> recursos = new ArrayList<>(List.of(new Madera(),new Grano(),new Ladrillo(), new Lana(), new Mineral()));
+        for (Recurso recurso : recursos) {
+            respuesta.add(cantidadDeRecurso(recurso));
+        }
+        return respuesta;
+    }
+    public List<Carta> obtenerCartas(){
+        return mano.dameLasCartas();
+    }
+
     public void agregarCarta(Carta carta) {
         mano.agregar(carta);
     }
@@ -60,4 +77,36 @@ public class Jugador {
     public void descartarCarta(Carta carta) {
         mano.descartar(carta);
     }
+
+    public String obtenerNombre() {
+        return nombre;
+    }
+
+    public void agregarCaballero() { mano.agregarCaballero(); }
+
+    public boolean tieneCartasDesarrollo() {
+     return mano.cantidadCartas() > 0;
+    }
+
+    public int obtenerCantidadCaballeros(){
+        return mano.obtenerCantidadCaballeros();
+    }
+
+    public void habilitarCartas() {
+        mano.habilitarCartas();
+    }
+
+    public Color color(){
+        return color;
+    }
+
+    public List<Recurso> obtenerRecursos() {
+        return recursos.obtenerRecursos();
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
 }

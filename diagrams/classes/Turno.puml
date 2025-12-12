@@ -1,0 +1,89 @@
+@startuml
+
+interface Turno{
++ siguiente(ManejoTurnos manejador)
+}
+
+class Primer{
+- int indice
+
++ siguiente(ManejoTurnos manejador)
++ construir(ManejoTurnos manejador, Vertice vertice, Arista arista)
+}
+
+class Segundo{
+- int indice
+
++ siguiente(ManejoTurnos manejador)
++ construir(ManejoTurnos manejador, Vertice vertice, Arista arista)
+}
+
+interface Fase{
++ ejecutar(Jugador jugador, ManejoTurnos manejador)
+}
+
+class Normal{
+- faseActual
+- indiceJugador
+- ManejoTurnos manejador
+
++ siguiente(ManejoTurnos manejador)
++ ejecutarFaseActual()
++ pasarSiguienteFase()
++ avanzarSiguienteJugador()
+}
+
+class JugarCartas{
+- Jugador jugadorActual
+
++ ejecutar(Jugador jugador, ManejoTurnos manejador)
++ jugarCarta(Carta carta, ParametrosCarta parametros)
++ terminarFase(ManejoTurnos manejador)
++ saltarFase(ManejoTurnos manejador)
++ validarFaseIniciada()
+}
+
+class Dados{
+- Randomizador rand;
+- int tirada}
+
++ ejecutar(Jugador jugador, ManejoTurnos manejador)
++ tirarDados()
++ moverLadron(Jugador jugador, Terreno terreno, Jugador victima, ManejoTurnos manejador)
++ producirRecursos(ManejoTurnos manejador)
+}
+
+class Construccion{
+- Jugador jugadorActual
+- Tablero tablero
+
++ construirCarretera(Arista arista)
++ construirPoblado(Vertice vertice
++ construirCiudad(Vertice vertice)
++ terminarFase(ManejoTurnos manejador)
+}
+
+class Comercio{
+- Jugador jugadorActual;
+- Banca banca;
+- Intercambio intercambioActual
+
++ ejecutar(Jugador jugador, ManejoTurnos manejador)
++ crearOfertaJugador(Jugador receptor, List<Recurso> recursosOfrecidos, List<Recurso> recursosRequeridos): Oferta
++ aceptarOferta(Oferta oferta)
++ rechazarOferta(Oferta oferta)
++ comerciarConBanca(Tasa tasaDeComercio, List<Recurso> ofrecidos, Recurso requerido)
++ comprarCarta(Carta carta)
++ terminarFase(ManejoTurnos manejador)
+}
+
+Turno <|-- Primer
+Turno <|-- Segundo
+Turno <|-- Normal
+
+Normal "1" *-- "*" Fase
+Fase <|-- JugarCartas
+Fase <|-- Dados
+Fase <|-- Construccion
+Fase <|-- Comercio
+@enduml

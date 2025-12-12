@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.Exception.NoSePuedeMejorarACiudad;
 import edu.fiuba.algo3.modelo.Exception.VerticeOcupadoNoPuedeConstruir;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Tablero.Arista.Arista;
 
 public class Ocupado implements EstadoVertice {
     private Construccion construccion;
@@ -16,13 +17,17 @@ public class Ocupado implements EstadoVertice {
     }
 
     @Override
-    public void construirPoblado(Vertice self, Jugador jugador) {
+    public void construirPobladoInicial(Vertice self, Jugador jugador, List<Arista> aristas) {
+        throw new VerticeOcupadoNoPuedeConstruir("No puedes construir, el vertice ya esta ocupado");
+    }
+
+    @Override
+    public void construirPoblado(Vertice self, Jugador jugador, List<Arista> aristas) {
         throw new VerticeOcupadoNoPuedeConstruir("No puedes construir, el vertice ya esta ocupado");
     }
 
     @Override
     public void entregarRecursosPorConstruccion(Recurso recurso) {
-        // delega en la construcción
         construccion.producirRecurso(recurso);
     }
 
@@ -31,20 +36,14 @@ public class Ocupado implements EstadoVertice {
         return false;
     }
 
-    public List<Jugador> agregarPropietario(List<Jugador> propietarios) {
-        propietarios = (this.construccion).agregarPropietario(propietarios);
-        return propietarios;
-    }
-
     @Override
     public void mejorarPobladoACiudad(Vertice self, Jugador jugador) {
-        //chequeo el dueño
         if (construccion.getDueño() != jugador){
             throw new NoSePuedeMejorarACiudad("No sos dueño de este poblado, no lo podes mejorar.");
         }
-        construccion.quitarPuntos(jugador); //la construccion que se va a reemplazar le dice al jugador que se saque sus puntos.
+        construccion.quitarPuntos(jugador);
         Construccion ciudad = new Ciudad(2, 2, jugador);
-        ciudad.construir(); //consume recursos y suma los puntos de la nueva ciudad
+        ciudad.construir();
         this.construccion = ciudad;
     }
 

@@ -13,8 +13,7 @@ public class PuntosDeVictoria extends Carta{
             super((List.of(new Lana(), new Grano(), new Mineral())));
     }
 
-    public void activarEfecto(Jugador jugador) {
+    public void activarEfecto(Jugador jugador, ParametrosCarta parametros) {
         jugador.sumarPuntos(1);
     }
-
 }

@@ -1,0 +1,70 @@
+package edu.fiuba.algo3.controllers;
+
+import edu.fiuba.algo3.modelo.Intercambio.Oferta.Oferta;
+import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Turnos.Fase.Comercio;
+
+import edu.fiuba.algo3.vistas.Tablero.VistaComercio;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ControladorComercioConJugadores {
+
+    private VistaComercio vista;
+
+    private final Jugador jugadorActual;
+
+    private final ManejoTurnos manejoTurnos;
+    private Oferta ofertaActual;
+    private final Comercio comercioActual;
+
+    public ControladorComercioConJugadores(Jugador jugadorActual, ManejoTurnos manejoTurnos) {
+        this.jugadorActual = jugadorActual;
+        this.manejoTurnos = manejoTurnos;
+        this.comercioActual = new Comercio();
+    }
+
+    public void setVista(VistaComercio vista) {
+        this.vista = vista;
+    }
+
+    public void abrirComercioEntreJugadores() {
+        vista.mostrarComercioEntreJugadores();
+    }
+
+
+    public List<Jugador> obtenerJugadoresExceptoActual() {
+        List<Jugador> jugadores = new ArrayList<>(Juego.getInstancia().getJugadores());
+        jugadores.remove(jugadorActual);
+        return jugadores;
+    }
+
+    public List<Recurso> obtenerRecursosJugadorActual() {
+        return new ArrayList<>(jugadorActual.obtenerRecursos());
+    }
+
+    public List<Recurso> obtenerRecursosJugadorElegido(Jugador jugador) {
+        return new ArrayList<>(jugador.obtenerRecursos());
+    }
+
+    public void manejarComercioEntreJugadores(List<Recurso> recursosQueOfrece, List<Recurso> recursosQuePide, Jugador jugadorElegido) {
+        comercioActual.ejecutar( jugadorActual,  manejoTurnos);
+        this.ofertaActual =  comercioActual.crearOfertaJugador(jugadorElegido, recursosQueOfrece,recursosQuePide);
+
+
+        if (vista != null) {
+            vista.mostrarPantallaRespuestaOferta(jugadorElegido);
+        }
+    }
+
+    public void responderOferta(boolean aceptada) {
+        if (aceptada) {
+            comercioActual.aceptarOferta(ofertaActual);
+        } else {
+            comercioActual.rechazarOferta(ofertaActual);
+        }
+        if (vista != null) vista.mostrarPantallaInicial();
+    }
+}

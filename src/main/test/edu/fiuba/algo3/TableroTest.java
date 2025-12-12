@@ -1,6 +1,6 @@
 package edu.fiuba.algo3;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Tablero.GeneradorDeTerrenos;
+import edu.fiuba.algo3.modelo.Constructores.GeneradorDeTerrenos;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice.Vertice;

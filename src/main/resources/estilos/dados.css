@@ -1,0 +1,21 @@
+/* Fondo especial para la mini ventana de dados */
+.popup-dados {
+    -fx-background-color: rgba(255,153,102,0.90);
+    -fx-background-radius: 12px;
+    -fx-padding: 20px;
+}
+
+/* Título del popup */
+.popup-dados-titulo {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 10px 0;
+}
+
+/* Texto del resultado */
+.popup-dados-resultado {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}

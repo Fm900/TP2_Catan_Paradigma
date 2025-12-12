@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Tablero.GeneradorDeTerrenos;
+import edu.fiuba.algo3.modelo.Constructores.GeneradorDeTerrenos;
 import edu.fiuba.algo3.modelo.Tablero.Terreno.Terreno;
 import org.junit.jupiter.api.Test;
 

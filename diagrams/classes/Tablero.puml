@@ -1,76 +1,188 @@
 @startuml
 
 class Tablero {
-    +crearTerrenos()
-    +colocarPoblado(jugador : Jugador,vertice : Vertice )
-    +ProductiPara(numero:Int)
+
+    + crearTerrenos()
+    + calcularCaminoMasLargo(Jugador x): Int longitud
+    + colocarCarretera(Jugador x, Arista a):
+    + colocarPoblado(jugador : Jugador,vertice : Vertice )
+    + mejorarPobladoACiudad(Jugador x, Vertice v): 
+    + producirPara(numero:Int)
+    + obtenerTerrenosAdy(Vertice v): List<Terreno>
+
 }
 
 class Terreno{
-    - recurso : String
-    - fichaNumero : Int
-    + producirSiCorresponde(numero : Int)
-    + asignarVerticesAdyacentes(vertices : List<Vertices>)
-    + correspondeA(numero : int) : bool
+    - recurso : Recurso
+    - fichaNumero : int
+
+    + producirSiCorresponde(Int x):
+    + verticesAdyacentes: List<Vertice>
+    + cambiarEstado():
 }
 
-class Vertice{
-    - cambiarAOcupado(construccion : Construccion)
-    + conectarConVertice(vertice : Vertice)
-    + aristas() : List<Arista>
-    + construirPoblado(jugador : Jugador)
-    + entregarRecursosPorConstruccion(recurso : String)
+interface EstadoProductivo {
+    + producir(Recurso x, List<Vertice> v):
+    + alterarEstado(): EstadoProductivo
 }
+
+class Normal {
+    
+    + producir(Recurso x, List<Vertice> v):
+    + alterarEstado(): EstadoProductivo
+
+}
+
+class Alterado {
+    
+    + producir(Recurso x, List<Vertice> v):
+    + alterarEstado(): EstadoProductivo
+
+}
+
 
 class Arista{
     - extremo1 : Vertice
     - extremo2 : Vertice
-    + otroExtremo() : Vertice
+    - dueño : Jugador
+
+    + otroExtremo(Vertice x) : Vertice
+    + cambiarAOcupada(Jugador x):
+    + construirCarretera(Jugador x):
 }
 
-interface EstadoProductivo{
-    + producir (recurso : String, verticesAdyacentes : List<Vertice>)
+interface EstadoArista{
+    + void construirCarretera (Arista a, Jugador x, List<Vertice> v):
 }
 
-class Normal{
-    + producir (recurso : String, verticesAdyacentes : List<Vertice>)
+class Ocupada{
+    + void construirCarretera (Arista a, Jugador x, List<Vertice> v):
 }
 
-class Alterado{
-    + producir (recurso : String, verticesAdyacentes : List<Vertice>)
+class Vacia{
+    + void construirCarretera (Arista a, Jugador x, List<Vertice> v):
 }
+
+class Vertice{
+    - id : int
+    - x : double
+    - y : double
+    - dueño : Jugador
+
+    + cambiarAOcupado(Construccion x):
+    + construirPoblado(Jugador x):
+    + mejorarPobladoACiudad(Jugador x):
+    + entregarRecursosPorConstruccion(Recurso x):
+    + validarConexion(Jugador x): Boolean
+    + validarConstruccionEnVecino(Jugador x): Boolean
+}  
 
 interface EstadoVertice{
-    + construirPoblado (self : Vertice, jugador : Jugador)
-    + entregarRecursosPorConstruccion (recurso : String)
-    + validarConstruccionEnVecino () : bool
-}
-
-class Libre{
-        + construirPoblado (self : Vertice, jugador : Jugador)
-        + entregarRecursosPorConstruccion (recurso : String)
-        + validarConstruccionEnVecino () : bool
+    + void construirPobladoInicial(Vertice v, Jugador x, List<Arista> a):
+    + void construirPoblado (Vertice v, Jugador x, List<Arista> a):
+    + void entregarRecursosPorConstruccion(Recurso x):
+    + boolean validarConstruccionEnVecino():
+    + void mejorarPobladoACiudad(Vertice v, Jugador x):
 }
 
 class Ocupado{
-        - construccion : Construccion
-        + construirPoblado (self : Vertice, jugador : Jugador)
-        + entregarRecursosPorConstruccion (recurso : String)
-        + validarConstruccionEnVecino () : bool
+    + void construirPobladoInicial(Vertice v, Jugador x, List<Arista> a):
+    + void construirPoblado (Vertice v, Jugador x, List<Arista> a):
+    + void entregarRecursosPorConstruccion(Recurso x):
+    + boolean validarConstruccionEnVecino():
+    + void mejorarPobladoACiudad(Vertice v, Jugador x):
 }
 
+class Libre{
+    + void construirPobladoInicial(Vertice v, Jugador x, List<Arista> a):
+    + void construirPoblado (Vertice v, Jugador x, List<Arista> a):
+    + void entregarRecursosPorConstruccion(Recurso x):
+    + boolean validarConstruccionEnVecino():
+    + void mejorarPobladoACiudad(Vertice v, Jugador x):
+}
+
+class Puerto {
+
+    - recurso : Recurso
+
+}
+
+interface Tasa {
+    + aplicarTasa(List<Recurso> r, Jugador x): List<Recurso>
+}
+
+class Generico {
+
+    - cantidad : 3
+    
+    + aplicarTasa(List<Recurso> r, Jugador x): List<Recurso>
+    + esValido(List<Recurso> x): boolean
+}
+
+class Generico {
+
+    - cantidad : 3
+    
+    + aplicarTasa(List<Recurso> r, Jugador x): List<Recurso>
+    + esValido(List<Recurso> x): boolean
+}
+
+class Estandar {
+
+    - cantidad : 4
+
+    + aplicarTasa(List<Recurso> r, Jugador x): List<Recurso>
+
+}
+
+class Especifico {
+
+    - cantidad : 2
+
+    + aplicarTasa(List<Recurso> r, Jugador x): List<Recurso>
+
+}
+
+
+class Ladron { 
+
+    + {static} crearLadron(Terreno x): Ladron
+    + {static} getInstance(): Ladron
+    + moverADestino(Jugador victimario, Terreno x, Jugador victima)
+    + roboAleatoreo(Jugador victimario, Jugador victima):
+    + roboEspecifico(Jugador victimario, Jugador victima):
+
+}
+
+
+Ladron o-- Terreno
+
+Terreno *-- EstadoProductivo : estado
+Terreno o-- Vertice
 
 EstadoProductivo <|.. Normal
 EstadoProductivo <|.. Alterado
 
-Terreno o-- EstadoProductivo : estado
-Terreno "1"*-- "*"Vertice
+Tablero o--"19" Terreno
+Tablero o--"114" Vertice
+Tablero o--"114" Arista
 
-Tablero "1"*-- "*"Terreno : hexagonos
+Arista *-- EstadoArista
+Arista o-- Puerto
 
-Vertice o-- EstadoVertice : estado
+EstadoArista <|.. Ocupada
+EstadoArista <|.. Vacia
+
+Puerto *-- Tasa
+
+Tasa <|.. Especifico
+Tasa <|.. Estandar
+Tasa <|.. Generico
+
+Vertice *-- EstadoVertice
+Vertice "2"o--o"2..3" Arista
+
 EstadoVertice <|.. Libre
 EstadoVertice <|.. Ocupado
 
-Arista "1" o-- "2" Vertice : extremos
 @enduml
